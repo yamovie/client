@@ -18,7 +18,7 @@
  * runtime: Number (in minutes)
  * stream: Object
  */
-export const movieData = [
+const movieData = [
   {
     title: 'How to Train Your Dragon: The Hidden World',
     releaseYear: 2019,
