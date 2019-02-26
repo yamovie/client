@@ -271,3 +271,20 @@ const movieData = [
     streams: {},
   },
 ];
+
+/** MovieAPI */
+class MovieAPI {
+  /**
+   * Contruct new MovieAPI instance
+   */
+  constructor() {
+    this.movies = movieData;
+  }
+
+  /**
+   * Return movie data
+   */
+  getMovies() {
+    return this.movies;
+  }
+}
