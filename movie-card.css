@@ -1,0 +1,119 @@
+/* ========================================================================== */
+/* ========================================================================== */
+/* Imports */
+@import "./style-variables.css";
+
+/* ========================================================================== */
+/* Main */
+
+body {
+	background-color: var(--purple);
+}
+
+/* prettier-ignore */
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	text-align: center;
+}
+
+.grid-container {
+	display: grid;
+	border: 3px solid var(--red);
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 75vh 25vh;
+}
+
+.grid-item {
+	background-color: var(--offwhite);
+	font-size: 20px;
+	/* border: 2px solid #091a39; */
+	padding: 5px;
+	margin: 4px;
+}
+
+/* ========================================================================== */
+/* Trailer */
+
+#trailer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+#trailer iframe {
+	align-self: stretch;
+}
+
+/* ========================================================================== */
+/* Movie Info */
+
+#info {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+#info h3 {
+	color: var(--lightgrey);
+}
+
+#info h6 {
+	color: var(--lightgrey);
+}
+
+#info p {
+	padding: 3px;
+	margin: 8px 0px;
+}
+
+#ratings {
+	display: flex;
+	justify-content: space-evenly;
+	margin: 5px 0px;
+}
+
+#ratings li {
+	list-style: none;
+	padding: 4px;
+}
+
+#ratings li img {
+	height: 18px;
+	width: 18px;
+}
+
+/* ========================================================================== */
+/* Nav/Watch At Links */
+
+#watchat {
+	display: flex;
+	flex-direction: column;
+	grid-column-start: span 2;
+	justify-content: space-evenly;
+	padding: 10px;
+}
+
+#watchat h3 {
+	text-align: center;
+	margin-top: 8px;
+	margin-bottom: 15px;
+}
+
+#streamnav {
+	display: flex;
+	justify-content: space-evenly;
+	margin: 4px 0px;
+}
+
+#streamnav li {
+	list-style: none;
+	display: flex;
+	align-items: center;
+}
+
+#streamnav li img {
+	height: 20px;
+}
+
+/* ========================================================================== */
+/* ========================================================================== */
