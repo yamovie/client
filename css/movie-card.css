@@ -7,116 +7,116 @@
 /* Main */
 
 body {
-	background-color: var(--purple);
+  background-color: var(--purple);
 }
 
-movie-card {
-	background-color: var(--purple);
+yamovie-movie-card {
+  background-color: var(--purple);
 }
 
 /* prettier-ignore */
-movie-card h1, h2, h3, h4, h5, h6 {
+yamovie-movie-card h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	text-align: center;
 }
 
-movie-card {
-	display: grid;
-	border: 3px solid var(--red);
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 75vh 25vh;
+yamovie-movie-card {
+  display: grid;
+  border: 3px solid var(--red);
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 75vh 25vh;
 }
 
-movie-card .grid-item {
-	background-color: var(--offwhite);
-	font-size: 20px;
-	/* border: 2px solid #091a39; */
-	padding: 5px;
-	margin: 4px;
+yamovie-movie-card .grid-item {
+  background-color: var(--offwhite);
+  font-size: 20px;
+  /* border: 2px solid #091a39; */
+  padding: 5px;
+  margin: 4px;
 }
 
 /* ========================================================================== */
 /* Trailer */
 
-movie-card #trailer {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
+yamovie-movie-card #trailer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-movie-card #trailer iframe {
-	align-self: stretch;
+yamovie-movie-card #trailer iframe {
+  align-self: stretch;
 }
 
 /* ========================================================================== */
 /* Movie Info */
 
-movie-card #info {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+yamovie-movie-card #info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-movie-card #info h3 {
-	color: var(--lightgrey);
+yamovie-movie-card #info h3 {
+  color: var(--lightgrey);
 }
 
-movie-card #info h6 {
-	color: var(--lightgrey);
+yamovie-movie-card #info h6 {
+  color: var(--lightgrey);
 }
 
-movie-card #info p {
-	padding: 3px;
-	margin: 8px 0px;
+yamovie-movie-card #info p {
+  padding: 3px;
+  margin: 8px 0px;
 }
 
-movie-card #ratings {
-	display: flex;
-	justify-content: space-evenly;
-	margin: 5px 0px;
+yamovie-movie-card #ratings {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px 0px;
 }
 
-movie-card #ratings li {
-	list-style: none;
-	padding: 4px;
+yamovie-movie-card #ratings li {
+  list-style: none;
+  padding: 4px;
 }
 
-movie-card #ratings li img {
-	height: 18px;
-	width: 18px;
+yamovie-movie-card #ratings li img {
+  height: 18px;
+  width: 18px;
 }
 
 /* ========================================================================== */
 /* Nav/Watch At Links */
 
-movie-card #watchat {
-	display: flex;
-	flex-direction: column;
-	grid-column-start: span 2;
-	justify-content: space-evenly;
-	padding: 10px;
+yamovie-movie-card #watchat {
+  display: flex;
+  flex-direction: column;
+  grid-column-start: span 2;
+  justify-content: space-evenly;
+  padding: 10px;
 }
 
-movie-card #watchat h3 {
-	text-align: center;
-	margin-top: 8px;
-	margin-bottom: 15px;
+yamovie-movie-card #watchat h3 {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 15px;
 }
 
-movie-card #streamnav {
-	display: flex;
-	justify-content: space-evenly;
-	margin: 4px 0px;
+yamovie-movie-card #streamnav {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 4px 0px;
 }
 
-movie-card #streamnav li {
-	list-style: none;
-	display: flex;
-	align-items: center;
+yamovie-movie-card #streamnav li {
+  list-style: none;
+  display: flex;
+  align-items: center;
 }
 
-movie-card #streamnav li img {
-	height: 20px;
+yamovie-movie-card #streamnav li img {
+  height: 20px;
 }
 
 /* ========================================================================== */
