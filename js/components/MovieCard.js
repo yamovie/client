@@ -56,12 +56,6 @@ class MovieCard extends HTMLElement {
 	connectedCallback() {
 		this.render();
 	}
-
-	// =============================================================	
-
-	attributeChangedCallback() {
-		this.render();
-	}
 	
 	// =============================================================
 	
