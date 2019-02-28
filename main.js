@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // =============================================================
 // =============================================================
 // Main code to set everything up
@@ -17,3 +18,9 @@ customElements.define('movie-card', MovieCard);
 
 // =============================================================
 // =============================================================
+=======
+// eslint-disable-next-line import/extensions
+import Navbar from './components/Navbar.js';
+
+customElements.define('nav-bar', Navbar);
+>>>>>>> added navbar/logo
