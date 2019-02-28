@@ -1,22 +1,65 @@
 // =============================================================
 // =============================================================
 
-// Imports
-import MovieAPI from "../MovieApi.js";
+const placeholderMovie = {
+	title: 'Title',
+	releaseYear: 'Year',
+	cast: ['Actors'],
+	director: 'Director',
+	tags: {
+		genres: ['Genre'],
+		moods: [''],
+	},
+	ratings: {
+		mpaa: 'MPAA',
+		rottenTomatoes: {
+			score: '92%',
+			link: 'https://www.rottentomatoes.com/',
+		},
+		imdb: {
+			score: 7.9,
+			link: 'https://www.imdb.com/',
+		},
+	},
+	plot: "Plot summary here",
+	media: {
+		posterUrl: 'https://www.learningzonexpress.com/media/catalog/product/cache/1/image/650x/9df78eab33525d08d6e5fb8d27136e95/4/6/4607_2.jpg',
+		trailerUrl: 'https://www.youtube.com/embed/1roy4o4tqQM',
+	},
+	quotes: [''],
+	runtime: "??",
+	streams: {},
+};
 
 // =============================================================
 // =============================================================
 
 class MovieCard extends HTMLElement {
 	// =============================================================
-	constructor() {
+	constructor(movie = placeholderMovie) {
 		super();
-		this.movie = new MovieAPI().getMovies()[1];
+		this.movie = movie;
+	}
+
+	// =============================================================
+
+	/**
+	 * Sets the movie object that this card pulls info from
+	 * @param {object} newMovie
+	 */
+	setMovie(newMovie) {
+		this.movie = newMovie;
 	}
 
 	// =============================================================
 	
 	connectedCallback() {
+		this.render();
+	}
+
+	// =============================================================	
+
+	attributeChangedCallback() {
 		this.render();
 	}
 	
@@ -49,18 +92,18 @@ class MovieCard extends HTMLElement {
 			</p>
 			<div id="ratings">
 				<li>
-					<a href="https://www.rottentomatoes.com" target="_blank">
+					<a href="${this.movie.ratings.rottenTomatoes.link}" target="_blank">
 						<img 
-						src="./images/${this.movie.ratings.rottenTomatoes >= "60%" ? "icon-rottentomatoes-fresh.png" : "icon-rottentomatoes-rotten.png"}"
+						src="./images/${this.movie.ratings.rottenTomatoes.score >= "60%" ? "icon-rottentomatoes-fresh.png" : "icon-rottentomatoes-rotten.png"}"
 						 alt="Rotten Tomatoes">
-						${this.movie.ratings.rottenTomatoes} 
-						${this.movie.ratings.rottenTomatoes >= "60%" ? "Fresh" : "Rotten"}
+						${this.movie.ratings.rottenTomatoes.score} 
+						${this.movie.ratings.rottenTomatoes.score >= "60%" ? "Fresh" : "Rotten"}
 					</a>
 				</li>
 				<li>
-					<a href="https://www.imdb.com" target="_blank">
+					<a href="${this.movie.ratings.imdb.link}" target="_blank">
 						<img src="./images/icon-IMDb.png" alt="IMDb">
-						${this.movie.ratings.imdb}/10
+						${this.movie.ratings.imdb.score}/10
 					</a>
 				</li>
 				<li>
