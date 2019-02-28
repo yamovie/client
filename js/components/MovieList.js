@@ -1,4 +1,5 @@
-import MovieAPI from '../MovieApi.js';
+import MovieAPI from '../api.js';
+import MovieCard from './MovieCard.js';
 
 export default class MovieList extends HTMLElement {
   constructor() {
@@ -57,6 +58,9 @@ export default class MovieList extends HTMLElement {
   }
 
   handleAddModal() {
-    console.log(event.detail);
+    const currentMovie = event.detail;
+    const movieModal = document.createElement('yamovie-movie-card');
+    movieModal.movie = currentMovie;
+    this.append(movieModal);
   }
 }

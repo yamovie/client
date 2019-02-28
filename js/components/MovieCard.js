@@ -2,67 +2,68 @@
 // =============================================================
 
 const placeholderMovie = {
-	title: 'Title',
-	releaseYear: 'Year',
-	cast: ['Actors'],
-	director: 'Director',
-	tags: {
-		genres: ['Genre'],
-		moods: [''],
-	},
-	ratings: {
-		mpaa: 'MPAA',
-		rottenTomatoes: {
-			score: '92%',
-			link: 'https://www.rottentomatoes.com/',
-		},
-		imdb: {
-			score: 7.9,
-			link: 'https://www.imdb.com/',
-		},
-	},
-	plot: "Plot summary here",
-	media: {
-		posterUrl: 'https://www.learningzonexpress.com/media/catalog/product/cache/1/image/650x/9df78eab33525d08d6e5fb8d27136e95/4/6/4607_2.jpg',
-		trailerUrl: 'https://www.youtube.com/embed/1roy4o4tqQM',
-	},
-	quotes: [''],
-	runtime: "??",
-	streams: {},
+  title: 'Title',
+  releaseYear: 'Year',
+  cast: ['Actors'],
+  director: 'Director',
+  tags: {
+    genres: ['Genre'],
+    moods: ['']
+  },
+  ratings: {
+    mpaa: 'MPAA',
+    rottenTomatoes: {
+      score: '92%',
+      link: 'https://www.rottentomatoes.com/',
+    },
+    imdb: {
+      score: 7.9,
+      link: 'https://www.imdb.com/'
+    },
+  },
+  plot: 'Plot summary here',
+  media: {
+    posterUrl:
+      'https://www.learningzonexpress.com/media/catalog/product/cache/1/image/650x/9df78eab33525d08d6e5fb8d27136e95/4/6/4607_2.jpg',
+    trailerUrl: 'https://www.youtube.com/embed/1roy4o4tqQM'
+  },
+  quotes: [''],
+  runtime: '??',
+  streams: {},
 };
 
 // =============================================================
 // =============================================================
 
 class MovieCard extends HTMLElement {
-	// =============================================================
-	constructor(movie = placeholderMovie) {
-		super();
-		this.movie = movie;
-	}
+  // =============================================================
+  constructor(movie = placeholderMovie) {
+    super();
+    this.movie = movie;
+  }
 
-	// =============================================================
+  // =============================================================
 
-	/**
-	 * Sets the movie object that this card pulls info from
-	 * @param {object} newMovie
-	 */
-	setMovie(newMovie) {
-		this.movie = newMovie;
-	}
+  /**
+   * Sets the movie object that this card pulls info from
+   * @param {object} newMovie
+   */
+  setMovie(newMovie) {
+    this.movie = newMovie;
+  }
 
-	// =============================================================
-	
-	connectedCallback() {
-		this.render();
-	}
-	
-	// =============================================================
-	
-	render() {
-		const genreString = this.movie.tags.genres.join(', ');
+  // =============================================================
 
-		this.innerHTML = /* html */ `
+  connectedCallback() {
+    this.render();
+  }
+
+  // =============================================================
+
+  render() {
+    const genreString = this.movie.tags.genres.join(', ');
+
+    this.innerHTML = /* html */ `
 		<div class="grid-item" id="trailer">
 			<iframe
 				width="100%"
@@ -87,10 +88,14 @@ class MovieCard extends HTMLElement {
 				<li>
 					<a href="${this.movie.ratings.rottenTomatoes.link}" target="_blank">
 						<img 
-						src="./images/${this.movie.ratings.rottenTomatoes.score >= "60%" ? "icon-rottentomatoes-fresh.png" : "icon-rottentomatoes-rotten.png"}"
+						src="./images/${
+              this.movie.ratings.rottenTomatoes.score >= '60%'
+                ? 'icon-rottentomatoes-fresh.png'
+                : 'icon-rottentomatoes-rotten.png'
+            }"
 						 alt="Rotten Tomatoes">
 						${this.movie.ratings.rottenTomatoes.score} 
-						${this.movie.ratings.rottenTomatoes.score >= "60%" ? "Fresh" : "Rotten"}
+						${this.movie.ratings.rottenTomatoes.score >= '60%' ? 'Fresh' : 'Rotten'}
 					</a>
 				</li>
 				<li>
@@ -135,7 +140,7 @@ class MovieCard extends HTMLElement {
 			</ul>
 		</div>
 		`;
-	}
+  }
 }
 
 // =============================================================
