@@ -90,6 +90,8 @@ yamovie-movie-card #ratings li {
 yamovie-movie-card #ratings li img {
 	height: 18px;
 	width: 18px;
+	float: left;
+	margin: 3px 6px 2px 2px;
 }
 
 /* ========================================================================== */
@@ -125,6 +127,8 @@ yamovie-movie-card #streamnav li {
 
 yamovie-movie-card #streamnav li img {
 	height: 20px;
+	float: left;
+	margin: 3px 6px 2px 2px;
 }
 
 /* ========================================================================== */
