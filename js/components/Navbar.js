@@ -1,5 +1,4 @@
 export default class Navbar extends HTMLElement {
-
   connectedCallback() {
     this.render();
   }
@@ -15,8 +14,8 @@ export default class Navbar extends HTMLElement {
           <li>Profile</li>
         </ul>  
       </nav>
-    `
-  };
+    `;
+  }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
     this.render();
