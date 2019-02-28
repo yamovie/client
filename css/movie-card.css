@@ -10,20 +10,24 @@ body {
 	background-color: var(--purple);
 }
 
+movie-card {
+	background-color: var(--purple);
+}
+
 /* prettier-ignore */
-h1, h2, h3, h4, h5, h6 {
+movie-card h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	text-align: center;
 }
 
-.grid-container {
+movie-card {
 	display: grid;
 	border: 3px solid var(--red);
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 75vh 25vh;
 }
 
-.grid-item {
+movie-card .grid-item {
 	background-color: var(--offwhite);
 	font-size: 20px;
 	/* border: 2px solid #091a39; */
@@ -34,50 +38,50 @@ h1, h2, h3, h4, h5, h6 {
 /* ========================================================================== */
 /* Trailer */
 
-#trailer {
+movie-card #trailer {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 }
 
-#trailer iframe {
+movie-card #trailer iframe {
 	align-self: stretch;
 }
 
 /* ========================================================================== */
 /* Movie Info */
 
-#info {
+movie-card #info {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 
-#info h3 {
+movie-card #info h3 {
 	color: var(--lightgrey);
 }
 
-#info h6 {
+movie-card #info h6 {
 	color: var(--lightgrey);
 }
 
-#info p {
+movie-card #info p {
 	padding: 3px;
 	margin: 8px 0px;
 }
 
-#ratings {
+movie-card #ratings {
 	display: flex;
 	justify-content: space-evenly;
 	margin: 5px 0px;
 }
 
-#ratings li {
+movie-card #ratings li {
 	list-style: none;
 	padding: 4px;
 }
 
-#ratings li img {
+movie-card #ratings li img {
 	height: 18px;
 	width: 18px;
 }
@@ -85,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ========================================================================== */
 /* Nav/Watch At Links */
 
-#watchat {
+movie-card #watchat {
 	display: flex;
 	flex-direction: column;
 	grid-column-start: span 2;
@@ -93,25 +97,25 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 10px;
 }
 
-#watchat h3 {
+movie-card #watchat h3 {
 	text-align: center;
 	margin-top: 8px;
 	margin-bottom: 15px;
 }
 
-#streamnav {
+movie-card #streamnav {
 	display: flex;
 	justify-content: space-evenly;
 	margin: 4px 0px;
 }
 
-#streamnav li {
+movie-card #streamnav li {
 	list-style: none;
 	display: flex;
 	align-items: center;
 }
 
-#streamnav li img {
+movie-card #streamnav li img {
 	height: 20px;
 }
 
