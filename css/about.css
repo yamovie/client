@@ -16,11 +16,13 @@ nav-bar {
   grid-row: auto;
 }
 
+
 header {
   grid-column: span 5;
   grid-row: span 1;
   background-image: url("../images/reel.jfif");
   background-size: contain;
+
   background-color: var(--lightgrey);
   display: flex;
   align-items: stretch;
