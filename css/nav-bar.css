@@ -1,10 +1,11 @@
 #nav-bar {
   display: flex;
-  background-color: var(--darkgrey);
+  background-color: var(--purple);
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+  font-family: var(--fontfamily);
 }
 
 #nav-bar img {

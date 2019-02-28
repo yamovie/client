@@ -5,6 +5,6 @@
 @import "nav-bar.css";
 
 body {
-  margin-top: 55px;
-  background-color: var(--purple);
+  margin-top: 60px;
+  background-color: var(--darkgrey);
 }

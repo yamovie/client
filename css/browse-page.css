@@ -6,6 +6,8 @@ yamovie-movie-list {
   flex-direction: row;
   width: 100%;
   flex-wrap: wrap;
+  color: var(--offwhite);
+  font-family: var(--fontfamily);
 }
 
 yamovie-movie-item {
