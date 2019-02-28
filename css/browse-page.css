@@ -79,12 +79,6 @@ yamovie-movie-item {
   }
 }
 
-/* #list-genres {
-  width: auto;
-  display: inline-flex;
-  justify-content: space-between;
-} */
-
 #list-genres button {
   border: none;
   color: #fff;
