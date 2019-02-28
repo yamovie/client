@@ -361,4 +361,12 @@ export default class MovieAPI {
   getMovies() {
     return this.movies;
   }
+
+  /**
+   *
+   * @param {*} genre
+   */
+  getMoviesByGenre(genre) {
+    return this.movies.filter(movie => movie.tags.genres.includes(genre));
+  }
 }
