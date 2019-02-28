@@ -1,15 +1,24 @@
+import MovieAPI from '../api.js';
+
 export default class MovieList extends HTMLElement {
+  constructor() {
+    super();
+    this.api = new MovieAPI();
+    this.state = {
+      movies: [],
+    };
+  }
+
   connectedCallback() {
+    this.state.movies = this.api.getMovies();
     this.render();
   }
 
   render() {
-    this.innerHTML = `
-        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
-        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
-        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
-        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
-        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
-    `;
+    this.state.movies.forEach((movie) => {
+      const newMovie = document.createElement('yamovie-movie-item');
+      newMovie.movie = movie;
+      this.append(newMovie);
+    });
   }
 }

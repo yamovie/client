@@ -20,6 +20,7 @@
  */
 const movieData = [
   {
+    id: 1,
     title: 'How to Train Your Dragon: The Hidden World',
     releaseYear: 2019,
     cast: ['Jay Baruchel'],
@@ -45,6 +46,7 @@ const movieData = [
     streams: {},
   },
   {
+    id: 2,
     title: 'Alita: Battle Angel',
     releaseYear: 2019,
     cast: ['Rosa Salazar'],
@@ -70,6 +72,7 @@ const movieData = [
     streams: {},
   },
   {
+    id: 3,
     title: 'The Lego Movie 2: The Second Part',
     releaseYear: 2019,
     cast: ['Chris Pratt'],
@@ -96,6 +99,7 @@ const movieData = [
   },
 
   {
+    id: 4,
     title: 'Fighting with My Family',
     releaseYear: 2019,
     cast: ['Dwayne Johnson'],
@@ -121,6 +125,7 @@ const movieData = [
     streams: {},
   },
   {
+    id: 5,
     title: "Isn't It Romantic",
     releaseYear: 2019,
     cast: ['Rebel Wilson'],
@@ -146,6 +151,7 @@ const movieData = [
     streams: {},
   },
   {
+    id: 6,
     title: 'What Men Want',
     releaseYear: 2019,
     cast: ['Taraji P. Henson'],
@@ -171,6 +177,7 @@ const movieData = [
     streams: {},
   },
   {
+    id: 7,
     title: 'Happy Death Day 2U',
     releaseYear: 2019,
     cast: ['Jessica Rothe'],
@@ -196,6 +203,7 @@ const movieData = [
     streams: {},
   },
   {
+    id: 8,
     title: 'Cold Pursuit',
     releaseYear: 2019,
     cast: ['Liam Neeson'],
@@ -221,6 +229,7 @@ const movieData = [
     streams: {},
   },
   {
+    id: 9,
     title: 'The Upside',
     releaseYear: 2019,
     cast: ['Kevin Hart'],
@@ -246,6 +255,7 @@ const movieData = [
     streams: {},
   },
   {
+    id: 10,
     title: 'Run the Race',
     releaseYear: 2019,
     cast: ['Mykelti Williamson'],
@@ -273,7 +283,7 @@ const movieData = [
 ];
 
 /** MovieAPI */
-class MovieAPI {
+export default class MovieAPI {
   /**
    * Contruct new MovieAPI instance
    */

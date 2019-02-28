@@ -5,16 +5,15 @@ export default class MovieItem extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <a href="#">
-      <img src="./images/starwars.jpg" alt="" class="img-fluid" />
-      </a>
-      <h2>Star Wars - Episode VIII</h2>
-      <p>
-        Three decades after the Empire's defeat, a new threat arises in the
-        militant First Order. Stormtrooper defector Finn and the scavenger Rey
-        are caught up in the Resistance's search for the missing Luke
-        Skywalker.
-      </p>
+      <div>
+        <a href="#">
+          <img
+            src="${this.movie.media.posterUrl}"
+            alt="${this.movie.title} movie poster"
+            class="img-fluid" />
+        </a>
+        <h2>${this.movie.title}</h2>
+      </div>
     `;
   }
 }
