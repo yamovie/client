@@ -11,7 +11,7 @@ class MovieCard extends HTMLElement {
 	// =============================================================
 	constructor() {
 		super();
-		this.api = new MovieAPI();
+		this.movie = new MovieAPI().getMovies()[1];
 	}
 
 	// =============================================================
@@ -23,12 +23,15 @@ class MovieCard extends HTMLElement {
 	// =============================================================
 	
 	render() {
+		// TODO: Get genres
+		const genreString = this.movie.tags.genres.join(', ');
+
 		this.innerHTML = /* html */ `
 		<div class="grid-item" id="trailer">
 			<iframe
 				width="100%"
 				height="100%"
-				src="https://www.youtube.com/embed/1roy4o4tqQM"
+				src="${this.movie.media.trailerUrl}"
 				frameborder="0"
 				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 				allowfullscreen
@@ -36,24 +39,28 @@ class MovieCard extends HTMLElement {
 		</div>
 		<div class="grid-item" id="info">
 			<div id="headings">
-				<h1>Title</h1>
-				<h3>Genre</h3>
-				<h6>Runtime</h6>
+				<h1>${this.movie.title} (${this.movie.releaseYear})</h1>
+				<h3>${genreString}</h3>
+				<h6>Runtime: ${this.movie.runtime} minutes</h6>
+				<h6>Rated ${this.movie.ratings.mpaa}</h6>
 			</div>
 			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea error mollitia saepe quas nisi? Architecto debitis molestiae est, minima eligendi veniam, nulla alias assumenda necessitatibus sit a nam deserunt unde.
+				${this.movie.plot}
 			</p>
 			<div id="ratings">
 				<li>
 					<a href="https://www.rottentomatoes.com" target="_blank">
-						<img src="./images/icon-rottentomatoes.png" alt="Rotten Tomatoes">
-						87% Fresh
+						<img 
+						src="./images/${this.movie.ratings.rottenTomatoes >= "60%" ? "icon-rottentomatoes-fresh.png" : "icon-rottentomatoes-rotten.png"}"
+						 alt="Rotten Tomatoes">
+						${this.movie.ratings.rottenTomatoes} 
+						${this.movie.ratings.rottenTomatoes >= "60%" ? "Fresh" : "Rotten"}
 					</a>
 				</li>
 				<li>
 					<a href="https://www.imdb.com" target="_blank">
 						<img src="./images/icon-IMDb.png" alt="IMDb">
-						63%
+						${this.movie.ratings.imdb}/10
 					</a>
 				</li>
 				<li>

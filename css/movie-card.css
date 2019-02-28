@@ -12,11 +12,12 @@ body {
 
 movie-card {
 	background-color: var(--purple);
+	font-family: var(--fontfamily);
 }
 
 /* prettier-ignore */
 movie-card h1, h2, h3, h4, h5, h6 {
-	margin: 0;
+	margin: 2px 0px;
 	text-align: center;
 }
 
@@ -57,23 +58,32 @@ movie-card #info {
 	justify-content: space-between;
 }
 
+movie-card #info h1 {
+	color: var(--darkgrey);
+	font-size: 3vw;
+}
+
 movie-card #info h3 {
 	color: var(--lightgrey);
+	font-size: 2.2vw;
 }
 
 movie-card #info h6 {
 	color: var(--lightgrey);
+	font-size: 1.5vw;
 }
 
 movie-card #info p {
-	padding: 3px;
+	padding: 3px 6px;
 	margin: 8px 0px;
+	font-size: 1.4vw;
 }
 
 movie-card #ratings {
 	display: flex;
 	justify-content: space-evenly;
 	margin: 5px 0px;
+	font-size: 2vw;
 }
 
 movie-card #ratings li {
@@ -101,6 +111,7 @@ movie-card #watchat h3 {
 	text-align: center;
 	margin-top: 8px;
 	margin-bottom: 15px;
+	font-size: 3.5vh;
 }
 
 movie-card #streamnav {
@@ -113,6 +124,7 @@ movie-card #streamnav li {
 	list-style: none;
 	display: flex;
 	align-items: center;
+	font-size: 3vh;
 }
 
 movie-card #streamnav li img {
