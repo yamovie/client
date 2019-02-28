@@ -79,7 +79,13 @@ yamovie-movie-item {
   }
 }
 
-yamovie-movie-list button {
+/* #list-genres {
+  width: auto;
+  display: inline-flex;
+  justify-content: space-between;
+} */
+
+#list-genres button {
   border: none;
   color: #fff;
   background: none;
@@ -95,7 +101,7 @@ yamovie-movie-list button {
   transition: all 0.3s;
 }
 
-yamovie-movie-list button:after {
+#list-genres button:after {
   content: '';
   position: absolute;
   z-index: -1;
@@ -104,6 +110,6 @@ yamovie-movie-list button:after {
   transition: all 0.3s;
 }
 
-yamovie-movie-list button:hover {
+#list-genres button:hover {
   background: #fff;
 }

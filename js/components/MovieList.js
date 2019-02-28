@@ -18,8 +18,7 @@ export default class MovieList extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <nav>
-        <div>
+        <div id="list-genres">
           <button>All</button>
           <button>Animation</button>
           <button>Action</button>
@@ -38,7 +37,6 @@ export default class MovieList extends HTMLElement {
           <button>Sport</button>
           <button>Thriller</button>
         </div>
-      </nav>
     `;
 
     this.state.movies.forEach((movie) => {
