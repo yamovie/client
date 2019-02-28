@@ -3,12 +3,12 @@
 // Main code to set everything up
 
 // Imports
-import MovieCard from './MovieCard.js';
+import MovieCard from './components/MovieCard.js';
 
 // =============================================================
 
 // Custom Element definitions
-customElements.define('movie-card', MovieCard);
+customElements.define('yamovie-movie-card', MovieCard);
 
 // =============================================================
 // =============================================================

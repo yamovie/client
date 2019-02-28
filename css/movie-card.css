@@ -10,25 +10,25 @@ body {
 	background-color: var(--purple);
 }
 
-movie-card {
+yamovie-movie-card {
 	background-color: var(--purple);
 	font-family: var(--fontfamily);
 }
 
 /* prettier-ignore */
-movie-card h1, h2, h3, h4, h5, h6 {
+yamovie-movie-card h1, h2, h3, h4, h5, h6 {
 	margin: 2px 0px;
 	text-align: center;
 }
 
-movie-card {
+yamovie-movie-card {
 	display: grid;
 	border: 3px solid var(--red);
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 75vh 25vh;
 }
 
-movie-card .grid-item {
+yamovie-movie-card .grid-item {
 	background-color: var(--offwhite);
 	font-size: 20px;
 	/* border: 2px solid #091a39; */
@@ -39,59 +39,59 @@ movie-card .grid-item {
 /* ========================================================================== */
 /* Trailer */
 
-movie-card #trailer {
+yamovie-movie-card #trailer {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 }
 
-movie-card #trailer iframe {
+yamovie-movie-card #trailer iframe {
 	align-self: stretch;
 }
 
 /* ========================================================================== */
 /* Movie Info */
 
-movie-card #info {
+yamovie-movie-card #info {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 
-movie-card #info h1 {
+yamovie-movie-card #info h1 {
 	color: var(--darkgrey);
 	font-size: 3vw;
 }
 
-movie-card #info h3 {
+yamovie-movie-card #info h3 {
 	color: var(--lightgrey);
 	font-size: 2.2vw;
 }
 
-movie-card #info h6 {
+yamovie-movie-card #info h6 {
 	color: var(--lightgrey);
 	font-size: 1.5vw;
 }
 
-movie-card #info p {
+yamovie-movie-card #info p {
 	padding: 3px 6px;
 	margin: 8px 0px;
 	font-size: 1.4vw;
 }
 
-movie-card #ratings {
+yamovie-movie-card #ratings {
 	display: flex;
 	justify-content: space-evenly;
 	margin: 5px 0px;
 	font-size: 2vw;
 }
 
-movie-card #ratings li {
+yamovie-movie-card #ratings li {
 	list-style: none;
 	padding: 4px;
 }
 
-movie-card #ratings li img {
+yamovie-movie-card #ratings li img {
 	height: 18px;
 	width: 18px;
 }
@@ -99,7 +99,7 @@ movie-card #ratings li img {
 /* ========================================================================== */
 /* Nav/Watch At Links */
 
-movie-card #watchat {
+yamovie-movie-card #watchat {
 	display: flex;
 	flex-direction: column;
 	grid-column-start: span 2;
@@ -107,27 +107,27 @@ movie-card #watchat {
 	padding: 10px;
 }
 
-movie-card #watchat h3 {
+yamovie-movie-card #watchat h3 {
 	text-align: center;
 	margin-top: 8px;
 	margin-bottom: 15px;
 	font-size: 3.5vh;
 }
 
-movie-card #streamnav {
+yamovie-movie-card #streamnav {
 	display: flex;
 	justify-content: space-evenly;
 	margin: 4px 0px;
 }
 
-movie-card #streamnav li {
+yamovie-movie-card #streamnav li {
 	list-style: none;
 	display: flex;
 	align-items: center;
 	font-size: 3vh;
 }
 
-movie-card #streamnav li img {
+yamovie-movie-card #streamnav li img {
 	height: 20px;
 }
 
