@@ -1,19 +1,21 @@
+@import "../style-variables.css";
+
 body {
   width: 100vw;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   text-align: center;
   justify-content: center;
-  background-color:#747580;
+  background-color: var(--offwhite);
   color: #23262e;
   padding: 10px;
   font-size: 24px;
 }
 
 h1, h2 {
-  color: #88388c;
+  color: var(--purple);
 }
 h3 {
-  color: #db2b39;
+  color: var(--purple);
 }
 h2 {
   transform: translate(20vw, -80px) rotate(10deg);
@@ -24,4 +26,17 @@ h2 {
 p {
   margin: auto;
   max-width: 60vw;
+}
+
+a {
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: var(--darkgrey);
+  background-color: var(--offwhite);
+  border: solid var(--purple) 2px;
+  box-shadow: 2px 4px 3px var(--lightgrey);
+}
+a:hover {
+  background-color: rgba(136, 56, 140, 0.70);
 }
