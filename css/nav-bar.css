@@ -1,9 +1,11 @@
 #nav-bar {
   display: flex;
-  background-color: #88388C;
+  background-color: var(--purple);
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1000;
+  font-family: var(--fontfamily);
 }
 
 #nav-bar img {
@@ -23,7 +25,6 @@
   margin: 0;
 }
 
-
 #nav-bar-links li {
   padding: 0 15px;
   height: 45px;
@@ -39,9 +40,8 @@
   letter-spacing: 1px;
   font-weight: 400;
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-  font-size: .75em;
+  font-size: 0.75em;
 }
-
 
 #nav-bar-links li::before {
   top: 0;
@@ -71,7 +71,7 @@
   width: 45px;
   height: 1px;
   background: #fff;
-  content: '';
+  content: "";
   opacity: 0.2;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
