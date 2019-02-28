@@ -1,4 +1,4 @@
-import MovieAPI from '../../MovieApi.js';
+import MovieAPI from '../MovieApi.js';
 
 export default class MovieList extends HTMLElement {
   constructor() {
