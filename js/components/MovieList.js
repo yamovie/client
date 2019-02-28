@@ -39,7 +39,7 @@ export default class MovieList extends HTMLElement {
         </div>
     `;
 
-    this.state.movies.forEach((movie) => {
+    this.state.movies.forEach(movie => {
       const newMovie = document.createElement('yamovie-movie-item');
       newMovie.movie = movie;
       this.append(newMovie);
@@ -54,5 +54,9 @@ export default class MovieList extends HTMLElement {
     this.state.movies = genre === 'All' ? this.api.getMovies() : this.api.getMoviesByGenre(genre);
 
     this.render();
+  }
+
+  handleAddModal() {
+    console.log(event.detail);
   }
 }
