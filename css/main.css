@@ -1,2 +1,4 @@
 @import "reset.css";
+@import "style-variables.css";
 @import "browse-page.css";
+@import "movie-card.css";
