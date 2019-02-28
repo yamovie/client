@@ -1,5 +1,3 @@
-import 
-
 export default class MovieList extends HTMLElement {
   connectedCallback() {
     this.render();
