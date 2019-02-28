@@ -2,5 +2,11 @@
 @import "./browse-page.css";
 @import "./style-variables.css";
 @import "./movie-card.css";
-@import "nav-bar.css";
+@import "./nav-bar.css";
+
+body {
+  margin-top: 60px;
+  background-color: var(--darkgrey);
+}
+
 
