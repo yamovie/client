@@ -1,0 +1,109 @@
+/* Mobile first approach. Responsive breakpoints are listed smallest to highest */
+/* Small devices, Phones up to 575px */
+
+yamovie-movie-list {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+yamovie-movie-item {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  yamovie-movie-item {
+    width: 50%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+/* Medium devices (tablets portrait, 768px and up)  */
+@media (min-width: 768px) {
+  yamovie-movie-item {
+    width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+  }
+
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  yamovie-movie-item {
+    width: 33.333%;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+  }
+
+  .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  yamovie-movie-item {
+    width: 25%;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+#list-genres button {
+  border: none;
+  color: #fff;
+  background: none;
+  cursor: pointer;
+  padding: 5px 5px;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 700;
+  outline: none;
+  position: relative;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+#list-genres button:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+#list-genres button:hover {
+  background: #fff;
+}

@@ -1,0 +1,111 @@
+#nav-bar {
+  display: flex;
+  background-color: #88388C;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+#nav-bar img {
+  height: 50px;
+  width: 175px;
+  padding-left: 10px;
+  padding-top: 8px;
+}
+
+#nav-bar-links {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+  margin: 0;
+}
+
+
+#nav-bar-links li {
+  padding: 0 15px;
+  height: 45px;
+  line-height: 45px;
+  list-style-type: none;
+  position: relative;
+  display: inline-block;
+  margin: 5px 10px;
+  outline: none;
+  color: #f5f8e8;
+  text-decoration: none;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+  font-size: .75em;
+}
+
+
+#nav-bar-links li::before {
+  top: 0;
+  left: 0;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+
+#nav-bar-links li::after {
+  right: 0;
+  bottom: 0;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-transform-origin: 100% 0;
+  -moz-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+}
+
+#nav-bar-links li::before,
+#nav-bar-links li::after {
+  position: absolute;
+  width: 45px;
+  height: 1px;
+  background: #fff;
+  content: '';
+  opacity: 0.2;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  pointer-events: none;
+}
+
+*,
+*:after,
+*::before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#nav-bar-links li:hover::before,
+#nav-bar-links li:hover::after,
+#nav-bar-links li:focus::before,
+#nav-bar-links li:focus::after {
+  opacity: 1;
+}
+
+#nav-bar-links li:hover::before,
+#nav-bar-links li:focus::before {
+  left: 50%;
+  -webkit-transform: rotate(0deg) translateX(-50%);
+  -moz-transform: rotate(0deg) translateX(-50%);
+  transform: rotate(0deg) translateX(-50%);
+}
+
+#nav-bar-links li:hover::after,
+#nav-bar-links li:focus::after {
+  right: 50%;
+  -webkit-transform: rotate(0deg) translateX(50%);
+  -moz-transform: rotate(0deg) translateX(50%);
+  transform: rotate(0deg) translateX(50%);
+}
