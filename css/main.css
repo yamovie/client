@@ -3,3 +3,8 @@
 @import "./style-variables.css";
 @import "./movie-card.css";
 @import "nav-bar.css";
+
+body {
+  margin-top: 55px;
+  background-color: var(--purple);
+}

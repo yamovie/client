@@ -81,7 +81,7 @@ yamovie-movie-item {
 
 #list-genres button {
   border: none;
-  color: #fff;
+  color: var(--offwhite);
   background: none;
   cursor: pointer;
   padding: 5px 5px;
@@ -96,7 +96,7 @@ yamovie-movie-item {
 }
 
 #list-genres button:after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
   -webkit-transition: all 0.3s;
@@ -105,5 +105,5 @@ yamovie-movie-item {
 }
 
 #list-genres button:hover {
-  background: #fff;
+  background-color: var(--lightgrey);
 }
