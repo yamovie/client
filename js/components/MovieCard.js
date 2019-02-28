@@ -60,7 +60,6 @@ class MovieCard extends HTMLElement {
 	// =============================================================
 	
 	render() {
-		// TODO: Get genres
 		const genreString = this.movie.tags.genres.join(', ');
 
 		this.innerHTML = /* html */ `

@@ -45,10 +45,6 @@ yamovie-movie-card #trailer {
 	justify-content: space-around;
 }
 
-yamovie-movie-card #trailer iframe {
-	align-self: stretch;
-}
-
 /* ========================================================================== */
 /* Movie Info */
 
