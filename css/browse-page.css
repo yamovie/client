@@ -78,3 +78,32 @@ yamovie-movie-item {
     padding-right: 30px;
   }
 }
+
+yamovie-movie-list button {
+  border: none;
+  color: #fff;
+  background: none;
+  cursor: pointer;
+  padding: 5px 5px;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 700;
+  outline: none;
+  position: relative;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+yamovie-movie-list button:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+yamovie-movie-list button:hover {
+  background: #fff;
+}
