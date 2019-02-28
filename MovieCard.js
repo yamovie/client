@@ -26,8 +26,8 @@ class MovieCard extends HTMLElement {
 		this.innerHTML = /* html */ `
 		<div class="grid-item" id="trailer">
 			<iframe
-				width="560"
-				height="315"
+				width="100%"
+				height="100%"
 				src="https://www.youtube.com/embed/1roy4o4tqQM"
 				frameborder="0"
 				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
