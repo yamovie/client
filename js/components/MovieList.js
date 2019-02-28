@@ -5,9 +5,11 @@ export default class MovieList extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <div className="container movie-list">
         <yamovie-movie-item id=${this.id}></yamovie-movie-item>
-      </div>
+        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
+        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
+        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
+        <yamovie-movie-item id=${this.id}></yamovie-movie-item>
     `;
   }
 }
