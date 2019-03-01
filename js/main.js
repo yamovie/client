@@ -14,7 +14,7 @@ import Navbar from './components/Navbar.js';
 customElements.define('yamovie-movie-card', MovieCard);
 customElements.define('yamovie-movie-list', MovieList);
 customElements.define('yamovie-movie-item', MovieItem);
-customElements.define('nav-bar', Navbar); 
+customElements.define('nav-bar', Navbar);
 
 // =============================================================
 // =============================================================
