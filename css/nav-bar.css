@@ -1,4 +1,4 @@
-#nav-bar {
+nav-bar {
   display: flex;
   background-color: var(--purple);
   position: fixed;
@@ -8,7 +8,7 @@
   font-family: var(--fontfamily);
 }
 
-#nav-bar img {
+nav-bar img {
   height: 50px;
   width: 175px;
   padding-left: 10px;
