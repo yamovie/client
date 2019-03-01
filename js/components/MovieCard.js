@@ -28,7 +28,11 @@ const placeholderMovie = {
 	},
 	quotes: [''],
 	runtime: "??",
-	streams: {},
+	streams: {
+		netflix: "http://www.netflix.com",
+		amazon: "http://www.amazon.com",
+		theaters: "http://www.fandango.com",
+	},
 };
 
 // =============================================================
@@ -56,11 +60,65 @@ class MovieCard extends HTMLElement {
 	connectedCallback() {
 		this.render();
 	}
+
+	// =============================================================
+
+	getStreamHTML() {
+		const streamHTML = {
+			netflix: "",
+			amazon: "",
+			hulu: "",
+			youtube: "",
+			theaters: "",
+		};
+		if (this.movie.streams.netflix) {
+			streamHTML.netflix = `<li>
+					<a href="${this.movie.streams.netflix}" target="_blank">
+						<img src="./images/icon-netflix.png" alt="Netflix">
+						Netflix
+					</a>
+				</li>`;
+		}
+		if (this.movie.streams.amazon) {
+			streamHTML.amazon = `<li>
+					<a href="${this.movie.streams.amazon}" target="_blank">
+						<img src="./images/icon-amazonvideo.png" alt="Amazon Video">
+						Amazon Video
+					</a>
+				</li>`;
+		}
+		if (this.movie.streams.hulu) {
+			streamHTML.hulu = `<li>
+					<a href="${this.movie.streams.hulu}" target="_blank">
+						<img src="./images/icon-hulu.png" alt="Hulu">
+						Hulu
+					</a>
+				</li>`;
+		}
+		if (this.movie.streams.youtube) {
+			streamHTML.youtube = `<li>
+					<a href="${this.movie.streams.youtube}" target="_blank">
+						<img src="./images/icon-youtube.png" alt="YouTube">
+						YouTube
+					</a>
+				</li>`;
+		}
+		if (this.movie.streams.theaters) {
+			streamHTML.theaters = `<li>
+					<a href="${this.movie.streams.theaters}" target="_blank">
+						<img src="./images/icon-theaters.png" alt="Theaters">
+						Theaters
+					</a>
+				</li>`;
+		}
+		return streamHTML;
+	}
 	
 	// =============================================================
 	
 	render() {
 		const genreString = this.movie.tags.genres.join(', ');
+		const streamHTML = this.getStreamHTML();
 
 		this.innerHTML = /* html */ `
 		<div class="grid-item" id="trailer">
@@ -108,30 +166,11 @@ class MovieCard extends HTMLElement {
 		<div class="grid-item" id="watchat">
 			<h3>Available to watch here:</h3>
 			<div id="streamnav">
-				<li>
-					<a href="https://www.netflix.com" target="_blank">
-						<img src="./images/icon-netflix.png" alt="Netflix">
-						Netflix
-					</a>
-				</li>
-				<li>
-					<a href="https://www.amazon.com" target="_blank">
-						<img src="./images/icon-amazonvideo.png" alt="Amazon Video">
-						Amazon Video
-					</a>
-				</li>
-				<li>
-					<a href="https://www.hulu.com" target="_blank">
-						<img src="./images/icon-hulu.png" alt="Hulu">
-						Hulu
-					</a>
-				</li>
-				<li>
-					<a href="https://www.youtube.com" target="_blank">
-						<img src="./images/icon-youtube.png" alt="YouTube">
-						YouTube
-					</a>
-				</li>
+				${streamHTML.netflix}
+				${streamHTML.amazon}
+				${streamHTML.hulu}
+				${streamHTML.youtube}
+				${streamHTML.theaters}
 			</ul>
 		</div>
 		`;
