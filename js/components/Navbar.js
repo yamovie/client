@@ -14,5 +14,4 @@ export default class Navbar extends HTMLElement {
         </ul>
     `;
   }
-
 }
