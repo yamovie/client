@@ -1,11 +1,11 @@
-import MovieAPI from '../MovieApi.js';
+import MovieAPI from "../MovieApi.js";
 
 export default class MovieList extends HTMLElement {
   constructor() {
     super();
     this.api = new MovieAPI();
     this.state = {
-      movies: [],
+      movies: []
     };
 
     this.filterMovieList = this.filterMovieList.bind(this);
@@ -37,21 +37,24 @@ export default class MovieList extends HTMLElement {
           <button>Sport</button>
           <button>Thriller</button>
         </div>
+        <div id="list-all-movies">
+        </div>
     `;
 
-    this.state.movies.forEach((movie) => {
-      const newMovie = document.createElement('yamovie-movie-item');
+    this.state.movies.forEach(movie => {
+      const newMovie = document.createElement("yamovie-movie-item");
       newMovie.movie = movie;
-      this.append(newMovie);
+      document.getElementById("list-all-movies").append(newMovie);
     });
 
-    const btns = document.querySelectorAll('yamovie-movie-list button');
-    btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
+    const btns = document.querySelectorAll("yamovie-movie-list button");
+    btns.forEach(btn => btn.addEventListener("click", this.filterMovieList));
   }
 
   filterMovieList(event) {
     const genre = event.target.textContent;
-    this.state.movies = genre === 'All' ? this.api.getMovies() : this.api.getMoviesByGenre(genre);
+    this.state.movies =
+      genre === "All" ? this.api.getMovies() : this.api.getMoviesByGenre(genre);
 
     this.render();
   }
