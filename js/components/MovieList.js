@@ -62,6 +62,9 @@ export default class MovieList extends HTMLElement {
     const currentMovie = event.detail;
     const movieModal = document.createElement('yamovie-movie-card');
     movieModal.movie = currentMovie;
+    movieModal.open = true;
+    movieModal.className = 'modal';
+    console.log(movieModal);
     this.append(movieModal);
   }
 }
