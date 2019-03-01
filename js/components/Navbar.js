@@ -1,5 +1,4 @@
 export default class Navbar extends HTMLElement {
-
   connectedCallback() {
     this.render();
   }
