@@ -1,4 +1,4 @@
-import MovieAPI from '../api.js';
+import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard.js';
 
 export default class MovieList extends HTMLElement {
@@ -9,6 +9,7 @@ export default class MovieList extends HTMLElement {
       movies: [],
     };
 
+    this.addEventListener('addModal', this.handleAddModal);
     this.filterMovieList = this.filterMovieList.bind(this);
   }
 

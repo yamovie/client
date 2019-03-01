@@ -48,9 +48,9 @@ class MovieCard extends HTMLElement {
    * Sets the movie object that this card pulls info from
    * @param {object} newMovie
    */
-  setMovie(newMovie) {
-    this.movie = newMovie;
-  }
+  // setMovie(newMovie) {
+  //   this.movie = newMovie;
+  // }
 
   // =============================================================
 
