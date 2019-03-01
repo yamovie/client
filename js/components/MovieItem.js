@@ -14,7 +14,6 @@ export default class MovieItem extends HTMLElement {
             alt="${this.movie.title} movie poster"
             class="img-fluid" />
         </a>
-        <h2>${this.movie.title}</h2>
       </div>
     `;
 
@@ -26,7 +25,6 @@ export default class MovieItem extends HTMLElement {
       this.dispatchAddModal();
     });
   }
-
   dispatchAddModal = () => {
     this.dispatchEvent(
       new CustomEvent('addModal', {
@@ -36,3 +34,4 @@ export default class MovieItem extends HTMLElement {
     );
   };
 }
+
