@@ -1,7 +1,4 @@
-
-import MovieAPI from '../MovieApi.js';
-import MovieCard from './MovieCard.js';
-
+import MovieAPI from "../MovieApi.js";
 
 export default class MovieList extends HTMLElement {
   constructor() {
@@ -11,8 +8,6 @@ export default class MovieList extends HTMLElement {
       movies: []
     };
 
-    this.addEventListener('addModal', this.handleAddModal);
-    this.addEventListener('deleteModal', this.handleDeleteModal);
     this.filterMovieList = this.filterMovieList.bind(this);
   }
 
@@ -23,40 +18,33 @@ export default class MovieList extends HTMLElement {
 
   render() {
     this.innerHTML = `
-        <div id="card-modal"></div>
-        <div id="movie-page">
-          <div id="list-genres">
-            <button>All</button>
-            <button>Animation</button>
-            <button>Action</button>
-            <button>Adventure</button>
-            <button>Biography</button>
-            <button>Comedy</button>
-            <button>Crime</button>
-            <button>Drama</button>
-            <button>Family</button>
-            <button>Fantasy</button>
-            <button>Horror</button> 
-            <button>Musical</button>
-            <button>Mystery</button>
-            <button>Romance</button>
-            <button>Sci-Fi</button>
-            <button>Sport</button>
-            <button>Thriller</button>
-          </div>  
-          <div id="movie-list">  
-          </div>      
+        <div id="list-genres">
+          <button>All</button>
+          <button>Animation</button>
+          <button>Action</button>
+          <button>Adventure</button>
+          <button>Biography</button>
+          <button>Comedy</button>
+          <button>Crime</button>
+          <button>Drama</button>
+          <button>Family</button>
+          <button>Fantasy</button>
+          <button>Horror</button>
+          <button>Musical</button>
+          <button>Mystery</button>
+          <button>Romance</button>
+          <button>Sci-Fi</button>
+          <button>Sport</button>
+          <button>Thriller</button>
         </div>
         <div id="list-all-movies">
         </div>
     `;
 
-    const movieList = document.getElementById('movie-list');
-
     this.state.movies.forEach(movie => {
-      const newMovie = document.createElement('yamovie-movie-item');
+      const newMovie = document.createElement("yamovie-movie-item");
       newMovie.movie = movie;
-      movieList.append(newMovie);
+      document.getElementById("list-all-movies").append(newMovie);
     });
 
     const btns = document.querySelectorAll("yamovie-movie-list button");
@@ -69,29 +57,5 @@ export default class MovieList extends HTMLElement {
       genre === "All" ? this.api.getMovies() : this.api.getMoviesByGenre(genre);
 
     this.render();
-  }
-
-  handleAddModal(event) {
-    const modal = document.querySelector('#card-modal');
-    const moviePage = document.getElementById('movie-page');
-
-    const currentMovie = event.detail;
-    const movieModal = document.createElement('yamovie-movie-card');
-    movieModal.movie = currentMovie;
-    movieModal.open = true;
-    movieModal.className = 'modal';
-
-    modal.innerHTML = '';
-    modal.append(movieModal);
-    moviePage.style.opacity = '0.1';
-    // const movieList = document.getElementsByTagName('yamovie-movie-list');
-    // movieList.style.opacity = 0.2;
-  }
-
-  handleDeleteModal() {
-    const modal = document.querySelector('#card-modal');
-    const moviePage = document.getElementById('movie-page');
-    modal.innerHTML = '';
-    moviePage.style.opacity = '1';
   }
 }

@@ -1,5 +1,3 @@
-import MovieCard from './MovieCard.js';
-
 export default class MovieItem extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -16,22 +14,5 @@ export default class MovieItem extends HTMLElement {
         </a>
       </div>
     `;
-
-    const movieCardLink = this.getElementsByTagName('img');
-    movieCardLink[0].addEventListener('click', event => {
-      event.preventDefault();
-      // const newMovieCard = document.createElement('yamovie-movie-card');
-      // this.append(newMovieCard);
-      this.dispatchAddModal();
-    });
   }
-  dispatchAddModal = () => {
-    this.dispatchEvent(
-      new CustomEvent('addModal', {
-        bubbles: true,
-        detail: this.movie,
-      })
-    );
-  };
 }
-
