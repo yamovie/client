@@ -12,7 +12,6 @@ export default class MovieItem extends HTMLElement {
             alt="${this.movie.title} movie poster"
             class="img-fluid" />
         </a>
-        <h2>${this.movie.title}</h2>
       </div>
     `;
   }
