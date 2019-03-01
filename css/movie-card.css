@@ -9,9 +9,7 @@
 yamovie-movie-card {
   background-color: #23262e;
   font-family: var(--fontfamily);
-  /* padding-left: 50px;
-	padding-right: 50px; */
-  margin-top: 70px;
+  margin-top: 45px;
 }
 
 /* prettier-ignore */
@@ -23,7 +21,7 @@ yamovie-movie-card .modal-content h1, h2, h3, h4, h5, h6 {
 yamovie-movie-card .modal-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 50vh 25vh;
+  grid-template-rows: 50vh 23vh;
 }
 
 yamovie-movie-card .modal-content .grid-item {

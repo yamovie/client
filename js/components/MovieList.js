@@ -21,32 +21,38 @@ export default class MovieList extends HTMLElement {
 
   render() {
     this.innerHTML = `
-        <div id="list-genres">
-          <button>All</button>
-          <button>Animation</button>
-          <button>Action</button>
-          <button>Adventure</button>
-          <button>Biography</button>
-          <button>Comedy</button>
-          <button>Crime</button>
-          <button>Drama</button>
-          <button>Family</button>
-          <button>Fantasy</button>
-          <button>Horror</button> 
-          <button>Musical</button>
-          <button>Mystery</button>
-          <button>Romance</button>
-          <button>Sci-Fi</button>
-          <button>Sport</button>
-          <button>Thriller</button>
-        </div>
         <div id="card-modal"></div>
+        <div id="movie-page">
+          <div id="list-genres">
+            <button>All</button>
+            <button>Animation</button>
+            <button>Action</button>
+            <button>Adventure</button>
+            <button>Biography</button>
+            <button>Comedy</button>
+            <button>Crime</button>
+            <button>Drama</button>
+            <button>Family</button>
+            <button>Fantasy</button>
+            <button>Horror</button> 
+            <button>Musical</button>
+            <button>Mystery</button>
+            <button>Romance</button>
+            <button>Sci-Fi</button>
+            <button>Sport</button>
+            <button>Thriller</button>
+          </div>  
+          <div id="movie-list">  
+          </div>      
+        </div>
     `;
+
+    const movieList = document.getElementById('movie-list');
 
     this.state.movies.forEach(movie => {
       const newMovie = document.createElement('yamovie-movie-item');
       newMovie.movie = movie;
-      this.append(newMovie);
+      movieList.append(newMovie);
     });
 
     const btns = document.querySelectorAll('yamovie-movie-list button');
@@ -62,6 +68,7 @@ export default class MovieList extends HTMLElement {
 
   handleAddModal(event) {
     const modal = document.querySelector('#card-modal');
+    const moviePage = document.getElementById('movie-page');
 
     const currentMovie = event.detail;
     const movieModal = document.createElement('yamovie-movie-card');
@@ -71,12 +78,15 @@ export default class MovieList extends HTMLElement {
 
     modal.innerHTML = '';
     modal.append(movieModal);
+    moviePage.style.opacity = '0.1';
     // const movieList = document.getElementsByTagName('yamovie-movie-list');
     // movieList.style.opacity = 0.2;
   }
 
   handleDeleteModal() {
     const modal = document.querySelector('#card-modal');
+    const moviePage = document.getElementById('movie-page');
     modal.innerHTML = '';
+    moviePage.style.opacity = '1';
   }
 }
