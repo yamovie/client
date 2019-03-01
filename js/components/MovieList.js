@@ -10,6 +10,7 @@ export default class MovieList extends HTMLElement {
     };
 
     this.addEventListener('addModal', this.handleAddModal);
+    this.addEventListener('deleteModal', this.handleDeleteModal);
     this.filterMovieList = this.filterMovieList.bind(this);
   }
 
@@ -31,7 +32,7 @@ export default class MovieList extends HTMLElement {
           <button>Drama</button>
           <button>Family</button>
           <button>Fantasy</button>
-          <button>Horror</button>
+          <button>Horror</button> 
           <button>Musical</button>
           <button>Mystery</button>
           <button>Romance</button>
@@ -39,9 +40,10 @@ export default class MovieList extends HTMLElement {
           <button>Sport</button>
           <button>Thriller</button>
         </div>
+        <div id="card-modal"></div>
     `;
 
-    this.state.movies.forEach(movie => {
+    this.state.movies.forEach((movie) => {
       const newMovie = document.createElement('yamovie-movie-item');
       newMovie.movie = movie;
       this.append(newMovie);
@@ -59,9 +61,18 @@ export default class MovieList extends HTMLElement {
   }
 
   handleAddModal(event) {
+    const modal = document.querySelector('#card-modal');
+
     const currentMovie = event.detail;
     const movieModal = document.createElement('yamovie-movie-card');
     movieModal.movie = currentMovie;
-    this.append(movieModal);
+
+    modal.innerHTML = '';
+    modal.append(movieModal);
+  }
+
+  handleDeleteModal() {
+    const modal = document.querySelector('#card-modal');
+    modal.innerHTML = '';
   }
 }

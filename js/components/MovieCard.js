@@ -8,7 +8,7 @@ const placeholderMovie = {
   director: 'Director',
   tags: {
     genres: ['Genre'],
-    moods: ['']
+    moods: [''],
   },
   ratings: {
     mpaa: 'MPAA',
@@ -18,14 +18,14 @@ const placeholderMovie = {
     },
     imdb: {
       score: 7.9,
-      link: 'https://www.imdb.com/'
+      link: 'https://www.imdb.com/',
     },
   },
   plot: 'Plot summary here',
   media: {
     posterUrl:
       'https://www.learningzonexpress.com/media/catalog/product/cache/1/image/650x/9df78eab33525d08d6e5fb8d27136e95/4/6/4607_2.jpg',
-    trailerUrl: 'https://www.youtube.com/embed/1roy4o4tqQM'
+    trailerUrl: 'https://www.youtube.com/embed/1roy4o4tqQM',
   },
   quotes: [''],
   runtime: '??',
@@ -76,6 +76,7 @@ class MovieCard extends HTMLElement {
 		</div>
 		<div class="grid-item" id="info">
 			<div id="headings">
+				<span class="close-modal">X</span>
 				<h1>${this.movie.title} (${this.movie.releaseYear})</h1>
 				<h3>${genreString}</h3>
 				<h6>Runtime: ${this.movie.runtime} minutes</h6>
@@ -140,7 +141,17 @@ class MovieCard extends HTMLElement {
 			</ul>
 		</div>
 		`;
+
+    this.querySelector('.close-modal').addEventListener('click', this.dispatchDeleteModal);
   }
+
+  dispatchDeleteModal = () => {
+    this.dispatchEvent(
+      new CustomEvent('deleteModal', {
+        bubbles: true,
+      }),
+    );
+  };
 }
 
 // =============================================================

@@ -32,7 +32,7 @@ export default class MovieItem extends HTMLElement {
       new CustomEvent('addModal', {
         bubbles: true,
         detail: this.movie,
-      })
+      }),
     );
   };
 }
