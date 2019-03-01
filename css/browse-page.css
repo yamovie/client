@@ -113,3 +113,12 @@ yamovie-movie-item {
   background-color: var(--lightgrey);
   transition: 180ms;
 }
+
+#list-all-movies {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  color: var(--offwhite);
+  font-family: var(--fontfamily);
+}
