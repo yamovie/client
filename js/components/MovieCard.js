@@ -8,7 +8,7 @@ const placeholderMovie = {
   director: 'Director',
   tags: {
     genres: ['Genre'],
-    moods: [''],
+    moods: ['']
   },
   ratings: {
     mpaa: 'MPAA',
@@ -25,7 +25,7 @@ const placeholderMovie = {
   media: {
     posterUrl:
       'https://www.learningzonexpress.com/media/catalog/product/cache/1/image/650x/9df78eab33525d08d6e5fb8d27136e95/4/6/4607_2.jpg',
-    trailerUrl: 'https://www.youtube.com/embed/1roy4o4tqQM',
+    trailerUrl: 'https://www.youtube.com/embed/1roy4o4tqQM'
   },
   quotes: [''],
   runtime: '??',
@@ -70,7 +70,6 @@ class MovieCard extends HTMLElement {
     const genreString = this.movie.tags.genres.join(', ');
 
     this.innerHTML = /* html */ `
-<<<<<<< HEAD
 		<div class="modal-content container">
 			<div class="grid-item" id="trailer">
 				<iframe
@@ -81,28 +80,10 @@ class MovieCard extends HTMLElement {
 					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 					allowfullscreen
 				></iframe>
-=======
-		<div class="grid-item" id="trailer">
-			<iframe
-				width="100%"
-				height="100%"
-				src="${this.movie.media.trailerUrl}"
-				frameborder="0"
-				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-				allowfullscreen
-			></iframe>
-		</div>
-		<div class="grid-item" id="info">
-			<div id="headings">
-				<span class="close-modal">X</span>
-				<h1>${this.movie.title} (${this.movie.releaseYear})</h1>
-				<h3>${genreString}</h3>
-				<h6>Runtime: ${this.movie.runtime} minutes</h6>
-				<h6>Rated ${this.movie.ratings.mpaa}</h6>
->>>>>>> 7d6c1d7b22079a6d20e3a24970ffd3c07f80f454
 			</div>
 			<div class="grid-item" id="info">
 				<div id="headings">
+					<span class="close-modal">X</span>
 					<h1>${this.movie.title} (${this.movie.releaseYear})</h1>
 					<h3>${genreString}</h3>
 					<h6>Runtime: ${this.movie.runtime} minutes</h6>
@@ -169,14 +150,17 @@ class MovieCard extends HTMLElement {
 		</div>
 		`;
 
-    this.querySelector('.close-modal').addEventListener('click', this.dispatchDeleteModal);
+    this.querySelector('.close-modal').addEventListener(
+      'click',
+      this.dispatchDeleteModal
+    );
   }
 
   dispatchDeleteModal = () => {
     this.dispatchEvent(
       new CustomEvent('deleteModal', {
         bubbles: true,
-      }),
+      })
     );
   };
 }

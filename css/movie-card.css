@@ -1,7 +1,7 @@
 /* ========================================================================== */
 /* ========================================================================== */
 /* Imports */
-@import './style-variables.css';
+@import "./style-variables.css";
 
 /* ========================================================================== */
 /* Main */
@@ -83,7 +83,7 @@ yamovie-movie-card .modal-content #info h6 {
 yamovie-movie-card .modal-content #info p {
   padding: 3px 6px;
   margin: 8px 0px;
-  font-size: 2vw;
+  font-size: 1.4vw;
 }
 
 yamovie-movie-card .modal-content #ratings {

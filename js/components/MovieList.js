@@ -43,7 +43,7 @@ export default class MovieList extends HTMLElement {
         <div id="card-modal"></div>
     `;
 
-    this.state.movies.forEach((movie) => {
+    this.state.movies.forEach(movie => {
       const newMovie = document.createElement('yamovie-movie-item');
       newMovie.movie = movie;
       this.append(newMovie);
@@ -66,20 +66,17 @@ export default class MovieList extends HTMLElement {
     const currentMovie = event.detail;
     const movieModal = document.createElement('yamovie-movie-card');
     movieModal.movie = currentMovie;
-<<<<<<< HEAD
     movieModal.open = true;
     movieModal.className = 'modal';
-    console.log(movieModal);
-    this.append(movieModal);
-=======
 
     modal.innerHTML = '';
     modal.append(movieModal);
+    // const movieList = document.getElementsByTagName('yamovie-movie-list');
+    // movieList.style.opacity = 0.2;
   }
 
   handleDeleteModal() {
     const modal = document.querySelector('#card-modal');
     modal.innerHTML = '';
->>>>>>> 7d6c1d7b22079a6d20e3a24970ffd3c07f80f454
   }
 }
