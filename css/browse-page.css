@@ -1,7 +1,7 @@
 /* Mobile first approach. Responsive breakpoints are listed smallest to highest */
 /* Small devices, Phones up to 575px */
 
-#movie-list {
+yamovie-movie-list {
   display: flex;
   flex-direction: row;
   width: 100%;
