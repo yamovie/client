@@ -53,7 +53,10 @@ const movieData = [
     },
     quotes: [''],
     runtime: 104,
-    streams: {},
+    streams: {
+      theaters:
+        'https://www.fandango.com/how-to-train-your-dragon-the-hidden-world-212232/movie-overview',
+    },
   },
   {
     id: 2,
@@ -85,7 +88,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 122,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/alita-battle-angel-208277/movie-overview',
+    },
   },
   {
     id: 3,
@@ -117,7 +122,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 104,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/the-lego-movie-2-the-second-part-185756/movie-overview',
+    },
   },
 
   {
@@ -150,7 +157,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 108,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/fighting-with-my-family-215780/movie-overview',
+    },
   },
   {
     id: 5,
@@ -182,7 +191,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 88,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/isnt-it-romantic-215554/movie-overview',
+    },
   },
   {
     id: 6,
@@ -214,7 +225,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 117,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/what-men-want-213523/movie-overview',
+    },
   },
   {
     id: 7,
@@ -246,7 +259,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 100,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/happy-death-day-2u-215139/movie-overview',
+    },
   },
   {
     id: 8,
@@ -278,7 +293,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 119,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/cold-pursuit-215413/movie-overview',
+    },
   },
   {
     id: 9,
@@ -310,7 +327,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 126,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/the-upside-214774/movie-overview',
+    },
   },
   {
     id: 10,
@@ -342,7 +361,9 @@ const movieData = [
     },
     quotes: [''],
     runtime: 101,
-    streams: {},
+    streams: {
+      theaters: 'https://www.fandango.com/run-the-race-216281/movie-overview',
+    },
   },
 ];
 
