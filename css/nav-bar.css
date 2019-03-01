@@ -25,6 +25,12 @@ nav-bar img {
   margin: 0;
 }
 
+#nav-bar-links a,
+#nav-bar-links a:visited {
+  text-decoration: none;
+  color: var(--offwhite);
+}
+
 #nav-bar-links li {
   padding: 0 15px;
   height: 45px;
