@@ -1,6 +1,9 @@
 import MovieAPI from '../MovieApi.js';
 
 export default class MovieList extends HTMLElement {
+  /**
+   * Creates a movie list object and connects to the API
+   */
   constructor() {
     super();
     this.api = new MovieAPI();
@@ -20,6 +23,10 @@ export default class MovieList extends HTMLElement {
     this.render();
   }
 
+  /**
+   * Renders the movie list in HTML on the page. Uses flexboxes to display
+   * the genre list, and to display a grid of MovieItems based on breakpoints.
+   */
   render() {
     this.innerHTML = `
         <div id="list-genres">

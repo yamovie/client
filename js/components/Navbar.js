@@ -7,6 +7,10 @@ export default class Navbar extends HTMLElement {
     this.render();
   }
 
+  /**
+   * Renders the navbar in HTML on the page. Uses flexboxes to display
+   * information and links.
+   */
   render() {
     this.innerHTML = `
       <a href="./index.html">
