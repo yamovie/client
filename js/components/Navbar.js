@@ -6,7 +6,7 @@ export default class Navbar extends HTMLElement {
   render() {
     this.innerHTML = `
       <a href="./index.html">
-        <img src="./images/logo-v3-white.png" id="main-logo">
+        <img src="../images/logo-v3-white.png" id="main-logo">
       </a>
       <ul id="nav-bar-links">
         <li>

@@ -1,12 +1,13 @@
-@import "./style-variables.css";
+@import './style-variables.css';
 
 body {
   width: 100vw;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   text-align: center;
   justify-content: center;
   background-image: url('../images/background1.jpg');
-  height: 500px; 
+  height: 500px;
   background-position: center;
   background-repeat: no-repeat;
   color: #23262e;
@@ -14,7 +15,8 @@ body {
   font-size: 24px;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: var(--purple);
 }
 h3 {
@@ -41,5 +43,5 @@ a {
   box-shadow: 2px 4px 3px var(--lightgrey);
 }
 a:hover {
-  background-color: rgba(136, 56, 140, 0.70);
+  background-color: rgba(136, 56, 140, 0.7);
 }

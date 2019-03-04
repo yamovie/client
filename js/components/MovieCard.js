@@ -62,7 +62,7 @@ class MovieCard extends HTMLElement {
     if (this.movie.streams.netflix) {
       streamHTML.netflix = `<li>
           <a href="${this.movie.streams.netflix}" target="_blank">
-            <img src="./images/icon-netflix.png" alt="Netflix">
+            <img src="../images/icon-netflix.png" alt="Netflix">
             Netflix
           </a>
         </li>`;
@@ -70,7 +70,7 @@ class MovieCard extends HTMLElement {
     if (this.movie.streams.amazon) {
       streamHTML.amazon = `<li>
           <a href="${this.movie.streams.amazon}" target="_blank">
-            <img src="./images/icon-amazonvideo.png" alt="Amazon Video">
+            <img src="../images/icon-amazonvideo.png" alt="Amazon Video">
             Amazon Video
           </a>
         </li>`;
@@ -78,7 +78,7 @@ class MovieCard extends HTMLElement {
     if (this.movie.streams.hulu) {
       streamHTML.hulu = `<li>
           <a href="${this.movie.streams.hulu}" target="_blank">
-            <img src="./images/icon-hulu.png" alt="Hulu">
+            <img src="../images/icon-hulu.png" alt="Hulu">
             Hulu
           </a>
         </li>`;
@@ -86,7 +86,7 @@ class MovieCard extends HTMLElement {
     if (this.movie.streams.youtube) {
       streamHTML.youtube = `<li>
           <a href="${this.movie.streams.youtube}" target="_blank">
-            <img src="./images/icon-youtube.png" alt="YouTube">
+            <img src="../images/icon-youtube.png" alt="YouTube">
             YouTube
           </a>
         </li>`;
@@ -94,7 +94,7 @@ class MovieCard extends HTMLElement {
     if (this.movie.streams.theaters) {
       streamHTML.theaters = `<li>
           <a href="${this.movie.streams.theaters}" target="_blank">
-            <img src="./images/icon-theaters.png" alt="Theaters">
+            <img src="../images/icon-theaters.png" alt="Theaters">
             Theaters
           </a>
         </li>`;
@@ -136,19 +136,19 @@ class MovieCard extends HTMLElement {
       <div id="ratings">
         <li>
           <a href="${this.movie.ratings.rottenTomatoes.link}" target="_blank">
-            <img src="./images/${rtImg}" alt="Rotten Tomatoes">
+            <img src="../images/${rtImg}" alt="Rotten Tomatoes">
             ${this.movie.ratings.rottenTomatoes.score} 
             ${rtFresh}
           </a>
         </li>
         <li>
           <a href="${this.movie.ratings.imdb.link}" target="_blank">
-            <img src="./images/icon-IMDb.png" alt="IMDb">
+            <img src="../images/icon-IMDb.png" alt="IMDb">
             ${this.movie.ratings.imdb.score}/10
           </a>
         </li>
         <li>
-          <img src="./images/icon-star.png" alt="User Rating">
+          <img src="../images/icon-star.png" alt="User Rating">
           Users: 5/5
         </li>
       </div>
