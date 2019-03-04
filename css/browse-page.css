@@ -101,7 +101,7 @@ yamovie-movie-item {
 }
 
 #list-genres button:after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
   -webkit-transition: all 0.3s;
