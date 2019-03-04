@@ -1,3 +1,4 @@
+// A default/placeholder object for movie data that this card uses if no object is fed into it
 const placeholderMovie = {
   title: 'Title',
   releaseYear: 'Year',
@@ -34,6 +35,10 @@ const placeholderMovie = {
 };
 
 class MovieCard extends HTMLElement {
+  /**
+   * Creates a new movie card element using a movie data object
+   * @param {object} [movie] the movie data to use to fill this card
+   */
   constructor(movie = placeholderMovie) {
     super();
     this.movie = movie;
@@ -47,11 +52,21 @@ class MovieCard extends HTMLElement {
     this.movie = newMovie;
   }
 
+  /**
+   * Called when this card object is rendered on the page the first time.
+   * Calls the render function to display data.
+   */
   connectedCallback() {
     this.render();
   }
 
+  /**
+   * Adjusts the HTML to be used for the stream section of the card display so
+   * that each stream option only displays if there is actually a link for it.
+   * @returns streamHTML - An object with the html to display the stream links
+   */
   getStreamHTML() {
+    // setup object with default empty strings for each stream option
     const streamHTML = {
       netflix: '',
       amazon: '',
@@ -59,6 +74,7 @@ class MovieCard extends HTMLElement {
       youtube: '',
       theaters: '',
     };
+    // sets the link display for the Netflix stream, if there is one
     if (this.movie.streams.netflix) {
       streamHTML.netflix = `<li>
           <a href="${this.movie.streams.netflix}" target="_blank">
@@ -67,6 +83,7 @@ class MovieCard extends HTMLElement {
           </a>
         </li>`;
     }
+    // sets the link display for the Amazon Video stream, if there is one
     if (this.movie.streams.amazon) {
       streamHTML.amazon = `<li>
           <a href="${this.movie.streams.amazon}" target="_blank">
@@ -75,6 +92,7 @@ class MovieCard extends HTMLElement {
           </a>
         </li>`;
     }
+    // sets the link display for the Hulu stream, if there is one
     if (this.movie.streams.hulu) {
       streamHTML.hulu = `<li>
           <a href="${this.movie.streams.hulu}" target="_blank">
@@ -83,6 +101,7 @@ class MovieCard extends HTMLElement {
           </a>
         </li>`;
     }
+    // sets the link display for the YouTUbe stream, if there is one
     if (this.movie.streams.youtube) {
       streamHTML.youtube = `<li>
           <a href="${this.movie.streams.youtube}" target="_blank">
@@ -91,6 +110,7 @@ class MovieCard extends HTMLElement {
           </a>
         </li>`;
     }
+    // sets the link display for the theater ticket purchase, if there is one
     if (this.movie.streams.theaters) {
       streamHTML.theaters = `<li>
           <a href="${this.movie.streams.theaters}" target="_blank">
@@ -102,6 +122,10 @@ class MovieCard extends HTMLElement {
     return streamHTML;
   }
 
+  /**
+   * Renders the movie card in HTML on the page. Uses CSS grid to display information
+   * in three segments: trailer, descriptive info, and stream links.
+   */
   render() {
     const genreString = this.movie.tags.genres.join(', ');
     const streamHTML = this.getStreamHTML();

@@ -11,6 +11,10 @@ export default class MovieList extends HTMLElement {
     this.filterMovieList = this.filterMovieList.bind(this);
   }
 
+  /**
+   * Called when this list object is rendered on the page the first time.
+   * Calls the render function to display data.
+   */
   connectedCallback() {
     this.state.movies = this.api.getMovies();
     this.render();
