@@ -1,8 +1,16 @@
 export default class Navbar extends HTMLElement {
+  /**
+   * Called when this navbar object is rendered on the page the first time.
+   * Calls the render function to display data.
+   */
   connectedCallback() {
     this.render();
   }
 
+  /**
+   * Renders the navbar in HTML on the page. Uses flexboxes to display
+   * information and links.
+   */
   render() {
     this.innerHTML = `
       <a href="./index.html">
