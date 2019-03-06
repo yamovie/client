@@ -7,7 +7,7 @@
 /* Main */
 
 #card-modal {
-  background-color: red;
+  background-color: var(--red);
 }
 
 yamovie-movie-card {
