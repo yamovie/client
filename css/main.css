@@ -3,11 +3,11 @@
 @import "./style-variables.css";
 @import "./movie-card.css";
 @import "./nav-bar.css";
+@import "./signup.css";
+@import "./index.css";
 
 body {
   margin-top: 60px;
   background-color: var(--darkgrey);
   font-size: 20px;
 }
-
-

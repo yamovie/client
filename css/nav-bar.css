@@ -5,7 +5,7 @@ nav-bar {
   top: 0;
   width: 100%;
   z-index: 1000;
-  font-family: var(--fontfamily);
+  font-family: 'Roboto', sans-serif;
 }
 
 nav-bar img {
