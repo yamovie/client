@@ -148,6 +148,7 @@ class MovieCard extends HTMLElement {
     </div>
     <div class="grid-item" id="info">
       <div id="headings">
+        <span class="close-modal">X</span>
         <h1>${this.movie.title} (${this.movie.releaseYear})</h1>
         <h3>${genreString}</h3>
         <h6>Runtime: ${this.movie.runtime} minutes</h6>
@@ -187,7 +188,20 @@ class MovieCard extends HTMLElement {
       </ul>
     </div>
     `;
+
+    this.querySelector('.close-modal').addEventListener(
+      'click',
+      this.dispatchDeleteModal,
+    );
   }
+
+  dispatchDeleteModal = () => {
+    this.dispatchEvent(
+      new CustomEvent('deleteModal', {
+        bubbles: true,
+      }),
+    );
+  };
 }
 
 export default MovieCard;
