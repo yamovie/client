@@ -62,6 +62,10 @@ export default class MovieList extends HTMLElement {
     btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
   }
 
+  /**
+   * Filters the visible list of movies based on the event (which genre was clicked)
+   * @param {Event} event Filter trigger event
+   */
   filterMovieList(event) {
     const genre = event.target.textContent;
     const showAll = genre === 'All';
