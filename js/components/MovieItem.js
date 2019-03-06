@@ -25,11 +25,12 @@ export default class MovieItem extends HTMLElement {
   }
 
   dispatchAddModal = () => {
-    console.log('click item');
     this.dispatchEvent(
       new CustomEvent('addModal', {
         bubbles: true,
-        detail: this.movie,
+        detail: {
+          movie: this.movie,
+        },
       }),
     );
   };

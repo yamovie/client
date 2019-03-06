@@ -33,7 +33,7 @@ const placeholderMovie = {
   },
 };
 
-class MovieCard extends HTMLElement {
+export default class MovieCard extends HTMLElement {
   constructor(movie = placeholderMovie) {
     super();
     this.movie = movie;
@@ -173,7 +173,6 @@ class MovieCard extends HTMLElement {
   }
 
   dispatchDeleteModal = () => {
-    console.log('click');
     this.dispatchEvent(
       new CustomEvent('deleteModal', {
         bubbles: true,
@@ -181,5 +180,3 @@ class MovieCard extends HTMLElement {
     );
   };
 }
-
-export default MovieCard;
