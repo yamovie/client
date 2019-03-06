@@ -35,7 +35,7 @@
 
 #link-info {
   position: relative;
-  top: 20vh;
+  top: 27vh;
   left: 0;
   right: 0;
 }
@@ -43,7 +43,7 @@
 #landing-quote {
   color: var(--darkgrey);
   position: relative;
-  top: 30vh;
+  top: 17vh;
   left: 0;
   right: 0;
 }
@@ -51,6 +51,7 @@
 #landing-quote h3 {
   opacity: .7;
   font-family: 'Roboto', sans-serif;
+  font-size: 2em;
 }
 
 .landing-links {
@@ -106,25 +107,21 @@
   bottom: 10px;
   right: 10px;
   z-index: 999;
-  background-color: var(--lightgrey);
   opacity: .9;
-  padding: 15px 25px;
-  box-shadow: 0px 3px 0px 0px #525252;
-  border-radius: 5px;
-  font-size: 22px;
+  font-size: 10px;
   color: white;
   text-decoration: none;
   font-family: 'Roboto', sans-serif;
   border: none;
+  width: 50px;
 }
 
 #chatbot-btn:hover {
   background-color: #B573D0;
+  opacity: .8;
+  border-radius: 50%;
 }
 
-#chatbot-btn:focus {
-  outline: 0;
-}
 
 /* a {
   text-decoration: none;
