@@ -1,6 +1,9 @@
 import MovieAPI from '../MovieApi.js';
 
 export default class MovieList extends HTMLElement {
+  /**
+   * Creates a movie list object and connects to the API
+   */
   constructor() {
     super();
     this.api = new MovieAPI();
@@ -13,11 +16,19 @@ export default class MovieList extends HTMLElement {
     this.filterMovieList = this.filterMovieList.bind(this);
   }
 
+  /**
+   * Called when this list object is rendered on the page the first time.
+   * Calls the render function to display data.
+   */
   connectedCallback() {
     this.state.movies = this.api.getMovies();
     this.render();
   }
 
+  /**
+   * Renders the movie list in HTML on the page. Uses flexboxes to display
+   * the genre list, and to display a grid of MovieItems based on breakpoints.
+   */
   render() {
     this.innerHTML = `
     <div id="card-modal"></div>
@@ -56,6 +67,10 @@ export default class MovieList extends HTMLElement {
     btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
   }
 
+  /**
+   * Filters the visible list of movies based on the event (which genre was clicked)
+   * @param {Event} event Filter trigger event
+   */
   filterMovieList(event) {
     const genre = event.target.textContent;
     const showAll = genre === 'All';

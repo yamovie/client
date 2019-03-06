@@ -1,0 +1,107 @@
+#card-container {
+  background: var(--purple);
+  font-size: 10px;
+  padding: 2em;
+  height: 45vh;
+}
+
+#card-container article {
+  display: block;
+}
+
+.full-screen {
+  height: 100vw;
+  position: relative;
+}
+
+.title {
+  text-align: center;
+  font-weight: 100;
+}
+
+.divider {
+  border-bottom: 1px solid var(--red);
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col-xs-4 {
+  width: 33.33333333%;
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.cards {
+  background: #eeeeee;
+  border-radius: 3px;
+  height: 20em;
+  padding: 1.5em;
+  position: relative;
+  /* transition: height 0.4s, box-shadow 0.5s; */
+}
+
+.cards .info {
+  position: relative;
+  visibility: visible;
+
+  /* top: -50%;
+  opacity: 0; */
+}
+
+.cards:hover {
+  /* font-size: 1em;
+  box-shadow: 0 0 2em #999;
+  height: 30em; */
+  /* transition: height 0.3s ease, box-shadow 0.5s ease; */
+}
+
+.cards:hover .divider {
+  /* opacity: 0.5; */
+}
+
+.cards:hover .info {
+  /* transition: top 0.5s ease, opacity 1s ease; */
+  /* visibility: visible;
+  top: 1%;
+  opacity: 1; */
+}
+
+.cards:hover .icon {
+  /* font-size: 2em;
+  left: 45%;
+  transition: font-size .3s, left .3s; */
+}
+
+.cards .icon {
+  color: var(--popcornyellow);
+  font-size: 4em;
+  text-align: center;
+  padding: 0em;
+  position: relative;
+  left: 43%;
+  top: 0em;
+  transition: font-size 0.3s ease, left 0.3s ease;
+}
+
+.cards .title {
+  color: var(--darkgrey);
+  text-align: center;
+  font-weight: 300;
+  font-size: 25px;
+}
+
+.cards .lead {
+  color: var(--darkgrey);
+  font-weight: 100;
+  font-size: 1.5em;
+  text-align: center;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
