@@ -18,8 +18,6 @@ export default class MovieItem extends HTMLElement {
     const movieCardLink = this.getElementsByTagName('img');
     movieCardLink[0].addEventListener('click', event => {
       event.preventDefault();
-      // const newMovieCard = document.createElement('yamovie-movie-card');
-      // this.append(newMovieCard);
       this.dispatchAddModal();
     });
   }
