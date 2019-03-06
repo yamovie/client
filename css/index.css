@@ -1,9 +1,9 @@
-@import "./style-variables.css";
-@import "./landing-cards.css";
+@import './style-variables.css';
+@import './landing-cards.css';
 
 #landing-body {
   background-color: #eeeeee;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--fontfamily);
   padding: 0px;
   font-size: 24px;
   margin-top: 40px;
@@ -15,11 +15,10 @@
   padding: 15px 25px;
 }
 
-
 #link-container {
   height: 100vh;
   max-width: 100%;
-  background-image: url("../images/landing-bg-v1.jpg");
+  background-image: url('../images/landing-bg-v1.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -49,8 +48,8 @@
 }
 
 #landing-quote h3 {
-  opacity: .7;
-  font-family: 'Roboto', sans-serif;
+  opacity: 0.7;
+  font-family: var(--fontfamily);
   font-size: 2em;
 }
 
@@ -65,18 +64,18 @@
 }
 
 .landing-links a {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--fontfamily);
 }
 
 .landing-color {
   background-color: var(--lightgrey);
-  opacity: .8;
+  opacity: 0.8;
   box-shadow: 0px 3px 0px 0px #525252;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--fontfamily);
 }
 
 .landing-color:hover {
-  background-color: #B573D0;
+  background-color: #b573d0;
 }
 
 #overview {
@@ -107,21 +106,20 @@
   bottom: 10px;
   right: 10px;
   z-index: 999;
-  opacity: .9;
+  opacity: 0.9;
   font-size: 10px;
   color: white;
   text-decoration: none;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--fontfamily);
   border: none;
   width: 50px;
 }
 
 #chatbot-btn:hover {
-  background-color: #B573D0;
-  opacity: .8;
+  background-color: #b573d0;
+  opacity: 0.8;
   border-radius: 50%;
 }
-
 
 /* a {
   text-decoration: none;
