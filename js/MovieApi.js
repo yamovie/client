@@ -30,14 +30,22 @@ const movieData = [
     cast: ['Jay Baruchel'],
     director: 'Dean Deblois',
     tags: {
-      genres: ['Animation', 'Action', 'Adventure', 'Comedy', 'Family', 'Fantasy'],
+      genres: [
+        'Animation',
+        'Action',
+        'Adventure',
+        'Comedy',
+        'Family',
+        'Fantasy',
+      ],
       moods: [''],
     },
     ratings: {
       mpaa: 'PG',
       rottenTomatoes: {
         score: '92%',
-        link: 'https://www.rottentomatoes.com/m/how_to_train_your_dragon_the_hidden_world',
+        link:
+          'https://www.rottentomatoes.com/m/how_to_train_your_dragon_the_hidden_world',
       },
       imdb: {
         score: 7.9,
@@ -89,7 +97,8 @@ const movieData = [
     quotes: [''],
     runtime: 122,
     streams: {
-      theaters: 'https://www.fandango.com/alita-battle-angel-208277/movie-overview',
+      theaters:
+        'https://www.fandango.com/alita-battle-angel-208277/movie-overview',
     },
   },
   {
@@ -99,14 +108,23 @@ const movieData = [
     cast: ['Chris Pratt'],
     director: 'Mike Mitchell',
     tags: {
-      genres: ['Animation', 'Action', 'Adventure', 'Comedy', 'Family', 'Fantasy', 'Musical'],
+      genres: [
+        'Animation',
+        'Action',
+        'Adventure',
+        'Comedy',
+        'Family',
+        'Fantasy',
+        'Musical',
+      ],
       moods: [''],
     },
     ratings: {
       mpaa: 'PG',
       rottenTomatoes: {
         score: '86%',
-        link: 'https://www.rottentomatoes.com/m/the_lego_movie_2_the_second_part',
+        link:
+          'https://www.rottentomatoes.com/m/the_lego_movie_2_the_second_part',
       },
       imdb: {
         score: 7.1,
@@ -123,7 +141,8 @@ const movieData = [
     quotes: [''],
     runtime: 104,
     streams: {
-      theaters: 'https://www.fandango.com/the-lego-movie-2-the-second-part-185756/movie-overview',
+      theaters:
+        'https://www.fandango.com/the-lego-movie-2-the-second-part-185756/movie-overview',
     },
   },
 
@@ -158,7 +177,8 @@ const movieData = [
     quotes: [''],
     runtime: 108,
     streams: {
-      theaters: 'https://www.fandango.com/fighting-with-my-family-215780/movie-overview',
+      theaters:
+        'https://www.fandango.com/fighting-with-my-family-215780/movie-overview',
     },
   },
   {
@@ -192,7 +212,8 @@ const movieData = [
     quotes: [''],
     runtime: 88,
     streams: {
-      theaters: 'https://www.fandango.com/isnt-it-romantic-215554/movie-overview',
+      theaters:
+        'https://www.fandango.com/isnt-it-romantic-215554/movie-overview',
     },
   },
   {
@@ -260,7 +281,8 @@ const movieData = [
     quotes: [''],
     runtime: 100,
     streams: {
-      theaters: 'https://www.fandango.com/happy-death-day-2u-215139/movie-overview',
+      theaters:
+        'https://www.fandango.com/happy-death-day-2u-215139/movie-overview',
     },
   },
   {
@@ -384,7 +406,7 @@ export default class MovieAPI {
   }
 
   /**
-   *
+   * Filters movies by genre
    * @param {*} genre
    */
   getMoviesByGenre(genre) {
