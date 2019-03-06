@@ -40,7 +40,6 @@
 .cards {
   background: #eeeeee;
   border-radius: 3px;
-  cursor: pointer;
   height: 20em;
   padding: 1.5em;
   position: relative;
@@ -87,7 +86,7 @@
   position: relative;
   left: 43%;
   top: 0em;
-  transition: font-size .3s ease, left .3s ease;
+  transition: font-size 0.3s ease, left 0.3s ease;
 }
 
 .cards .title {
