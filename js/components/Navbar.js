@@ -13,15 +13,15 @@ export default class Navbar extends HTMLElement {
    */
   render() {
     this.innerHTML = `
-      <a href="../index.html">
-        <img src="../images/logo-v3-white.png" id="main-logo">
+      <a href="./index.html">
+        <img src="./images/logo-v3-white.png" id="main-logo">
       </a>
       <ul id="nav-bar-links">
         <li>
-          <a href="../html/about.html">Home</a>
+          <a href="./about.html">Home</a>
         </li>
         <li>
-          <a href="../html/browse-page.html">Browse</a>
+          <a href="./browse-page.html">Browse</a>
         </li>
       </ul>
     `;
