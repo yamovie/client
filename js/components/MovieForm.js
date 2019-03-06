@@ -1,9 +1,8 @@
 export default class MovieForm extends HTMLElement {
-
   connectedCallback() {
     this.render();
   }
-  
+
   render() {
     this.innerHTML = `
     <h1>Movie Questionaire!</h1>
@@ -164,3 +163,11 @@ export default class MovieForm extends HTMLElement {
   }
 }
 
+// All of this is triggered by Submit
+// 0. Change names to match obj values
+// 1. Select the input for the question (divided into ul => id=Question1)
+// 2. Check if the input is "checked" (did they select that option)
+// 2A. If true, then grab the value of the input
+// 2B. If false, ignore
+// 3. As we get values, they are inserted into the obj
+// 4. Return the new obj
