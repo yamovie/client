@@ -93,6 +93,7 @@ yamovie-movie-card #ratings {
   justify-content: space-evenly;
   margin: 5px 0px;
   font-size: 2vw;
+  color: var(--darkgrey);
 }
 
 yamovie-movie-card #ratings li {
@@ -105,6 +106,11 @@ yamovie-movie-card #ratings li img {
   width: 18px;
   float: left;
   margin: 3px 6px 2px 2px;
+}
+
+yamovie-movie-card #ratings li a {
+  text-decoration: none;
+  color: var(--darkgrey);
 }
 
 /* ========================================================================== */
