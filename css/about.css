@@ -17,16 +17,14 @@ header {
   flex-direction: column;
   height: 100vh;
 }
-
-header h1 {
-  color: var(--purple);
-  text-shadow: 2px 2px 2px var(--darkgrey);
-}
  
 header video {
-  position: fixed;
+  position: absolute;
   z-index: -1;
-  object-fit: contain;
+  object-fit: fill;
+  width: 100%;
+  height: calc(100vh - 55px);
+  top: 0;
 }
 .mission {
   width: calc(100vw - 40%);
@@ -34,6 +32,10 @@ header video {
 .mission h2 {
   margin: 0;
   text-shadow: 1px 0 1px var(--offwhite);
+}
+
+.stat {
+  background-color: var(--darkgrey);
 }
 
 /* .grid-container {

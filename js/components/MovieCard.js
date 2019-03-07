@@ -1,3 +1,4 @@
+// A default/placeholder object for movie data that this card uses if no object is fed into it
 const placeholderMovie = {
   title: 'Title',
   releaseYear: 'Year',
@@ -34,6 +35,10 @@ const placeholderMovie = {
 };
 
 class MovieCard extends HTMLElement {
+  /**
+   * Creates a new movie card element using a movie data object
+   * @param {object} [movie] the movie data to use to fill this card
+   */
   constructor(movie = placeholderMovie) {
     super();
     this.movie = movie;
@@ -47,11 +52,21 @@ class MovieCard extends HTMLElement {
     this.movie = newMovie;
   }
 
+  /**
+   * Called when this card object is rendered on the page the first time.
+   * Calls the render function to display data.
+   */
   connectedCallback() {
     this.render();
   }
 
+  /**
+   * Adjusts the HTML to be used for the stream section of the card display so
+   * that each stream option only displays if there is actually a link for it.
+   * @returns streamHTML - An object with the html to display the stream links
+   */
   getStreamHTML() {
+    // setup object with default empty strings for each stream option
     const streamHTML = {
       netflix: '',
       amazon: '',
@@ -59,42 +74,47 @@ class MovieCard extends HTMLElement {
       youtube: '',
       theaters: '',
     };
+    // sets the link display for the Netflix stream, if there is one
     if (this.movie.streams.netflix) {
       streamHTML.netflix = `<li>
           <a href="${this.movie.streams.netflix}" target="_blank">
-            <img src="../images/icon-netflix.png" alt="Netflix">
+            <img src="./images/icon-netflix.png" alt="Netflix">
             Netflix
           </a>
         </li>`;
     }
+    // sets the link display for the Amazon Video stream, if there is one
     if (this.movie.streams.amazon) {
       streamHTML.amazon = `<li>
           <a href="${this.movie.streams.amazon}" target="_blank">
-            <img src="../images/icon-amazonvideo.png" alt="Amazon Video">
+            <img src="./images/icon-amazonvideo.png" alt="Amazon Video">
             Amazon Video
           </a>
         </li>`;
     }
+    // sets the link display for the Hulu stream, if there is one
     if (this.movie.streams.hulu) {
       streamHTML.hulu = `<li>
           <a href="${this.movie.streams.hulu}" target="_blank">
-            <img src="../images/icon-hulu.png" alt="Hulu">
+            <img src="./images/icon-hulu.png" alt="Hulu">
             Hulu
           </a>
         </li>`;
     }
+    // sets the link display for the YouTUbe stream, if there is one
     if (this.movie.streams.youtube) {
       streamHTML.youtube = `<li>
           <a href="${this.movie.streams.youtube}" target="_blank">
-            <img src="../images/icon-youtube.png" alt="YouTube">
+            <img src="./images/icon-youtube.png" alt="YouTube">
             YouTube
           </a>
         </li>`;
     }
+    // sets the link display for the theater ticket purchase, if there is one
     if (this.movie.streams.theaters) {
       streamHTML.theaters = `<li>
           <a href="${this.movie.streams.theaters}" target="_blank">
-            <img src="../images/icon-theaters.png" alt="Theaters">
+            <img src="./images/icon-theaters.png" alt="Theaters">
             Theaters
           </a>
         </li>`;
@@ -102,6 +122,10 @@ class MovieCard extends HTMLElement {
     return streamHTML;
   }
 
+  /**
+   * Renders the movie card in HTML on the page. Uses CSS grid to display information
+   * in three segments: trailer, descriptive info, and stream links.
+   */
   render() {
     const genreString = this.movie.tags.genres.join(', ');
     const streamHTML = this.getStreamHTML();
@@ -109,8 +133,7 @@ class MovieCard extends HTMLElement {
       this.movie.ratings.rottenTomatoes.score >= '60%'
         ? 'icon-rottentomatoes-fresh.png'
         : 'icon-rottentomatoes-rotten.png';
-    const rtFresh =
-      this.movie.ratings.rottenTomatoes.score >= '60%' ? 'Fresh' : 'Rotten';
+    const rtFresh = this.movie.ratings.rottenTomatoes.score >= '60%' ? 'Fresh' : 'Rotten';
 
     this.innerHTML = /* html */ `
     <div class="grid-item" id="trailer">
@@ -125,6 +148,7 @@ class MovieCard extends HTMLElement {
     </div>
     <div class="grid-item" id="info">
       <div id="headings">
+        <span class="close-modal">X</span>
         <h1>${this.movie.title} (${this.movie.releaseYear})</h1>
         <h3>${genreString}</h3>
         <h6>Runtime: ${this.movie.runtime} minutes</h6>
@@ -136,19 +160,19 @@ class MovieCard extends HTMLElement {
       <div id="ratings">
         <li>
           <a href="${this.movie.ratings.rottenTomatoes.link}" target="_blank">
-            <img src="../images/${rtImg}" alt="Rotten Tomatoes">
+            <img src="./images/${rtImg}" alt="Rotten Tomatoes">
             ${this.movie.ratings.rottenTomatoes.score} 
             ${rtFresh}
           </a>
         </li>
         <li>
           <a href="${this.movie.ratings.imdb.link}" target="_blank">
-            <img src="../images/icon-IMDb.png" alt="IMDb">
+            <img src="./images/icon-IMDb.png" alt="IMDb">
             ${this.movie.ratings.imdb.score}/10
           </a>
         </li>
         <li>
-          <img src="../images/icon-star.png" alt="User Rating">
+          <img src="./images/icon-star.png" alt="User Rating">
           Users: 5/5
         </li>
       </div>
@@ -164,7 +188,20 @@ class MovieCard extends HTMLElement {
       </ul>
     </div>
     `;
+
+    this.querySelector('.close-modal').addEventListener(
+      'click',
+      this.dispatchDeleteModal,
+    );
   }
+
+  dispatchDeleteModal = () => {
+    this.dispatchEvent(
+      new CustomEvent('deleteModal', {
+        bubbles: true,
+      }),
+    );
+  };
 }
 
 export default MovieCard;
