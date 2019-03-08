@@ -34,6 +34,9 @@ export default class MovieList extends HTMLElement {
    * Calls the render function to display data.
    */
   connectedCallback() {
+    if (this.state.showGenreFilter) {
+      this.setState({ movies: this.api.getMovies() });
+    }
     this.render();
   }
 
@@ -65,8 +68,11 @@ export default class MovieList extends HTMLElement {
     `;
 
     this.innerHTML = `
-      ${this.state.showGenreFilter ? genreList : ''}
-      <div id="list-all-movies"></div>
+      <div id="card-modal"></div>
+      <div id="movie-page">
+        ${this.state.showGenreFilter ? genreList : ''}
+        <div id="list-all-movies"></div>
+      </div>
     `;
 
     this.state.movies.forEach(movie => {
