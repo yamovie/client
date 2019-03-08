@@ -18,13 +18,13 @@ export default class Navbar extends HTMLElement {
       </a>
       <ul id="nav-bar-links">
         <li>
-          <a href="./about.html">About</a>
-        </li>
-        <li>
           <a href="./browse-page.html">Browse</a>
         </li>
         <li>
           <a href="./question-form.html">Find YaMovie</a>
+        </li>
+        <li>
+          <a href="./about.html">About</a>
         </li>
       </ul>
     `;

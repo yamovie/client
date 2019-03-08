@@ -10,9 +10,8 @@ nav-bar {
 
 nav-bar img {
   height: 50px;
-  width: 175px;
   padding-left: 10px;
-  padding-top: 8px;
+  padding-top: 5px;
 }
 
 #nav-bar-links {
@@ -42,7 +41,6 @@ nav-bar img {
   outline: none;
   color: #f5f8e8;
   text-decoration: none;
-  text-transform: lowercase;
   letter-spacing: 1px;
   font-weight: 400;
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
