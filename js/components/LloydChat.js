@@ -9,7 +9,9 @@ export default class LloydChat extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    <img src="./images/Lloyd.png" alt="" id="chatbot-btn" />
+    <div id="lloyd-outline">
+      <img src="./images/Lloyd.png" alt="" id="chatbot-btn" />
+    </div>
     `;
   }
 }
