@@ -1,5 +1,6 @@
 @import "./style-variables.css";
 @import "./nav-bar.css";
+@import "./lloyd-chat.css";
 
 body.about {
   font-family: var(--fontfamily);
@@ -28,24 +29,54 @@ header video {
   top: 0;
 }
 
+.stats h3, .history h3 {
+  line-height: 2.1;
+}
 
-.mission, .problem div, .solution div, .history {
-  width: calc(100vw - 40%);
+.stats p, .history p {
+  letter-spacing: 1.3px;
+}
+
+.stats, .history {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.mission, .problem div, .solution div, .history div {
   margin: auto;
 }
 
-.mission h2 {
+.mission {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.mission h1 {
   margin: 0;
   text-shadow: 1px 0 1px var(--offwhite);
+  letter-spacing: 1.6px;
+}
+
+.mission p {
+  font-size: 17px;
+  letter-spacing: 1.3px;
+  line-height: 2;
 }
 
 .problem, .solution {
   display: flex;
   text-align: left;
   margin: auto;
-  width: calc(100vw - 20%);
   height: 200px;
   align-items: center;
+
 } 
 .problem p:first-child, .solution p:first-child {
   font-size: 30px;
@@ -60,6 +91,10 @@ header video {
 .problem img, .solution img {
   width: 128px;
   height: 128px;
+}
+
+.about-icon {
+  margin-right: 25px;
 }
 
 /* .grid-container {
@@ -170,6 +205,11 @@ div.lloyd {
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
+  .stats, .history {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .avatar-section {
     padding-left: 5%;
     padding-right: 5%;
@@ -182,13 +222,40 @@ div.lloyd {
 
 /* Medium devices (tablets portrait, 768px and up)  */
 @media (min-width: 768px) {
+  .mission {
+    padding-left: 150px;
+    padding-right: 150px;
+  }
+
+
+  .stats, .history {
+    padding-left: 200px;
+    padding-right: 200px;
+  }
+
   .avatar-container {
     width: 33.333%;
+  }
+
+  .mission p {
+    font-size: 23px;
+    letter-spacing: 1.5px;
+    line-height: 2;
   }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  .mission {
+    padding-left: 280px;
+    padding-right: 280px;
+  }
+
+  .stats, .history {
+    padding-left: 200px;
+    padding-right: 200px;
+  }
+
   .avatar-container {
     width: 33.333%;
   }

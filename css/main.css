@@ -5,9 +5,16 @@
 @import './nav-bar.css';
 @import './signup.css';
 @import './index.css';
+@import './lloyd-chat.css';
 
 body {
   margin-top: 60px;
   background-color: var(--darkgrey);
   font-size: 20px;
+}
+
+lloyd-chat {
+  color: red;
+  background: red;
+  height: 100px;
 }
