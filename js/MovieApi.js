@@ -20,7 +20,12 @@
  *    trailerUrl: String
  * quotes: String array
  * runtime: Number (in minutes)
- * stream: Object
+ * streams: Object
+ *    netflix: String
+ *    hulu: String
+ *    amazon: String
+ *    youtube: String
+ *    theaters: String
  */
 const movieData = [
   {
@@ -30,14 +35,7 @@ const movieData = [
     cast: ['Jay Baruchel'],
     director: 'Dean Deblois',
     tags: {
-      genres: [
-        'Animation',
-        'Action',
-        'Adventure',
-        'Comedy',
-        'Family',
-        'Fantasy',
-      ],
+      genres: ['Animation', 'Action', 'Adventure', 'Comedy', 'Family', 'Fantasy'],
       moods: [''],
     },
     ratings: {
@@ -97,8 +95,7 @@ const movieData = [
     quotes: [''],
     runtime: 122,
     streams: {
-      theaters:
-        'https://www.fandango.com/alita-battle-angel-208277/movie-overview',
+      theaters: 'https://www.fandango.com/alita-battle-angel-208277/movie-overview',
     },
   },
   {
@@ -123,8 +120,7 @@ const movieData = [
       mpaa: 'PG',
       rottenTomatoes: {
         score: '86%',
-        link:
-          'https://www.rottentomatoes.com/m/the_lego_movie_2_the_second_part',
+        link: 'https://www.rottentomatoes.com/m/the_lego_movie_2_the_second_part',
       },
       imdb: {
         score: 7.1,
@@ -177,8 +173,7 @@ const movieData = [
     quotes: [''],
     runtime: 108,
     streams: {
-      theaters:
-        'https://www.fandango.com/fighting-with-my-family-215780/movie-overview',
+      theaters: 'https://www.fandango.com/fighting-with-my-family-215780/movie-overview',
     },
   },
   {
@@ -212,8 +207,7 @@ const movieData = [
     quotes: [''],
     runtime: 88,
     streams: {
-      theaters:
-        'https://www.fandango.com/isnt-it-romantic-215554/movie-overview',
+      theaters: 'https://www.fandango.com/isnt-it-romantic-215554/movie-overview',
     },
   },
   {
@@ -281,8 +275,7 @@ const movieData = [
     quotes: [''],
     runtime: 100,
     streams: {
-      theaters:
-        'https://www.fandango.com/happy-death-day-2u-215139/movie-overview',
+      theaters: 'https://www.fandango.com/happy-death-day-2u-215139/movie-overview',
     },
   },
   {
@@ -407,9 +400,146 @@ export default class MovieAPI {
 
   /**
    * Filters movies by genre
-   * @param {*} genre
+   * @param {string} genre
+   * @returns array of filtered movies
    */
   getMoviesByGenre(genre) {
     return this.movies.filter(movie => movie.tags.genres.includes(genre));
+  }
+
+  /**
+   * Filters movies by mood
+   * @param {string} mood
+   * @returns array of filtered movies
+   */
+  getMoviesByMood(mood) {
+    return this.movies.filter(movie => movie.tags.moods.includes(mood));
+  }
+
+  /**
+   * Filters movies by age range, based on MPAA ratings
+   * @param {string} agerange
+   * @returns array of filtered movies
+   */
+  getMoviesByAge(agerange) {
+    if (agerange === '12under') {
+      return this.movies.filter(
+        movie => movie.ratings.mpaa === 'G' || movie.ratings.mpaa === 'PG',
+      );
+    }
+    if (agerange === '13to16') {
+      return this.movies.filter(
+        movie =>
+          // eslint-disable-next-line implicit-arrow-linebreak
+          movie.ratings.mpaa === 'G' ||
+          movie.ratings.mpaa === 'PG' ||
+          movie.ratings.mpaa === 'PG-13',
+      );
+    }
+    return this.movies;
+  }
+
+  /**
+   * Filters movies by release year
+   * @param {string} release Should be 'classic', 'modern', or 'in-between'
+   * @returns array of filtered movies
+   */
+  getMoviesByRelease(release) {
+    if (release === 'classic') {
+      return this.movies.filter(movie => movie.releaseYear <= 1990);
+    }
+    if (release === 'in-between') {
+      return this.movies.filter(
+        movie => movie.releaseYear > 1990 && movie.releaseYear < 2010,
+      );
+    }
+    if (release === 'modern') {
+      return this.movies.filter(movie => movie.releaseYear >= 2010);
+    }
+    return this.movies;
+  }
+
+  /**
+   * Filters movies by animated or not
+   * @param {boolean} animated Should be true if animated, false otherwise
+   * @returns array of filtered movies
+   */
+  getMoviesByAnimated(animated) {
+    if (animated) {
+      return this.movies.filter(movie => movie.tags.isAnimated);
+    }
+    return this.movies.filter(movie => !movie.tags.isAnimated);
+  }
+
+  /**
+   * Filters movies by foreign or not
+   * @param {boolean} foreign Should be true if foreign, false otherwise
+   * @returns array of filtered movies
+   */
+  getMoviesByForeign(foreign) {
+    if (foreign) {
+      return this.movies.filter(movie => movie.tags.isForeign);
+    }
+    return this.movies.filter(movie => !movie.tags.isForeign);
+  }
+
+  /**
+   * Filters movies if they are independent or not
+   * @param {boolean} indie Should be true if independent, false otherwise
+   * @returns array of filtered movies
+   */
+  getMoviesByIndie(indie) {
+    if (indie) {
+      return this.movies.filter(movie => movie.tags.isIndie);
+    }
+    return this.movies.filter(movie => !movie.tags.isIndie);
+  }
+
+  /**
+   * Filters movies by Rotten Tomatoes rating
+   * @param {number} threshold Should be the threshold percentage
+   * @param {boolean} [above] Whether you want movies with ratings above (true) or below (false) the threshold
+   * @returns array of filtered movies
+   */
+  getMoviesByRTRatings(threshold, above = true) {
+    if (above) {
+      return this.movies.filter(movie => movie.ratings.rottenTomatoes > threshold);
+    }
+    return this.movies.filter(movie => movie.ratings.rottenTomatoes <= threshold);
+  }
+
+  /**
+   * Filters movies by IMDB rating
+   * @param {number} threshold Should be the threshold number
+   * @param {boolean} [above] Whether you want movies with ratings above (true) or below (false) the threshold
+   * @returns array of filtered movies
+   */
+  getMoviesByIMDBRatings(threshold, above = true) {
+    if (above) {
+      return this.movies.filter(movie => movie.ratings.imdb > threshold);
+    }
+    return this.movies.filter(movie => movie.ratings.imdb <= threshold);
+  }
+
+  /**
+   * Filters movies by streaming services
+   * @param {array} services List of the services to include
+   * @returns array of filtered movies
+   */
+  getMoviesByStreaming(services) {
+    return this.movies.filter(movie => {
+      let inclMovie = false;
+      // go through each service in the list, this should be strings like "netflix", "amazon", etc
+      services.forEach(service => {
+        // for each service type we're looking for, check if the current movie has a stream for that service
+        if (movie.streams.includes(service)) {
+          // if it does have a stream for that, it can stay in the end result of the filter
+          inclMovie = true;
+        }
+      });
+      /* if movie has at least one of the requested streams, this will be true and so 
+        movie will be included, but if it has none of the streams this will stay false */
+      return inclMovie;
+    });
   }
 }
