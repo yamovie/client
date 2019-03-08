@@ -35,9 +35,7 @@ export default class MovieForm extends HTMLElement {
       formData.getAll('q-streaming'),
       reccMovies,
     );
-    console.log(reccMovies);
     newMovieList.setState({ movies: reccMovies, showGenreFilter: false });
-    console.log(newMovieList.state);
     document.body.append(newMovieList);
     this.remove();
   };
