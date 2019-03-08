@@ -4,11 +4,14 @@
 
 body.about {
   font-family: var(--fontfamily);
-  align-items: center;
+  /* align-items: center; */
   font-size: 20px;
   margin: 55px 0 0 0;
   justify-content: center;
 }
+
+/* ========================================================================== */
+/* mission-section */
 
 header {
   text-align: center;
@@ -17,7 +20,7 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 55px);
 }
  
 header video {
@@ -25,31 +28,11 @@ header video {
   z-index: -1;
   object-fit: fill;
   width: 100%;
-  height: calc(100vh - 55px);
+  height: 100%;
   top: 0;
 }
 
-.stats h3, .history h3 {
-  line-height: 2.1;
-}
-
-.stats p, .history p {
-  letter-spacing: 1.3px;
-}
-
-.stats, .history {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.stats {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-
-.mission, .problem div, .solution div, .history div {
+.mission, .info-panel div {
   margin: auto;
 }
 
@@ -65,97 +48,61 @@ header video {
 }
 
 .mission p {
-  font-size: 17px;
   letter-spacing: 1.3px;
   line-height: 2;
 }
 
-.problem, .solution {
+/* ========================================================================== */
+/* info-section */
+
+.info h3 {
+  text-align: center;
+  line-height: 2.1;
+}
+
+.info p {
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.info-panel {
+  flex-wrap: wrap;
   display: flex;
   text-align: left;
   margin: auto;
-  height: 200px;
   align-items: center;
-
+  justify-content: center;
+  padding: 20px 0;
 } 
-.problem p:first-child, .solution p:first-child {
-  font-size: 30px;
-  padding: 10px;
-}
 
-.problem h3, .solution h3, .problem p, .solution p, .history h3, .history p {
+.info-panel h3, .info-panel p {
   margin: 5px;
   padding: 0;
 }
 
-.problem img, .solution img {
-  width: 128px;
-  height: 128px;
+.info-panel p {
+  padding-bottom: 10px;
 }
 
-.about-icon {
-  margin-right: 25px;
+.info-panel img {
+  width: 120px;
+  height: 120px;
 }
-
-/* .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 31vh 30vh 30vh;
-  height: 100vh;
-}
-
-div.stats {
-  grid-column: span 1;
-  grid-row: span 2;
-  background-color: var(--offwhite);
-  margin: auto;
-  padding: 0 10px;
-  font-size: 16px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-div.mission {
-  font-size: 16px;
-  grid-column: span 4;
-  grid-row: span 1;
-  margin: auto;
-  background-color: var(--popcornyellow);
-  height: 100%;
-}
-
-div.mission p {
-  padding: 0 15px;
-}
-
-div.lloyd-image {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  grid-column: span 1;
-  grid-row: span 1;
-  background-color: var(--purple);
-}
-
-div.lloyd-image img {
-  max-height: 150px;
-}
-
-div.lloyd {
-  grid-column: span 3;
-  grid-row: span 1;
-  background-color: var(--lightgrey);
-  height: 100%;
-  padding: 0px 10px;
-} */
 
 /* ========================================================================== */
 /* avatar-section */
+
 .avatar-section {
   width: 100%;
+  background: var(--purple);
   padding-top: 50px;
   padding-bottom: 50px;
   padding-left: 2%;
@@ -177,12 +124,12 @@ div.lloyd {
 }
 
 .avatar-item {
+  background: var(--offwhite);
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid var(--lightgrey);
   border-radius: 100%;
-  /* padding-top: 50%; */
   height: 160px;
   width: 160px;
   margin-right: 5px;
@@ -195,17 +142,32 @@ div.lloyd {
 }
 
 .avatar-name {
+  color: var(--offwhite);
   text-align: center;
 }
 
 .avatar-header {
+  color: var(--offwhite);
   margin-bottom: 50px;
   text-align: center;
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  .stats, .history {
+  .info h3 {
+    text-align: left;
+    line-height: 2.1;
+  }
+
+  .about-icon {
+    margin-right: 50px;
+  }
+
+  .info-panel {
+    flex-wrap: nowrap;
+  }
+
+  .info  {
     padding-left: 20px;
     padding-right: 20px;
   }
@@ -228,9 +190,8 @@ div.lloyd {
   }
 
 
-  .stats, .history {
-    padding-left: 200px;
-    padding-right: 200px;
+  .info  {
+    padding: 75px 50px;
   }
 
   .avatar-container {
@@ -238,7 +199,7 @@ div.lloyd {
   }
 
   .mission p {
-    font-size: 23px;
+    font-size: 24px;
     letter-spacing: 1.5px;
     line-height: 2;
   }
@@ -251,9 +212,8 @@ div.lloyd {
     padding-right: 280px;
   }
 
-  .stats, .history {
-    padding-left: 200px;
-    padding-right: 200px;
+  .info  {
+    padding: 75px 200px;
   }
 
   .avatar-container {
@@ -275,6 +235,10 @@ div.lloyd {
 
   .avatar-container {
     width: 33.333%;
+  }
+
+  .info  {
+    padding: 50px 250px;
   }
 }
 
