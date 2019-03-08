@@ -12,3 +12,9 @@ body {
   background-color: var(--darkgrey);
   font-size: 20px;
 }
+
+lloyd-chat {
+  color: red;
+  background: red;
+  height: 100px;
+}
