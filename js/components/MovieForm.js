@@ -3,19 +3,50 @@ export default class MovieForm extends HTMLElement {
     this.render();
   }
 
+  /**
+   * Handles submit event. Parses form data, creates a MovieList and filters the content
+   * based on the form data, then removes this form so the page just has the recommendation list.
+   * @param {Event} event The triggering submit event
+   */
   handleSubmit = event => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const mood = formData.get('q-mood');
     const ratings = formData.getAll('q-ratings');
-    const streams = formData.getAll('q-streaming');
+    const release = formData.get('q-release');
+    const age = formData.get('q-age');
+
+    // creates a new MovieList document elements
+    const newMovieList = document.createElement('yamovie-movie-list');
+    // sets default list to be all movies
+    let reccMovies = newMovieList.api.getMovies();
+    if (release) {
+      reccMovies = newMovieList.api.getMoviesByRelease(release, reccMovies);
+    }
+    if (ratings[0] !== 'dont-care') {
+      reccMovies = newMovieList.api.getMoviesByRTRatings(ratings[0], true, reccMovies);
+    }
+    if (ratings[1] !== 'dont-care') {
+      reccMovies = newMovieList.api.getMoviesByIMDBRatings(ratings[1], true, reccMovies);
+    }
+    if (age) {
+      reccMovies = newMovieList.api.getMoviesByAge(age, reccMovies);
+    }
+    reccMovies = newMovieList.api.getMoviesByStreams(
+      formData.getAll('q-streaming'),
+      reccMovies,
+    );
+    console.log(reccMovies);
+    newMovieList.setState({ movies: reccMovies, showGenreFilter: false });
+    console.log(newMovieList.state);
+    document.body.append(newMovieList);
+    this.remove();
   };
 
   render() {
     this.innerHTML = `
       <h1>Movie Questionaire!</h1>
       <form class="form" id="question-form">
-        <ul>
+        <ul class="odds">
           <h3>What kind of movie are you in the mood for?</h3>
           <li class="form-group">
             <label for="funny">Funny</label>
@@ -42,7 +73,7 @@ export default class MovieForm extends HTMLElement {
             <input type="radio" name="q-mood" value="romantic" />
           </li>
         </ul>
-        <ul>
+        <ul class="evens">
           <h3>What's your age range?</h3>
           <li class="form-group">
             <label for="12under">12 and Under</label>
@@ -69,7 +100,7 @@ export default class MovieForm extends HTMLElement {
             <input type="radio" name="q-age" value="55plus" />
           </li>
         </ul>
-        <ul>
+        <ul class="odds">
           <h3>Do you want to watch a classic or modern movie?</h3>
           <li class="form-group">
             <label for="classic">Classic</label>
@@ -84,7 +115,7 @@ export default class MovieForm extends HTMLElement {
             <input type="radio" name="q-release" value="in-between" />
           </li>
         </ul>
-        <ul>
+        <ul class="evens">
           <h3>Do you like animated films?</h3>
           <li class="form-group">
             <label for="yes-animated">Yes</label>
@@ -95,7 +126,7 @@ export default class MovieForm extends HTMLElement {
             <input type="radio" name="q-animated" value="no-animated" />
           </li>
         </ul>
-        <ul>
+        <ul class="odds">
           <h3>Do you like foreign films?</h3>
           <li class="form-group">
             <label for="yes-foreign">Yes</label>
@@ -106,7 +137,7 @@ export default class MovieForm extends HTMLElement {
             <input type="radio" name="q-foreign" value="no-foreign" />
           </li>
         </ul>
-        <ul>
+        <ul class="evens">
           <h3>Do you like independent films?</h3>
           <li class="form-group">
             <label for="yes-indie">Yes</label>
@@ -117,10 +148,10 @@ export default class MovieForm extends HTMLElement {
             <input type="radio" name="q-indie" value="no-indie" />
           </li>
         </ul>
-        <ul>
-          <h3>What ratings do you care about?<h3>
+        <ul class="odds">
+          <h3>What ratings do you care about?</h3>
           <li class="form-group">
-            <label for="rt-ratings">Rotten Tomatoes</label>
+            <label for="q-ratings">Rotten Tomatoes</label>
             <select name="q-ratings">
               <option value="dont-care" selected >Don't Care</option>
               <option value=">75">Only &gt; 75%</option>
@@ -128,7 +159,7 @@ export default class MovieForm extends HTMLElement {
             </select>
           </li>
           <li class="form-group">
-            <label for="imdb-ratings">IMDB</label>
+            <label for="q-ratings">IMDB</label>
             <select name="q-ratings">
               <option value="dont-care" selected >Don't Care</option>
               <option value=">7">Only &gt; 7/10</option>
@@ -136,27 +167,27 @@ export default class MovieForm extends HTMLElement {
             </select>
           </li>
         </ul>
-        <ul>
+        <ul class="evens">
           <h3>What movie services do you have access to?</h3>
           <li class="form-group">
             <label for="netflix">Netflix</label>
-            <input type="checkbox" name="q-streaming" value="netflix" />
+            <input type="checkbox" name="q-streaming" value="netflix" checked />
           </li>
           <li class="form-group">
             <label for="hulu">Hulu</label>
-            <input type="checkbox" name="q-streaming" value="hulu" />
+            <input type="checkbox" name="q-streaming" value="hulu" checked />
           </li>
           <li class="form-group">
             <label for="amazon">Amazon Prime</label>
-            <input type="checkbox" name="q-streaming" value="amazon" />
+            <input type="checkbox" name="q-streaming" value="amazon" checked />
           </li>
           <li class="form-group">
             <label for="youtube">YouTube</label>
-            <input type="checkbox" name="q-streaming" value="youtube" />
+            <input type="checkbox" name="q-streaming" value="youtube" checked />
           </li>
           <li class="form-group">
             <label for="theaters">Theaters</label>
-            <input type="checkbox" name="q-streaming" value="theaters" />
+            <input type="checkbox" name="q-streaming" value="theaters" checked />
           </li>
         </ul>
         <button type="submit">Submit</button>

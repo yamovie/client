@@ -1,11 +1,13 @@
-@import "./reset.css";
-@import "./browse-page.css";
-@import "./style-variables.css";
-@import "./movie-card.css";
-@import "./nav-bar.css";
+@import './reset.css';
+@import './browse-page.css';
+@import './style-variables.css';
+@import './movie-card.css';
+@import './nav-bar.css';
+@import './question-form.css';
 
 body {
-  margin-top: 60px;
+  margin-top: 55px;
   background-color: var(--darkgrey);
+  font-family: var(--fontfamily);
   font-size: 20px;
 }

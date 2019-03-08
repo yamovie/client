@@ -401,34 +401,37 @@ export default class MovieAPI {
   /**
    * Filters movies by genre
    * @param {string} genre
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByGenre(genre) {
-    return this.movies.filter(movie => movie.tags.genres.includes(genre));
+  getMoviesByGenre(genre, movies = this.movies) {
+    return movies.filter(movie => movie.tags.genres.includes(genre));
   }
 
   /**
    * Filters movies by mood
    * @param {string} mood
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByMood(mood) {
-    return this.movies.filter(movie => movie.tags.moods.includes(mood));
+  getMoviesByMood(mood, movies = this.movies) {
+    return movies.filter(movie => movie.tags.moods.includes(mood));
   }
 
   /**
    * Filters movies by age range, based on MPAA ratings
    * @param {string} agerange
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByAge(agerange) {
+  getMoviesByAge(agerange, movies = this.movies) {
     if (agerange === '12under') {
-      return this.movies.filter(
+      return movies.filter(
         movie => movie.ratings.mpaa === 'G' || movie.ratings.mpaa === 'PG',
       );
     }
     if (agerange === '13to16') {
-      return this.movies.filter(
+      return movies.filter(
         movie =>
           // eslint-disable-next-line implicit-arrow-linebreak
           movie.ratings.mpaa === 'G' ||
@@ -436,103 +439,110 @@ export default class MovieAPI {
           movie.ratings.mpaa === 'PG-13',
       );
     }
-    return this.movies;
+    return movies;
   }
 
   /**
    * Filters movies by release year
    * @param {string} release Should be 'classic', 'modern', or 'in-between'
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByRelease(release) {
+  getMoviesByRelease(release, movies = this.movies) {
     if (release === 'classic') {
-      return this.movies.filter(movie => movie.releaseYear <= 1990);
+      return movies.filter(movie => movie.releaseYear <= 1990);
     }
     if (release === 'in-between') {
-      return this.movies.filter(
-        movie => movie.releaseYear > 1990 && movie.releaseYear < 2010,
-      );
+      return movies.filter(movie => movie.releaseYear > 1990 && movie.releaseYear < 2010);
     }
     if (release === 'modern') {
-      return this.movies.filter(movie => movie.releaseYear >= 2010);
+      return movies.filter(movie => movie.releaseYear >= 2010);
     }
-    return this.movies;
+    return movies;
   }
 
   /**
    * Filters movies by animated or not
    * @param {boolean} animated Should be true if animated, false otherwise
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByAnimated(animated) {
+  getMoviesByAnimated(animated, movies = this.movies) {
     if (animated) {
-      return this.movies.filter(movie => movie.tags.isAnimated);
+      return movies.filter(movie => movie.tags.isAnimated);
     }
-    return this.movies.filter(movie => !movie.tags.isAnimated);
+    return movies.filter(movie => !movie.tags.isAnimated);
   }
 
   /**
    * Filters movies by foreign or not
    * @param {boolean} foreign Should be true if foreign, false otherwise
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByForeign(foreign) {
+  getMoviesByForeign(foreign, movies = this.movies) {
     if (foreign) {
-      return this.movies.filter(movie => movie.tags.isForeign);
+      return movies.filter(movie => movie.tags.isForeign);
     }
-    return this.movies.filter(movie => !movie.tags.isForeign);
+    return movies.filter(movie => !movie.tags.isForeign);
   }
 
   /**
    * Filters movies if they are independent or not
    * @param {boolean} indie Should be true if independent, false otherwise
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByIndie(indie) {
+  getMoviesByIndie(indie, movies = this.movies) {
     if (indie) {
-      return this.movies.filter(movie => movie.tags.isIndie);
+      return movies.filter(movie => movie.tags.isIndie);
     }
-    return this.movies.filter(movie => !movie.tags.isIndie);
+    return movies.filter(movie => !movie.tags.isIndie);
   }
 
   /**
    * Filters movies by Rotten Tomatoes rating
    * @param {number} threshold Should be the threshold percentage
-   * @param {boolean} [above] Whether you want movies with ratings above (true) or below (false) the threshold
+   * @param {boolean} [above] Whether you want movies with ratings above (true) or
+   *                          below (false) the threshold
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByRTRatings(threshold, above = true) {
+  getMoviesByRTRatings(threshold, above = true, movies = this.movies) {
     if (above) {
-      return this.movies.filter(movie => movie.ratings.rottenTomatoes > threshold);
+      return movies.filter(movie => movie.ratings.rottenTomatoes > threshold);
     }
-    return this.movies.filter(movie => movie.ratings.rottenTomatoes <= threshold);
+    return movies.filter(movie => movie.ratings.rottenTomatoes <= threshold);
   }
 
   /**
    * Filters movies by IMDB rating
    * @param {number} threshold Should be the threshold number
-   * @param {boolean} [above] Whether you want movies with ratings above (true) or below (false) the threshold
+   * @param {boolean} [above] Whether you want movies with ratings above (true) or
+   *                          below (false) the threshold
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByIMDBRatings(threshold, above = true) {
+  getMoviesByIMDBRatings(threshold, above = true, movies = this.movies) {
     if (above) {
-      return this.movies.filter(movie => movie.ratings.imdb > threshold);
+      return movies.filter(movie => movie.ratings.imdb > threshold);
     }
-    return this.movies.filter(movie => movie.ratings.imdb <= threshold);
+    return movies.filter(movie => movie.ratings.imdb <= threshold);
   }
 
   /**
    * Filters movies by streaming services
-   * @param {array} services List of the services to include
+   * @param {string[]} services List of the services to include
+   * @param {Object} [movies] Optional list of movies to filter
    * @returns array of filtered movies
    */
-  getMoviesByStreaming(services) {
-    return this.movies.filter(movie => {
+  getMoviesByStreams(services, movies = this.movies) {
+    return movies.filter(movie => {
       let inclMovie = false;
       // go through each service in the list, this should be strings like "netflix", "amazon", etc
       services.forEach(service => {
-        // for each service type we're looking for, check if the current movie has a stream for that service
-        if (movie.streams.includes(service)) {
+        // for each service type we want, check if the current movie has a stream for that service
+        if (movie.streams[service]) {
           // if it does have a stream for that, it can stay in the end result of the filter
           inclMovie = true;
         }
