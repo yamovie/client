@@ -3,13 +3,15 @@
 @import './style-variables.css';
 @import './movie-card.css';
 @import './nav-bar.css';
+@import './question-form.css';
 @import './signup.css';
 @import './index.css';
 @import './lloyd-chat.css';
 
 body {
-  margin-top: 60px;
+  margin-top: 55px;
   background-color: var(--darkgrey);
+  font-family: var(--fontfamily);
   font-size: 20px;
 }
 
