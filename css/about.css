@@ -1,15 +1,16 @@
 @import "./style-variables.css";
 @import "./nav-bar.css";
 
-body {
-  text-align: center;
+body.about {
   font-family: var(--fontfamily);
   align-items: center;
   font-size: 20px;
   margin: 55px 0 0 0;
+  justify-content: center;
 }
 
 header {
+  text-align: center;
   position: relative;
   display: flex;
   justify-content: center;
@@ -26,16 +27,39 @@ header video {
   height: calc(100vh - 55px);
   top: 0;
 }
-.mission {
+
+
+.mission, .problem div, .solution div, .history {
   width: calc(100vw - 40%);
+  margin: auto;
 }
+
 .mission h2 {
   margin: 0;
   text-shadow: 1px 0 1px var(--offwhite);
 }
 
-.stat {
-  background-color: var(--darkgrey);
+.problem, .solution {
+  display: flex;
+  text-align: left;
+  margin: auto;
+  width: calc(100vw - 20%);
+  height: 200px;
+  align-items: center;
+} 
+.problem p:first-child, .solution p:first-child {
+  font-size: 30px;
+  padding: 10px;
+}
+
+.problem h3, .solution h3, .problem p, .solution p, .history h3, .history p {
+  margin: 5px;
+  padding: 0;
+}
+
+.problem img, .solution img {
+  width: 128px;
+  height: 128px;
 }
 
 /* .grid-container {
