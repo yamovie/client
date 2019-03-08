@@ -5,6 +5,7 @@
 @import './nav-bar.css';
 @import './signup.css';
 @import './index.css';
+@import './lloyd-chat.css';
 
 body {
   margin-top: 60px;

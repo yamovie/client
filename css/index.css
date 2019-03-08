@@ -5,7 +5,6 @@
   background-color: #eeeeee;
   font-family: var(--fontfamily);
   padding: 0px;
-  font-size: 24px;
   margin-top: 40px;
 }
 
@@ -101,25 +100,6 @@
   margin: 0;
 }
 
-#chatbot-btn {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  z-index: 999;
-  opacity: 0.9;
-  font-size: 10px;
-  color: white;
-  text-decoration: none;
-  font-family: var(--fontfamily);
-  border: none;
-  width: 50px;
-}
-
-#chatbot-btn:hover {
-  background-color: #b573d0;
-  opacity: 0.8;
-  border-radius: 50%;
-}
 
 /* a {
   text-decoration: none;
