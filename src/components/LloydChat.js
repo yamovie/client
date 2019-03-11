@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../css/navbar.css';
 
 export default class LloydChat extends Component {
@@ -9,9 +9,9 @@ export default class LloydChat extends Component {
   render() {
     return (
       <div id="lloyd-outline">
-        <Link to="/questionform">
+        <NavLink to="/questionform">
           <img src="./images/Lloyd.png" alt="Talk to Lloyd!" id="chatbot-btn" />
-        </Link>
+        </NavLink>
       </div>
     );
   }

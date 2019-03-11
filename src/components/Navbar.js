@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../css/navbar.css';
 
 export default class Navbar extends Component {
@@ -9,18 +9,22 @@ export default class Navbar extends Component {
   render() {
     return (
       <div>
-        <Link to="/">
-          <img src="./images/logo-v3-white-whitepopcorn.png" alt="YaMovie" id="main-logo" />
-        </Link>
+        <NavLink to="/">
+          <img
+            src="./images/logo-v3-white-whitepopcorn.png"
+            alt="YaMovie"
+            id="main-logo"
+          />
+        </NavLink>
         <ul id="nav-bar-links">
           <li>
-            <Link to="/browsepage">Browse</Link>
+            <NavLink to="/browsepage">Browse</NavLink>
           </li>
           <li>
-            <Link to="/questionform">Find YaMovie</Link>
+            <NavLink to="/questionform">Find YaMovie</NavLink>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <NavLink to="/about">About</NavLink>
           </li>
         </ul>
       </div>
