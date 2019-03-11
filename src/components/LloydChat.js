@@ -1,19 +1,18 @@
-export default class LloydChat extends HTMLElement {
-  /**
-   * Called when this lloydchat object is rendered on the page the first time.
-   * Calls the render function to display data.
-   */
-  connectedCallback() {
-    this.render();
-  }
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import '../css/navbar.css';
 
+export default class LloydChat extends Component {
+  /**
+   * Renders the Lloyd chatbot button on the bottom right corner of the page.
+   */
   render() {
-    this.innerHTML = `
-    <div id="lloyd-outline">
-      <a href="./question-form.html">
-        <img src="./images/Lloyd.png" alt="" id="chatbot-btn" />
-      </a>  
-    </div>
-    `;
+    return (
+      <div id="lloyd-outline">
+        <Link to="/questionform">
+          <img src="./images/Lloyd.png" alt="Talk to Lloyd!" id="chatbot-btn" />
+        </Link>
+      </div>
+    );
   }
 }
