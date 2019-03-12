@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Homepage from './components/Homepage';
-// import BrowsePage from './components/BrowsePage';
-// import AboutPage from './components/AboutPage';
+import BrowsePage from './components/BrowsePage';
+import AboutPage from './components/AboutPage';
 import MovieForm from './components/MovieForm';
 
 class App extends Component {
