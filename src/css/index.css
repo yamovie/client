@@ -1,5 +1,5 @@
-@import './style-variables.css';
-@import './landing-cards.css';
+@import "./style-variables.css";
+@import "./landing-cards.css";
 
 #landing-body {
   background-color: #eeeeee;
@@ -16,7 +16,7 @@
 #link-container {
   height: 100vh;
   max-width: 100%;
-  background-image: url('../images/landing-bg-v1.jpg');
+  background-image: url("https://yamovie.github.io/client/public/images/landing-bg-v1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -103,7 +103,6 @@
   text-align: center;
   margin: 0;
 }
-
 
 /* a {
   text-decoration: none;

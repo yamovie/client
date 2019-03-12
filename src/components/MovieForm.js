@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/movie-form.css';
 
 class MovieForm extends React.Component {
   /**
@@ -47,13 +48,13 @@ class MovieForm extends React.Component {
   };
 
   render() {
-    document
-      .getElementById('question-form')
-      .addEventListener('submit', this.handleSubmit);
+    // document
+    //   .getElementById('question-form')
+    //   .addEventListener('submit', this.handleSubmit);
     return (
       /* eslint-disable */
       <div>
-        <h1>Movie Questionaire!</h1>
+        <h1>Movie Questionnaire!</h1>
         <form className="form" id="question-form">
           <ul className="odds">
             <h3>What kind of movie are you in the mood for?</h3>
@@ -162,7 +163,7 @@ class MovieForm extends React.Component {
             <li className="form-group">
               <label htmlFor="q-ratings">Rotten Tomatoes</label>
               <select name="q-ratings">
-                <option value="dont-care" selected>
+                <option value="dont-care" defaultValue="dont-care">
                   Don't Care
                 </option>
                 <option value=">75">Only &gt; 75%</option>
@@ -172,7 +173,7 @@ class MovieForm extends React.Component {
             <li className="form-group">
               <label htmlFor="q-ratings">IMDB</label>
               <select name="q-ratings">
-                <option value="dont-care" selected>
+                <option value="dont-care" defaultValue="dont-care">
                   Don't Care
                 </option>
                 <option value=">7">Only &gt; 7/10</option>
@@ -188,12 +189,17 @@ class MovieForm extends React.Component {
                 type="checkbox"
                 name="q-streaming"
                 value="netflix"
-                checked
+                defaultChecked
               />
             </li>
             <li className="form-group">
               <label htmlFor="hulu">Hulu</label>
-              <input type="checkbox" name="q-streaming" value="hulu" checked />
+              <input
+                type="checkbox"
+                name="q-streaming"
+                value="hulu"
+                defaultChecked
+              />
             </li>
             <li className="form-group">
               <label htmlFor="amazon">Amazon Prime</label>
@@ -201,7 +207,7 @@ class MovieForm extends React.Component {
                 type="checkbox"
                 name="q-streaming"
                 value="amazon"
-                checked
+                defaultChecked
               />
             </li>
             <li className="form-group">
@@ -210,7 +216,7 @@ class MovieForm extends React.Component {
                 type="checkbox"
                 name="q-streaming"
                 value="youtube"
-                checked
+                defaultChecked
               />
             </li>
             <li className="form-group">
@@ -219,11 +225,13 @@ class MovieForm extends React.Component {
                 type="checkbox"
                 name="q-streaming"
                 value="theaters"
-                checked
+                defaultChecked
               />
             </li>
           </ul>
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={this.handleSubmit}>
+            Submit
+          </button>
         </form>
       </div>
       /* eslint-enable */
