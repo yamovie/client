@@ -6,12 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Find YaMovie!</title>
     <link href="./css/main.css" rel="stylesheet" />
-    <link rel="shortcut icon" type="image/png" href="./images/favicon-16x16.png" />
-    <script src="./js/main.js" type="module"></script>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="./images/favicon-16x16.png"
+    />
+    <!-- <script src="./js/main.js" type="module"></script> -->
   </head>
 
   <body>
-    <nav-bar></nav-bar>
-    <yamovie-movie-form></yamovie-movie-form>
+    <div id="movie-form-html"></div>
+    <!-- <nav-bar></nav-bar>
+    <yamovie-movie-form></yamovie-movie-form> -->
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+
+    <!-- Load our React component. -->
+    <script src="./src/components/MovieForm.js"></script>
   </body>
 </html>
