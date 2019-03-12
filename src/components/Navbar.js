@@ -9,14 +9,18 @@ import '../css/navbar.css';
 const Navbar = () => (
   <div>
     <NavLink to="/">
-      <img src="./images/logo-v3-white-whitepopcorn.png" alt="YaMovie" id="main-logo" />
+      <img
+        src={`${process.env.PUBLIC_URL}/images/logo-v3-white-whitepopcorn.png`}
+        alt="YaMovie"
+        id="main-logo"
+      />
     </NavLink>
     <ul id="nav-bar-links">
       <li>
-        <NavLink to="/browsepage">Browse</NavLink>
+        <NavLink to="/browse">Browse</NavLink>
       </li>
       <li>
-        <NavLink to="/questionform">Find YaMovie</NavLink>
+        <NavLink to="/movieform">Find YaMovie</NavLink>
       </li>
       <li>
         <NavLink to="/about">About</NavLink>
