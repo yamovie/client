@@ -1,6 +1,6 @@
-@import "./style-variables.css";
-@import "./nav-bar.css";
-@import "./lloyd-chat.css";
+@import './style-variables.css';
+@import './navbar.css';
+@import './lloyd-chat.css';
 
 body.about {
   font-family: var(--fontfamily);
@@ -22,7 +22,7 @@ header {
   flex-direction: column;
   height: calc(100vh - 55px);
 }
- 
+
 header video {
   position: absolute;
   z-index: -1;
@@ -32,7 +32,8 @@ header video {
   top: 0;
 }
 
-.mission, .info-panel div {
+.mission,
+.info-panel div {
   margin: auto;
 }
 
@@ -81,9 +82,10 @@ header video {
   align-items: center;
   justify-content: center;
   padding: 20px 0;
-} 
+}
 
-.info-panel h3, .info-panel p {
+.info-panel h3,
+.info-panel p {
   margin: 5px;
   padding: 0;
 }
@@ -167,7 +169,7 @@ header video {
     flex-wrap: nowrap;
   }
 
-  .info  {
+  .info {
     padding-left: 20px;
     padding-right: 20px;
   }
@@ -189,8 +191,7 @@ header video {
     padding-right: 150px;
   }
 
-
-  .info  {
+  .info {
     padding: 75px 50px;
   }
 
@@ -212,7 +213,7 @@ header video {
     padding-right: 280px;
   }
 
-  .info  {
+  .info {
     padding: 75px 200px;
   }
 
@@ -237,11 +238,9 @@ header video {
     width: 33.333%;
   }
 
-  .info  {
+  .info {
     padding: 50px 250px;
   }
 }
 
-
 /* ========================================================================== */
-
