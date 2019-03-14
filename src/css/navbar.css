@@ -1,20 +1,21 @@
-nav-bar {
+.navbar {
   display: flex;
   background-color: var(--purple);
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--fontfamily);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-nav-bar img {
+.navbar img {
   height: 50px;
   padding-left: 10px;
   padding-top: 5px;
 }
 
-#nav-bar-links {
+#navbar-links {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
@@ -24,13 +25,13 @@ nav-bar img {
   margin: 0;
 }
 
-#nav-bar-links a,
-#nav-bar-links a:visited {
+#navbar-links a,
+#navbar-links a:visited {
   text-decoration: none;
   color: var(--offwhite);
 }
 
-#nav-bar-links li {
+#navbar-links li {
   padding: 0 15px;
   height: 45px;
   line-height: 45px;
@@ -39,7 +40,7 @@ nav-bar img {
   display: inline-block;
   margin: 5px 10px;
   outline: none;
-  color: #f5f8e8;
+  color: var(--offwhite);
   text-decoration: none;
   letter-spacing: 1px;
   font-weight: 400;
@@ -47,7 +48,7 @@ nav-bar img {
   font-size: 0.75em;
 }
 
-#nav-bar-links li::before {
+#navbar-links li::before {
   top: 0;
   left: 0;
   -webkit-transform: rotate(90deg);
@@ -58,7 +59,7 @@ nav-bar img {
   transform-origin: 0 0;
 }
 
-#nav-bar-links li::after {
+#navbar-links li::after {
   right: 0;
   bottom: 0;
   -webkit-transform: rotate(90deg);
@@ -69,13 +70,13 @@ nav-bar img {
   transform-origin: 100% 0;
 }
 
-#nav-bar-links li::before,
-#nav-bar-links li::after {
+#navbar-links li::before,
+#navbar-links li::after {
   position: absolute;
   width: 45px;
   height: 1px;
-  background: #fff;
-  content: "";
+  background: var(--offwhite);
+  content: '';
   opacity: 0.2;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -83,31 +84,40 @@ nav-bar img {
   pointer-events: none;
 }
 
-*,
-*:after,
-*::before {
+.navbar *,
+.navbar *:after,
+.navbar *::before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-#nav-bar-links li:hover::before,
-#nav-bar-links li:hover::after,
-#nav-bar-links li:focus::before,
-#nav-bar-links li:focus::after {
+#navbar-links li:hover::before,
+#navbar-links li:hover::after,
+#navbar-links li:focus::before,
+#navbar-links li:focus::after {
   opacity: 1;
 }
 
-#nav-bar-links li:hover::before,
-#nav-bar-links li:focus::before {
+#navbar-links li:hover::before,
+#navbar-links li:focus::before {
   left: 50%;
   -webkit-transform: rotate(0deg) translateX(-50%);
   -moz-transform: rotate(0deg) translateX(-50%);
   transform: rotate(0deg) translateX(-50%);
 }
 
-#nav-bar-links li:hover::after,
-#nav-bar-links li:focus::after {
+#navbar-links li:hover::after,
+#navbar-links li:focus::after {
+  right: 50%;
+  -webkit-transform: rotate(0deg) translateX(50%);
+  -moz-transform: rotate(0deg) translateX(50%);
+  transform: rotate(0deg) translateX(50%);
+}
+
+#navbar-links li a.active {
+  /* TODO: Make this work so that it looks like when it's hovered when on that page */
+  /* color: var(--red); */
   right: 50%;
   -webkit-transform: rotate(0deg) translateX(50%);
   -moz-transform: rotate(0deg) translateX(50%);

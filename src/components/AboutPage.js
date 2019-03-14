@@ -1,12 +1,13 @@
 import React from 'react';
 import Navbar from './Navbar';
 import LloydChat from './LloydChat';
-import '../css/about.css';
+import '../css/AboutPage.css';
 
 const AboutPage = () => (
-  <div>
+  <div className="about-page">
     <Navbar />
     <header>
+      <div className="overlay" />
       <video
         src={`${process.env.PUBLIC_URL}/images/about-me-videooverlay.mp4`}
         muted

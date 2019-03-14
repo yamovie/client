@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/navbar.css';
+import '../css/LloydChat.css';
 
 const LloydChat = () => (
   <div id="lloyd-outline">
-    <Link to="/questionform">
+    <Link to="/movieform">
       <img
         src={`${process.env.PUBLIC_URL}/images/Lloyd.png`}
         alt="Talk to Lloyd!"

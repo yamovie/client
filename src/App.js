@@ -4,6 +4,7 @@ import Homepage from './components/Homepage';
 import BrowsePage from './components/BrowsePage';
 import AboutPage from './components/AboutPage';
 import MovieForm from './components/MovieForm';
+import './css/main.css';
 
 const App = () => (
   <div className="App">

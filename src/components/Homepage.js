@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import Navbar from './Navbar';
-// import LloydChat from './LloydChat';
-import '../css/index.css';
+import Navbar from './Navbar';
+import LloydChat from './LloydChat';
+import '../css/Homepage.css';
 
 const Homepage = () => (
   <div className="landing-body">
+    <Navbar />
+    <LloydChat />
     <section id="link-container">
       <div id="landing-quote">
         <h3>We find your movie,</h3>
@@ -14,9 +16,6 @@ const Homepage = () => (
       <div id="link-info">
         <Link className="landing-link landing-color find" to="/browse">
           Find YaMovie!
-        </Link>
-        <Link className="landing-link landing-color signup" to="/">
-          Sign Up!
         </Link>
       </div>
     </section>
@@ -29,55 +28,30 @@ const Homepage = () => (
       </span>
     </article>
 
-    <section id="card-container">
-      <div id="full-screen">
-        <div className="row">
-          <article className="col-xs-4">
-            <div className="cards">
-              <span className="glyphicon glyphicon-flash icon" />
-              <hr className="divider" />
-              <h2 className="title">Browse</h2>
-              <div className="info">
-                <hr className="divider" />
-                <br />
-                <p className="lead">
-                  Go through our collection of thousands of movies with up-to-date
-                  information, including critic ratings and links to streaming sources.
-                </p>
-              </div>
-            </div>
-          </article>
-          <article className="col-xs-4">
-            <div className="cards">
-              <span className="glyphicon glyphicon-bookmark icon" />
-              <hr className="divider" />
-              <h2 className="title">Chatbot</h2>
-              <div className="info">
-                <hr className="divider" />
-                <br />
-                <p className="lead">
-                  On our site, you will meet Lloyd our chatbot! He will ask you a set of
-                  personalized questions to help you pinpoint the movie you are craving.
-                </p>
-              </div>
-            </div>
-          </article>
-          <article className="col-xs-4">
-            <div className="cards">
-              <span className="glyphicon glyphicon-ice-lolly-tasted icon" />
-              <hr className="divider" />
-              <h2 className="title">Benefits</h2>
-              <div className="info">
-                <hr className="divider" />
-                <br />
-                <p className="lead">
-                  By signing up with YaMovie, we are able to take what you enjoy and
-                  curate recommendations
-                </p>
-              </div>
-            </div>
-          </article>
-        </div>
+    <section id="info-container">
+      <div className="info-card">
+        <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} alt="Browse" />
+        <h2>Browse</h2>
+        <p>
+          Go through our collection of thousands of movies with up-to-date information,
+          including critic ratings and links to streaming sources.
+        </p>
+      </div>
+      <div className="info-card">
+        <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} alt="Chatbot" />
+        <h2>Chatbot</h2>
+        <p>
+          On our site, you will meet Lloyd our chatbot! He will ask you a set of
+          personalized questions to help you pinpoint the movie you are craving.
+        </p>
+      </div>
+      <div className="info-card">
+        <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} alt="Benefits" />
+        <h2>Account Benefits</h2>
+        <p>
+          By signing up with YaMovie, we can save what you enjoy so it will be easier for
+          you and more accurate for us to curate movies for you in the future!
+        </p>
       </div>
     </section>
   </div>
