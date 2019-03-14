@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import '../css/browse-page.css';
 
 import MovieAPI from '../MovieApi.js';
+import MovieCard from './MovieCard';
 
 
 class MovieList extends Component {
@@ -13,6 +15,8 @@ class MovieList extends Component {
     this.state = {
       movies: [],
       showGenreFilter: true,
+      isHidden: false,
+      selectedMovie: {},
     };
 
     // this.addEventListener('addModal', this.handleAddModal);
@@ -56,73 +60,86 @@ class MovieList extends Component {
     this.render();
   }
 
-  handleAddModal = event => {
-    const modal = document.querySelector('#card-modal');
-    const moviePage = document.getElementById('movie-page');
-
-    const currentMovie = event.detail.movie;
-    const movieModal = document.createElement('yamovie-movie-card');
-    movieModal.movie = currentMovie;
-    movieModal.open = true;
-    movieModal.className = 'modal container';
-
-    modal.innerHTML = '';
-    modal.append(movieModal);
-    moviePage.style.opacity = '0.1';
+  handleAddModal = movie => {
+    this.setState({ isHidden: !this.state.isHidden, selectedMovie: movie });
   }
+  
+  
+  // handleAddModal = event => {
+  //   const modal = document.querySelector('#card-modal');
+  //   const moviePage = document.getElementById('movie-page');
 
-  handleDeleteModal = () => {
-    const modal = document.querySelector('#card-modal');
-    const moviePage = document.getElementById('movie-page');
-    modal.innerHTML = '';
-    moviePage.style.opacity = '1';
-  }
+  //   const currentMovie = event.detail.movie;
+  //   const movieModal = document.createElement('yamovie-movie-card');
+  //   movieModal.movie = currentMovie;
+  //   movieModal.open = true;
+  //   movieModal.className = 'modal container';
+
+  //   modal.innerHTML = '';
+  //   modal.append(movieModal);
+  //   moviePage.style.opacity = '0.1';
+  // }
+
+  // handleDeleteModal = () => {
+  //   const modal = document.querySelector('#card-modal');
+  //   const moviePage = document.getElementById('movie-page');
+  //   modal.innerHTML = '';
+  //   moviePage.style.opacity = '1';
+  // }
 
   /**
    * Renders the movie list in HTML on the page. Uses flexboxes to display
    * the genre list, and to display a grid of MovieItems based on breakpoints.
    */
   render() {
-    const { movies, showGenreFilter } = this.state;
+    const {
+      movies, showGenreFilter, isHidden, selectedMovie,
+    } = this.state;
 
-    const genreList = '
-        <div id="list-genres">
-        <button>All</button>
-        <button>Animation</button>
-        <button>Action</button>
-        <button>Adventure</button>
-        <button>Biography</button>
-        <button>Comedy</button>
-        <button>Crime</button>
-        <button>Drama</button>
-        <button>Family</button>
-        <button>Fantasy</button>
-        <button>Horror</button>
-        <button>Musical</button>
-        <button>Mystery</button>
-        <button>Romance</button>
-        <button>Sci-Fi</button>
-        <button>Sport</button>
-        <button>Thriller</button>
+    const genreList = (
+      <div id="list-genres">
+        <button type="submit">All</button>
+        <button type="submit">Animation</button>
+        <button type="submit">Action</button>
+        <button type="submit">Adventure</button>
+        <button type="submit">Biography</button>
+        <button type="submit">Comedy</button>
+        <button type="submit">Crime</button>
+        <button type="submit">Drama</button>
+        <button type="submit">Family</button>
+        <button type="submit">Fantasy</button>
+        <button type="submit">Horror</button>
+        <button type="submit">Musical</button>
+        <button type="submit">Mystery</button>
+        <button type="submit">Romance</button>
+        <button type="submit">Sci-Fi</button>
+        <button type="submit">Sport</button>
+        <button type="submit">Thriller</button>
       </div>
-      ';
-
-    movies.forEach(movie => {
-      const newMovie = document.createElement('yamovie-movie-item');
-      newMovie.movie = movie;
-      document.getElementById('list-all-movies').append(newMovie);
-    });
+    );
   
-    const btns = document.querySelectorAll('yamovie-movie-list button');
-    btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
+    // const btns = document.querySelectorAll('yamovie-movie-list button');
+    // btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
+
+    // console.log(movies);
     
     return (
-      <div>
-        <div id="card-modal" />
+      <div id="yamovie-movie-list">
+        {isHidden && <MovieCard isHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
+        {movies.map(movie => (
+          <img
+            src={movie.media.posterUrl}
+            alt={movie.title}
+            className="img-fluid"
+            onClick={() => this.handleAddModal(movie)}
+          />
+        ))}
+
+        {/* <div id="card-modal" />
         <div id="movie-page">
           {showGenreFilter ? genreList : ''}
           <div id="list-all-movies" />
-        </div>
+        </div> */}
       </div>
     );
   }
