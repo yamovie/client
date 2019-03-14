@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import Navbar from './Navbar';
 import LloydChat from './LloydChat';
@@ -8,7 +7,12 @@ const AboutPage = () => (
   <div>
     <Navbar />
     <header>
-      <video src="./images/about-me-videooverlay.mp4" muted autoPlay loop />
+      <video
+        src={`${process.env.PUBLIC_URL}/images/about-me-videooverlay.mp4`}
+        muted
+        autoPlay
+        loop
+      />
       <div className="mission">
         <h1>Our Mission</h1>
         <p>
@@ -21,7 +25,11 @@ const AboutPage = () => (
     </header>
     <div className="info">
       <div className="info-panel">
-        <img src="images/warning-sign.png" alt="warning" className="about-icon" />
+        <img
+          src={`${process.env.PUBLIC_URL}/images/warning-sign.png`}
+          alt="warning"
+          className="about-icon"
+        />
         <div>
           <h3>The Problem</h3>
           <p>
@@ -37,7 +45,11 @@ const AboutPage = () => (
         </div>
       </div>
       <div className="info-panel">
-        <img src="images/solution.png" alt="solution" className="about-icon" />
+        <img
+          src={`${process.env.PUBLIC_URL}/images/solution.png`}
+          alt="solution"
+          className="about-icon"
+        />
         <div>
           <h3>Solution</h3>
           <p>
@@ -47,7 +59,11 @@ const AboutPage = () => (
         </div>
       </div>
       <div className="info-panel">
-        <img src="images/book.png" alt="solution" className="about-icon" />
+        <img
+          src={`${process.env.PUBLIC_URL}/images/book.png`}
+          alt="solution"
+          className="about-icon"
+        />
         <div>
           <h3>Story</h3>
           <p>
@@ -59,7 +75,7 @@ const AboutPage = () => (
       </div>
     </div>
     {/* <div className="lloyd-image">
-          <img src="./images/Lloyd.png" />
+          <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} />
         </div>
         <div className="lloyd">
           <h2>Lloyd</h2>
@@ -70,37 +86,61 @@ const AboutPage = () => (
       <div className="avatar-list">
         <div className="avatar-container">
           <div className="avatar-item">
-            <img src="./images/ivy.png" alt="" className="avatar-image" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/ivy.png`}
+              alt="Ivy Lim"
+              className="avatar-image"
+            />
           </div>
           <h3 className="avatar-name">Ivy</h3>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img src="./images/sam.png" alt="" className="avatar-image" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/sam.png`}
+              alt="Sam Saks-Fithian"
+              className="avatar-image"
+            />
           </div>
           <h3 className="avatar-name">Sam</h3>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img src="./images/kevin.png" alt="" className="avatar-image" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/kevin.png`}
+              alt="Kevin Baktiar"
+              className="avatar-image"
+            />
           </div>
           <h3 className="avatar-name">Kevin</h3>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img src="./images/hans.png" alt="" className="avatar-image" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/hans.png`}
+              alt="Hans Hanken"
+              className="avatar-image"
+            />
           </div>
           <h3 className="avatar-name">Hans</h3>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img src="./images/will.png" alt="" className="avatar-image" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/will.png`}
+              alt="Will Dale"
+              className="avatar-image"
+            />
           </div>
           <h3 className="avatar-name">Will</h3>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img src="./images/glen.png" alt="" className="avatar-image" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/glen.png`}
+              alt="Glen Paul Florendo"
+              className="avatar-image"
+            />
           </div>
           <h3 className="avatar-name">Glen</h3>
         </div>

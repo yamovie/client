@@ -5,7 +5,11 @@ import '../css/navbar.css';
 const LloydChat = () => (
   <div id="lloyd-outline">
     <Link to="/questionform">
-      <img src="./images/Lloyd.png" alt="Talk to Lloyd!" id="chatbot-btn" />
+      <img
+        src={`${process.env.PUBLIC_URL}/images/Lloyd.png`}
+        alt="Talk to Lloyd!"
+        id="chatbot-btn"
+      />
     </Link>
   </div>
 );
