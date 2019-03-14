@@ -27,48 +27,47 @@ class MovieForm extends React.Component {
     const ratings = formData.getAll("q-ratings");
     const release = formData.get("q-release");
     const age = formData.get("q-age");
-    console.log(ratings);
-    console.log(release);
-    console.log(age);
     this.setState({
       displayForm: false,
       ratings: ratings,
       release: release,
       age: age
     });
-    /* Old Code for reference to use in MovieList */
-    // creates a new MovieList document elements
-    // const newMovieList = document.createElement("yamovie-movie-list");
-    // sets default list to be all movies
-    // let reccMovies = newMovieList.api.getMovies();
-    // if (release) {
-    //   reccMovies = newMovieList.api.getMoviesByRelease(release, reccMovies);
-    // }
-    // if (ratings[0] !== "dont-care") {
-    //   reccMovies = newMovieList.api.getMoviesByRTRatings(
-    //     ratings[0],
-    //     true,
-    //     reccMovies
-    //   );
-    // }
-    // if (ratings[1] !== "dont-care") {
-    //   reccMovies = newMovieList.api.getMoviesByIMDBRatings(
-    //     ratings[1],
-    //     true,
-    //     reccMovies
-    //   );
-    // }
-    // if (age) {
-    //   reccMovies = newMovieList.api.getMoviesByAge(age, reccMovies);
-    // }
-    // reccMovies = newMovieList.api.getMoviesByStreams(
-    //   formData.getAll("q-streaming"),
-    //   reccMovies
-    // );
-    // newMovieList.setState({ movies: reccMovies, showGenreFilter: false });
-    // document.body.append(newMovieList);
-    // this.remove();
   };
+
+  /* Old Code for reference to use in MovieList Component */
+
+  // creates a new MovieList document elements
+  // const newMovieList = document.createElement("yamovie-movie-list");
+  // sets default list to be all movies
+  // let reccMovies = newMovieList.api.getMovies();
+  // if (release) {
+  //   reccMovies = newMovieList.api.getMoviesByRelease(release, reccMovies);
+  // }
+  // if (ratings[0] !== "dont-care") {
+  //   reccMovies = newMovieList.api.getMoviesByRTRatings(
+  //     ratings[0],
+  //     true,
+  //     reccMovies
+  //   );
+  // }
+  // if (ratings[1] !== "dont-care") {
+  //   reccMovies = newMovieList.api.getMoviesByIMDBRatings(
+  //     ratings[1],
+  //     true,
+  //     reccMovies
+  //   );
+  // }
+  // if (age) {
+  //   reccMovies = newMovieList.api.getMoviesByAge(age, reccMovies);
+  // }
+  // reccMovies = newMovieList.api.getMoviesByStreams(
+  //   formData.getAll("q-streaming"),
+  //   reccMovies
+  // );
+  // newMovieList.setState({ movies: reccMovies, showGenreFilter: false });
+  // document.body.append(newMovieList);
+  // this.remove();
 
   render() {
     return (
@@ -261,7 +260,7 @@ class MovieForm extends React.Component {
               ratings={this.state.ratings}
               release={this.state.release}
               age={this.state.age}
-              showGenreFilter={false} */}
+            showGenreFilter={false} */}
             <button onClick={this.backToForm}>Back to Form</button>
           </div>
         )}
