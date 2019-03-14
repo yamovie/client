@@ -7,9 +7,9 @@ class Homepage extends Component {
   render() {
     return (
       <div className="home">
-        <h1>APp</h1>
+        <h1>App</h1>
 
-{/* // <section id="link-container">
+        {/* // <section id="link-container">
 //   <div id="landing-quote">
 //     <h3>We find your movie,</h3>
 //     <h3>You bring the popcorn!</h3>
@@ -84,7 +84,7 @@ class Homepage extends Component {
 // </section> */}
 
       </div>
-    )
+    );
   }
 }
 
