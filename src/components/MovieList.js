@@ -85,8 +85,8 @@ class MovieList extends Component {
   render() {
     const { movies, showGenreFilter } = this.state;
 
-    const genreList = '
-        <div id="list-genres">
+    const genreList = (
+      <div id="list-genres">
         <button>All</button>
         <button>Animation</button>
         <button>Action</button>
@@ -105,7 +105,7 @@ class MovieList extends Component {
         <button>Sport</button>
         <button>Thriller</button>
       </div>
-      ';
+    );
 
     movies.forEach(movie => {
       const newMovie = document.createElement('yamovie-movie-item');
