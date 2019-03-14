@@ -43,8 +43,8 @@ class MovieCard extends Component {
    * Creates a new movie card element using a movie data object
    * @param {object} [movie] the movie data to use to fill this card
    */
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       movie: {},
       loading: true,
@@ -66,6 +66,7 @@ class MovieCard extends Component {
    */
   render() {
     const { movie, loading } = this.state;
+    const { isHidden } = this.props;
 
     if (loading === true) {
       return <div>Loading...</div>;
@@ -97,7 +98,7 @@ class MovieCard extends Component {
         </div>
         <div className="grid-item" id="info">
           <div id="headings">
-            <span className="close-modal">X</span>
+            <button type="button" className="close-modal" onClick={isHidden()}>X</button>
             <h1>{`${movie.title} (${movie.releaseYear})`}</h1>
             <h3>{genreString}</h3>
             <h6>{`Runtime: ${movie.runtime} minutes`}</h6>

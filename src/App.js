@@ -4,7 +4,7 @@ import Homepage from './components/Homepage';
 import MovieList from './components/MovieList';
 import BrowsePage from './pages/BrowsePage';
 import MovieCard from './components/MovieCard';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 // import AboutPage from '../components/AboutPage';
 
 class App extends Component {

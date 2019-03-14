@@ -61,6 +61,7 @@ class MovieList extends Component {
   }
 
   handleAddModal = movie => {
+    console.log('clicked close button');
     this.setState({ isHidden: !this.state.isHidden, selectedMovie: movie });
   }
   
