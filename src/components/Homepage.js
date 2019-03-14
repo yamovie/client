@@ -14,14 +14,12 @@ const Homepage = () => (
         <h3>You bring the popcorn!</h3>
       </div>
       <div id="link-info">
-        <Link className="landing-link landing-color find" to="/browse">
-          Find YaMovie!
-        </Link>
+        <Link to="/browse">Find YaMovie!</Link>
       </div>
     </section>
 
     <article id="overview">
-      <img src="./images/logo-v3.png" alt="" />
+      <img src={`${process.env.PUBLIC_URL}/images/logo-v3.png`} alt="YaMovie!" />
       <span id="movie-summary">
         Our technology intelligently takes your unique personality, viewing habits, and
         diverse interests to curate the right movies for you!
