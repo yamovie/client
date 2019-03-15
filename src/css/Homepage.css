@@ -97,8 +97,9 @@
 }
 
 #info-container .info-card {
-  /* border: 1px solid black; */
-  padding: 25px;
+  /* border: 1px solid var(--lightgrey); */
+  padding: 12px;
+  margin: 13px;
 }
 
 #info-container .info-card img {

@@ -28,7 +28,7 @@ const Homepage = () => (
 
     <section id="info-container">
       <div className="info-card">
-        <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} alt="Browse" />
+        <img src={`${process.env.PUBLIC_URL}/images/browsing-white.png`} alt="Browse" />
         <h2>Browse</h2>
         <p>
           Go through our collection of thousands of movies with up-to-date information,
@@ -36,7 +36,7 @@ const Homepage = () => (
         </p>
       </div>
       <div className="info-card">
-        <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} alt="Chatbot" />
+        <img src={`${process.env.PUBLIC_URL}/images/lloyd-white.png`} alt="Chatbot" />
         <h2>Chatbot</h2>
         <p>
           On our site, you will meet Lloyd our chatbot! He will ask you a set of
@@ -44,7 +44,7 @@ const Homepage = () => (
         </p>
       </div>
       <div className="info-card">
-        <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} alt="Benefits" />
+        <img src={`${process.env.PUBLIC_URL}/images/account-white.png`} alt="Benefits" />
         <h2>Account Benefits</h2>
         <p>
           By signing up with YaMovie, we can save what you enjoy so it will be easier for
