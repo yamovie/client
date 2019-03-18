@@ -1,5 +1,12 @@
 /* Mobile first approach. Responsive breakpoints are listed smallest to highest */
 /* Small devices, Phones up to 575px */
+body {
+  margin-top: 55px;
+  background-color: var(--darkgrey);
+  font-family: var(--fontfamily);
+  font-size: 20px;
+}
+
 
 #yamovie-movie-list {
   display: flex;

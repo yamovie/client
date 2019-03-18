@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../css/browse-page.css';
+import axios from 'axios';
+// import '../css/b-list.css';
 
 import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
@@ -18,9 +19,6 @@ class MovieList extends Component {
       isHidden: false,
       selectedMovie: {},
     };
-
-    // this.addEventListener('addModal', this.handleAddModal);
-    // this.addEventListener('deleteModal', this.handleDeleteModal);
     this.filterMovieList = this.filterMovieList.bind(this);
   }
 
@@ -40,10 +38,10 @@ class MovieList extends Component {
    * Called when this list object is rendered on the page the first time.
    * Calls the render function to display data.
    */
-  componentDidMount() {
-    if (this.state.showGenreFilter) {
-      this.setState({ movies: this.api.getMovies() });
-    }
+  componentDidMount = () => {
+    axios
+      .get('https://yamovie-server.herokuapp.com/api/movies')
+      .then(response => console.log(response.data));
   }
 
   /**
@@ -63,29 +61,6 @@ class MovieList extends Component {
   handleAddModal = movie => {
     this.setState({ isHidden: !this.state.isHidden, selectedMovie: movie });
   }
-  
-  
-  // handleAddModal = event => {
-  //   const modal = document.querySelector('#card-modal');
-  //   const moviePage = document.getElementById('movie-page');
-
-  //   const currentMovie = event.detail.movie;
-  //   const movieModal = document.createElement('yamovie-movie-card');
-  //   movieModal.movie = currentMovie;
-  //   movieModal.open = true;
-  //   movieModal.className = 'modal container';
-
-  //   modal.innerHTML = '';
-  //   modal.append(movieModal);
-  //   moviePage.style.opacity = '0.1';
-  // }
-
-  // handleDeleteModal = () => {
-  //   const modal = document.querySelector('#card-modal');
-  //   const moviePage = document.getElementById('movie-page');
-  //   modal.innerHTML = '';
-  //   moviePage.style.opacity = '1';
-  // }
 
   /**
    * Renders the movie list in HTML on the page. Uses flexboxes to display
@@ -124,22 +99,23 @@ class MovieList extends Component {
     // console.log(movies);
     
     return (
-      <div id="yamovie-movie-list">
-        {isHidden && <MovieCard isHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
-        {movies.map(movie => (
-          <img
-            src={movie.media.posterUrl}
-            alt={movie.title}
-            className="img-fluid"
-            onClick={() => this.handleAddModal(movie)}
-          />
-        ))}
-
-        {/* <div id="card-modal" />
+      <div id="yamovie-movie-list" className="container">
         <div id="movie-page">
           {showGenreFilter ? genreList : ''}
-          <div id="list-all-movies" />
-        </div> */}
+        </div>
+        {isHidden && <MovieCard isHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
+        <div id="list-all-movies">
+          {movies.map(movie => (
+            <div id="yamovie-movie-item">
+              <img
+                src={movie.media.posterUrl}
+                alt={movie.title}
+                className="img-fluid"
+                onClick={() => this.handleAddModal(movie)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
