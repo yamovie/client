@@ -2,42 +2,6 @@ import React, { Component } from 'react';
 import MovieAPI from '../MovieApi.js';
 import '../css/movie-card.css';
 
-// A default/placeholder object for movie data that this card uses if no object is fed into it
-const placeholderMovie = {
-  title: 'Title',
-  releaseYear: 'Year',
-  cast: ['Actors'],
-  director: 'Director',
-  tags: {
-    genres: ['Genre'],
-    moods: [''],
-  },
-  ratings: {
-    mpaa: 'MPAA',
-    rottenTomatoes: {
-      score: '92%',
-      link: 'https://www.rottentomatoes.com/',
-    },
-    imdb: {
-      score: 7.9,
-      link: 'https://www.imdb.com/',
-    },
-  },
-  plot: 'Plot summary here',
-  media: {
-    posterUrl:
-      'https://www.learningzonexpress.com/media/catalog/product/cache/1/image/650x/9df78eab33525d08d6e5fb8d27136e95/4/6/4607_2.jpg',
-    trailerUrl: 'https://www.youtube.com/embed/1roy4o4tqQM',
-  },
-  quotes: [''],
-  runtime: '??',
-  streams: {
-    netflix: 'http://www.netflix.com',
-    amazon: 'http://www.amazon.com',
-    theaters: 'http://www.fandango.com',
-  },
-};
-
 class MovieCard extends Component {
   /**
    * Creates a new movie card element using a movie data object
@@ -53,9 +17,9 @@ class MovieCard extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.movieApi.getMovies()[0]);
+    const { movie } = this.props;
     this.setState({
-      movie: this.movieApi.getMovies()[0],
+      movie,
       loading: false,
     });
   }
