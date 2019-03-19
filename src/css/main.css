@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 @import './reset.css';
 @import './style-variables.css';
 
@@ -6,10 +7,14 @@ body {
   background-color: var(--darkgrey);
   font-family: var(--fontfamily);
   font-size: 20px;
+  height: 100%;
 }
 
-/* lloyd-chat {
-  color: red;
-  background: red;
-  height: 100px;
-} */
+button {
+  font-size: 1.3rem;
+  margin: 10px;
+  background-color: var(--purple);
+  color: var(--offwhite);
+  border-radius: 5px;
+  border-color: var(--red);
+}
