@@ -82,7 +82,7 @@ class MovieList extends Component {
         <div id="movie-page">
           {showGenreFilter ? <GenreList /> : ''}
         </div>
-        {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie.title} />}
+        {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
         <div id="list-all-movies">
           {movies.map(movie => (
             <div id="yamovie-movie-item">
@@ -90,7 +90,7 @@ class MovieList extends Component {
                 src={movie.poster_path}
                 alt={movie.title}
                 className="img-fluid"
-                onClick={() => this.handleAddModal(movie)}
+                onClick={() => this.handleAddModal(movies[0])}
               />
             </div>
           ))}
