@@ -7,39 +7,64 @@ class MovieForm extends React.Component {
     super(props);
     this.state = {
       displayForm: true,
-      ratings: '',
-      release: '',
-      age: '',
     };
   }
 
-  backToForm = () => {
+  /**
+   * Handles back button event. Sets displayForm (state) = true which toggles the html form
+   * and unmounts the Movielist component.
+   * @param {Event} event Clicking the back button
+   */
+  backToForm = event => {
+    event.preventDefault();
     this.setState({ displayForm: true });
   };
 
   /**
-   * Handles submit event. Parses form data, creates a MovieList and filters the content
-   * based on the form data, then removes this form so the page just has the recommendation list.
+   * Handles submit event. Sets displayForm (state) = false
+   * which toggles the html form and mounts the MovieList
+   * component. Sets values in state equal to the parsed form data
+   * and passes them down as props to MovieList
+   * component so that it can utilize them to display movie results.
    * @param {Event} event The triggering submit event
    */
   handleSubmit = event => {
     event.preventDefault();
     const formData = new FormData(document.getElementById('question-form'));
-    const ratingsVar = formData.getAll('q-ratings');
-    const releaseVar = formData.get('q-release');
+    const moodVar = formData.get('q-mood');
     const ageVar = formData.get('q-age');
+    const releaseVar = formData.get('q-release');
+    const ratingsVar = formData.getAll('q-ratings');
+    const animatedVar = formData.get('q-animated');
+    const foreignVar = formData.get('q-foreign');
+    const indieVar = formData.get('q-indie');
+    const streamingVar = formData.getAll('q-streaming');
+
     this.setState({
       displayForm: false,
-      ratings: ratingsVar,
-      release: releaseVar,
+      mood: moodVar,
       age: ageVar,
+      release: releaseVar,
+      ratings: ratingsVar,
+      animated: animatedVar,
+      foreign: foreignVar,
+      indie: indieVar,
+      streaming: streamingVar,
     });
   };
 
   render() {
-    /* eslint-disable */
-    const { displayForm, ratings, release, age } = this.state;
-    /* eslint-enable */
+    const {
+      displayForm,
+      mood,
+      age,
+      release,
+      ratings,
+      animated,
+      foreign,
+      indie,
+      streaming,
+    } = this.state;
     return (
       <div>
         {displayForm ? (
@@ -197,6 +222,7 @@ class MovieForm extends React.Component {
               <ul className="odds">
                 <h3>What ratings do you care about?</h3>
                 <li className="form-group">
+                  {/* eslint-disable */}
                   <label htmlFor="q-ratings">
                     Rotten Tomatoes
                     <select name="q-ratings">
@@ -221,6 +247,7 @@ class MovieForm extends React.Component {
                   </label>
                 </li>
               </ul>
+              {/* eslint-enable */}
               <ul className="evens">
                 <h3>What movie services do you have access to?</h3>
                 <li className="form-group">
@@ -286,12 +313,19 @@ class MovieForm extends React.Component {
           </div>
         ) : (
           <div>
-            <MovieList
-              ratings={ratings}
-              release={release}
-              age={age}
-              showGenreFilter={false}
-            />
+            {
+              <MovieList
+                age={age}
+                animated={animated}
+                foreign={foreign}
+                indie={indie}
+                mood={mood}
+                ratings={ratings}
+                release={release}
+                streaming={streaming}
+                showGenreFilter={false}
+              />
+            }
             <button type="submit" onClick={this.backToForm}>
               Back to Form
             </button>
