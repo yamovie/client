@@ -47,6 +47,13 @@ class MovieList extends Component {
     }
   }
 
+  handleSendGenre = genreId => {
+    console.log(genreId);
+    // axios
+    //   .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${genreId}`)
+    //   .then(response => this.setState({ movies: response.data }));
+  }
+
   /**
    * Filters the visible list of movies based on the event (which genre was clicked)
    * @param {Event} event Filter trigger event
@@ -80,7 +87,7 @@ class MovieList extends Component {
     return (
       <div id="yamovie-movie-list" className="container">
         <div id="movie-page">
-          {showGenreFilter ? <GenreList /> : ''}
+          {showGenreFilter ? <GenreList moviesById={() => this.handleSendGenre} /> : ''}
         </div>
         {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
         <div id="list-all-movies">
