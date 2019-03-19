@@ -8,6 +8,7 @@ class GenreList extends Component {
 
     this.state = {
       genres: [],
+      movies: [],
     };
   }
 
@@ -17,17 +18,15 @@ class GenreList extends Component {
       .then(response => this.setState({ genres: response.data }));
   }
 
-  // handleSendGenre = genre => {
-
-  // }
 
   render() {
     const { genres } = this.state;
+    const { moviesById } = this.props;
     return (
       <div id="list-genres">
         {genres.map(genre => (
           <div id="single-genre">
-            <button type="button">{genre.name}</button>
+            <button type="button" onClick={moviesById(genre.id)}>{genre.name}</button>
           </div>
         ))}
       </div>
