@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Homepage from './components/Homepage';
-import BrowsePage from './components/BrowsePage';
-import AboutPage from './components/AboutPage';
+import Homepage from './pages/HomePage';
+import BrowsePage from './pages/BrowsePage';
+import AboutPage from './pages/AboutPage';
 import MovieForm from './components/MovieForm';
 import './css/main.css';
 

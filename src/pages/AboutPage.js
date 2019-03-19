@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from './Navbar';
-import LloydChat from './LloydChat';
+import Navbar from '../components/Navbar';
+import LloydChat from '../components/LloydChat';
 import '../css/AboutPage.css';
 
 const AboutPage = () => (

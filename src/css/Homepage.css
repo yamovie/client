@@ -1,9 +1,7 @@
-@import './style-variables.css';
-
 .landing-body {
   background-color: #eeeeee;
   font-family: var(--fontfamily);
-  padding: 0px;
+  font-weight: normal;
 }
 
 /* .landing-body a {
@@ -37,6 +35,7 @@
 }
 
 #landing-quote h3 {
+  font-weight: normal;
   opacity: 0.7;
   font-size: 2em;
   margin: 2px 0px;
@@ -59,7 +58,7 @@
 
 #link-info a {
   color: var(--offwhite);
-  font-weight: bold;
+  font-weight: 500;
   text-decoration: none;
 }
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
-import LloydChat from './LloydChat';
-import '../css/Homepage.css';
+import Navbar from '../components/Navbar';
+import LloydChat from '../components/LloydChat';
+import '../css/HomePage.css';
 
-const Homepage = () => (
+const HomePage = () => (
   <div className="landing-body">
     <Navbar />
     <LloydChat />
@@ -55,4 +55,4 @@ const Homepage = () => (
   </div>
 );
 
-export default Homepage;
+export default HomePage;
