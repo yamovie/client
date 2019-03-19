@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
+import GenreList from './GenreList.js';
 
 
 class MovieList extends Component {
@@ -39,9 +40,11 @@ class MovieList extends Component {
    * Calls the render function to display data.
    */
   componentDidMount = () => {
-    axios
-      .get('https://yamovie-server.herokuapp.com/api/movies')
-      .then(response => console.log(response.data));
+    if (this.state.showGenreFilter) {
+      axios
+        .get('https://yamovie-server.herokuapp.com/api/movies')
+        .then(response => this.setState({ movies: response.data }));
+    }
   }
 
   /**
@@ -59,7 +62,6 @@ class MovieList extends Component {
   }
 
   handleAddModal = movie => {
-    console.log('clicked close button');
     this.setState({ isHidden: !this.state.isHidden, selectedMovie: movie });
   }
 
@@ -71,45 +73,21 @@ class MovieList extends Component {
     const {
       movies, showGenreFilter, isHidden, selectedMovie,
     } = this.state;
-
-    const genreList = (
-      <div id="list-genres">
-        <button type="submit">All</button>
-        <button type="submit">Animation</button>
-        <button type="submit">Action</button>
-        <button type="submit">Adventure</button>
-        <button type="submit">Biography</button>
-        <button type="submit">Comedy</button>
-        <button type="submit">Crime</button>
-        <button type="submit">Drama</button>
-        <button type="submit">Family</button>
-        <button type="submit">Fantasy</button>
-        <button type="submit">Horror</button>
-        <button type="submit">Musical</button>
-        <button type="submit">Mystery</button>
-        <button type="submit">Romance</button>
-        <button type="submit">Sci-Fi</button>
-        <button type="submit">Sport</button>
-        <button type="submit">Thriller</button>
-      </div>
-    );
   
     // const btns = document.querySelectorAll('yamovie-movie-list button');
     // btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
-
-    // console.log(movies);
     
     return (
       <div id="yamovie-movie-list" className="container">
         <div id="movie-page">
-          {showGenreFilter ? genreList : ''}
+          {showGenreFilter ? <GenreList /> : ''}
         </div>
-        {isHidden && <MovieCard isHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
+        {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie.title} />}
         <div id="list-all-movies">
           {movies.map(movie => (
             <div id="yamovie-movie-item">
               <img
-                src={movie.media.posterUrl}
+                src={movie.poster_path}
                 alt={movie.title}
                 className="img-fluid"
                 onClick={() => this.handleAddModal(movie)}

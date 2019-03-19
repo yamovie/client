@@ -91,6 +91,12 @@ body {
   }
 }
 
+#list-genres {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 #list-genres button {
   border: none;
   color: var(--offwhite);
