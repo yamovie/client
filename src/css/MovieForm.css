@@ -1,8 +1,8 @@
-yamovie-movie-form {
+.movie-form {
   text-align: center;
 }
 
-yamovie-movie-form h1 {
+.movie-form h1 {
   background-color: var(--red);
   margin: 0px;
   padding: 10px;
@@ -10,13 +10,12 @@ yamovie-movie-form h1 {
   text-shadow: 2px 2px var(--darkgrey);
 }
 
-yamovie-movie-form .form {
+.movie-form .form {
   background-color: var(--offwhite);
   margin: 0px;
-  /* padding: 10px 0px; */
 }
 
-yamovie-movie-form ul {
+.movie-form ul {
   padding: 10px 0px;
   margin: 0px;
   display: flex;
@@ -25,25 +24,22 @@ yamovie-movie-form ul {
   align-items: center;
 }
 
-yamovie-movie-form .odds {
+.movie-form .odds {
   background-color: var(--offwhite);
 }
 
-yamovie-movie-form .evens {
+.movie-form .evens {
   background-color: var(--popcornyellow);
 }
 
-yamovie-movie-form .form-group {
+.movie-form .form-group {
+  width: 30vw;
+  list-style-type: none;
+}
+
+.movie-form .form-group label {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  width: 40vw;
-}
-
-yamovie-movie-form button {
-  font-size: 24px;
-  margin: 10px;
-  margin-left: 5%;
-  background-color: var(--purple);
-  color: var(--offwhite);
+  width: 100%;
 }
