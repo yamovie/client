@@ -20,7 +20,6 @@ class MovieList extends Component {
       isHidden: false,
       selectedMovie: {},
     };
-    this.filterMovieList = this.filterMovieList.bind(this);
   }
 
   /**
@@ -48,26 +47,14 @@ class MovieList extends Component {
   }
 
   handleSendGenre = genreId => {
-    console.log(genreId);
-    // axios
-    //   .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${genreId}`)
-    //   .then(response => this.setState({ movies: response.data }));
+    const { movies } = this.state;
+    axios
+      .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${genreId}`)
+      .then(response => this.setState({ movies: response.data }));
+    // const updatedMovies = movies.map(movie => (movie.genre_ids.includes(genreId)));
+    // this.setState({ movies: updatedMovies });
   }
-
-  /**
-   * Filters the visible list of movies based on the event (which genre was clicked)
-   * @param {Event} event Filter trigger event
-   */
-  filterMovieList = event => {
-    const genre = event.target.textContent;
-    const showAll = genre === 'All';
-    const updatedMovies = showAll
-      ? this.api.getMovies()
-      : this.api.getMoviesByGenre(genre);
-    this.setState({ movies: updatedMovies });
-    this.render();
-  }
-
+ 
   handleAddModal = movie => {
     this.setState({ isHidden: !this.state.isHidden, selectedMovie: movie });
   }
@@ -87,7 +74,7 @@ class MovieList extends Component {
     return (
       <div id="yamovie-movie-list" className="container">
         <div id="movie-page">
-          {showGenreFilter ? <GenreList moviesById={() => this.handleSendGenre} /> : ''}
+          {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
         </div>
         {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
         <div id="list-all-movies">
