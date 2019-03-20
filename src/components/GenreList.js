@@ -26,7 +26,7 @@ class GenreList extends Component {
       <div id="list-genres">
         {genres.map(genre => (
           <div id="single-genre">
-            <button type="button" onClick={moviesById(genre.id)}>{genre.name}</button>
+            <button type="button" onClick={() => moviesById(genre.id)}>{genre.genre}</button>
           </div>
         ))}
       </div>

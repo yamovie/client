@@ -23,17 +23,6 @@ class MovieList extends Component {
     this.filterMovieList = this.filterMovieList.bind(this);
   }
 
-  /**
-   * Sets the state of the movie list. Can pass in only the things that need to be changed.
-   * @param {Object} newState An object with keys for the state elements that should be set
-   *                          e.g. setState( { movies: updatedMovies } )
-   */
-  // setState(newState) {
-  //   Object.keys(newState).forEach(key => {
-  //     // e.g. this.state.movies = updateMovies
-  //     this.state[key] = newState[key];
-  //   });
-  // }
 
   /**
    * Called when this list object is rendered on the page the first time.
@@ -47,11 +36,14 @@ class MovieList extends Component {
     }
   }
 
-  handleSendGenre = genreId => {
-    console.log(genreId);
-    // axios
-    //   .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${genreId}`)
-    //   .then(response => this.setState({ movies: response.data }));
+  /**
+   * Called when a genre button is clicked.
+   * Makes an api call to the backend and updates the movie list. 
+   */
+  handleSendGenre = id => {
+    axios
+      .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${id}`)
+      .then(response => this.setState({ movies: response.data }));
   }
 
   /**
@@ -69,7 +61,13 @@ class MovieList extends Component {
   }
 
   handleAddModal = movie => {
-    this.setState({ isHidden: !this.state.isHidden, selectedMovie: movie });
+    axios
+      .get(`https://yamovie-server.herokuapp.com/api/movies/${movie.tmdb_id}`)
+      .then(response => this.setState({
+        isHidden: !this.state.isHidden,
+        selectedMovie: response.data,
+      }));
+      
   }
 
   /**
@@ -80,27 +78,28 @@ class MovieList extends Component {
     const {
       movies, showGenreFilter, isHidden, selectedMovie,
     } = this.state;
-  
-    // const btns = document.querySelectorAll('yamovie-movie-list button');
-    // btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
     
     return (
-      <div id="yamovie-movie-list" className="container">
-        <div id="movie-page">
-          {showGenreFilter ? <GenreList moviesById={() => this.handleSendGenre} /> : ''}
-        </div>
+      
+      <div id="movie-page">
         {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
-        <div id="list-all-movies">
-          {movies.map(movie => (
-            <div id="yamovie-movie-item">
-              <img
-                src={movie.poster_path}
-                alt={movie.title}
-                className="img-fluid"
-                onClick={() => this.handleAddModal(movies[0])}
-              />
-            </div>
-          ))}
+
+
+        <div id="yamovie-movie-list" className="container">
+          {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
+
+          <div id="list-all-movies">
+            {movies.map(movie => (
+              <div id="yamovie-movie-item">
+                <img
+                  src={movie.poster_path}
+                  alt={movie.title}
+                  className="img-fluid"
+                  onClick={() => this.handleAddModal(movies[0])}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );

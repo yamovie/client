@@ -22,7 +22,7 @@ class MovieCard extends Component {
       movie,
       loading: false,
     });
-    console.log(movie);
+    // console.log(movie);
   }
 
   /**
@@ -32,12 +32,9 @@ class MovieCard extends Component {
   render() {
     const { movie, loading } = this.state;
     const { toggleHidden } = this.props;
-
     if (loading === true) {
       return <div>Loading...</div>;
     }
-
-
 
     // return <div>Hello</div>;
     // Streaming availability is currently not a property on the movie object..
@@ -48,14 +45,15 @@ class MovieCard extends Component {
       theaters: 'https://www.fandango.com',
     };
     const streamKeys = Object.keys(streamOptions);
+    const genreString = movie.genres;
 
-    const genreString = movie.details.genres;
+    console.log(movie);
 
     const rtImg =
-      movie.details.ratings[1].rating >= '60%'
+      movie.ratings[1].rating >= '60%'
         ? 'icon-rottentomatoes-fresh.png'
         : 'icon-rottentomatoes-rotten.png';
-    const rtFresh = movie.details.ratings[1].rating >= '60%' ? 'Fresh' : 'Rotten';
+    const rtFresh = movie.ratings[1].rating >= '60%' ? 'Fresh' : 'Rotten';
 
 
     return (
@@ -76,24 +74,24 @@ class MovieCard extends Component {
             <button type="button" className="close-modal" onClick={toggleHidden()}>X</button>
             <h1>{`${movie.title} (${movie.releaseYear})`}</h1>
             <h3>{genreString}</h3>
-            <h6>{`Runtime: ${movie.details.runtime}`}</h6>
-            {/* <h6>{`Rated ${movie.ratings.mpaa}`}</h6> */}
+            <h6>{`Runtime: ${movie.runtime}`}</h6>
+            <h6>{`Rated ${movie.ratings.mpaa}`}</h6>
           </div>
           <p>
-            {movie.details.plot}
+            {movie.plot}
           </p>
           <div id="ratings">
             <li>
               {/* <a href={`${movie.ratings.rottenTomatoes.link}`} target="_blank" rel="noopener noreferrer"> */}
               <img src={`./images/${rtImg}`} alt="Rotten Tomatoes" />
-              {movie.details.ratings[1].rating}
+              {movie.ratings[1].rating}
               {rtFresh}
               {/* </a> */}
             </li>
             <li>
               {/* <a href={movie.details.ratings[0]} target="_blank" rel="noopener noreferrer"> */}
               <img src="./images/icon-IMDb.png" alt="IMDb" />
-              {movie.details.ratings[0].rating}
+              {movie.ratings[0].rating}
               {/* </a> */}
             </li>
             <li>
