@@ -20,7 +20,6 @@ class MovieList extends Component {
       isHidden: false,
       selectedMovie: {},
     };
-    this.filterMovieList = this.filterMovieList.bind(this);
   }
 
 
@@ -36,38 +35,29 @@ class MovieList extends Component {
     }
   }
 
-  /**
-   * Called when a genre button is clicked.
-   * Makes an api call to the backend and updates the movie list. 
-   */
-  handleSendGenre = id => {
+  handleSendGenre = genreId => {
+    const { movies } = this.state;
     axios
-      .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${id}`)
+      .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${genreId}`)
       .then(response => this.setState({ movies: response.data }));
+    // const updatedMovies = movies.map(movie => (movie.genre_ids.includes(genreId)));
+    // this.setState({ movies: updatedMovies });
   }
-
-  /**
-   * Filters the visible list of movies based on the event (which genre was clicked)
-   * @param {Event} event Filter trigger event
-   */
-  filterMovieList = event => {
-    const genre = event.target.textContent;
-    const showAll = genre === 'All';
-    const updatedMovies = showAll
-      ? this.api.getMovies()
-      : this.api.getMoviesByGenre(genre);
-    this.setState({ movies: updatedMovies });
-    this.render();
-  }
-
+ 
   handleAddModal = movie => {
+    const { isHidden } = this.state;
+    console.log('Toggle toggle toggle....');
+    if (isHidden) {
+      this.setState({ isHidden: !isHidden });
+    }
+
     axios
       .get(`https://yamovie-server.herokuapp.com/api/movies/${movie.tmdb_id}`)
       .then(response => this.setState({
         isHidden: !this.state.isHidden,
         selectedMovie: response.data,
       }));
-      
+
   }
 
   /**
@@ -83,7 +73,6 @@ class MovieList extends Component {
       
       <div id="movie-page">
         {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
-
 
         <div id="yamovie-movie-list" className="container">
           {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
