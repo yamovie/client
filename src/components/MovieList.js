@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import '../css/b-list.css';
 
 import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
@@ -22,61 +21,60 @@ class MovieList extends Component {
     };
   }
 
-  /**
-   * Sets the state of the movie list. Can pass in only the things that need to be changed.
-   * @param {Object} newState An object with keys for the state elements that should be set
-   *                          e.g. setState( { movies: updatedMovies } )
-   */
-  // setState(newState) {
-  //   Object.keys(newState).forEach(key => {
-  //     // e.g. this.state.movies = updateMovies
-  //     this.state[key] = newState[key];
-  //   });
-  // }
+  // =================== Grabs Movie Data on Render =========================
+  // Sets the complete movie collection to state.
 
-  /**
-   * Called when this list object is rendered on the page the first time.
-   * Calls the render function to display data.
-   */
   componentDidMount = () => {
-    if (this.state.showGenreFilter) {
+    const { showGenreFilter } = this.state;
+    if (showGenreFilter) {
       axios
         .get('https://yamovie-server.herokuapp.com/api/movies')
         .then(response => this.setState({ movies: response.data }));
     }
   }
 
+  // ==================== Handles Filter Click ===============================
+
   handleSendGenre = genreId => {
-    const { movies } = this.state;
+    // const { movies } = this.state;
     axios
       .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${genreId}`)
       .then(response => this.setState({ movies: response.data }));
     // const updatedMovies = movies.map(movie => (movie.genre_ids.includes(genreId)));
     // this.setState({ movies: updatedMovies });
   }
+
+  // ==================== Handles Show Movie Card Modal ======================
  
   handleAddModal = movie => {
-    this.setState({ isHidden: !this.state.isHidden, selectedMovie: movie });
+    const { isHidden } = this.state;
+    this.setState({ isHidden: !isHidden, selectedMovie: movie });
   }
 
-  /**
-   * Renders the movie list in HTML on the page. Uses flexboxes to display
-   * the genre list, and to display a grid of MovieItems based on breakpoints.
-   */
+  
+  // Renders the movie list in HTML on the page. Uses flexboxes to display
+  // the genre list, and to display a grid of MovieItems based on breakpoints.
+  
   render() {
+
+    // State Destructoring =====================
     const {
       movies, showGenreFilter, isHidden, selectedMovie,
     } = this.state;
   
-    // const btns = document.querySelectorAll('yamovie-movie-list button');
-    // btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
     
     return (
       <div id="yamovie-movie-list" className="container">
         <div id="movie-page">
           {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
         </div>
-        {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
+        {isHidden && (
+          <MovieCard
+            toggleHidden={() => this.handleAddModal}
+            hiddenState={isHidden}
+            movie={selectedMovie}
+          />
+        )}
         <div id="list-all-movies">
           {movies.map(movie => (
             <div id="yamovie-movie-item">
