@@ -31,25 +31,25 @@ class MovieForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     const formData = new FormData(document.getElementById('question-form'));
-    const moodVar = formData.get('q-mood');
-    const ageVar = formData.get('q-age');
-    const releaseVar = formData.get('q-release');
-    const ratingsVar = formData.getAll('q-ratings');
-    const animatedVar = formData.get('q-animated');
-    const foreignVar = formData.get('q-foreign');
-    const indieVar = formData.get('q-indie');
-    const streamingVar = formData.getAll('q-streaming');
+    const mood = formData.get('q-mood');
+    const age = formData.get('q-age');
+    const release = formData.get('q-release');
+    const ratings = formData.getAll('q-ratings');
+    const animated = formData.get('q-animated');
+    const foreign = formData.get('q-foreign');
+    const indie = formData.get('q-indie');
+    const streaming = formData.getAll('q-streaming');
 
     this.setState({
       displayForm: false,
-      mood: moodVar,
-      age: ageVar,
-      release: releaseVar,
-      ratings: ratingsVar,
-      animated: animatedVar,
-      foreign: foreignVar,
-      indie: indieVar,
-      streaming: streamingVar,
+      mood,
+      age,
+      release,
+      ratings,
+      animated,
+      foreign,
+      indie,
+      streaming,
     });
   };
 
@@ -66,7 +66,8 @@ class MovieForm extends React.Component {
       streaming,
     } = this.state;
     return (
-      <div>
+      <div className="movie-form">
+        {/* Ternary to either display the form or the results */}
         {displayForm ? (
           <div>
             <h1>Movie Questionnaire!</h1>
@@ -175,11 +176,7 @@ class MovieForm extends React.Component {
                 <li className="form-group">
                   <label htmlFor="yes-animated">
                     Yes
-                    <input
-                      type="radio"
-                      name="q-animated"
-                      value="yes-animated"
-                    />
+                    <input type="radio" name="q-animated" value="yes-animated" />
                   </label>
                 </li>
                 <li className="form-group">
