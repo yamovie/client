@@ -6,7 +6,6 @@ import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
 import GenreList from './GenreList.js';
 
-
 class MovieList extends Component {
   /**
    * Creates a movie list object and connects to the API
@@ -17,11 +16,10 @@ class MovieList extends Component {
     this.state = {
       movies: [],
       showGenreFilter: true,
-      isHidden: false,
+      isModalVisible: false,
       selectedMovie: {},
     };
   }
-
 
   /**
    * Called when this list object is rendered on the page the first time.
@@ -33,7 +31,7 @@ class MovieList extends Component {
         .get('https://yamovie-server.herokuapp.com/api/movies')
         .then(response => this.setState({ movies: response.data }));
     }
-  }
+  };
 
   handleSendGenre = genreId => {
     const { movies } = this.state;
@@ -42,37 +40,40 @@ class MovieList extends Component {
       .then(response => this.setState({ movies: response.data }));
     // const updatedMovies = movies.map(movie => (movie.genre_ids.includes(genreId)));
     // this.setState({ movies: updatedMovies });
-  }
- 
-  handleAddModal = movie => {
-    const { isHidden } = this.state;
-    console.log('Toggle toggle toggle....');
-    if (isHidden) {
-      this.setState({ isHidden: !isHidden });
+  };
+
+  toggleModal = movie => {
+    // eslint-disable-next-line react/destructuring-assignment
+    if (this.state.isModalVisible) {
+      this.setState({ isModalVisible: false });
+    } else {
+      axios
+        .get(`https://yamovie-server.herokuapp.com/api/movies/${movie.tmdb_id}`)
+        .then(response =>
+          this.setState({
+            isModalVisible: true,
+            selectedMovie: response.data,
+          }),
+        );
     }
-
-    axios
-      .get(`https://yamovie-server.herokuapp.com/api/movies/${movie.tmdb_id}`)
-      .then(response => this.setState({
-        isHidden: !this.state.isHidden,
-        selectedMovie: response.data,
-      }));
-
-  }
+  };
 
   /**
    * Renders the movie list in HTML on the page. Uses flexboxes to display
    * the genre list, and to display a grid of MovieItems based on breakpoints.
    */
   render() {
-    const {
-      movies, showGenreFilter, isHidden, selectedMovie,
-    } = this.state;
-    
+    const { movies, showGenreFilter, isModalVisible, selectedMovie } = this.state;
+
     return (
-      
       <div id="movie-page">
-        {isHidden && <MovieCard toggleHidden={() => this.handleAddModal} hiddenState={isHidden} movie={selectedMovie} />}
+        {isModalVisible && (
+          <MovieCard
+            toggleHidden={() => this.toggleModal}
+            hiddenState={isModalVisible}
+            movie={selectedMovie}
+          />
+        )}
 
         <div id="yamovie-movie-list" className="container">
           {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
@@ -84,7 +85,7 @@ class MovieList extends Component {
                   src={movie.poster_path}
                   alt={movie.title}
                   className="img-fluid"
-                  onClick={() => this.handleAddModal(movies[0])}
+                  onClick={() => this.toggleModal(movies[0])}
                 />
               </div>
             ))}
