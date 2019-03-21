@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class GenreList extends Component {
-
   constructor(props) {
     super(props);
 
@@ -19,7 +18,7 @@ class GenreList extends Component {
       .then(response => this.setState({ genres: response.data }));
   }
 
-  // Renders the genre list to the HTML page. ==================
+  // Renders the genre list to the MovieList page. ==================
 
   render() {
     const { genres } = this.state;
@@ -27,9 +26,7 @@ class GenreList extends Component {
     return (
       <div id="list-genres">
         {genres.map(genre => (
-          <div id="single-genre">
-            <button type="button" onClick={() => moviesById(genre.key)}>{genre.genre}</button>
-          </div>
+          <button className="single-genre" type="button" onClick={() => moviesById(genre.key)}>{genre.genre}</button>
         ))}
       </div>
     );

@@ -22,7 +22,6 @@ class MovieCard extends Component {
       movie,
       loading: false,
     });
-    // console.log(movie);
   }
 
   /**
@@ -31,12 +30,11 @@ class MovieCard extends Component {
    */
   render() {
     const { movie, loading } = this.state;
-    const { toggleHidden } = this.props;
+    const { toggleModal } = this.props;
     if (loading === true) {
       return <div>Loading...</div>;
     }
 
-    // return <div>Hello</div>;
     // Streaming availability is currently not a property on the movie object..
     // const streamOptions = movie.details.streams;
     const streamOptions = {
@@ -47,14 +45,11 @@ class MovieCard extends Component {
     const streamKeys = Object.keys(streamOptions);
     const genreString = movie.genres;
 
-    console.log(movie);
-
     const rtImg =
       movie.ratings[1].rating >= '60%'
         ? 'icon-rottentomatoes-fresh.png'
         : 'icon-rottentomatoes-rotten.png';
     const rtFresh = movie.ratings[1].rating >= '60%' ? 'Fresh' : 'Rotten';
-
 
     return (
       <div className="yamovie-movie-card">
@@ -71,14 +66,13 @@ class MovieCard extends Component {
         </div>
         <div className="grid-item" id="info">
           <div id="headings">
-            <button type="button" className="close-modal" onClick={toggleHidden()}>X</button>
+            <button type="button" className="close-modal" onClick={toggleModal()}>X</button>
             {/* <h1>{`${movie.title} (${movie.releaseYear})`}</h1> */}
             <h1>{movie.title}</h1>
 
             <h3>{genreString}</h3>
             <h6>{`Runtime: ${movie.runtime}`}</h6>
             {/* <h6>{`Rated ${movie.ratings.mpaa}`}</h6> */}
-            {/* <h6>{`Rated ${movie.ratings.mpaa}`</h6> */}
           </div>
           <p>
             {movie.plot}

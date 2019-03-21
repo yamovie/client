@@ -34,13 +34,8 @@ class MovieList extends Component {
   // ==================== Handles Filter Click ===============================
 
   handleSendGenre = genreKey => {
-    // axios
-    //   .get(`https://yamovie-server.herokuapp.com/api/movies/${genreId}`)
-    //   .then(response => this.setState({ movies: response.data }));
     const { movies } = this.state;
     const updatedMovies = movies.filter(movie => movie.genre_ids.includes(Number(genreKey)));
-      
-    console.log(updatedMovies);
     this.setState({ movies: updatedMovies });
   };
 
@@ -72,8 +67,8 @@ class MovieList extends Component {
       <div id="movie-page">
         {isModalVisible && (
           <MovieCard
-            toggleHidden={() => this.toggleModal}
-            hiddenState={isModalVisible}
+            toggleModal={() => this.toggleModal}
+            isModalVisible={isModalVisible}
             movie={selectedMovie}
           />
         )}
@@ -84,6 +79,8 @@ class MovieList extends Component {
           <div id="list-all-movies">
             {movies.map((movie, i) => (
               <div id="yamovie-movie-item" key={i}>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
                 <img
                   src={movie.poster_path}
                   alt={movie.title}
