@@ -5,7 +5,6 @@ import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
 import GenreList from './GenreList.js';
 
-
 class MovieList extends Component {
   /**
    * Creates a movie list object and connects to the API
@@ -16,11 +15,10 @@ class MovieList extends Component {
     this.state = {
       movies: [],
       showGenreFilter: true,
-      isHidden: false,
+      isModalVisible: false,
       selectedMovie: {},
     };
   }
-
   // =================== Grabs Movie Data on Render =========================
   // Sets the complete movie collection to state.
 
@@ -31,61 +29,69 @@ class MovieList extends Component {
         .get('https://yamovie-server.herokuapp.com/api/movies')
         .then(response => this.setState({ movies: response.data }));
     }
-  }
+  };
 
   // ==================== Handles Filter Click ===============================
 
-  handleSendGenre = genreId => {
-    // const { movies } = this.state;
-    axios
-      .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${genreId}`)
-      .then(response => this.setState({ movies: response.data }));
-    // const updatedMovies = movies.map(movie => (movie.genre_ids.includes(genreId)));
-    // this.setState({ movies: updatedMovies });
-  }
+  handleSendGenre = genreKey => {
+    // axios
+    //   .get(`https://yamovie-server.herokuapp.com/api/movies/${genreId}`)
+    //   .then(response => this.setState({ movies: response.data }));
+    const { movies } = this.state;
+    const updatedMovies = movies.filter(movie => movie.genre_ids.includes(Number(genreKey)));
+      
+    console.log(updatedMovies);
+    this.setState({ movies: updatedMovies });
+  };
 
-  // ==================== Handles Show Movie Card Modal ======================
- 
-  handleAddModal = movie => {
-    const { isHidden } = this.state;
-    this.setState({ isHidden: !isHidden, selectedMovie: movie });
-  }
+  toggleModal = movie => {
+    // eslint-disable-next-line react/destructuring-assignment
+    if (this.state.isModalVisible) {
+      this.setState({ isModalVisible: false });
+    } else {
+      axios
+        .get(`https://yamovie-server.herokuapp.com/api/movies/${movie._id}`)
+        .then(response => this.setState({
+          isModalVisible: true,
+          selectedMovie: response.data,
+        }));
+    }
+  };
 
   
   // Renders the movie list in HTML on the page. Uses flexboxes to display
   // the genre list, and to display a grid of MovieItems based on breakpoints.
   
   render() {
-
-    // State Destructoring =====================
     const {
-      movies, showGenreFilter, isHidden, selectedMovie,
+      movies, showGenreFilter, isModalVisible, selectedMovie,
     } = this.state;
-  
-    
+
     return (
-      <div id="yamovie-movie-list" className="container">
-        <div id="movie-page">
-          {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
-        </div>
-        {isHidden && (
+      <div id="movie-page">
+        {isModalVisible && (
           <MovieCard
-            toggleHidden={() => this.handleAddModal}
-            hiddenState={isHidden}
+            toggleHidden={() => this.toggleModal}
+            hiddenState={isModalVisible}
             movie={selectedMovie}
           />
         )}
-        <div id="list-all-movies">
-          {movies.map(movie => (
-            <div id="yamovie-movie-item">
-              <img
-                src={movie.poster_path}
-                alt={movie.title}
-                className="img-fluid"
-                onClick={() => this.handleAddModal(movie)}
-              />
-            </div>
-          ))}
+
+        <div id="yamovie-movie-list" className="container">
+          {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
+
+          <div id="list-all-movies">
+            {movies.map(movie => (
+              <div id="yamovie-movie-item">
+                <img
+                  src={movie.poster_path}
+                  alt={movie.title}
+                  className="img-fluid"
+                  onClick={() => this.toggleModal(movies[0])}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );

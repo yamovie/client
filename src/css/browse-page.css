@@ -7,6 +7,10 @@ body {
   font-size: 20px;
 }
 
+.yamovie-movie-list {
+  opacity: 0.3;
+}
+
 
 #yamovie-movie-list {
   display: flex;

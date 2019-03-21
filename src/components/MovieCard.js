@@ -22,6 +22,7 @@ class MovieCard extends Component {
       movie,
       loading: false,
     });
+    // console.log(movie);
   }
 
   /**
@@ -30,21 +31,29 @@ class MovieCard extends Component {
    */
   render() {
     const { movie, loading } = this.state;
-    const { isHidden } = this.props;
-
+    const { toggleHidden } = this.props;
     if (loading === true) {
       return <div>Loading...</div>;
     }
-    const streamOptions = movie.streams;
-    const streamKeys = Object.keys(streamOptions);
 
-    const genreString = movie.tags.genres.join(', ');
+    // return <div>Hello</div>;
+    // Streaming availability is currently not a property on the movie object..
+    // const streamOptions = movie.details.streams;
+    const streamOptions = {
+      netflix: 'https://www.netflix.com',
+      hulu: 'https://www.hulu.com',
+      theaters: 'https://www.fandango.com',
+    };
+    const streamKeys = Object.keys(streamOptions);
+    const genreString = movie.genres;
+
+    console.log(movie);
 
     const rtImg =
-      movie.ratings.rottenTomatoes.score >= '60%'
+      movie.ratings[1].rating >= '60%'
         ? 'icon-rottentomatoes-fresh.png'
         : 'icon-rottentomatoes-rotten.png';
-    const rtFresh = movie.ratings.rottenTomatoes.score >= '60%' ? 'Fresh' : 'Rotten';
+    const rtFresh = movie.ratings[1].rating >= '60%' ? 'Fresh' : 'Rotten';
 
 
     return (
@@ -54,7 +63,7 @@ class MovieCard extends Component {
             title="movie trailer"
             width="100%"
             height="100%"
-            src={movie.media.trailerUrl}
+            src="https://www.youtube.com/embed/V75dMMIW2B4"
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -62,10 +71,10 @@ class MovieCard extends Component {
         </div>
         <div className="grid-item" id="info">
           <div id="headings">
-            <button type="button" className="close-modal" onClick={isHidden()}>X</button>
+            <button type="button" className="close-modal" onClick={toggleHidden()}>X</button>
             <h1>{`${movie.title} (${movie.releaseYear})`}</h1>
             <h3>{genreString}</h3>
-            <h6>{`Runtime: ${movie.runtime} minutes`}</h6>
+            <h6>{`Runtime: ${movie.runtime}`}</h6>
             <h6>{`Rated ${movie.ratings.mpaa}`}</h6>
           </div>
           <p>
@@ -73,18 +82,17 @@ class MovieCard extends Component {
           </p>
           <div id="ratings">
             <li>
-              <a href={`${movie.ratings.rottenTomatoes.link}`} target="_blank" rel="noopener noreferrer">
-                <img src={`./images/${rtImg}`} alt="Rotten Tomatoes" />
-                {movie.ratings.rottenTomatoes.score}
-                {rtFresh}
-              </a>
+              {/* <a href={`${movie.ratings.rottenTomatoes.link}`} target="_blank" rel="noopener noreferrer"> */}
+              <img src={`./images/${rtImg}`} alt="Rotten Tomatoes" />
+              {movie.ratings[1].rating}
+              {rtFresh}
+              {/* </a> */}
             </li>
             <li>
-              <a href={movie.ratings.imdb.link} target="_blank" rel="noopener noreferrer">
-                <img src="./images/icon-IMDb.png" alt="IMDb" />
-                {movie.ratings.imdb.score}
-                  /10
-              </a>
+              {/* <a href={movie.details.ratings[0]} target="_blank" rel="noopener noreferrer"> */}
+              <img src="./images/icon-IMDb.png" alt="IMDb" />
+              {movie.ratings[0].rating}
+              {/* </a> */}
             </li>
             <li>
               <img src="./images/icon-star.png" alt="User Rating" />
@@ -95,16 +103,12 @@ class MovieCard extends Component {
         <div className="grid-item" id="watchat">
           <h3>Available to watch here:</h3>
           <div id="streamnav">
-            <ul>
-              {streamKeys.map(streamName => (
-                <li>
-                  <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
-                    <img src={`${process.env.PUBLIC_URL}/images/icon-${streamName}.png`} alt="Theaters" />
-                  Theaters
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {streamKeys.map(streamName => (
+              <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
+                <img src={`${process.env.PUBLIC_URL}/images/icon-${streamName}.png`} alt="Theaters" />
+                <h3 className="stream-name">{streamName}</h3>
+              </a>
+            ))}
           </div>
         </div>
       </div>
