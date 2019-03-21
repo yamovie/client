@@ -1,22 +1,22 @@
-yamovie-movie-form {
+:local html {
   text-align: center;
 }
 
-yamovie-movie-form h1 {
-  background-color: var(--red);
+:local h1 {
+  background-color: var(--purple);
   margin: 0px;
   padding: 10px;
   color: var(--offwhite);
   text-shadow: 2px 2px var(--darkgrey);
 }
 
-yamovie-movie-form .form {
+.form {
   background-color: var(--offwhite);
   margin: 0px;
   /* padding: 10px 0px; */
 }
 
-yamovie-movie-form ul {
+:local ul {
   padding: 10px 0px;
   margin: 0px;
   display: flex;
@@ -25,22 +25,22 @@ yamovie-movie-form ul {
   align-items: center;
 }
 
-yamovie-movie-form .odds {
+.odds {
   background-color: var(--offwhite);
 }
 
-yamovie-movie-form .evens {
+.evens {
   background-color: var(--popcornyellow);
 }
 
-yamovie-movie-form .form-group {
+.form-group {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   width: 40vw;
 }
 
-yamovie-movie-form button {
+:local button {
   font-size: 24px;
   margin: 10px;
   margin-left: 5%;
