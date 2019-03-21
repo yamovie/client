@@ -72,10 +72,13 @@ class MovieCard extends Component {
         <div className="grid-item" id="info">
           <div id="headings">
             <button type="button" className="close-modal" onClick={toggleHidden()}>X</button>
-            <h1>{`${movie.title} (${movie.releaseYear})`}</h1>
+            {/* <h1>{`${movie.title} (${movie.releaseYear})`}</h1> */}
+            <h1>{movie.title}</h1>
+
             <h3>{genreString}</h3>
             <h6>{`Runtime: ${movie.runtime}`}</h6>
-            <h6>{`Rated ${movie.ratings.mpaa}`}</h6>
+            {/* <h6>{`Rated ${movie.ratings.mpaa}`}</h6> */}
+            {/* <h6>{`Rated ${movie.ratings.mpaa}`</h6> */}
           </div>
           <p>
             {movie.plot}
@@ -84,14 +87,14 @@ class MovieCard extends Component {
             <li>
               {/* <a href={`${movie.ratings.rottenTomatoes.link}`} target="_blank" rel="noopener noreferrer"> */}
               <img src={`./images/${rtImg}`} alt="Rotten Tomatoes" />
-              {movie.ratings[1].rating}
+              {/* {movie.ratings[1].rating} */}
               {rtFresh}
               {/* </a> */}
             </li>
             <li>
               {/* <a href={movie.details.ratings[0]} target="_blank" rel="noopener noreferrer"> */}
               <img src="./images/icon-IMDb.png" alt="IMDb" />
-              {movie.ratings[0].rating}
+              {/* {movie.ratings[0].rating} */}
               {/* </a> */}
             </li>
             <li>
@@ -103,8 +106,8 @@ class MovieCard extends Component {
         <div className="grid-item" id="watchat">
           <h3>Available to watch here:</h3>
           <div id="streamnav">
-            {streamKeys.map(streamName => (
-              <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
+            {streamKeys.map((streamName, i) => (
+              <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer" key={i}>
                 <img src={`${process.env.PUBLIC_URL}/images/icon-${streamName}.png`} alt="Theaters" />
                 <h3 className="stream-name">{streamName}</h3>
               </a>

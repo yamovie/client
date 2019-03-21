@@ -42,19 +42,18 @@ class MovieList extends Component {
     // this.setState({ movies: updatedMovies });
   };
 
-  toggleModal = movie => {
+  toggleModal = id => {
     // eslint-disable-next-line react/destructuring-assignment
     if (this.state.isModalVisible) {
       this.setState({ isModalVisible: false });
     } else {
       axios
-        .get(`https://yamovie-server.herokuapp.com/api/movies/${movie.tmdb_id}`)
-        .then(response =>
-          this.setState({
-            isModalVisible: true,
-            selectedMovie: response.data,
-          }),
-        );
+        .get(`https://yamovie-server.herokuapp.com/api/movies/${id}`)
+        .then(response => this.setState({
+          isModalVisible: true,
+          selectedMovie: response.data,
+        }))
+        .catch(err => console.log(err));
     }
   };
 
@@ -63,7 +62,9 @@ class MovieList extends Component {
    * the genre list, and to display a grid of MovieItems based on breakpoints.
    */
   render() {
-    const { movies, showGenreFilter, isModalVisible, selectedMovie } = this.state;
+    const {
+      movies, showGenreFilter, isModalVisible, selectedMovie,
+    } = this.state;
 
     return (
       <div id="movie-page">
@@ -79,13 +80,13 @@ class MovieList extends Component {
           {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
 
           <div id="list-all-movies">
-            {movies.map(movie => (
-              <div id="yamovie-movie-item">
+            {movies.map((movie, i) => (
+              <div id="yamovie-movie-item" key={i}>
                 <img
                   src={movie.poster_path}
                   alt={movie.title}
                   className="img-fluid"
-                  onClick={() => this.toggleModal(movies[0])}
+                  onClick={() => this.toggleModal(movie._id)}
                 />
               </div>
             ))}
