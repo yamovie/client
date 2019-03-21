@@ -8,9 +8,10 @@ class GenreList extends Component {
 
     this.state = {
       genres: [],
-      movies: [],
     };
   }
+
+  // =================== Grabs Genre List from API ==============
 
   componentDidMount() {
     axios
@@ -18,6 +19,7 @@ class GenreList extends Component {
       .then(response => this.setState({ genres: response.data }));
   }
 
+  // Renders the genre list to the HTML page. ==================
 
   render() {
     const { genres } = this.state;
@@ -26,7 +28,7 @@ class GenreList extends Component {
       <div id="list-genres">
         {genres.map(genre => (
           <div id="single-genre">
-            <button type="button" onClick={() => moviesById(genre.tmdb_id)}>{genre.genre}</button>
+            <button type="button" onClick={() => moviesById(genre.key)}>{genre.genre}</button>
           </div>
         ))}
       </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import '../css/b-list.css';
 
 import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
@@ -20,26 +19,29 @@ class MovieList extends Component {
       selectedMovie: {},
     };
   }
+  // =================== Grabs Movie Data on Render =========================
+  // Sets the complete movie collection to state.
 
-  /**
-   * Called when this list object is rendered on the page the first time.
-   * Calls the render function to display data.
-   */
   componentDidMount = () => {
-    if (this.state.showGenreFilter) {
+    const { showGenreFilter } = this.state;
+    if (showGenreFilter) {
       axios
         .get('https://yamovie-server.herokuapp.com/api/movies')
         .then(response => this.setState({ movies: response.data }));
     }
   };
 
-  handleSendGenre = genreId => {
+  // ==================== Handles Filter Click ===============================
+
+  handleSendGenre = genreKey => {
+    // axios
+    //   .get(`https://yamovie-server.herokuapp.com/api/movies/${genreId}`)
+    //   .then(response => this.setState({ movies: response.data }));
     const { movies } = this.state;
-    axios
-      .get(`https://yamovie-server.herokuapp.com/api/movies/genres/${genreId}`)
-      .then(response => this.setState({ movies: response.data }));
-    // const updatedMovies = movies.map(movie => (movie.genre_ids.includes(genreId)));
-    // this.setState({ movies: updatedMovies });
+    const updatedMovies = movies.filter(movie => movie.genre_ids.includes(Number(genreKey)));
+      
+    console.log(updatedMovies);
+    this.setState({ movies: updatedMovies });
   };
 
   toggleModal = id => {
@@ -57,10 +59,10 @@ class MovieList extends Component {
     }
   };
 
-  /**
-   * Renders the movie list in HTML on the page. Uses flexboxes to display
-   * the genre list, and to display a grid of MovieItems based on breakpoints.
-   */
+  
+  // Renders the movie list in HTML on the page. Uses flexboxes to display
+  // the genre list, and to display a grid of MovieItems based on breakpoints.
+  
   render() {
     const {
       movies, showGenreFilter, isModalVisible, selectedMovie,
