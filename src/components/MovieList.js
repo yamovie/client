@@ -1,6 +1,11 @@
-import MovieAPI from '../MovieApi.js';
+import React, { Component } from 'react';
+import axios from 'axios';
 
-export default class MovieList extends HTMLElement {
+import MovieAPI from '../MovieApi.js';
+import MovieCard from './MovieCard';
+import GenreList from './GenreList.js';
+
+class MovieList extends Component {
   /**
    * Creates a movie list object and connects to the API
    */
@@ -10,114 +15,85 @@ export default class MovieList extends HTMLElement {
     this.state = {
       movies: [],
       showGenreFilter: true,
+      isModalVisible: false,
+      selectedMovie: {},
     };
-
-    this.addEventListener('addModal', this.handleAddModal);
-    this.addEventListener('deleteModal', this.handleDeleteModal);
-    this.filterMovieList = this.filterMovieList.bind(this);
   }
+  // =================== Grabs Movie Data on Render =========================
+  // Sets the complete movie collection to state.
 
-  /**
-   * Sets the state of the movie list. Can pass in only the things that need to be changed.
-   * @param {Object} newState An object with keys for the state elements that should be set
-   *                          e.g. setState( { movies: updatedMovies } )
-   */
-  setState(newState) {
-    Object.keys(newState).forEach(key => {
-      // e.g. this.state.movies = updateMovies
-      this.state[key] = newState[key];
-    });
-  }
-
-  /**
-   * Called when this list object is rendered on the page the first time.
-   * Calls the render function to display data.
-   */
-  connectedCallback() {
-    if (this.state.showGenreFilter) {
-      this.setState({ movies: this.api.getMovies() });
+  componentDidMount = () => {
+    const { showGenreFilter } = this.state;
+    if (showGenreFilter) {
+      axios
+        .get('https://yamovie-server.herokuapp.com/api/movies')
+        .then(response => this.setState({ movies: response.data }));
     }
-    this.render();
-  }
+  };
 
-  /**
-   * Renders the movie list in HTML on the page. Uses flexboxes to display
-   * the genre list, and to display a grid of MovieItems based on breakpoints.
-   */
-  render() {
-    const genreList = `
-      <div id="list-genres">
-        <button>All</button>
-        <button>Animation</button>
-        <button>Action</button>
-        <button>Adventure</button>
-        <button>Biography</button>
-        <button>Comedy</button>
-        <button>Crime</button>
-        <button>Drama</button>
-        <button>Family</button>
-        <button>Fantasy</button>
-        <button>Horror</button>
-        <button>Musical</button>
-        <button>Mystery</button>
-        <button>Romance</button>
-        <button>Sci-Fi</button>
-        <button>Sport</button>
-        <button>Thriller</button>
-      </div>
-    `;
+  // ==================== Handles Filter Click ===============================
 
-    this.innerHTML = `
-      <div id="card-modal"></div>
-      <div id="movie-page">
-        ${this.state.showGenreFilter ? genreList : ''}
-        <div id="list-all-movies"></div>
-      </div>
-    `;
-
-    this.state.movies.forEach(movie => {
-      const newMovie = document.createElement('yamovie-movie-item');
-      newMovie.movie = movie;
-      document.getElementById('list-all-movies').append(newMovie);
-    });
-
-    const btns = document.querySelectorAll('yamovie-movie-list button');
-    btns.forEach(btn => btn.addEventListener('click', this.filterMovieList));
-  }
-
-  /**
-   * Filters the visible list of movies based on the event (which genre was clicked)
-   * @param {Event} event Filter trigger event
-   */
-  filterMovieList(event) {
-    const genre = event.target.textContent;
-    const showAll = genre === 'All';
-    const updatedMovies = showAll
-      ? this.api.getMovies()
-      : this.api.getMoviesByGenre(genre);
+  handleSendGenre = genreKey => {
+    const { movies } = this.state;
+    const updatedMovies = movies.filter(movie => movie.genre_ids.includes(Number(genreKey)));
     this.setState({ movies: updatedMovies });
-    this.render();
-  }
+  };
 
-  handleAddModal(event) {
-    const modal = document.querySelector('#card-modal');
-    const moviePage = document.getElementById('movie-page');
+  toggleModal = id => {
+    // eslint-disable-next-line react/destructuring-assignment
+    if (this.state.isModalVisible) {
+      this.setState({ isModalVisible: false });
+    } else {
+      axios
+        .get(`https://yamovie-server.herokuapp.com/api/movies/${id}`)
+        .then(response => this.setState({
+          isModalVisible: true,
+          selectedMovie: response.data,
+        }))
+        .catch(err => console.log(err));
+    }
+  };
 
-    const currentMovie = event.detail.movie;
-    const movieModal = document.createElement('yamovie-movie-card');
-    movieModal.movie = currentMovie;
-    movieModal.open = true;
-    movieModal.className = 'modal container';
+  
+  // Renders the movie list in HTML on the page. Uses flexboxes to display
+  // the genre list, and to display a grid of MovieItems based on breakpoints.
+  
+  render() {
+    const {
+      movies, showGenreFilter, isModalVisible, selectedMovie,
+    } = this.state;
 
-    modal.innerHTML = '';
-    modal.append(movieModal);
-    moviePage.style.opacity = '0.1';
-  }
+    return (
+      <div id="movie-page">
+        {isModalVisible && (
+          <MovieCard
+            toggleModal={() => this.toggleModal}
+            isModalVisible={isModalVisible}
+            movie={selectedMovie}
+          />
+        )}
 
-  handleDeleteModal() {
-    const modal = document.querySelector('#card-modal');
-    const moviePage = document.getElementById('movie-page');
-    modal.innerHTML = '';
-    moviePage.style.opacity = '1';
+        <div id="yamovie-movie-list" className="container" style={{ opacity: isModalVisible ? 0.08 : '' }}>
+          {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
+
+          <div id="list-all-movies">
+            {movies.map((movie, i) => (
+              <div id="yamovie-movie-item" key={i}>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                <img
+                  src={movie.poster_path}
+                  alt={movie.title}
+                  className="img-fluid"
+                  onClick={() => this.toggleModal(movie._id)}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 }
+
+export default MovieList;
