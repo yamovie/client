@@ -1,13 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Homepage from './components/Homepage';
-import BrowsePage from './components/BrowsePage';
-import AboutPage from './components/AboutPage';
+import HomePage from './pages/HomePage';
+import BrowsePage from './pages/BrowsePage';
+import AboutPage from './pages/AboutPage';
 import MovieForm from './components/MovieForm';
+import './css/main.css';
 
 const App = () => (
   <div className="App">
-    <Route exact path="/" component={Homepage}>
+    <Route exact path="/" component={HomePage}>
       Home
     </Route>
     <Switch>
