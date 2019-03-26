@@ -14,6 +14,7 @@ class MovieList extends Component {
     this.api = new MovieAPI();
     this.state = {
       movies: [],
+      filteredGenre: null,
       showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
@@ -34,9 +35,11 @@ class MovieList extends Component {
   // ==================== Handles Filter Click ===============================
 
   handleSendGenre = genreKey => {
-    const { movies } = this.state;
-    const updatedMovies = movies.filter(movie => movie.genre_ids.includes(Number(genreKey)));
-    this.setState({ movies: updatedMovies });
+    const { movies, filteredGenre } = this.state;
+    this.setState({ filteredGenre: genreKey });
+    console.log(filteredGenre);
+    // const updatedMovies = movies.filter(movie => movie.genre_ids.includes(Number(genreKey)));
+    // this.setState({ movies: updatedMovies });
   };
 
   toggleModal = id => {
@@ -60,7 +63,7 @@ class MovieList extends Component {
   
   render() {
     const {
-      movies, showGenreFilter, isModalVisible, selectedMovie,
+      movies, showGenreFilter, isModalVisible, selectedMovie, filteredGenre,
     } = this.state;
 
     return (
@@ -77,7 +80,8 @@ class MovieList extends Component {
           {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
 
           <div id="list-all-movies">
-            {movies.map((movie, i) => (
+            {/* {if (filterGenre) { */}
+            {movies.filter(movies.genre_keys.includes(Number(filteredGenre))).map((movie, i) => (
               <div id="yamovie-movie-item" key={i}>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
@@ -89,6 +93,7 @@ class MovieList extends Component {
                 />
               </div>
             ))}
+        //  }}
           </div>
         </div>
       </div>
