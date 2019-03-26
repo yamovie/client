@@ -55,7 +55,7 @@ class ChatWindow extends React.Component {
           ],
           delay: 3000,
         }).then(moodRes => {
-          // this.setState({ mood: moodRes.value });
+          this.setState({ mood: moodRes.value });
           if (moodRes.value) {
             this.botui.message.bot({
               content: 'Awesome!',
@@ -76,7 +76,7 @@ class ChatWindow extends React.Component {
               ], 
               delay: 2000,
             }).then(ageRes => {
-              // this.setState({ age: ageRes.value })
+              this.setState({ age: ageRes.value });
               if (ageRes.value) {
                 this.botui.message.bot({
                   content: 'Thanks!',
@@ -111,7 +111,7 @@ class ChatWindow extends React.Component {
                       ],
                       delay: 3000,
                     }).then(animatedRes => {
-                      // this.setState({ animated: animatedRes })
+                      this.setState({ animated: animatedRes.value })
                       if (animatedRes) {
                         this.botui.message.bot({
                           content: 'How about foreign films?',
@@ -124,7 +124,7 @@ class ChatWindow extends React.Component {
                           ],
                           delay: 2000,
                         }).then(foreignRes => {
-                          // this.setState({ foreign: foreignRes.value })
+                          this.setState({ foreign: foreignRes.value })
                           if (foreignRes) {
                             this.botui.message.bot({
                               content: 'Great!',
@@ -141,7 +141,7 @@ class ChatWindow extends React.Component {
                               ],
                               delay: 3000,
                             }).then(indieRes => {
-                              // this.setState({ indie: indieRes.value })
+                              this.setState({ indie: indieRes.value })
                               if (indieRes) {
                                 this.botui.message.bot({
                                   content: 'You have good taste!',
@@ -160,7 +160,7 @@ class ChatWindow extends React.Component {
                                   ],
                                   delay: 3000,
                                 }).then(ratingRes => {
-                                  // this.setState({ ratings: ratingRes.value })
+                                  this.setState({ ratings: ratingRes.value })
                                   if (ratingRes.value === 'both') {
                                     this.botui.message.bot({
                                       content: 'Minimum Rotten Tomato rating?',
@@ -174,7 +174,7 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(bothRes => {
-                                      // this.setState({ ratingsValue: { rottenTomato: bothRes.value } })
+                                      this.setState({ ratingsValue: { rottenTomato: bothRes.value } })
                                       this.botui.message.bot({
                                         content: 'Minimum IMDB rating?',
                                         delay: 1000,
@@ -187,7 +187,7 @@ class ChatWindow extends React.Component {
                                         ],
                                         delay: 2000,
                                       }).then(bothResp => {
-                                        // this.setState({ ratingsValue: { imdb: bothResp.value } })
+                                        this.setState({ ratingsValue: { imdb: bothResp.value } })
                                         this.botui.message.bot({
                                           loading: true,
                                           content: 'Getting results now!',
@@ -234,7 +234,7 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(imdbResp => {
-                                      // this.setState({ ratingsValue: { imdb: imdbResp.value } })
+                                      this.setState({ ratingsValue: { imdb: imdbResp.value } })
                                       this.botui.message.bot({
                                         loading: true,
                                         content: 'Getting results now!',
