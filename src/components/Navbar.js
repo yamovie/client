@@ -20,7 +20,7 @@ const Navbar = () => (
         <NavLink to="/browse">Browse</NavLink>
       </li>
       <li>
-        <NavLink to="/movieform">Find YaMovie</NavLink>
+        <NavLink to="/chat">Find YaMovie</NavLink>
       </li>
       <li>
         <NavLink to="/about">About</NavLink>
