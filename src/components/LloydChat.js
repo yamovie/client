@@ -4,7 +4,7 @@ import '../css/navbar.css';
 
 const LloydChat = () => (
   <div id="lloyd-outline">
-    <Link to="/questionform">
+    <Link to="/chat">
       <img
         src={`${process.env.PUBLIC_URL}/images/Lloyd.png`}
         alt="Talk to Lloyd!"

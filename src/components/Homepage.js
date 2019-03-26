@@ -12,7 +12,7 @@ const Homepage = () => (
         <h3>You bring the popcorn!</h3>
       </div>
       <div id="link-info">
-        <Link className="landing-link landing-color find" to="/browse">
+        <Link className="landing-link landing-color find" to="/chat">
           Find YaMovie!
         </Link>
         <Link className="landing-link landing-color signup" to="/">

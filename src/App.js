@@ -4,6 +4,7 @@ import Homepage from './components/Homepage';
 import BrowsePage from './components/BrowsePage';
 import AboutPage from './components/AboutPage';
 import MovieForm from './components/MovieForm';
+import ChatWindow from './components/ChatWindow';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
           <Route path="/browse" component={ BrowsePage } />
           <Route path="/about" component={ AboutPage } />
           <Route path="/movieform" component={ MovieForm } />
+          <Route path="/chat" component={ChatWindow} />
         </Switch>
       </div>
     );
