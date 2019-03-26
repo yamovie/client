@@ -35,10 +35,22 @@ class MovieList extends Component {
   // ==================== Handles Filter Click ===============================
 
   handleSendGenre = genreKey => {
-    axios
-      .get(`https://yamovie-server.herokuapp.com/api/movies/genre/${genreKey}`)
-      .then(response => this.setState({ movies: response.data }));
+    if (genreKey === 'all') {
+      axios
+        .get('https://yamovie-server.herokuapp.com/api/movies')
+        .then(response => this.setState({ movies: response.data }));
+    } else {
+      axios
+        .get(`https://yamovie-server.herokuapp.com/api/movies/genre/${genreKey}`)
+        .then(response => this.setState({ movies: response.data }));
+    }
   };
+
+  // handleAllMovies = () => {
+  //   axios
+  //     .get('https://yamovie-server.herokuapp.com/api/movies')
+  //     .then(response => this.setState({ movies: response.data }));
+  // }
 
   toggleModal = id => {
     // eslint-disable-next-line react/destructuring-assignment
@@ -75,7 +87,7 @@ class MovieList extends Component {
         )}
 
         <div id="yamovie-movie-list" className="container" style={{ opacity: isModalVisible ? 0.08 : '' }}>
-          {showGenreFilter ? <GenreList moviesByKey={this.handleSendGenre} /> : ''}
+          {showGenreFilter ? <GenreList moviesByGenreKey={this.handleSendGenre} /> : ''}
           <div id="list-all-movies">
           
             {movies.map((movie, i) => (
