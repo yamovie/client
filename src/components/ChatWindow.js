@@ -2,6 +2,8 @@
 import React from 'react';
 import Botui from 'botui-react';
 import '../css/ChatWindow.css';
+import Navbar from './Navbar';
+
 
 class ChatWindow extends React.Component {
   // constructor(props) {
@@ -272,8 +274,11 @@ class ChatWindow extends React.Component {
 
   render() {
     return (
-      // eslint-disable-next-line no-return-assign
-      <Botui ref={cmp => this.botui = cmp} />
+      // eslint-disable-next-line react/jsx-no-comment-textnodes
+      <div className="chat-window">
+        <Navbar />
+        <Botui ref={cmp => this.botui = cmp} />
+      </div>
     );
   }
 }

@@ -1,22 +1,21 @@
-:local html {
+.movie-form {
   text-align: center;
 }
 
-:local h1 {
-  background-color: var(--purple);
+.movie-form h1 {
+  background-color: var(--red);
   margin: 0px;
   padding: 10px;
   color: var(--offwhite);
   text-shadow: 2px 2px var(--darkgrey);
 }
 
-.form {
+.movie-form .form {
   background-color: var(--offwhite);
   margin: 0px;
-  /* padding: 10px 0px; */
 }
 
-:local ul {
+.movie-form ul {
   padding: 10px 0px;
   margin: 0px;
   display: flex;
@@ -25,25 +24,22 @@
   align-items: center;
 }
 
-.odds {
+.movie-form .odds {
   background-color: var(--offwhite);
 }
 
-.evens {
+.movie-form .evens {
   background-color: var(--popcornyellow);
 }
 
-.form-group {
+.movie-form .form-group {
+  width: 30vw;
+  list-style-type: none;
+}
+
+.movie-form .form-group label {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  width: 40vw;
-}
-
-:local button {
-  font-size: 24px;
-  margin: 10px;
-  margin-left: 5%;
-  background-color: var(--purple);
-  color: var(--offwhite);
+  width: 100%;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/navbar.css';
+import '../css/LloydChat.css';
 
 const LloydChat = () => (
   <div id="lloyd-outline">

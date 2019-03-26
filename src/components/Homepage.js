@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import Navbar from './Navbar';
 // import LloydChat from './LloydChat';
-import '../css/index.css';
+import '../css/main.css';
 
 const Homepage = () => (
   <div className="landing-body">
