@@ -1,16 +1,28 @@
 /* Mobile first approach. Responsive breakpoints are listed smallest to highest */
 /* Small devices, Phones up to 575px */
+body {
+  margin-top: 55px;
+  background-color: var(--darkgrey);
+  font-family: var(--fontfamily);
+  font-size: 20px;
+}
 
-yamovie-movie-list {
+.yamovie-movie-list {
+  opacity: 0.3;
+}
+
+
+#yamovie-movie-list {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  /* width: 100%; */
   flex-wrap: wrap;
   color: var(--offwhite);
   font-family: var(--fontfamily);
+  justify-content: center;
 }
 
-yamovie-movie-item {
+#yamovie-movie-item {
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
@@ -19,15 +31,15 @@ yamovie-movie-item {
 
 .img-fluid {
   max-width: 100%;
-  /* height: auto; */
-  height: 400px;
-  width: 275px;
+  height: auto;
+  /* height: 400px;
+  width: 275px; */
   box-shadow: 2px 2px 2px rgba(119, 117, 117, 0.2);
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  yamovie-movie-item {
+  #yamovie-movie-item {
     width: 50%;
     padding-left: 10px;
     padding-right: 10px;
@@ -41,8 +53,8 @@ yamovie-movie-item {
 
 /* Medium devices (tablets portrait, 768px and up)  */
 @media (min-width: 768px) {
-  yamovie-movie-item {
-    width: 50%;
+  #yamovie-movie-item {
+    width: 45%;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
@@ -56,8 +68,8 @@ yamovie-movie-item {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  yamovie-movie-item {
-    width: 33.333%;
+  #yamovie-movie-item {
+    width: 28.333%;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
@@ -71,8 +83,8 @@ yamovie-movie-item {
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  yamovie-movie-item {
-    width: 25%;
+  #yamovie-movie-item {
+    width: 23%;
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
@@ -82,6 +94,12 @@ yamovie-movie-item {
     padding-left: 30px;
     padding-right: 30px;
   }
+}
+
+#list-genres {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #list-genres button {
@@ -98,6 +116,7 @@ yamovie-movie-item {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
+  font-size: 1rem;
 }
 
 #list-genres button:after {
