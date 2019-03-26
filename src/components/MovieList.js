@@ -35,11 +35,9 @@ class MovieList extends Component {
   // ==================== Handles Filter Click ===============================
 
   handleSendGenre = genreKey => {
-    const { movies, filteredGenre } = this.state;
-    this.setState({ filteredGenre: genreKey });
-    console.log(filteredGenre);
-    // const updatedMovies = movies.filter(movie => movie.genre_ids.includes(Number(genreKey)));
-    // this.setState({ movies: updatedMovies });
+    axios
+      .get(`https://yamovie-server.herokuapp.com/api/movies/genre/${genreKey}`)
+      .then(response => this.setState({ movies: response.data }));
   };
 
   toggleModal = id => {
@@ -77,11 +75,10 @@ class MovieList extends Component {
         )}
 
         <div id="yamovie-movie-list" className="container" style={{ opacity: isModalVisible ? 0.08 : '' }}>
-          {showGenreFilter ? <GenreList moviesById={this.handleSendGenre} /> : ''}
-
+          {showGenreFilter ? <GenreList moviesByKey={this.handleSendGenre} /> : ''}
           <div id="list-all-movies">
-            {/* {if (filterGenre) { */}
-            {movies.filter(movies.genre_keys.includes(Number(filteredGenre))).map((movie, i) => (
+          
+            {movies.map((movie, i) => (
               <div id="yamovie-movie-item" key={i}>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
@@ -93,7 +90,7 @@ class MovieList extends Component {
                 />
               </div>
             ))}
-        //  }}
+    
           </div>
         </div>
       </div>

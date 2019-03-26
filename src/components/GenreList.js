@@ -22,11 +22,11 @@ class GenreList extends Component {
 
   render() {
     const { genres } = this.state;
-    const { moviesById } = this.props;
+    const { moviesByKey } = this.props;
     return (
       <div id="list-genres">
         {genres.map(genre => (
-          <button className="single-genre" type="button" onClick={() => moviesById(genre.key)}>{genre.genre}</button>
+          <button className="single-genre" type="button" onClick={() => moviesByKey(genre.key)}>{genre.genre}</button>
         ))}
       </div>
     );
