@@ -17,7 +17,7 @@ const Navbar = () => (
     </NavLink>
     <ul id="navbar-links">
       <li>
-        <NavLink to="/browse">Browse</NavLink>
+        <NavLink to="/chat">Browse</NavLink>
       </li>
       <li>
         <NavLink to="/movieform">Find YaMovie</NavLink>
