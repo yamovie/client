@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+@import './style-variables.css';
+
+/* =========================== RESETS =========================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================== MAIN =========================== */
+
+body {
+  margin-top: 55px;
+  background-color: var(--darkgrey);
+  font-family: var(--fontfamily);
+  font-size: 20px;
+  height: 100%;
+}
+
+button {
+  font-size: 1.3rem;
+  margin: 10px;
+  background-color: var(--purple);
+  color: var(--offwhite);
+  border-radius: 5px;
+  border-color: var(--red);
+}

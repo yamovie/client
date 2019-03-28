@@ -1,19 +1,12 @@
-@import "./style-variables.css";
-@import "./nav-bar.css";
-@import "./lloyd-chat.css";
-
-body.about {
-  font-family: var(--fontfamily);
+.about-page {
   /* align-items: center; */
-  font-size: 20px;
-  margin: 55px 0 0 0;
   justify-content: center;
 }
 
 /* ========================================================================== */
 /* mission-section */
 
-header {
+.about-page header {
   text-align: center;
   position: relative;
   display: flex;
@@ -22,58 +15,74 @@ header {
   flex-direction: column;
   height: calc(100vh - 55px);
 }
- 
-header video {
+
+.about-page header video {
   position: absolute;
-  z-index: -1;
+  z-index: -2;
   object-fit: fill;
   width: 100%;
   height: 100%;
   top: 0;
 }
 
-.mission, .info-panel div {
+.about-page header .overlay {
+  position: absolute;
+  z-index: -1;
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.about-page .mission,
+.about-page .info-panel div {
   margin: auto;
 }
 
-.mission {
+.about-page .mission {
   padding-left: 30px;
   padding-right: 30px;
+  color: var(--offwhite);
 }
 
-.mission h1 {
+.about-page .mission h1 {
   margin: 0;
-  text-shadow: 1px 0 1px var(--offwhite);
+  line-height: 1.5;
+  text-shadow: 2px 1px 0px var(--red);
   letter-spacing: 1.6px;
+  font-weight: 900;
 }
 
-.mission p {
+.about-page .mission p {
   letter-spacing: 1.3px;
   line-height: 2;
+  text-shadow: 1px 0px 0.25px var(--red);
 }
 
 /* ========================================================================== */
 /* info-section */
 
-.info h3 {
+.about-page .info h3 {
   text-align: center;
   line-height: 2.1;
 }
 
-.info p {
+.about-page .info p {
   letter-spacing: 1px;
   line-height: 1.5;
 }
 
-.info {
+.about-page .info {
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding-left: 20px;
   padding-right: 20px;
+  background-color: var(--offwhite);
 }
 
-.info-panel {
+.about-page .info-panel {
   flex-wrap: wrap;
   display: flex;
   text-align: left;
@@ -81,18 +90,19 @@ header video {
   align-items: center;
   justify-content: center;
   padding: 20px 0;
-} 
+}
 
-.info-panel h3, .info-panel p {
+.about-page .info-panel h3,
+.about-page .info-panel p {
   margin: 5px;
   padding: 0;
 }
 
-.info-panel p {
+.about-page .info-panel p {
   padding-bottom: 10px;
 }
 
-.info-panel img {
+.about-page .info-panel img {
   width: 120px;
   height: 120px;
 }
@@ -100,30 +110,27 @@ header video {
 /* ========================================================================== */
 /* avatar-section */
 
-.avatar-section {
+.about-page .avatar-section {
   width: 100%;
   background: var(--purple);
-  padding-top: 50px;
-  padding-bottom: 50px;
-  padding-left: 2%;
-  padding-right: 2%;
+  padding: 40px 2%;
 }
 
-.avatar-list {
+.about-page .avatar-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.avatar-container {
-  margin-bottom: 15px;
+.about-page .avatar-container {
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 50%;
 }
 
-.avatar-item {
+.about-page .avatar-item {
   background: var(--offwhite);
   display: flex;
   justify-content: center;
@@ -136,69 +143,68 @@ header video {
   margin-left: 5px;
 }
 
-.avatar-image {
+.about-page .avatar-image {
   height: 60%;
   width: auto;
 }
 
-.avatar-name {
+.about-page .avatar-name {
   color: var(--offwhite);
   text-align: center;
+  margin: 14px 0px 0px 0px;
 }
 
-.avatar-header {
+.about-page .avatar-header {
   color: var(--offwhite);
-  margin-bottom: 50px;
   text-align: center;
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  .info h3 {
+  .about-page .info h3 {
     text-align: left;
     line-height: 2.1;
   }
 
-  .about-icon {
+  .about-page .about-icon {
     margin-right: 50px;
   }
 
-  .info-panel {
+  .about-page .info-panel {
     flex-wrap: nowrap;
   }
 
-  .info  {
-    padding-left: 20px;
-    padding-right: 20px;
+  .about-page .info {
+    padding-left: 50px;
+    padding-right: 50px;
   }
 
-  .avatar-section {
+  .about-page .avatar-section {
     padding-left: 5%;
     padding-right: 5%;
   }
 
-  .avatar-container {
+  .about-page .avatar-container {
     width: 33.333%;
   }
 }
 
 /* Medium devices (tablets portrait, 768px and up)  */
 @media (min-width: 768px) {
-  .mission {
+  .about-page .mission {
     padding-left: 150px;
     padding-right: 150px;
   }
 
-
-  .info  {
-    padding: 75px 50px;
+  .about-page .info {
+    padding: 50px 100px;
   }
 
-  .avatar-container {
+  .about-page .avatar-container {
     width: 33.333%;
   }
 
-  .mission p {
+  .about-page .mission p {
     font-size: 24px;
     letter-spacing: 1.5px;
     line-height: 2;
@@ -207,20 +213,20 @@ header video {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  .mission {
+  .about-page .mission {
     padding-left: 280px;
     padding-right: 280px;
   }
 
-  .info  {
-    padding: 75px 200px;
+  .about-page .info {
+    padding: 50px 200px;
   }
 
-  .avatar-container {
+  .about-page .avatar-container {
     width: 33.333%;
   }
 
-  .avatar-section {
+  .about-page .avatar-section {
     padding-left: 15%;
     padding-right: 15%;
   }
@@ -228,20 +234,18 @@ header video {
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .avatar-section {
+  .about-page .avatar-section {
     padding-left: 20%;
     padding-right: 20%;
   }
 
-  .avatar-container {
+  .about-page .avatar-container {
     width: 33.333%;
   }
 
-  .info  {
+  .about-page .info {
     padding: 50px 250px;
   }
 }
 
-
 /* ========================================================================== */
-

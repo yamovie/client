@@ -1,16 +1,8 @@
-/* ========================================================================== */
-/* ========================================================================== */
-/* Imports */
-@import "./style-variables.css";
-
-/* ========================================================================== */
-/* Main */
-
 #card-modal {
   background-color: var(--red);
 }
 
-yamovie-movie-card {
+.yamovie-movie-card {
   z-index: 10;
   position: fixed;
   left: 0;
@@ -18,18 +10,18 @@ yamovie-movie-card {
 }
 
 /* prettier-ignore */
-yamovie-movie-card h1, h2, h3, h4, h5, h6 {
+.yamovie-movie-card h1, h2, h3, h4, h5, h6 {
 	margin: 2px 0px;
 	text-align: center;
 }
 
-yamovie-movie-card {
+.yamovie-movie-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 60vh 20vh;
 }
 
-yamovie-movie-card .grid-item {
+.yamovie-movie-card .grid-item {
   background-color: var(--offwhite);
   font-size: 20px;
   padding: 5px;
@@ -39,8 +31,10 @@ yamovie-movie-card .grid-item {
 /* ========================================================================== */
 /* Close */
 
-yamovie-movie-card .close-modal {
+.yamovie-movie-card .close-modal {
   font-size: 20px;
+  background: none;
+  border-radius: 100%;
   color: black;
   cursor: pointer;
   right: 0;
@@ -48,10 +42,14 @@ yamovie-movie-card .close-modal {
   z-index: 1;
 }
 
+.yamovie-movie-card .close-modal:hover {
+  background: var(--purple);
+}
+
 /* ========================================================================== */
 /* Trailer */
 
-yamovie-movie-card #trailer {
+.yamovie-movie-card #trailer {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -60,35 +58,35 @@ yamovie-movie-card #trailer {
 /* ========================================================================== */
 /* Movie Info */
 
-yamovie-movie-card #info {
+.yamovie-movie-card #info {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-yamovie-movie-card #info h1 {
+.yamovie-movie-card #info h1 {
   color: var(--darkgrey);
   font-size: 3vw;
 }
 
-yamovie-movie-card #info h3 {
+.yamovie-movie-card #info h3 {
   color: var(--lightgrey);
   font-size: 2.2vw;
 }
 
-yamovie-movie-card #info h6 {
+.yamovie-movie-card #info h6 {
   color: var(--lightgrey);
   font-size: 1.5vw;
 }
 
-yamovie-movie-card #info p {
+.yamovie-movie-card #info p {
   color: var(--darkgrey);
   padding: 3px 6px;
   margin: 8px 0px;
   font-size: 1.8vw;
 }
 
-yamovie-movie-card #ratings {
+.yamovie-movie-card #ratings {
   display: flex;
   justify-content: space-evenly;
   margin: 5px 0px;
@@ -96,19 +94,19 @@ yamovie-movie-card #ratings {
   color: var(--darkgrey);
 }
 
-yamovie-movie-card #ratings li {
+.yamovie-movie-card #ratings li {
   list-style: none;
   padding: 4px;
 }
 
-yamovie-movie-card #ratings li img {
+.yamovie-movie-card #ratings li img {
   height: 18px;
   width: 18px;
   float: left;
   margin: 3px 6px 2px 2px;
 }
 
-yamovie-movie-card #ratings li a {
+.yamovie-movie-card #ratings li a {
   text-decoration: none;
   color: var(--darkgrey);
 }
@@ -116,7 +114,7 @@ yamovie-movie-card #ratings li a {
 /* ========================================================================== */
 /* Nav/Watch At Links */
 
-yamovie-movie-card #watchat {
+.yamovie-movie-card #watchat {
   display: flex;
   flex-direction: column;
   grid-column-start: span 2;
@@ -124,7 +122,7 @@ yamovie-movie-card #watchat {
   padding: 10px;
 }
 
-yamovie-movie-card #watchat h3 {
+.yamovie-movie-card #watchat h3 {
   color: var(--darkgrey);
   text-align: center;
   margin-top: 8px;
@@ -132,23 +130,24 @@ yamovie-movie-card #watchat h3 {
   font-size: 3.5vh;
 }
 
-yamovie-movie-card #streamnav {
+.yamovie-movie-card #streamnav {
   display: flex;
   justify-content: space-evenly;
   margin: 4px 0px;
 }
 
-yamovie-movie-card #streamnav li {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  font-size: 3vh;
+.yamovie-movie-card #streamnav a {
+  text-decoration: none;
 }
 
-yamovie-movie-card #streamnav li img {
+.yamovie-movie-card #streamnav img {
   height: 20px;
-  float: left;
-  margin: 3px 6px 2px 2px;
+  margin-right: 5px;
+}
+
+.stream-name {
+  display: inline-flex;
+  text-transform: capitalize;
 }
 
 /* ========================================================================== */

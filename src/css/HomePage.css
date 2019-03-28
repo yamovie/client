@@ -1,22 +1,18 @@
-@import './style-variables.css';
-@import './landing-cards.css';
-
-#landing-body {
+.landing-body {
   background-color: #eeeeee;
   font-family: var(--fontfamily);
-  padding: 0px;
-  margin-top: 40px;
+  font-weight: normal;
 }
 
-#landing-body a {
+/* .landing-body a {
   color: white;
   border-radius: 3px;
-}
+} */
 
 #link-container {
   height: 100vh;
   max-width: 100%;
-  background-image: url('../images/landing-bg-v1.jpg');
+  background-image: url('%PUBLIC_URL%../../images/landing-bg-v1.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -30,55 +26,40 @@
   align-items: center;
 }
 
-#link-info {
-  position: relative;
-  top: 27vh;
-  left: 0;
-  right: 0;
-}
-
-#link-info a {
-  padding: 15px 25px;
-  text-decoration: none;
-}
-
 #landing-quote {
   color: var(--darkgrey);
   position: relative;
-  top: 17vh;
+  top: 15vh;
   left: 0;
   right: 0;
 }
 
 #landing-quote h3 {
+  font-weight: normal;
   opacity: 0.7;
-  font-family: var(--fontfamily);
   font-size: 2em;
+  margin: 2px 0px;
 }
 
-.landing-links {
-  border-radius: 10px;
-  padding: 15px 25px;
-  font-size: 22px;
-  text-decoration: none;
-  margin: 20px;
+#link-info {
   position: relative;
-  display: inline-block;
-}
-
-.landing-links a {
-  font-family: var(--fontfamily);
-}
-
-.landing-color {
+  top: 20vh;
+  padding: 15px 25px;
   background-color: var(--lightgrey);
-  opacity: 0.8;
-  box-shadow: 0px 3px 0px 0px #525252;
-  font-family: var(--fontfamily);
+  opacity: 0.7;
+  border-radius: 3px;
+  box-shadow: 0px 2.5px 0px 0px var(--darkgrey);
 }
 
-.landing-color:hover {
-  background-color: #b573d0;
+#link-info:hover {
+  background-color: var(--red);
+  /* background-color: #b573d0; */
+}
+
+#link-info a {
+  color: var(--offwhite);
+  font-weight: 500;
+  text-decoration: none;
 }
 
 #overview {
@@ -104,6 +85,37 @@
   margin: 0;
 }
 
+#info-container {
+  background: var(--purple);
+  color: var(--offwhite);
+  text-align: center;
+  font-size: 1rem;
+  padding: 1em 1em 1.7em 1em;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#info-container .info-card {
+  /* border: 1px solid var(--lightgrey); */
+  padding: 12px;
+  margin: 13px;
+}
+
+#info-container .info-card img {
+  width: 3rem;
+  height: 3rem;
+}
+
+#info-container .info-card h2 {
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-top: 8px;
+  text-shadow: 1px 1px 0.6px var(--darkgrey);
+}
+
+#info-container .info-card p {
+  padding: 2px;
+}
 
 /* a {
   text-decoration: none;
