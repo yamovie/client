@@ -249,24 +249,24 @@
 }
 
 .avatar-role {
-  color: white;
+  color: var(--offwhite);
   text-align: center;
 }
 
 .avatar-movie {
-  color: var(--darkgrey);
+  color: var(--offwhite);
   font-size: 15px;
   text-align: center;
 }
 
 .avatar-show {
-  color: var(--darkgrey);
+  color: var(--offwhite);
   font-size: 15px;
   text-align: center;
 }
 
 .avatar-genre {
-  color: var(--darkgrey);
+  color: var(--offwhite);
   font-size: 15px;
   text-align: center;
 }
