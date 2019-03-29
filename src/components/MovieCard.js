@@ -31,82 +31,39 @@ class MovieCard extends Component {
   render() {
     const { movie, loading } = this.state;
     const { toggleModal } = this.props;
+
     if (loading === true) {
       return <div>Loading...</div>;
     }
 
-    // Streaming availability is currently not a property on the movie object..
-    // const streamOptions = movie.details.streams;
-    const streamOptions = {
-      netflix: 'https://www.netflix.com',
-      hulu: 'https://www.hulu.com',
-      theaters: 'https://www.fandango.com',
-    };
-    const streamKeys = Object.keys(streamOptions);
-    const genreString = movie.genres;
-
-    const rtImg =
-      movie.ratings[1].rating >= '60%'
-        ? 'icon-rottentomatoes-fresh.png'
-        : 'icon-rottentomatoes-rotten.png';
-    const rtFresh = movie.ratings[1].rating >= '60%' ? 'Fresh' : 'Rotten';
-
     return (
-      <div className="yamovie-movie-card">
-        <div className="grid-item" id="trailer">
-          <iframe
-            title="movie trailer"
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/V75dMMIW2B4"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+      <div className="movie-card">
+        <div className="backdrop">
+          {/* <div className="overlay" /> */}
+          <img src={movie.images.backdrops[0].url} alt="" />
         </div>
-        <div className="grid-item" id="info">
-          <div id="headings">
-            <button type="button" className="close-modal" onClick={toggleModal()}>X</button>
-            {/* <h1>{`${movie.title} (${movie.releaseYear})`}</h1> */}
+        <div className="info">
+          <button type="button" className="close-modal" onClick={toggleModal()}>
+            &times;
+          </button>
+          <div className="heading">
+            <img className="poster" alt={movie.title} src={movie.images.posters[0].url} />
             <h1>{movie.title}</h1>
-
-            <h3>{genreString}</h3>
-            <h6>{`Runtime: ${movie.runtime}`}</h6>
-            {/* <h6>{`Rated ${movie.ratings.mpaa}`}</h6> */}
+            <div id="line2">
+              <h4>
+                {`${movie.release_date.substring(0, 4)}, ${
+                  movie.credits.crew.find(member => member.job === 'Director').name
+                }`}
+              </h4>
+              <RatingsView movie={movie} />
+            </div>
+            <span className="runtime">{movie.runtime} min</span>
+            <p className="genres">Some Genres</p>
           </div>
-          <p>
-            {movie.plot}
-          </p>
-          <div id="ratings">
-            <li>
-              {/* <a href={`${movie.ratings.rottenTomatoes.link}`} target="_blank" rel="noopener noreferrer"> */}
-              <img src={`./images/${rtImg}`} alt="Rotten Tomatoes" />
-              {/* {movie.ratings[1].rating} */}
-              {rtFresh}
-              {/* </a> */}
-            </li>
-            <li>
-              {/* <a href={movie.details.ratings[0]} target="_blank" rel="noopener noreferrer"> */}
-              <img src="./images/icon-IMDb.png" alt="IMDb" />
-              {/* {movie.ratings[0].rating} */}
-              {/* </a> */}
-            </li>
-            <li>
-              <img src="./images/icon-star.png" alt="User Rating" />
-                Users: 5/5
-            </li>
+          <div className="description">
+            <p>{movie.overview}</p>
           </div>
-        </div>
-        <div className="grid-item" id="watchat">
-          <h3>Available to watch here:</h3>
-          <div id="streamnav">
-            {streamKeys.map((streamName, i) => (
-              <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer" key={i}>
-                <img src={`${process.env.PUBLIC_URL}/images/icon-${streamName}.png`} alt="Theaters" />
-                <h3 className="stream-name">{streamName}</h3>
-              </a>
-            ))}
-          </div>
+          <StreamsView movie={movie} />
         </div>
       </div>
     );
@@ -114,3 +71,69 @@ class MovieCard extends Component {
 }
 
 export default MovieCard;
+
+// ============================================================
+// ============================================================
+// Sub-components
+
+// ============================================================
+// Stream Links
+const StreamsView = ({ movie }) => {
+  // const streamOptions = movie.streams;
+  // const streamKeys = Object.keys(streamOptions);
+  return (
+    <div id="streams">
+      <h3>Watch Links Coming Soon!</h3>
+      {/* <ul>
+        {streamKeys.map(streamName => (
+          <li>
+            <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
+              <img
+                src={`${process.env.PUBLIC_URL}/images/icon-${streamName}.png`}
+                alt={`${streamName.charAt(0).toUpperCase()}${streamName.slice(1)}`}
+              />
+            </a>
+          </li>
+        ))}
+      </ul> */}
+    </div>
+  );
+};
+
+// ============================================================
+// Ratings
+const RatingsView = ({ movie }) => {
+  const rtRatingObj = movie.ratings.find(obj => obj.source === 'Rotten Tomatoes');
+  const rtRating = rtRatingObj ? rtRatingObj.value : '??';
+  const imdbRatingObj = movie.ratings.find(
+    obj => obj.source === 'Internet Movie Database',
+  );
+  const imdbRating = imdbRatingObj ? imdbRatingObj.value : '??';
+
+  const rtImg =
+    rtRating >= '60%'
+      ? 'icon-rottentomatoes-fresh.png'
+      : 'icon-rottentomatoes-rotten.png';
+  return (
+    <div id="ratings">
+      <li>
+        <a href="http://www.rottentomatoes.com" target="_blank" rel="noopener noreferrer">
+          <img src={`${process.env.PUBLIC_URL}/images/${rtImg}`} alt="Rotten Tomatoes" />
+          {rtRating}
+        </a>
+      </li>
+      <li>
+        <a href="http://www.imdb.com" target="_blank" rel="noopener noreferrer">
+          <img src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`} alt="IMDb" />
+          {imdbRating}
+        </a>
+      </li>
+      {/* <li>
+      <img src={`${process.env.PUBLIC_URL}/images/icon-star.png`} alt="User Rating" />
+      Users: 5/5
+    </li> */}
+    </div>
+  );
+};
+
+// ============================================================
