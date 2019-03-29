@@ -18,6 +18,7 @@ class MovieList extends Component {
       showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
+      loading: true,
     };
   }
   // =================== Grabs Movie Data on Render =========================
@@ -28,7 +29,7 @@ class MovieList extends Component {
     if (showGenreFilter) {
       axios
         .get('https://yamovie-server.herokuapp.com/api/movies')
-        .then(response => this.setState({ movies: response.data }));
+        .then(response => this.setState({ movies: response.data, loading: false }));
     }
   };
 
@@ -73,8 +74,14 @@ class MovieList extends Component {
   
   render() {
     const {
-      movies, showGenreFilter, isModalVisible, selectedMovie, filteredGenre,
+      movies, showGenreFilter, isModalVisible, selectedMovie, filteredGenre, loading,
     } = this.state;
+
+    if (!loading) {
+      // console.log(movies.images.posters.map(poster => poster.url));
+      console.log(movies[0].images.posters[0].url);
+
+    }
 
     return (
       <div id="movie-page">

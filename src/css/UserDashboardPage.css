@@ -1,0 +1,28 @@
+.account-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.account-nav {
+  display: flex;
+  justify-content: center;
+  background: var(--offwhite);
+  height: 100%;
+  position: fixed;
+  width: 15%;
+  padding-top: 30px;
+}
+
+.account-nav ul {
+  margin: 0;
+  list-style-type: none;
+}
+
+.account-nav ul li a {
+  text-decoration: none;
+  color: var(--darkgrey)
+}
+
+.account-page {
+  width: 75%;
+}

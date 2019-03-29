@@ -6,6 +6,7 @@ import AboutPage from './pages/AboutPage';
 import MovieForm from './components/MovieForm';
 import ChatWindow from './components/ChatWindow';
 import './css/main.css';
+import userDashboardPage from './pages/UserDashboardPage';
 
 const App = () => (
   <div className="App">
@@ -17,6 +18,7 @@ const App = () => (
       <Route path="/about" component={AboutPage} />
       <Route path="/movieform" component={MovieForm} />
       <Route path="/chat" component={ChatWindow} />
+      <Route path="/account" component={userDashboardPage} />
     </Switch>
   </div>
 );
