@@ -75,6 +75,14 @@ class MovieList extends Component {
     const {
       movies, showGenreFilter, isModalVisible, selectedMovie, filteredGenre,
     } = this.state;
+    const postersForAllMovies = movies.map(movie => movie.images.posters);
+
+    const imagesForAllMovies = postersForAllMovies.map(poster => poster.map(p => p.url));
+    // if (image && image[0] && image[0][0]) {
+    //   console.log(image[0][0]);
+    // }
+    console.log(imagesForAllMovies);
+
 
     return (
       <div id="movie-page">
@@ -90,18 +98,27 @@ class MovieList extends Component {
           {showGenreFilter ? <GenreList moviesByGenreKey={this.handleSendGenre} /> : ''}
           <div id="list-all-movies">
           
-            {movies.map((movie, i) => (
-              <div id="yamovie-movie-item" key={i}>
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-                <img
-                  src={movie.poster_path}
-                  alt={movie.title}
-                  className="img-fluid"
-                  onClick={() => this.toggleModal(movie._id)}
-                />
-              </div>
-            ))}
+            {// console.log(image);
+              // if (image && image[0]) {
+              imagesForAllMovies.map((moviePosters, i) => (
+                <div id="yamovie-movie-item" key={i}>
+                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                  {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                  <img
+                    src={moviePosters[0]}
+                    alt={movies[i].title}
+                    className="img-fluid"
+                  />
+                </div>
+              ),
+                // }
+                // return (
+                //   <div id="yamovie-movie-loading">
+                //   loading...
+                //   </div>
+                // );
+              
+              )}
     
           </div>
         </div>
