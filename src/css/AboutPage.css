@@ -248,4 +248,27 @@
   }
 }
 
+.avatar-role {
+  color: var(--offwhite);
+  text-align: center;
+}
+
+.avatar-movie {
+  color: var(--offwhite);
+  font-size: 15px;
+  text-align: center;
+}
+
+.avatar-show {
+  color: var(--offwhite);
+  font-size: 15px;
+  text-align: center;
+}
+
+.avatar-genre {
+  color: var(--offwhite);
+  font-size: 15px;
+  text-align: center;
+}
+
 /* ========================================================================== */

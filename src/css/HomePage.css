@@ -82,6 +82,7 @@
 #movie-summary {
   text-align: center;
   margin: 0;
+  display: flex;
 }
 
 #info-container {
