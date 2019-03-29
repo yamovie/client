@@ -12,7 +12,6 @@
 #link-container {
   height: 100vh;
   max-width: 100%;
-  background-image: url('%PUBLIC_URL%../../images/landing-bg-v1.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -83,6 +82,7 @@
 #movie-summary {
   text-align: center;
   margin: 0;
+  display: flex;
 }
 
 #info-container {

@@ -94,6 +94,10 @@ const AboutPage = () => (
             />
           </div>
           <h3 className="avatar-name">Ivy</h3>
+          <h5 className="avatar-role">Project Manager / Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movies: Star Wars</p>
+          <p className="avatar-show">Favorite Show: Game of Thrones</p>
+          <p className="avatar-genre"> Favorite Genre: Sci-Fi</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
@@ -104,6 +108,10 @@ const AboutPage = () => (
             />
           </div>
           <h3 className="avatar-name">Sam</h3>
+          <h5 className="avatar-role">Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movie: Black Panther </p>
+          <p className="avatar-show">Favorite Show: The Good Place</p>
+          <p className="avatar-genre"> Favorite Genre: Action Comedy</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
@@ -114,6 +122,10 @@ const AboutPage = () => (
             />
           </div>
           <h3 className="avatar-name">Kevin</h3>
+          <h5 className="avatar-role">Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movie: The Matrix</p>
+          <p className="avatar-show">Favorite Show: New Girl</p>
+          <p className="avatar-genre"> Favorite Genre: Sci-Fi</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
@@ -124,6 +136,10 @@ const AboutPage = () => (
             />
           </div>
           <h3 className="avatar-name">Hans</h3>
+          <h5 className="avatar-role">Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movies: Lord of the Rings</p>
+          <p className="avatar-show">Favorite Show: Brooklyn Nine Nine</p>
+          <p className="avatar-genre"> Favorite Genre: Adventure</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
@@ -134,6 +150,10 @@ const AboutPage = () => (
             />
           </div>
           <h3 className="avatar-name">Will</h3>
+          <h5 className="avatar-role">Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movie: The Producers</p>
+          <p className="avatar-show">Favorite Show: The Wire</p>
+          <p className="avatar-genre"> Favorite Genre: Historical Drama</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
@@ -144,6 +164,10 @@ const AboutPage = () => (
             />
           </div>
           <h3 className="avatar-name">Glen</h3>
+          <h5 className="avatar-role">Back-End / Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movie: Spider-Man: Into the Spider-Verse</p>
+          <p className="avatar-show">Favorite Show: The Office</p>
+          <p className="avatar-genre"> Favorite Genre: Action</p>
         </div>
       </div>
     </div>

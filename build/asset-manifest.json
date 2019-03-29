@@ -1,0 +1,15 @@
+{
+  "main.css": "https://yamovie.github.io/client/static/css/main.2f5e8faa.chunk.css",
+  "main.js": "https://yamovie.github.io/client/static/js/main.13ba74c5.chunk.js",
+  "main.js.map": "https://yamovie.github.io/client/static/js/main.13ba74c5.chunk.js.map",
+  "runtime~main.js": "https://yamovie.github.io/client/static/js/runtime~main.103498d6.js",
+  "runtime~main.js.map": "https://yamovie.github.io/client/static/js/runtime~main.103498d6.js.map",
+  "static/css/2.921d4ac8.chunk.css": "https://yamovie.github.io/client/static/css/2.921d4ac8.chunk.css",
+  "static/js/2.14e73c54.chunk.js": "https://yamovie.github.io/client/static/js/2.14e73c54.chunk.js",
+  "static/js/2.14e73c54.chunk.js.map": "https://yamovie.github.io/client/static/js/2.14e73c54.chunk.js.map",
+  "index.html": "https://yamovie.github.io/client/index.html",
+  "precache-manifest.3c7f3c99237f8b2158d13921bdcb1b2c.js": "https://yamovie.github.io/client/precache-manifest.3c7f3c99237f8b2158d13921bdcb1b2c.js",
+  "service-worker.js": "https://yamovie.github.io/client/service-worker.js",
+  "static/css/2.921d4ac8.chunk.css.map": "https://yamovie.github.io/client/static/css/2.921d4ac8.chunk.css.map",
+  "static/css/main.2f5e8faa.chunk.css.map": "https://yamovie.github.io/client/static/css/main.2f5e8faa.chunk.css.map"
+}
