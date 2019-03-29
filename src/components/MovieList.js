@@ -59,21 +59,26 @@ class MovieList extends Component {
     } else {
       axios
         .get(`https://yamovie-server.herokuapp.com/api/movies/${id}`)
-        .then(response => this.setState({
-          isModalVisible: true,
-          selectedMovie: response.data,
-        }))
+        .then(response =>
+          this.setState({
+            isModalVisible: true,
+            selectedMovie: response.data,
+          }),
+        )
         .catch(err => console.log(err));
     }
   };
 
-  
   // Renders the movie list in HTML on the page. Uses flexboxes to display
   // the genre list, and to display a grid of MovieItems based on breakpoints.
-  
+
   render() {
     const {
-      movies, showGenreFilter, isModalVisible, selectedMovie, filteredGenre,
+      movies,
+      showGenreFilter,
+      isModalVisible,
+      selectedMovie,
+      filteredGenre,
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
 
@@ -82,7 +87,6 @@ class MovieList extends Component {
     //   console.log(image[0][0]);
     // }
     console.log(imagesForAllMovies);
-
 
     return (
       <div id="movie-page">
@@ -94,32 +98,36 @@ class MovieList extends Component {
           />
         )}
 
-        <div id="yamovie-movie-list" className="container" style={{ opacity: isModalVisible ? 0.08 : '' }}>
+        <div
+          id="yamovie-movie-list"
+          className="container"
+          style={{ opacity: isModalVisible ? 0.08 : '' }}
+        >
           {showGenreFilter ? <GenreList moviesByGenreKey={this.handleSendGenre} /> : ''}
           <div id="list-all-movies">
-          
             {// console.log(image);
-              // if (image && image[0]) {
-              imagesForAllMovies.map((moviePosters, i) => (
-                <div id="yamovie-movie-item" key={i}>
+            // if (image && image[0]) {
+            imagesForAllMovies.map(
+              (moviePosters, i) => (
+                <div id="yamovie-movie-item" key={movies[i].title}>
                   {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                   {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                  {/* TODO: Wrap this in a button since it's an interactive element */}
                   <img
                     src={moviePosters[0]}
                     alt={movies[i].title}
                     className="img-fluid"
+                    onClick={() => this.toggleModal(movies[i]._id)}
                   />
                 </div>
               ),
-                // }
-                // return (
-                //   <div id="yamovie-movie-loading">
-                //   loading...
-                //   </div>
-                // );
-              
-              )}
-    
+              // }
+              // return (
+              //   <div id="yamovie-movie-loading">
+              //   loading...
+              //   </div>
+              // );
+            )}
           </div>
         </div>
       </div>
