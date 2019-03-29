@@ -7,15 +7,16 @@
   display: flex;
   justify-content: center;
   background: var(--offwhite);
-  height: 100%;
-  position: fixed;
-  width: 15%;
-  padding-top: 30px;
+  height: 100vh;
+  width: 20%;
 }
 
 .account-nav ul {
   margin: 0;
   list-style-type: none;
+}
+.account-nav ul li {
+  padding: 25px 0;
 }
 
 .account-nav ul li a {
