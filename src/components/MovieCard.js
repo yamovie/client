@@ -36,6 +36,8 @@ class MovieCard extends Component {
       return <div>Loading...</div>;
     }
 
+    const director = movie.credits.crew.find(member => member.job === 'Director').name;
+
     return (
       <div className="movie-card">
         <div className="backdrop">
