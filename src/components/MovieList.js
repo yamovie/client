@@ -86,7 +86,7 @@ class MovieList extends Component {
     // if (image && image[0] && image[0][0]) {
     //   console.log(image[0][0]);
     // }
-    console.log(imagesForAllMovies);
+   
 
     return (
       <div id="movie-page">
@@ -112,7 +112,7 @@ class MovieList extends Component {
                 <div id="yamovie-movie-item" key={movies[i].title}>
                   {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                   {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-                  {/* TODO: Wrap this in a button since it's an interactive element */}
+                  {/* TODO: Wrap this in a button since it's an interactive element, for accessability and to make ESlint happy */}
                   <img
                     src={moviePosters[0]}
                     alt={movies[i].title}
