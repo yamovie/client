@@ -103,7 +103,6 @@ class MovieList extends Component {
         <div
           id="yamovie-movie-list"
           className="container"
-          style={{ opacity: isModalVisible ? 0.08 : '' }}
         >
           {showGenreFilter ? <GenreList moviesByGenreKey={this.handleSendGenre} /> : ''}
           <div id="list-all-movies">
