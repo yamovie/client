@@ -81,7 +81,7 @@ class MovieList extends Component {
     // if (image && image[0] && image[0][0]) {
     //   console.log(image[0][0]);
     // }
-    console.log(imagesForAllMovies);
+   
 
 
     return (
@@ -108,6 +108,7 @@ class MovieList extends Component {
                     src={moviePosters[0]}
                     alt={movies[i].title}
                     className="img-fluid"
+                    onClick={() => this.toggleModal(movies[i]._id)}
                   />
                 </div>
               ),
