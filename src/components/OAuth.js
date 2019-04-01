@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-import API_URL from '../config';
+
+// const API_URL = 'https://yamovie-server.herokuapp.com/auth/';
+const API_URL = 'http://localhost:5000/auth';
 
 class OAuth extends Component {
   constructor(props) {

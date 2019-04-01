@@ -74,7 +74,7 @@ class ChatWindow extends React.Component {
                 { value: '41to54', text: '41 - 54' },
                 { value: '55plus', text: '55+' },
               ], 
-              delay: 2000,
+              delay: 3000,
             }).then(ageRes => {
               this.setState({ age: ageRes.value });
               if (ageRes.value) {

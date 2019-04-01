@@ -1,18 +1,19 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import io from 'socket.io-client';
-
+import openSocket from 'socket.io-client';
 import HomePage from './pages/HomePage';
 import BrowsePage from './pages/BrowsePage';
 import AboutPage from './pages/AboutPage';
 import MovieForm from './components/MovieForm';
 import ChatWindow from './components/ChatWindow';
 import OAuth from './components/OAuth';
-import API_URL from './config';
 import './css/main.css';
 
-const socket = io(API_URL);
+
 const provider = 'google';
+// const API_URL = 'https://yamovie-server.herokuapp.com/auth';
+// const socket = io('http://localhost');
+const socket = openSocket('http://localhost:80');
 
 const App = () => (
   <div className="App">
