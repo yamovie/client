@@ -6,22 +6,22 @@ import Navbar from './Navbar';
 
 
 class ChatWindow extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     mood: 'funny',
-  //     age: '12under',
-  //     release: 'modern',
-  //     ratings: 'dont-care',
-  //     ratingsValue: {
-  //      rottenTomato: 0,
-  //      imdb: 0,
-  //     },
-  //     animated: true,
-  //     foreign: true,
-  //     indie: true
-  //   } 
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      mood: '',
+      age: '',
+      release: '',
+      ratings: '',
+      ratingsValue: {
+        rottenTomato: 0,
+        imdb: 0,
+      },
+      animated: true,
+      foreign: true,
+      indie: true,
+    };
+  }
 
   componentDidMount() {
     this.botui.message.bot({
@@ -94,7 +94,7 @@ class ChatWindow extends React.Component {
                   ], 
                   delay: 3000,
                 }).then(releaseRes => {
-                  // this.setState({ release: 'releaseRes.value' })
+                  this.setState({ release: releaseRes.value });
                   if (releaseRes.value) {
                     this.botui.message.bot({
                       content: 'Me too!',
