@@ -42,14 +42,18 @@ class MovieCard extends Component {
       <div className="movie-card">
         <div className="backdrop">
           {/* <div className="overlay" /> */}
-          <img src={movie.images.backdrops[0].url} alt="" />
+          <img src={movie.images.backdrops[0].backdrop_url} alt="" />
         </div>
         <div className="info">
           <button type="button" className="close-modal" onClick={toggleModal()}>
             &times;
           </button>
           <div className="heading">
-            <img className="poster" alt={movie.title} src={movie.images.posters[0].url} />
+            <img
+              className="poster"
+              alt={movie.title}
+              src={movie.images.posters[0].poster_url}
+            />
             <h1>{movie.title}</h1>
             <div id="line2">
               <h4>
