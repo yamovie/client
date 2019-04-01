@@ -104,6 +104,7 @@ class MovieList extends Component {
                 <div id="yamovie-movie-item" key={i}>
                   {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                   {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                  {/* TODO: Wrap this in a button for accessability and make ESlint happy */}
                   <img
                     src={moviePosters[0]}
                     alt={movies[i].title}
