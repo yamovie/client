@@ -1,11 +1,8 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import LloydChat from '../components/LloydChat';
 import '../css/AboutPage.css';
 
 const AboutPage = () => (
   <div className="about-page">
-    {/* <Navbar /> */}
     <header>
       <div className="overlay" />
       <video src="/images/about-me-videooverlay.mp4" muted autoPlay loop />
@@ -136,7 +133,6 @@ const AboutPage = () => (
         </div>
       </div>
     </div>
-    {/* <LloydChat /> */}
   </div>
 );
 

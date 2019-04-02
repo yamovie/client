@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import LloydChat from '../components/LloydChat';
 import '../css/HomePage.css';
 
 const background = {
@@ -10,7 +8,6 @@ const background = {
 
 const HomePage = () => (
   <div className="landing-body">
-    {/* <Navbar /> */}
     <section id="link-container" style={background}>
       <div id="landing-quote">
         <h3>We find your movie,</h3>
@@ -55,7 +52,6 @@ const HomePage = () => (
         </p>
       </div>
     </section>
-    {/* <LloydChat /> */}
   </div>
 );
 
