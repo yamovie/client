@@ -9,7 +9,7 @@ const AboutPage = () => (
     <header>
       <div className="overlay" />
       <video
-        src={`${process.env.PUBLIC_URL}/images/about-me-videooverlay.mp4`}
+        src="/images/about-me-videooverlay.mp4"
         muted
         autoPlay
         loop
@@ -27,7 +27,7 @@ const AboutPage = () => (
     <div className="info">
       <div className="info-panel">
         <img
-          src={`${process.env.PUBLIC_URL}/images/warning-sign.png`}
+          src="/images/warning-sign.png"
           alt="warning"
           className="about-icon"
         />
@@ -47,7 +47,7 @@ const AboutPage = () => (
       </div>
       <div className="info-panel">
         <img
-          src={`${process.env.PUBLIC_URL}/images/solution.png`}
+          src="/images/solution.png"
           alt="solution"
           className="about-icon"
         />
@@ -61,7 +61,7 @@ const AboutPage = () => (
       </div>
       <div className="info-panel">
         <img
-          src={`${process.env.PUBLIC_URL}/images/book.png`}
+          src="/images/book.png"
           alt="solution"
           className="about-icon"
         />
@@ -76,7 +76,7 @@ const AboutPage = () => (
       </div>
     </div>
     {/* <div className="lloyd-image">
-          <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} />
+          <img src={`/images/Lloyd.png`} />
         </div>
         <div className="lloyd">
           <h2>Lloyd</h2>
@@ -88,7 +88,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src={`${process.env.PUBLIC_URL}/images/ivy.png`}
+              src="/images/ivy.png"
               alt="Ivy Lim"
               className="avatar-image"
             />
@@ -102,7 +102,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src={`${process.env.PUBLIC_URL}/images/sam.png`}
+              src="/images/sam.png"
               alt="Sam Saks-Fithian"
               className="avatar-image"
             />
@@ -116,7 +116,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src={`${process.env.PUBLIC_URL}/images/kevin.png`}
+              src="/images/kevin.png"
               alt="Kevin Baktiar"
               className="avatar-image"
             />
@@ -130,7 +130,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src={`${process.env.PUBLIC_URL}/images/hans.png`}
+              src="/images/hans.png"
               alt="Hans Hanken"
               className="avatar-image"
             />
@@ -144,7 +144,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src={`${process.env.PUBLIC_URL}/images/will.png`}
+              src="/images/will.png"
               alt="Will Dale"
               className="avatar-image"
             />
@@ -158,7 +158,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src={`${process.env.PUBLIC_URL}/images/glen.png`}
+              src="/images/glen.png"
               alt="Glen Paul Florendo"
               className="avatar-image"
             />

@@ -6,7 +6,7 @@ const LloydChat = () => (
   <div id="lloyd-outline">
     <Link to="/chat">
       <img
-        src={`${process.env.PUBLIC_URL}/images/Lloyd.png`}
+        src="/images/Lloyd.png"
         alt="Talk to Lloyd!"
         id="chatbot-btn"
       />

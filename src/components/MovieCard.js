@@ -78,27 +78,26 @@ export default MovieCard;
 
 // ============================================================
 // Stream Links
-const StreamsView = ({ movie }) => {
-  // const streamOptions = movie.streams;
-  // const streamKeys = Object.keys(streamOptions);
-  return (
-    <div id="streams">
-      <h3>Watch Links Coming Soon!</h3>
-      {/* <ul>
+// const streamOptions = movie.streams;
+// const streamKeys = Object.keys(streamOptions);
+const StreamsView = ({ movie }) => (
+  <div id="streams">
+    <h3>Watch Links Coming Soon!</h3>
+    {/* <ul>
         {streamKeys.map(streamName => (
           <li>
             <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
               <img
-                src={`${process.env.PUBLIC_URL}/images/icon-${streamName}.png`}
+                src="/images/icon-${streamName}.png"
                 alt={`${streamName.charAt(0).toUpperCase()}${streamName.slice(1)}`}
               />
             </a>
           </li>
         ))}
       </ul> */}
-    </div>
-  );
-};
+  </div>
+)
+;
 
 // ============================================================
 // Ratings
@@ -118,18 +117,18 @@ const RatingsView = ({ movie }) => {
     <div id="ratings">
       <li>
         <a href="http://www.rottentomatoes.com" target="_blank" rel="noopener noreferrer">
-          <img src={`${process.env.PUBLIC_URL}/images/${rtImg}`} alt="Rotten Tomatoes" />
+          <img src={`/images/${rtImg}`} alt="Rotten Tomatoes" />
           {rtRating}
         </a>
       </li>
       <li>
         <a href="http://www.imdb.com" target="_blank" rel="noopener noreferrer">
-          <img src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`} alt="IMDb" />
+          <img src="/images/icon-IMDb.png" alt="IMDb" />
           {imdbRating}
         </a>
       </li>
       {/* <li>
-      <img src={`${process.env.PUBLIC_URL}/images/icon-star.png`} alt="User Rating" />
+      <img src="/images/icon-star.png" alt="User Rating" />
       Users: 5/5
     </li> */}
     </div>
