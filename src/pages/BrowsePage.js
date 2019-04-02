@@ -3,6 +3,7 @@ import React from 'react';
 import MovieList from '../components/MovieList';
 import Navbar from '../components/Navbar';
 import '../css/BrowsePage.css';
+import LloydChat from '../components/LloydChat';
 
 
 class BrowsePage extends React.Component {
@@ -12,6 +13,7 @@ class BrowsePage extends React.Component {
       <div>
         <Navbar />
         <MovieList class="container" />
+        <LloydChat />
       </div>
     );
   }
