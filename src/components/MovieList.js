@@ -60,12 +60,10 @@ class MovieList extends Component {
     } else {
       axios
         .get(`https://yamovie-server.herokuapp.com/api/movies/${id}`)
-        .then(response =>
-          this.setState({
-            isModalVisible: true,
-            selectedMovie: response.data,
-          }),
-        )
+        .then(response => this.setState({
+          isModalVisible: true,
+          selectedMovie: response.data,
+        }))
         .catch(err => console.log(err));
     }
   };
@@ -82,10 +80,11 @@ class MovieList extends Component {
       // filteredGenre,
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
-
+    
     const imagesForAllMovies = postersForAllMovies.map(poster =>
       poster.map(p => p.poster_url),
     );
+    
     // if (image && image[0] && image[0][0]) {
     //   console.log(image[0][0]);
     // }
