@@ -1,64 +1,100 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
+import React, { Component } from 'react';
 import '../css/main.css';
 import '../css/UserDashboardPage.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faIgloo } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import Navbar from '../components/Navbar';
+import GenreList from '../components/GenreList';
 
-const userDashboardPage = () => (
-  <div>
-    <Navbar />
-    <div className="account-wrapper">
-    
-      <aside className="account-nav">
-        <ul>
-          <li>
-            <a href="https://youtube.com">Account settings</a>
-          </li>
-          <li>
-            <a href="https://youtube.com">Movie preferences</a>
-          </li>
-          <li>
-            <a href="https://youtube.com">Watchlist</a>
-          </li>
-          <li>
-            <a href="https://youtube.com">Log out</a>
-          </li>
-        </ul>
-      </aside>
+library.add(faIgloo);
 
-      <div className="account-page">
-        <form>
-          <div>
-            <h3>Streaming Subscriptions</h3>
-            <div>
-              <label>
-                Hulu
-                <input type="checkbox" />
-              </label>
-            </div>
-            <div>
-              <label>
-                Netflix
-                <input type="checkbox" />
-              </label>
-            </div>
-            <div>
-              <label>
-                Disney +
-                <input type="checkbox" />
-              </label>
-              <label>
-                ESPN
-                <input type="checkbox" />
-              </label>
-            </div>
-            
-           
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+// ==================== Handles Filter Click ===============================
+
+
+
+class userDashboardPage extends Component {
   
-);
+  handleSendGenre = genreKey => {
+    if (genreKey === 'all') {
+      axios
+        .get('https://yamovie-server.herokuapp.com/api/movies')
+        .then(response => this.setState({ movies: response.data }));
+    } else {
+      axios
+        .get(`https://yamovie-server.herokuapp.com/api/movies/genre/${genreKey}`)
+        .then(response => this.setState({ movies: response.data }));
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <div className="account-wrapper">
+      
+          <aside className="account-nav">
+            <ul>
+              <li>
+                <a href="https://youtube.com">Account settings</a>
+              </li>
+              <li>
+                <a href="https://youtube.com">Movie preferences</a>
+              </li>
+              <li>
+                <a href="https://youtube.com">Watchlist</a>
+              </li>
+              <li>
+                <a href="https://youtube.com">Log out</a>
+              </li>
+            </ul>
+          </aside>
+  
+          <div className="account-page">
+            <form>
+              <div>
+                <h1 className="account-title">Movie preferences</h1>
+                <h3 className="account-sub-title">Streaming Subscriptions (enable the once you have)</h3>
+                <div>
+                  <span className="white">Hulu</span>
+                  <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider" />
+                  </label>
+                </div>
+                <div>
+                  <span className="white">Netflix</span>
+                  <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider" />
+                  </label>
+                </div>
+                <div>
+                  <span className="white">Disney +</span>
+                  <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider" />
+                  </label>
+                </div>
+  
+                <div>
+                  <h3 className="account-sub-title">Filter movis by the genres you like (Leave blank for all genres)</h3>
+                  <GenreList checkboxesVisible />
+                </div>
+                
+                <section className="ratings">
+                  <input type="range" multiple value="10, 80" />
+                </section>
+  
+  
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default userDashboardPage;
