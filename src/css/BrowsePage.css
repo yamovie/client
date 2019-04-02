@@ -100,6 +100,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 #list-genres button {
@@ -136,6 +137,7 @@ body {
 #list-all-movies {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 100%;
   flex-wrap: wrap;
   color: var(--offwhite);
