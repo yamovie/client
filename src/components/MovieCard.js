@@ -78,9 +78,10 @@ export default MovieCard;
 
 // ============================================================
 // Stream Links
+
+const StreamsView = ({ movie }) => (
 // const streamOptions = movie.streams;
 // const streamKeys = Object.keys(streamOptions);
-const StreamsView = ({ movie }) => (
   <div id="streams">
     <h3>Watch Links Coming Soon!</h3>
     {/* <ul>
@@ -88,7 +89,7 @@ const StreamsView = ({ movie }) => (
           <li>
             <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
               <img
-                src="/images/icon-${streamName}.png"
+                src=`/images/icon-${streamName}.png`
                 alt={`${streamName.charAt(0).toUpperCase()}${streamName.slice(1)}`}
               />
             </a>
@@ -96,8 +97,7 @@ const StreamsView = ({ movie }) => (
         ))}
       </ul> */}
   </div>
-)
-;
+);
 
 // ============================================================
 // Ratings
