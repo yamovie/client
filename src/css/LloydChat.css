@@ -31,5 +31,22 @@
 }
 
 #lloyd-button-wrapper {
-  /* display: none; */
+  text-decoration: none;
+  outline: none;
+}
+
+@media only screen and (max-width: 525px) {
+  #lloyd-outline {
+    width: 300px;
+    right: 30px;
+    bottom: 70px;
+
+  }
+}
+
+@media only screen and (max-width: 525px) {
+  .botui-container {
+    width: 300px;
+
+  }
 }
