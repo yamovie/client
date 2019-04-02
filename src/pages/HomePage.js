@@ -5,7 +5,7 @@ import LloydChat from '../components/LloydChat';
 import '../css/HomePage.css';
 
 const background = {
-  'background-image': 'url(\'%PUBLIC_URL%../../images/landing-bg-v1.jpg\')',
+  backgroundImage: "url('%PUBLIC_URL%../../images/landing-bg-v1.jpg')",
 };
 
 const HomePage = () => (
