@@ -137,7 +137,7 @@ const AboutPage = () => (
           </div>
           <h3 className="avatar-name">Hans</h3>
           <h5 className="avatar-role">Software Engineer</h5>
-          <p className="avatar-movie">Favorite Movies: Lord of the Rings</p>
+          <p className="avatar-movie">Favorite Movies: The Lord of the Rings</p>
           <p className="avatar-show">Favorite Show: Brooklyn Nine Nine</p>
           <p className="avatar-genre"> Favorite Genre: Adventure</p>
         </div>
