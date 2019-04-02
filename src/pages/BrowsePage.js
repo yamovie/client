@@ -5,15 +5,13 @@ import Navbar from '../components/Navbar';
 import '../css/BrowsePage.css';
 import LloydChat from '../components/LloydChat';
 
-
 class BrowsePage extends React.Component {
-
   render() {
     return (
       <div>
-        <Navbar />
+        {/* <Navbar /> */}
         <MovieList class="container" />
-        <LloydChat />
+        {/* <LloydChat /> */}
       </div>
     );
   }
