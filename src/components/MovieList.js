@@ -59,12 +59,10 @@ class MovieList extends Component {
     } else {
       axios
         .get(`https://yamovie-server.herokuapp.com/api/movies/${id}`)
-        .then(response =>
-          this.setState({
-            isModalVisible: true,
-            selectedMovie: response.data,
-          }),
-        )
+        .then(response => this.setState({
+          isModalVisible: true,
+          selectedMovie: response.data,
+        }))
         .catch(err => console.log(err));
     }
   };
@@ -82,7 +80,7 @@ class MovieList extends Component {
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
 
-    const imagesForAllMovies = postersForAllMovies.map(poster => poster.map(p => p.url));
+    const imagesForAllMovies = postersForAllMovies.map(poster => poster.map(p => p.poster_url));
     // if (image && image[0] && image[0][0]) {
     //   console.log(image[0][0]);
     // }
@@ -107,27 +105,27 @@ class MovieList extends Component {
           <div id="list-all-movies">
             {// console.log(image);
             // if (image && image[0]) {
-            imagesForAllMovies.map(
-              (moviePosters, i) => (
-                <div id="yamovie-movie-item" key={movies[i].title}>
-                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-                  {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-                  {/* TODO: Wrap this in a button since it's an interactive element, for accessability and to make ESlint happy */}
-                  <img
-                    src={moviePosters[0]}
-                    alt={movies[i].title}
-                    className="img-fluid"
-                    onClick={() => this.toggleModal(movies[i]._id)}
-                  />
-                </div>
-              ),
+              imagesForAllMovies.map(
+                (moviePosters, i) => (
+                  <div id="yamovie-movie-item" key={movies[i].title}>
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                    {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                    {/* TODO: Wrap this in a button since it's an interactive element, for accessability and to make ESlint happy */}
+                    <img
+                      src={moviePosters[0]}
+                      alt={movies[i].title}
+                      className="img-fluid"
+                      onClick={() => this.toggleModal(movies[i]._id)}
+                    />
+                  </div>
+                ),
               // }
               // return (
               //   <div id="yamovie-movie-loading">
               //   loading...
               //   </div>
               // );
-            )}
+              )}
           </div>
         </div>
       </div>

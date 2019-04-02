@@ -11,7 +11,6 @@ const background = {
 const HomePage = () => (
   <div className="landing-body">
     <Navbar />
-    <LloydChat />
     <section id="link-container" style={background}>
       <div id="landing-quote">
         <h3>We find your movie,</h3>
@@ -69,6 +68,7 @@ const HomePage = () => (
         </p>
       </div>
     </section>
+    <LloydChat />
   </div>
 );
 
