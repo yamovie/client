@@ -44,9 +44,25 @@
   }
 }
 
+@media only screen and (max-height: 640px) {
+  #lloyd-outline {
+    height: 300px;
+    right: 50px;
+    bottom: 100px;
+
+  }
+}
+
 @media only screen and (max-width: 525px) {
   .botui-container {
     width: 300px;
+
+  }
+}
+
+@media only screen and (max-height: 640px) {
+  .botui-container {
+    height: 300px;
 
   }
 }
