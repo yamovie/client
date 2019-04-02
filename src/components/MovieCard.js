@@ -8,7 +8,7 @@ class MovieCard extends Component {
     movie: PropTypes.shape({
       genre_ids: PropTypes.array,
       overview: PropTypes.string,
-      ratings: PropTypes.object,
+      ratings: PropTypes.arrayOf(PropTypes.object),
       release_date: PropTypes.string,
       runtime: PropTypes.number,
       title: PropTypes.string,
@@ -139,7 +139,12 @@ const StreamsView = ({ movie }) => {
 };
 
 StreamsView.propTypes = {
-  movie: MovieCard.propTypes.movie.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  movie: PropTypes.object,
+};
+
+StreamsView.defaultProps = {
+  movie: {},
 };
 
 // ============================================================
@@ -190,7 +195,9 @@ const RatingsView = ({ movie }) => {
 };
 
 RatingsView.propTypes = {
-  movie: MovieCard.propTypes.movie.isRequired,
+  movie: PropTypes.shape({
+    ratings: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
 };
 
 // ============================================================
