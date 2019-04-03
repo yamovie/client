@@ -44,6 +44,9 @@ class ChatWindow extends React.Component {
       const genreArray = response.data
       let actionArray = new Array()
       for (let i=0; i < genreArray.length; i++) {
+        if (genreArray[i].name === 'Animation'){
+          this.setState({ animationId: genreArray[i]._id })
+        }
         actionArray.push({ value: genreArray[i]._id, text: genreArray[i].name })
       }
       this.setState({ action : actionArray })
@@ -80,7 +83,7 @@ class ChatWindow extends React.Component {
           action,
           delay: 3000,
         }).then(genresRes => {
-          this.setState({ genres: genresRes.value });
+          this.setState({ genres: [genresRes.value] });
           if (genresRes.value) {
             this.botui.message.bot({
               content: 'Awesome!',
@@ -98,7 +101,7 @@ class ChatWindow extends React.Component {
                 { value: 40, text: '30 - 40' },
                 { value: 54, text: '41 - 54' },
                 { value: 99, text: '55+' },
-              ], 
+              ],
               delay: 2000,
             }).then(ageRes => {
               this.setState({ maxAge: ageRes.value });
@@ -151,7 +154,10 @@ class ChatWindow extends React.Component {
                       ],
                       delay: 3000,
                     }).then(animatedRes => {
-                      this.setState({ animated: animatedRes.value });
+                      if (animatedRes.value === true) {
+                        const { animationId } = this.state;
+                        this.setState(prevState => ({ genres: [...prevState.genres, animationId] }));
+                      }
                       if (animatedRes) {
                         this.botui.message.bot({
                           content: 'How about foreign films?',
