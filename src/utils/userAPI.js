@@ -1,4 +1,4 @@
-const BASE_URL = '/user';
+const BASE_URL = '/users';
 
 function signup(user) {
   return fetch(BASE_URL + 'signup', {
@@ -28,5 +28,5 @@ function login(creds) {
 
 export default {
   signup,
-  login
+  login,
 };

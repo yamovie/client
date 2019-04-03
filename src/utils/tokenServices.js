@@ -1,10 +1,10 @@
-// function setToken(token) {
-//   if (token) {
-//     localStorage.setItem('token', token);
-//   } else {
-//     localStorage.removeItem('token');
-//   } 
-// }
+function setToken(token) {
+  if (token) {
+    localStorage.setItem('token', token);
+  } else {
+    localStorage.removeItem('token');
+  } 
+}
 
 function getToken() {
   let token = localStorage.getItem('token');
@@ -30,6 +30,7 @@ function removeToken() {
 }
 
 export default {
+  setToken,
   getToken,
   removeToken,
   getUserFromToken,

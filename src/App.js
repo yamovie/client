@@ -6,9 +6,10 @@ import BrowsePage from './pages/BrowsePage';
 import AboutPage from './pages/AboutPage';
 import MovieForm from './components/MovieForm';
 import ChatWindow from './components/ChatWindow';
-import OAuth from './components/OAuth';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import userServices from './utils/userServices';
 import './css/main.css';
-import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +26,19 @@ class App extends Component {
       this.props.history.push('/');
     }
   }
+
+  handleLogout = () => {
+    userServices.logout();
+    this.setState({ user: null });
+  }
+
+  handleLogin = () => {
+    this.setState({ user: userServices.getUser() });
+  }
+
+  handleSignup = () => {
+    this.setState({ user: userServices.getUser() });
+  }
    
   render() {
     return (
@@ -37,7 +51,8 @@ class App extends Component {
           <Route path="/about" component={AboutPage} />
           <Route path="/movieform" component={MovieForm} />
           <Route path="/chat" component={ChatWindow} />
-          <Route path="/login" render={(props) => <OAuth {...props} user={this.state.user} />} />
+          <Route path="/login" render={(props) => <Login {...props} handleLogin={this.handleLogin} />} />
+          <Route path="/signup" render={(props) => <Signup {...props} handleSignup={this.handleSignup} />} />
         </Switch>
       </div>
     );

@@ -1,21 +1,21 @@
-import Axios from 'axios';
+import tokenServices from './tokenServices';
 import userAPI from './userAPI';
 
 function getUser() {
-  Axios.get(`${process.env.DB_URL}users`).then(res => res.data);
+  return tokenServices.getUserFromToken();
 }
 
-// function logout() {
-//   tokenService.removeToken();
-// }
+function logout() {
+  tokenServices.removeToken();
+}
 
-// function login(creds) {
-//   return userAPI.login(creds)
-//     .then(token => tokenService.setToken(token));
-// }
+function login(creds) {
+  return userAPI.login(creds)
+    .then(token => tokenServices.setToken(token));
+}
 
 export default {
   getUser,
-  // logout,
-  // login,
+  logout,
+  login,
 };

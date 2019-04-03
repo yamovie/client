@@ -1,0 +1,59 @@
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import userServices from '../utils/userServices';
+
+class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      fullName: '',
+      pw: '',
+      pwConfirm: '',
+      message: '',
+    };
+  }
+
+  handleChange = (field, e) => {
+    this.setState({
+      [field]: e.target.value,
+    });
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    userServices.signup(this.state).then(() => {
+      this.props.handleSignup();
+      this.props.history.push('/');
+    }).catch(err => this.setState({ message: err }));
+  }
+
+  isFormInvalid() {
+    return !(this.state.name && this.state.email && this.state.pw === this.state.pwConfirm)
+  }
+
+  render() {
+    const { email, fullName, pw, pwConfirm } = this.state;
+    return (
+      <div className="signup">
+        <header>Signup</header>
+        <form onSubmit={this.handleSubmit}>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => this.handleChange('email', e)} />
+          <br />
+          <input type="name" placeholder="First and Last Name" value={fullName} onChange={(e) => this.handleChange('fullName', e)} />
+          <br />
+          <input type="password" placeholder="Password" value={pw} onChange={(e) => this.handleChange('pw', e)} />
+          <br />
+          <input type="password" placeholder="Password Confirmation" value={pwConfirm} onChange={(e) => this.handleChange('pwConfirm', e)} />
+          <div>
+            <button type="button" disabled={this.isFormInvalid()}> Signup </button>
+            &nbsp; &nbsp;
+            <Link to="/">Cancel</Link>
+          </div>
+        </form>
+      </div>
+    )
+  }
+}
+
+export default Signup;
