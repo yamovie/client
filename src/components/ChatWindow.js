@@ -9,6 +9,7 @@ class ChatWindow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      allGenres: [],
       genres: [''], // => genre
       maxAge: '', // => mpaaRating
       minYear: '', // => release date
@@ -19,6 +20,8 @@ class ChatWindow extends React.Component {
       foreign: true, // => originalLanguage =/= English
       indie: true, // => productionCompany does not contain one of 
       // the top ten hollywood production companies :
+      action: [],
+      activateChat: false,
     };
   }
 
@@ -38,14 +41,20 @@ class ChatWindow extends React.Component {
     //   foreign,
     //   indie,
     .then(response => {
-      console.log(response.data)
+      const genreArray = response.data
+      let actionArray = new Array()
+      for (let i=0; i < genreArray.length; i++) {
+        actionArray.push({ value: genreArray[i]._id, text: genreArray[i].name })
+      }
+      this.setState({ action : actionArray })
     }).catch(error => {
       console.log(error)
     })
   }
   /* eslint-enable */
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.getMovieResults();
     this.botui.message.bot({
       content: 'Hello, My name is Lloyd!',
       delay: 1000,
@@ -66,15 +75,9 @@ class ChatWindow extends React.Component {
           content: 'Okay, What kind of movie are you in the mood for?',
           delay: 1000,
         });
+        const { action } = this.state;
         this.botui.action.button({
-          action: [
-            { value: 'funny', text: 'Funny' },
-            { value: 'sad', text: 'Sad' },
-            { value: 'dramatic', text: 'Dramatic' },
-            { value: 'scary', text: 'Scary' },
-            { value: 'action-packed', text: 'Action Packed' },
-            { value: 'romantic', text: 'Romantic' },
-          ],
+          action,
           delay: 3000,
         }).then(genresRes => {
           this.setState({ genres: genresRes.value });
@@ -271,8 +274,6 @@ class ChatWindow extends React.Component {
                                         loading: true,
                                         content: 'Getting results now!',
                                         delay: 1000,
-                                      }).then(() => {
-                                        this.setState({ showResults: true });
                                       });
                                     });
                                   } 
