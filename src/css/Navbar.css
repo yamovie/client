@@ -10,9 +10,23 @@
 }
 
 .navbar img {
-  height: 50px;
+  display: flex;
+  height: 3em;
   padding-left: 10px;
   padding-top: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar img {
+    height: 2em;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .navbar img {
+    height: 1.5em;
+    padding-left: 2px;
+  }
 }
 
 #navbar-links {
@@ -46,6 +60,15 @@
   font-weight: 400;
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
   font-size: 0.75em;
+}
+
+@media only screen and (max-width: 600px) {
+  #navbar-links li {
+    height: 20px;
+    font-size: .5em;
+    line-height: 25px;
+    padding: 0 7px;
+  }
 }
 
 #navbar-links li::before {
@@ -82,6 +105,14 @@
   -moz-transition: all 0.3s;
   transition: all 0.3s;
   pointer-events: none;
+}
+
+@media only screen and (max-width: 600px) {
+
+  #navbar-links li::before,
+  #navbar-links li::after {
+    width: 25px;
+  }
 }
 
 .navbar *,
