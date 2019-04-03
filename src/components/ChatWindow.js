@@ -36,8 +36,7 @@ class ChatWindow extends React.Component {
       imdb,
       foreign,
       indie
-    })
-    console.log('fire!')
+    }).then(response => console.log(response))
   }
 
   getGenreData = () => {
@@ -75,7 +74,7 @@ class ChatWindow extends React.Component {
         { value: false, text: 'No' },
       ],
       delay: 3000,
-    }).then(res => { 
+    }).then(res => {
       if (res.value) {
         this.botui.message.bot({
           content: 'Okay, What kind of movie are you in the mood for?',
@@ -122,7 +121,7 @@ class ChatWindow extends React.Component {
                     { value: 'classic', text: 'Classic' },
                     { value: 'modern', text: 'Modern' },
                     { value: 'in-between', text: 'In Between' },
-                  ], 
+                  ],
                   delay: 3000,
                 }).then(releaseRes => {
                   if (releaseRes.value === 'classic') {
@@ -159,8 +158,9 @@ class ChatWindow extends React.Component {
                     }).then(animatedRes => {
                       if (animatedRes.value === true) {
                         const { animationId } = this.state;
-                        // eslint-disable-next-line max-len
-                        this.setState(prevState => ({ genres: [...prevState.genres, animationId] }));
+                        this.setState(prevState => ({
+                          genres: [...prevState.genres, animationId],
+                        }));
                       }
                       if (animatedRes) {
                         this.botui.message.bot({
@@ -286,17 +286,16 @@ class ChatWindow extends React.Component {
                                         delay: 1000,
                                       });
                                     });
-                                  } 
+                                  }
                                   if (ratingRes.value === 'dont-care') {
                                     this.botui.message.bot({
                                       loading: true,
                                       content: 'Getting results now!',
                                       delay: 1000,
                                     }).then(() => {
-                                      // eslint-disable-next-line react/destructuring-assignment
                                     });
                                   }
-                                });                                
+                                });
                               }
                             });
                           }
