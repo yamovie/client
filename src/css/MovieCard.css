@@ -145,12 +145,12 @@
 
 .movie-card #ratings li {
   list-style: none;
-  padding: 4px;
+  padding: 0px 5px;
 }
 
 .movie-card #ratings li img {
   height: 1.5vw;
-  margin-right: 6px;
+  margin-right: 4px;
 }
 
 .movie-card #ratings li a {
