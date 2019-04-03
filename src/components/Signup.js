@@ -29,7 +29,8 @@ class Signup extends Component {
   }
 
   isFormInvalid() {
-    return !(this.state.name && this.state.email && this.state.pw === this.state.pwConfirm)
+    const { email, fullName, pw, pwConfirm } = this.state;
+    return !(fullName && email && pw === pwConfirm);
   }
 
   render() {
@@ -37,7 +38,7 @@ class Signup extends Component {
     return (
       <div className="signup">
         <header>Signup</header>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <input type="email" placeholder="Email" value={email} onChange={(e) => this.handleChange('email', e)} />
           <br />
           <input type="name" placeholder="First and Last Name" value={fullName} onChange={(e) => this.handleChange('fullName', e)} />
@@ -46,7 +47,7 @@ class Signup extends Component {
           <br />
           <input type="password" placeholder="Password Confirmation" value={pwConfirm} onChange={(e) => this.handleChange('pwConfirm', e)} />
           <div>
-            <button type="button" disabled={this.isFormInvalid()}> Signup </button>
+            <button type="button" onClick={this.handleSubmit}> Signup </button>
             &nbsp; &nbsp;
             <Link to="/">Cancel</Link>
           </div>

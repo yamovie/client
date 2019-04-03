@@ -31,12 +31,12 @@ class Login extends Component {
     return (
       <div className="login">
         <header>Log In</header>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <input type="email" placeholder="Email" value={email} onChange={(e) => this.handleChange('email', e)} />
           <br />
           <input type="password" placeholder="Password" value={pw} onChange={(e) => this.handleChange('pw', e)} />
           <div>
-            <button> Log In </button>
+            <button type="button" onClick={this.handleSubmit}> Log In </button>
             &nbsp; &nbsp;
             <Link to="/">Cancel</Link>
           </div>

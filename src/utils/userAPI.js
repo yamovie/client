@@ -1,29 +1,13 @@
-const BASE_URL = '/users';
+import axios from 'axios';
+
+const BASE_URL = 'http://localhost:5000/users/';
 
 function signup(user) {
-  return fetch(BASE_URL + 'signup', {
-    method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json'}),
-    body: JSON.stringify(user)
-  })
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Email already taken!');
-  })
-  .then(({token}) => token);
+  return axios.post(`${BASE_URL}signup`, { email: user.email, fullName: user.fullName, password: user.pw }, { headers: new Headers({ 'Content-Type': 'application/json' }) });
 }
 
 function login(creds) {
-  return fetch(BASE_URL + 'login', {
-    method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json'}),
-    body: JSON.stringify(creds)
-  })
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Bad credentials');
-  })
-  .then(({token}) => token);
+  return axios.post(`${BASE_URL}login`, { email: creds.email, pw: creds.pw }, { headers: new Headers({ 'Content-Type': 'application/json' }) });
 }
 
 export default {
