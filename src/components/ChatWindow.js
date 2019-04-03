@@ -21,42 +21,9 @@ class ChatWindow extends React.Component {
       indie: true, // => productionCompany does not contain one of 
       // the top ten hollywood production companies :
       action: [],
+      dataObj: {},
     };
   }
-
-  /* eslint-disable */
-  getMovieResults = () => {
-    const {genres, maxAge, minYear, maxYear, rottenTomato, imdb, foreign, indie} = this.state
-    axios.post('https://yamovie-server.herokuapp.com/api/genres', {
-      genres,
-      maxAge,
-      minYear,
-      maxYear,
-      rottenTomato,
-      imdb,
-      foreign,
-      indie
-    }).then(response => console.log(response))
-  }
-
-  getGenreData = () => {
-    axios
-    .get('https://yamovie-server.herokuapp.com/api/genres')
-    .then(response => {
-      const genreArray = response.data
-      let actionArray = new Array()
-      for (let i=0; i < genreArray.length; i++) {
-        if (genreArray[i].name === 'Animation'){
-          this.setState({ animationId: genreArray[i]._id })
-        }
-        actionArray.push({ value: genreArray[i]._id, text: genreArray[i].name })
-      }
-      this.setState({ action : actionArray })
-    }).catch(error => {
-      console.log(error)
-    })
-  }
-  /* eslint-enable */
 
   async componentDidMount() {
     await this.getGenreData();
@@ -317,6 +284,42 @@ class ChatWindow extends React.Component {
     });
     // .then...
   }
+
+  /* eslint-disable */
+
+  getMovieResults = () => {
+    const { genres, maxAge, minYear, maxYear, rottenTomato, imdb, foreign, indie } = this.state;
+    axios.post('https://yamovie-server-staging.herokuapp.com/api/movies/recommended', {
+      genres,
+      maxAge,
+      minYear,
+      maxYear,
+      rottenTomato,
+      imdb,
+      foreign,
+      indie,
+    }).then(response => console.log(response));
+  }
+
+  getGenreData = () => {
+    axios
+    .get('https://yamovie-server.herokuapp.com/api/genres')
+    .then(response => {
+      const genreArray = response.data
+      let actionArray = new Array()
+      for (let i=0; i < genreArray.length; i++) {
+        if (genreArray[i].name === 'Animation'){
+          this.setState({ animationId: genreArray[i]._id })
+        }
+        actionArray.push({ value: genreArray[i]._id, text: genreArray[i].name })
+      }
+      this.setState({ action : actionArray })
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+  /* eslint-enable */
+
   /* eslint-disable */
   render() {
     return (
