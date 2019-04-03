@@ -122,27 +122,25 @@ export default MovieCard;
 // ============================================================
 // Stream Links
 // eslint-disable-next-line arrow-body-style
-const StreamsView = ({ movie }) => {
+const StreamsView = ({ movie }) => (
   // const streamOptions = movie.streams;
   // const streamKeys = Object.keys(streamOptions);
-  return (
-    <div id="streams">
-      <h3>{`Watch Links for '${movie.title}' Coming Soon!`}</h3>
-      {/* <ul>
-        {streamKeys.map(streamName => (
-          <li>
-            <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
-              <img
-                src={`${process.env.PUBLIC_URL}/images/icon-${streamName}.png`}
-                alt={`${streamName.charAt(0).toUpperCase()}${streamName.slice(1)}`}
-              />
-            </a>
-          </li>
-        ))}
-      </ul> */}
-    </div>
-  );
-};
+  <div id="streams">
+    <h3>{`Watch Links for '${movie.title}' Coming Soon!`}</h3>
+    {/* <ul>
+      {streamKeys.map(streamName => (
+        <li>
+          <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
+            <img
+              src=`/images/icon-${streamName}.png`
+              alt={`${streamName.charAt(0).toUpperCase()}${streamName.slice(1)}`}
+            />
+          </a>
+        </li>
+      ))}
+    </ul> */}
+  </div>
+);
 
 StreamsView.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -193,7 +191,7 @@ const RatingsView = ({ movie }) => {
         ''
       )}
       {/* <li>
-      <img src={`${process.env.PUBLIC_URL}/images/icon-star.png`} alt="User Rating" />
+      <img src="/images/icon-star.png" alt="User Rating" />
       Users: 5/5
     </li> */}
     </div>

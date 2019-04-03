@@ -5,13 +5,12 @@ import LloydChat from '../components/LloydChat';
 import '../css/HomePage.css';
 
 const background = {
-  'background-image': 'url(\'%PUBLIC_URL%../../images/landing-bg-v1.jpg\')',
+  backgroundImage: 'url(\'%PUBLIC_URL%../../images/landing-bg-v1.jpg\')',
 };
 
 const HomePage = () => (
   <div className="landing-body">
     <Navbar />
-    <LloydChat />
     <section id="link-container" style={background}>
       <div id="landing-quote">
         <h3>We find your movie,</h3>
@@ -24,7 +23,7 @@ const HomePage = () => (
 
     <article id="overview">
       <img
-        src={`${process.env.PUBLIC_URL}/images/logo-v3.png`}
+        src="/images/logo-v3.png"
         alt="YaMovie!"
       />
       <span id="movie-summary">
@@ -36,7 +35,7 @@ const HomePage = () => (
     <section id="info-container">
       <div className="info-card">
         <img
-          src={`${process.env.PUBLIC_URL}/images/browsing-white.png`}
+          src="/images/browsing-white.png"
           alt="Browse"
         />
         <h2>Browse</h2>
@@ -47,7 +46,7 @@ const HomePage = () => (
       </div>
       <div className="info-card">
         <img
-          src={`${process.env.PUBLIC_URL}/images/lloyd-white.png`}
+          src="/images/lloyd-white.png"
           alt="Chatbot"
         />
         <h2>Chatbot</h2>
@@ -58,7 +57,7 @@ const HomePage = () => (
       </div>
       <div className="info-card">
         <img
-          src={`${process.env.PUBLIC_URL}/images/account-white.png`}
+          src="/images/account-white.png"
           alt="Benefits"
         />
         <h2>Account Benefits</h2>
@@ -69,6 +68,7 @@ const HomePage = () => (
         </p>
       </div>
     </section>
+    <LloydChat />
   </div>
 );
 

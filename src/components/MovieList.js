@@ -109,6 +109,7 @@ class MovieList extends Component {
     const imagesForAllMovies = postersForAllMovies.map(poster =>
       poster.map(p => p.poster_url),
     );
+
     // if (image && image[0] && image[0][0]) {
     //   console.log(image[0][0]);
     // }
