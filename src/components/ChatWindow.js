@@ -21,25 +21,28 @@ class ChatWindow extends React.Component {
       indie: true, // => productionCompany does not contain one of 
       // the top ten hollywood production companies :
       action: [],
-      activateChat: false,
     };
   }
 
   /* eslint-disable */
   getMovieResults = () => {
-    const {genres, minAge, maxAge, minYear, maxYear, rottenTomato, imdb, foreign, indie} = this.state
+    const {genres, maxAge, minYear, maxYear, rottenTomato, imdb, foreign, indie} = this.state
+    axios.post('https://yamovie-server.herokuapp.com/api/genres', {
+      genres,
+      maxAge,
+      minYear,
+      maxYear,
+      rottenTomato,
+      imdb,
+      foreign,
+      indie
+    })
+    console.log('fire!')
+  }
+
+  getGenreData = () => {
     axios
     .get('https://yamovie-server.herokuapp.com/api/genres')
-    // axios.post('/api/movies/recommended', {
-    //   genres,
-    //   minAge,
-    //   maxAge,
-    //   minYear,
-    //   maxYear,
-    //   rottenTomato,
-    //   imdb,
-    //   foreign,
-    //   indie,
     .then(response => {
       const genreArray = response.data
       let actionArray = new Array()
@@ -57,7 +60,7 @@ class ChatWindow extends React.Component {
   /* eslint-enable */
 
   async componentDidMount() {
-    await this.getMovieResults();
+    await this.getGenreData();
     this.botui.message.bot({
       content: 'Hello, My name is Lloyd!',
       delay: 1000,
@@ -156,6 +159,7 @@ class ChatWindow extends React.Component {
                     }).then(animatedRes => {
                       if (animatedRes.value === true) {
                         const { animationId } = this.state;
+                        // eslint-disable-next-line max-len
                         this.setState(prevState => ({ genres: [...prevState.genres, animationId] }));
                       }
                       if (animatedRes) {
