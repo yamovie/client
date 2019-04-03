@@ -2,7 +2,6 @@
 import React from 'react';
 import Botui from 'botui-react';
 import '../css/ChatWindow.css';
-import Navbar from './Navbar';
 
 
 class ChatWindow extends React.Component {
@@ -174,7 +173,11 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(bothRes => {
-                                      this.setState({ ratingsValue: { rottenTomato: bothRes.value } });
+                                      this.setState({
+                                        ratingsValue: {
+                                          rottenTomato: bothRes.value,
+                                        },
+                                      });
                                       this.botui.message.bot({
                                         content: 'Minimum IMDB rating?',
                                         delay: 1000,

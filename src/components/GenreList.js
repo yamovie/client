@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 class GenreList extends Component {
+  static propTypes = {
+    moviesByGenreKey: PropTypes.func.isRequired,
+  }
+
   constructor(props) {
     super(props);
 
