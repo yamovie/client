@@ -5,6 +5,7 @@ import '../css/MovieCard.css';
 
 class MovieCard extends Component {
   static propTypes = {
+    genres: PropTypes.arrayOf(PropTypes.object).isRequired,
     movie: PropTypes.shape({
       genre_ids: PropTypes.array,
       overview: PropTypes.string,
@@ -51,11 +52,18 @@ class MovieCard extends Component {
    */
   render() {
     const { movie, loading } = this.state;
-    const { toggleModal } = this.props;
+    const { toggleModal, genres } = this.props;
 
     if (loading === true) {
       return <div>Loading...</div>;
     }
+
+    let genreString = '';
+    movie.genre_ids.forEach(id => {
+      const genreName = genres.find(genre => genre._id === id).name;
+      genreString = `${genreString}, ${genreName}`;
+    });
+    genreString = genreString.slice(2);
 
     const release = movie.release_date ? movie.release_date.substring(0, 4) : 'No Date';
 
@@ -64,8 +72,6 @@ class MovieCard extends Component {
       directorList.length <= 0
         ? ', No Director'
         : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
-    // const directorObj = movie.credits.crew.find(member => member.job === 'Director');
-    // const director = directorObj ? directorObj.name : 'No Director';
 
     const backdropNum = Math.floor(Math.random() * movie.images.backdrops.length);
     const backdrop = movie.images.backdrops[backdropNum];
@@ -95,7 +101,7 @@ class MovieCard extends Component {
               <RatingsView movie={movie} />
             </div>
             {movie.runtime ? <span className="runtime">{movie.runtime} min</span> : ''}
-            <p className="genres">Some Genres</p>
+            <p className="genres">{genreString}</p>
           </div>
           <div className="description">
             <p>{movie.overview ? movie.overview : 'No plot summary available'}</p>
