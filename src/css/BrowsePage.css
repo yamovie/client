@@ -29,6 +29,14 @@ body {
   padding-top: 15px;
 }
 
+#yamovie-movie-item:active {
+  filter: brightness(75%);
+}
+
+#yamovie-movie-item:hover {
+  cursor: pointer;
+}
+
 .img-fluid {
   max-width: 100%;
   height: auto;

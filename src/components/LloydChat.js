@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import ChatWindow from './ChatWindow';
 import '../css/LloydChat.css';
 
@@ -22,6 +22,23 @@ class LloydChat extends Component {
     }
   }
 
+  componentDidMount = () => {
+    const visited = localStorage.alreadyVisited;
+    if (visited) {
+      this.setState({ isChatVisible: false });
+    } else {
+      localStorage.alreadyVisited = true;
+      setTimeout(() => {
+        this.setState({ isChatVisible: true });
+      }, 6000);
+    }
+  }
+
+  // componentWillUnmount = () => {
+  //   clearTimeout(myTimeout);
+  // }
+  
+
   render() {
     const { isChatVisible } = this.state;
     return (
@@ -39,5 +56,6 @@ class LloydChat extends Component {
     );
   }
 }
+
 
 export default LloydChat;
