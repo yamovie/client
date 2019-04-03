@@ -11,24 +11,18 @@ class FindMoviePage extends React.Component {
     };
   }
 
-  toggle = () => {
-    console.log('I ran!');
-    this.setState({ showResults: false });
-  };
-
   render() {
     const { showResults } = this.state;
     return (
       <div>
         <Navbar />
+        <ChatWindow />
         {showResults ? (
           <div>
-            <MovieList />
+            <MovieList showGenreFilter={false} />
           </div>
         ) : (
-          <div>
-            <ChatWindow toggle={() => this.toggle} />
-          </div>
+          undefined
         )}
       </div>
     );

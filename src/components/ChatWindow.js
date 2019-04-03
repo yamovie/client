@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import Botui from 'botui-react';
+import axios from 'axios';
 import '../css/ChatWindow.css';
 
 
@@ -8,30 +9,41 @@ class ChatWindow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mood: '', // => genre
-      age: '', // => mpaaRating
-      release: '', // => releaseDate
-      ratings: '', // => ratings
-      ratingsValue: {
-        rottenTomato: 0, // => ratings
-        imdb: 0,
-      },
+      genres: [''], // => genre
+      maxAge: '', // => mpaaRating
+      minYear: '', // => release date
+      maxYear: '',
+      rottenTomato: 0, // => ratings
+      imdb: 0,
       animated: true, // => genre animation
       foreign: true, // => originalLanguage =/= English
       indie: true, // => productionCompany does not contain one of 
       // the top ten hollywood production companies :
-      /* Warner Bros.
-      Sony Pictures Motion Picture Group
-      Walt Disney Studios
-      Universal Pictures
-      20th Century Fox
-      Paramount Pictures
-      Lionsgate Films
-      The Weinstein Company
-      Metro-Goldwyn-Mayer Studios
-      DreamWorks Pictures */
     };
   }
+
+  /* eslint-disable */
+  getMovieResults = () => {
+    const {genres, minAge, maxAge, minYear, maxYear, rottenTomato, imdb, foreign, indie} = this.state
+    axios
+    .get('https://yamovie-server.herokuapp.com/api/genres')
+    // axios.post('/api/movies/recommended', {
+    //   genres,
+    //   minAge,
+    //   maxAge,
+    //   minYear,
+    //   maxYear,
+    //   rottenTomato,
+    //   imdb,
+    //   foreign,
+    //   indie,
+    .then(response => {
+      console.log(response.data)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+  /* eslint-enable */
 
   componentDidMount() {
     this.botui.message.bot({
@@ -64,9 +76,9 @@ class ChatWindow extends React.Component {
             { value: 'romantic', text: 'Romantic' },
           ],
           delay: 3000,
-        }).then(moodRes => {
-          this.setState({ mood: moodRes.value });
-          if (moodRes.value) {
+        }).then(genresRes => {
+          this.setState({ genres: genresRes.value });
+          if (genresRes.value) {
             this.botui.message.bot({
               content: 'Awesome!',
               delay: 1000,
@@ -77,16 +89,16 @@ class ChatWindow extends React.Component {
             });
             this.botui.action.button({
               action: [
-                { value: '12under', text: '12 and Under' },
-                { value: '13to17', text: '13 - 17' },
-                { value: '18to29', text: '18 - 29' },
-                { value: '30to40', text: '30 - 40' },
-                { value: '41to54', text: '41 - 54' },
-                { value: '55plus', text: '55+' },
+                { value: 12, text: '12 and Under' },
+                { value: 17, text: '13 - 17' },
+                { value: 29, text: '18 - 29' },
+                { value: 40, text: '30 - 40' },
+                { value: 54, text: '41 - 54' },
+                { value: 99, text: '55+' },
               ], 
               delay: 2000,
             }).then(ageRes => {
-              this.setState({ age: ageRes.value });
+              this.setState({ maxAge: ageRes.value });
               if (ageRes.value) {
                 this.botui.message.bot({
                   content: 'Thanks!',
@@ -104,7 +116,22 @@ class ChatWindow extends React.Component {
                   ], 
                   delay: 3000,
                 }).then(releaseRes => {
-                  this.setState({ release: releaseRes.value });
+                  if (releaseRes.value === 'classic') {
+                    this.setState({
+                      minYear: 0,
+                      maxYear: 1980,
+                    });
+                  } else if (releaseRes.value === 'in-between') {
+                    this.setState({
+                      minYear: 1980,
+                      maxYear: 2010,
+                    });
+                  } else if (releaseRes.value === 'modern') {
+                    this.setState({
+                      minYear: 2010,
+                      maxYear: 3000,
+                    });
+                  }
                   if (releaseRes.value) {
                     this.botui.message.bot({
                       content: 'Me too!',
@@ -170,7 +197,6 @@ class ChatWindow extends React.Component {
                                   ],
                                   delay: 3000,
                                 }).then(ratingRes => {
-                                  this.setState({ ratings: ratingRes.value });
                                   if (ratingRes.value === 'both') {
                                     this.botui.message.bot({
                                       content: 'Minimum Rotten Tomato rating?',
@@ -184,7 +210,7 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(bothRes => {
-                                      this.setState({ ratingsValue: { rottenTomato: bothRes.value } });
+                                      this.setState({ rottenTomato: bothRes.value });
                                       this.botui.message.bot({
                                         content: 'Minimum IMDB rating?',
                                         delay: 1000,
@@ -197,7 +223,7 @@ class ChatWindow extends React.Component {
                                         ],
                                         delay: 2000,
                                       }).then(bothResp => {
-                                        this.setState({ ratingsValue: { imdb: bothResp.value } });
+                                        this.setState({ imdb: bothResp.value });
                                         this.botui.message.bot({
                                           loading: true,
                                           content: 'Getting results now!',
@@ -219,11 +245,7 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(rottenTomatoRes => {
-                                      this.setState({ 
-                                        ratingsValue: { 
-                                          rottenTomato: rottenTomatoRes.value,
-                                        },
-                                      });
+                                      this.setState({ rottenTomato: rottenTomatoRes.value });
                                       this.botui.message.bot({
                                         loading: true,
                                         content: 'Getting results now!',
@@ -244,13 +266,12 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(imdbResp => {
-                                      this.setState({ ratingsValue: { imdb: imdbResp.value } });
+                                      this.setState({ imdb: imdbResp.value });
                                       this.botui.message.bot({
                                         loading: true,
                                         content: 'Getting results now!',
                                         delay: 1000,
                                       }).then(() => {
-                                        this.props.toggle();
                                         this.setState({ showResults: true });
                                       });
                                     });
@@ -262,7 +283,6 @@ class ChatWindow extends React.Component {
                                       delay: 1000,
                                     }).then(() => {
                                       // eslint-disable-next-line react/destructuring-assignment
-                                      this.props.toggle();
                                     });
                                   }
                                 });                                
@@ -287,14 +307,15 @@ class ChatWindow extends React.Component {
     });
     // .then...
   }
-
+  /* eslint-disable */
   render() {
     return (
-    /* eslint-disable */        
+        <div>
         <div className="chat-window">
           <Botui ref={cmp => this.botui = cmp} />
         </div>
-    );
+        <button onClick={this.getMovieResults}>Testing</button>
+        </div>);
     /* eslint-enable */
   }
 }
