@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import '../css/Navbar.css';
 
 /**
@@ -25,17 +26,21 @@ const Navbar = props => (
       <li>
         <NavLink to="/about">About</NavLink>
       </li>
-      {this.props.user ? (
-      <div>
-      <li>
-        <NavLink to="/login">Login</NavLink>
-      </li>
-      <li>
-        <NavLink to="/signup">Login</NavLink>
-      </li> 
-      </div>
-      ) : 
-      (<li> Hi! {this.props.user.fullName}</li>)
+      { !props.user ?
+        (
+          <div>
+            <li>
+              <NavLink to="/login">Login</NavLink>
+            </li>
+            <li>
+              <NavLink to="/signup">Signup</NavLink>
+            </li>
+          </div>
+        ) : (
+          <li>
+            <NavLink to="/">Dashboard</NavLink>
+          </li>
+        )
       }
     </ul>
 
@@ -44,4 +49,13 @@ const Navbar = props => (
 
 export default Navbar;
 
-// navbar proptypes
+Navbar.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string,
+    fullName: PropTypes.string,
+  }),
+};
+
+Navbar.defaultProps = {
+  user: null,
+};

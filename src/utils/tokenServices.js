@@ -1,3 +1,7 @@
+/**
+ * Set token to local storage
+ * @param {string} token 
+ */
 function setToken(token) {
   if (token) {
     localStorage.setItem('token', token);
@@ -6,6 +10,10 @@ function setToken(token) {
   } 
 }
 
+/**
+ * check if there is a token in local storage
+ * if there is a token, check to see if token is valid
+ */
 function getToken() {
   let token = localStorage.getItem('token');
   if (token) {
@@ -20,6 +28,10 @@ function getToken() {
   return token;
 }
 
+/**
+ * parse token for user information
+ * @returns {Object} or null
+ */
 function getUserFromToken() {
   const token = getToken();
   // jwt parsing

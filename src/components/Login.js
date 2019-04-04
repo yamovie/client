@@ -23,11 +23,11 @@ class Login extends Component {
     userServices.login(this.state).then(() => {
       this.props.handleLogin();
       this.props.history.push('/');
-    }).catch(err => this.setState({ message: err }));
+    }).catch(err => this.setState({ message: 'Invalid Credentials!' }));
   }
 
   render() {
-    const { email, pw } = this.state;
+    const { email, pw, message } = this.state;
     return (
       <div className="login">
         <header>Log In</header>
@@ -36,12 +36,13 @@ class Login extends Component {
           <br />
           <input type="password" placeholder="Password" value={pw} onChange={(e) => this.handleChange('pw', e)} />
           <div>
-            <button type="button" > Log In </button>
+            <button type="button" onClick={this.handleSubmit}> Log In </button>
             &nbsp; &nbsp;
             <Link to="/">Cancel</Link>
           </div>
         </form>
-        <a href="http://localhost:5000/auth/google" className="button">
+        { message && <span>{message}</span> }
+        {/* <a href="http://localhost:5000/auth/google" className="button">
           <div>
             <span className="svgIcon t-popup-svg">
               <svg
@@ -72,7 +73,7 @@ class Login extends Component {
             </span>
             <span className="button-label">Login &nbsp; </span>
           </div>
-        </a>
+        </a> */}
       </div>
     );
   }

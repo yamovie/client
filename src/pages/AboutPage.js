@@ -1,19 +1,11 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import LloydChat from '../components/LloydChat';
 import '../css/AboutPage.css';
 
 const AboutPage = () => (
   <div className="about-page">
-    <Navbar />
     <header>
       <div className="overlay" />
-      <video
-        src="/images/about-me-videooverlay.mp4"
-        muted
-        autoPlay
-        loop
-      />
+      <video src="/images/about-me-videooverlay.mp4" muted autoPlay loop />
       <div className="mission">
         <h1>Our Mission</h1>
         <p>
@@ -26,11 +18,7 @@ const AboutPage = () => (
     </header>
     <div className="info">
       <div className="info-panel">
-        <img
-          src="/images/warning-sign.png"
-          alt="warning"
-          className="about-icon"
-        />
+        <img src="/images/warning-sign.png" alt="warning" className="about-icon" />
         <div>
           <h3>The Problem</h3>
           <p>
@@ -46,11 +34,7 @@ const AboutPage = () => (
         </div>
       </div>
       <div className="info-panel">
-        <img
-          src="/images/solution.png"
-          alt="solution"
-          className="about-icon"
-        />
+        <img src="/images/solution.png" alt="solution" className="about-icon" />
         <div>
           <h3>Solution</h3>
           <p>
@@ -60,11 +44,7 @@ const AboutPage = () => (
         </div>
       </div>
       <div className="info-panel">
-        <img
-          src="/images/book.png"
-          alt="solution"
-          className="about-icon"
-        />
+        <img src="/images/book.png" alt="solution" className="about-icon" />
         <div>
           <h3>Story</h3>
           <p>
@@ -87,11 +67,7 @@ const AboutPage = () => (
       <div className="avatar-list">
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src="/images/ivy.png"
-              alt="Ivy Lim"
-              className="avatar-image"
-            />
+            <img src="/images/ivy.png" alt="Ivy Lim" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Ivy</h3>
           <h5 className="avatar-role">Project Manager / Software Engineer</h5>
@@ -101,11 +77,7 @@ const AboutPage = () => (
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src="/images/sam.png"
-              alt="Sam Saks-Fithian"
-              className="avatar-image"
-            />
+            <img src="/images/sam.png" alt="Sam Saks-Fithian" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Sam</h3>
           <h5 className="avatar-role">Software Engineer</h5>
@@ -115,11 +87,7 @@ const AboutPage = () => (
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src="/images/kevin.png"
-              alt="Kevin Baktiar"
-              className="avatar-image"
-            />
+            <img src="/images/kevin.png" alt="Kevin Baktiar" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Kevin</h3>
           <h5 className="avatar-role">Software Engineer</h5>
@@ -129,11 +97,7 @@ const AboutPage = () => (
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src="/images/hans.png"
-              alt="Hans Hanken"
-              className="avatar-image"
-            />
+            <img src="/images/hans.png" alt="Hans Hanken" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Hans</h3>
           <h5 className="avatar-role">Software Engineer</h5>
@@ -143,11 +107,7 @@ const AboutPage = () => (
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src="/images/will.png"
-              alt="Will Dale"
-              className="avatar-image"
-            />
+            <img src="/images/will.png" alt="Will Dale" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Will</h3>
           <h5 className="avatar-role">Software Engineer</h5>
@@ -165,13 +125,14 @@ const AboutPage = () => (
           </div>
           <h3 className="avatar-name">Glen</h3>
           <h5 className="avatar-role">Back-End / Software Engineer</h5>
-          <p className="avatar-movie">Favorite Movie: Spider-Man: Into the Spider-Verse</p>
+          <p className="avatar-movie">
+            Favorite Movie: Spider-Man: Into the Spider-Verse
+          </p>
           <p className="avatar-show">Favorite Show: The Office</p>
           <p className="avatar-genre"> Favorite Genre: Action</p>
         </div>
       </div>
     </div>
-    <LloydChat />
   </div>
 );
 

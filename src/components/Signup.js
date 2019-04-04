@@ -20,12 +20,16 @@ class Signup extends Component {
     });
   }
 
+  /**
+  * submit user information to signup
+  * if successful redirect to homepage
+  */
   handleSubmit = e => {
     e.preventDefault();
     userServices.signup(this.state).then(() => {
       this.props.handleSignup();
       this.props.history.push('/');
-    }).catch(err => this.setState({ message: err }));
+    }).catch(err => this.setState({ message: "Invalid Information." }));
   }
 
   isFormInvalid() {
@@ -34,11 +38,11 @@ class Signup extends Component {
   }
 
   render() {
-    const { email, fullName, pw, pwConfirm } = this.state;
+    const { email, fullName, pw, pwConfirm, message } = this.state;
     return (
       <div className="signup">
         <header>Signup</header>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input type="email" placeholder="Email" value={email} onChange={(e) => this.handleChange('email', e)} />
           <br />
           <input type="name" placeholder="First and Last Name" value={fullName} onChange={(e) => this.handleChange('fullName', e)} />
@@ -52,8 +56,9 @@ class Signup extends Component {
             <Link to="/">Cancel</Link>
           </div>
         </form>
+        { message && <span>{message}</span> }
       </div>
-    )
+    );
   }
 }
 

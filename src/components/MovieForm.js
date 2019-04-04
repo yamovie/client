@@ -68,7 +68,7 @@ class MovieForm extends React.Component {
     } = this.state;
     return (
       <div>
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="movie-form">
           {/* Ternary to either display the form or the results */}
           {displayForm ? (
