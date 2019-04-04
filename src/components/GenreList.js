@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+import '../css/GenreList.css';
+
 class GenreList extends Component {
   static propTypes = {
     moviesByGenreKey: PropTypes.func.isRequired,
@@ -27,9 +29,9 @@ class GenreList extends Component {
 
   render() {
     const { genres } = this.state;
-    const { moviesByGenreKey } = this.props;
+    const { moviesByGenreKey, style, toggleHover } = this.props;
     return (
-      <div id="list-genres">
+      <div id="list-genres" onMouseLeave={toggleHover} style={style}>
         <button className="single-genre" type="button" onClick={() => moviesByGenreKey('all')}>All</button>
         {genres.map(genre => (
           <button className="single-genre" type="button" key={genre.name} onClick={() => moviesByGenreKey(genre._id)}>{genre.name}</button>
