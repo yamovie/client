@@ -79,6 +79,12 @@
   margin-right: auto;
 }
 
+@media only screen and (max-width: 600px) {
+  #overview img {
+    width: 300px;
+  }
+}
+
 #movie-summary {
   text-align: center;
   margin: 0;

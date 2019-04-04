@@ -10,7 +10,7 @@ const Navbar = props => (
   <div className="navbar">
     <NavLink to="/">
       <img
-        src={`${process.env.PUBLIC_URL}/images/logo-v3-white-whitepopcorn.png`}
+        src="/images/logo-v3-white-whitepopcorn.png"
         alt="YaMovie"
         id="main-logo"
       />

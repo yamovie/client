@@ -29,6 +29,14 @@ body {
   padding-top: 15px;
 }
 
+#yamovie-movie-item:active {
+  filter: brightness(75%);
+}
+
+#yamovie-movie-item:hover {
+  cursor: pointer;
+}
+
 .img-fluid {
   max-width: 100%;
   height: auto;
@@ -100,6 +108,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 #list-genres button {
@@ -136,6 +145,7 @@ body {
 #list-all-movies {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 100%;
   flex-wrap: wrap;
   color: var(--offwhite);
