@@ -9,6 +9,7 @@ class GenreList extends Component {
       checkboxesVisible: false,
       genres: [],
     };
+    this.handleSelectionReset = this.handleSelectionReset.bind(this);
   }
 
   // =================== Grabs Genre List from API ==============
@@ -19,7 +20,14 @@ class GenreList extends Component {
       .then(response => this.setState({ genres: response.data }));
   }
 
-  // Renders the genre list to the MovieList page. ==================
+  // =================== Unticks all checked genreboxes ==============
+
+  handleSelectionReset(e) {
+    e.target.reset();
+    e.preventDefault();
+  }
+
+  // ================== Renders the genre list ==================
 
   render() {
     const { genres } = this.state;
@@ -37,16 +45,17 @@ class GenreList extends Component {
 
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSelectionReset}>
           <div id="list-genres">
-            {genres.map((genre, i) => (
-              <label key={i}>
+            {genres.map((genre) => (
+              <label className="single-genre checkmark-container" key={genre.id}>
                 <input type="checkbox" />
+                <span className="checkmark" />
                 <span className="single-genre">{genre.name}</span>
               </label>
             ))}
           </div>
-          <button className="reset-button" type="button">reset</button>
+          <button className="reset-button" type="submit">reset</button>
         </form>
       </div>
       

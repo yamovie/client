@@ -7,6 +7,7 @@ import MovieForm from './components/MovieForm';
 import ChatWindow from './components/ChatWindow';
 import './css/main.css';
 import userDashboardPage from './pages/UserDashboardPage';
+import Watchlist from './components/Watchlist';
 
 const App = () => (
   <div className="App">
