@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "https://yamovie.github.io/client/precache-manifest.3c7f3c99237f8b2158d13921bdcb1b2c.js"
+  "https://yamovie.github.io/client/precache-manifest.fa688ae2aa54b15df544e142ad493e3d.js"
 );
 
 workbox.clientsClaim();

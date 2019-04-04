@@ -1,19 +1,11 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import LloydChat from '../components/LloydChat';
 import '../css/AboutPage.css';
 
 const AboutPage = () => (
   <div className="about-page">
-    <Navbar />
     <header>
       <div className="overlay" />
-      <video
-        src={`${process.env.PUBLIC_URL}/images/about-me-videooverlay.mp4`}
-        muted
-        autoPlay
-        loop
-      />
+      <video src="/images/about-me-videooverlay.mp4" muted autoPlay loop />
       <div className="mission">
         <h1>Our Mission</h1>
         <p>
@@ -26,11 +18,7 @@ const AboutPage = () => (
     </header>
     <div className="info">
       <div className="info-panel">
-        <img
-          src={`${process.env.PUBLIC_URL}/images/warning-sign.png`}
-          alt="warning"
-          className="about-icon"
-        />
+        <img src="/images/warning-sign.png" alt="warning" className="about-icon" />
         <div>
           <h3>The Problem</h3>
           <p>
@@ -46,11 +34,7 @@ const AboutPage = () => (
         </div>
       </div>
       <div className="info-panel">
-        <img
-          src={`${process.env.PUBLIC_URL}/images/solution.png`}
-          alt="solution"
-          className="about-icon"
-        />
+        <img src="/images/solution.png" alt="solution" className="about-icon" />
         <div>
           <h3>Solution</h3>
           <p>
@@ -60,11 +44,7 @@ const AboutPage = () => (
         </div>
       </div>
       <div className="info-panel">
-        <img
-          src={`${process.env.PUBLIC_URL}/images/book.png`}
-          alt="solution"
-          className="about-icon"
-        />
+        <img src="/images/book.png" alt="solution" className="about-icon" />
         <div>
           <h3>Story</h3>
           <p>
@@ -76,7 +56,7 @@ const AboutPage = () => (
       </div>
     </div>
     {/* <div className="lloyd-image">
-          <img src={`${process.env.PUBLIC_URL}/images/Lloyd.png`} />
+          <img src={`/images/Lloyd.png`} />
         </div>
         <div className="lloyd">
           <h2>Lloyd</h2>
@@ -87,67 +67,72 @@ const AboutPage = () => (
       <div className="avatar-list">
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/ivy.png`}
-              alt="Ivy Lim"
-              className="avatar-image"
-            />
+            <img src="/images/ivy.png" alt="Ivy Lim" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Ivy</h3>
+          <h5 className="avatar-role">Project Manager / Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movies: Star Wars</p>
+          <p className="avatar-show">Favorite Show: Game of Thrones</p>
+          <p className="avatar-genre"> Favorite Genre: Sci-Fi</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/sam.png`}
-              alt="Sam Saks-Fithian"
-              className="avatar-image"
-            />
+            <img src="/images/sam.png" alt="Sam Saks-Fithian" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Sam</h3>
+          <h5 className="avatar-role">Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movie: Black Panther </p>
+          <p className="avatar-show">Favorite Show: The Good Place</p>
+          <p className="avatar-genre"> Favorite Genre: Action Comedy</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/kevin.png`}
-              alt="Kevin Baktiar"
-              className="avatar-image"
-            />
+            <img src="/images/kevin.png" alt="Kevin Baktiar" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Kevin</h3>
+          <h5 className="avatar-role">Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movie: The Matrix</p>
+          <p className="avatar-show">Favorite Show: New Girl</p>
+          <p className="avatar-genre"> Favorite Genre: Sci-Fi</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/hans.png`}
-              alt="Hans Hanken"
-              className="avatar-image"
-            />
+            <img src="/images/hans.png" alt="Hans Hanken" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Hans</h3>
+          <h5 className="avatar-role">Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movies: The Lord of the Rings</p>
+          <p className="avatar-show">Favorite Show: Brooklyn Nine Nine</p>
+          <p className="avatar-genre"> Favorite Genre: Adventure</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/will.png`}
-              alt="Will Dale"
-              className="avatar-image"
-            />
+            <img src="/images/will.png" alt="Will Dale" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Will</h3>
+          <h5 className="avatar-role">Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movie: The Producers</p>
+          <p className="avatar-show">Favorite Show: The Wire</p>
+          <p className="avatar-genre"> Favorite Genre: Historical Drama</p>
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src={`${process.env.PUBLIC_URL}/images/glen.png`}
+              src="/images/glen.png"
               alt="Glen Paul Florendo"
               className="avatar-image"
             />
           </div>
           <h3 className="avatar-name">Glen</h3>
+          <h5 className="avatar-role">Back-End / Software Engineer</h5>
+          <p className="avatar-movie">
+            Favorite Movie: Spider-Man: Into the Spider-Verse
+          </p>
+          <p className="avatar-show">Favorite Show: The Office</p>
+          <p className="avatar-genre"> Favorite Genre: Action</p>
         </div>
       </div>
     </div>
-    <LloydChat />
   </div>
 );
 

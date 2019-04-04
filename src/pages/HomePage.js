@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import LloydChat from '../components/LloydChat';
 import '../css/HomePage.css';
+
+const background = {
+  backgroundImage: "url('%PUBLIC_URL%../../images/landing-bg-v1.jpg')",
+};
 
 const HomePage = () => (
   <div className="landing-body">
-    <Navbar />
-    <LloydChat />
-    <section id="link-container">
+    <section id="link-container" style={background}>
       <div id="landing-quote">
         <h3>We find your movie,</h3>
         <h3>You bring the popcorn!</h3>
@@ -19,7 +19,7 @@ const HomePage = () => (
     </section>
 
     <article id="overview">
-      <img src={`${process.env.PUBLIC_URL}/images/logo-v3.png`} alt="YaMovie!" />
+      <img src="/images/logo-v3.png" alt="YaMovie!" />
       <span id="movie-summary">
         Our technology intelligently takes your unique personality, viewing habits, and
         diverse interests to curate the right movies for you!
@@ -28,7 +28,7 @@ const HomePage = () => (
 
     <section id="info-container">
       <div className="info-card">
-        <img src={`${process.env.PUBLIC_URL}/images/browsing-white.png`} alt="Browse" />
+        <img src="/images/browsing-white.png" alt="Browse" />
         <h2>Browse</h2>
         <p>
           Go through our collection of thousands of movies with up-to-date information,
@@ -36,7 +36,7 @@ const HomePage = () => (
         </p>
       </div>
       <div className="info-card">
-        <img src={`${process.env.PUBLIC_URL}/images/lloyd-white.png`} alt="Chatbot" />
+        <img src="/images/lloyd-white.png" alt="Chatbot" />
         <h2>Chatbot</h2>
         <p>
           On our site, you will meet Lloyd our chatbot! He will ask you a set of
@@ -44,7 +44,7 @@ const HomePage = () => (
         </p>
       </div>
       <div className="info-card">
-        <img src={`${process.env.PUBLIC_URL}/images/account-white.png`} alt="Benefits" />
+        <img src="/images/account-white.png" alt="Benefits" />
         <h2>Account Benefits</h2>
         <p>
           By signing up with YaMovie, we can save what you enjoy so it will be easier for

@@ -38,7 +38,7 @@ class ChatWindow extends React.Component {
         { value: false, text: 'No' },
       ],
       delay: 3000,
-    }).then(res => { 
+    }).then(res => {
       if (res.value) {
         this.botui.message.bot({
           content: 'Okay, What kind of movie are you in the mood for?',
@@ -73,7 +73,7 @@ class ChatWindow extends React.Component {
                 { value: '30to40', text: '30 - 40' },
                 { value: '41to54', text: '41 - 54' },
                 { value: '55plus', text: '55+' },
-              ], 
+              ],
               delay: 2000,
             }).then(ageRes => {
               this.setState({ age: ageRes.value });
@@ -91,7 +91,7 @@ class ChatWindow extends React.Component {
                     { value: 'classic', text: 'Classic' },
                     { value: 'modern', text: 'Modern' },
                     { value: 'in-between', text: 'In Between' },
-                  ], 
+                  ],
                   delay: 3000,
                 }).then(releaseRes => {
                   // this.setState({ release: 'releaseRes.value' })
@@ -111,7 +111,7 @@ class ChatWindow extends React.Component {
                       ],
                       delay: 3000,
                     }).then(animatedRes => {
-                      this.setState({ animated: animatedRes.value })
+                      this.setState({ animated: animatedRes.value });
                       if (animatedRes) {
                         this.botui.message.bot({
                           content: 'How about foreign films?',
@@ -124,7 +124,7 @@ class ChatWindow extends React.Component {
                           ],
                           delay: 2000,
                         }).then(foreignRes => {
-                          this.setState({ foreign: foreignRes.value })
+                          this.setState({ foreign: foreignRes.value });
                           if (foreignRes) {
                             this.botui.message.bot({
                               content: 'Great!',
@@ -141,7 +141,7 @@ class ChatWindow extends React.Component {
                               ],
                               delay: 3000,
                             }).then(indieRes => {
-                              this.setState({ indie: indieRes.value })
+                              this.setState({ indie: indieRes.value });
                               if (indieRes) {
                                 this.botui.message.bot({
                                   content: 'You have good taste!',
@@ -160,7 +160,7 @@ class ChatWindow extends React.Component {
                                   ],
                                   delay: 3000,
                                 }).then(ratingRes => {
-                                  this.setState({ ratings: ratingRes.value })
+                                  this.setState({ ratings: ratingRes.value });
                                   if (ratingRes.value === 'both') {
                                     this.botui.message.bot({
                                       content: 'Minimum Rotten Tomato rating?',
@@ -174,7 +174,7 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(bothRes => {
-                                      this.setState({ ratingsValue: { rottenTomato: bothRes.value } })
+                                      this.setState({ ratingsValue: { rottenTomato: bothRes.value } });
                                       this.botui.message.bot({
                                         content: 'Minimum IMDB rating?',
                                         delay: 1000,
@@ -187,7 +187,7 @@ class ChatWindow extends React.Component {
                                         ],
                                         delay: 2000,
                                       }).then(bothResp => {
-                                        this.setState({ ratingsValue: { imdb: bothResp.value } })
+                                        this.setState({ ratingsValue: { imdb: bothResp.value } });
                                         this.botui.message.bot({
                                           loading: true,
                                           content: 'Getting results now!',
@@ -209,8 +209,8 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(rottenTomatoRes => {
-                                      this.setState({ 
-                                        ratingsValue: { 
+                                      this.setState({
+                                        ratingsValue: {
                                           rottenTomato: rottenTomatoRes.value,
                                         },
                                       });
@@ -234,14 +234,14 @@ class ChatWindow extends React.Component {
                                       ],
                                       delay: 2000,
                                     }).then(imdbResp => {
-                                      this.setState({ ratingsValue: { imdb: imdbResp.value } })
+                                      this.setState({ ratingsValue: { imdb: imdbResp.value } });
                                       this.botui.message.bot({
                                         loading: true,
                                         content: 'Getting results now!',
                                         delay: 1000,
                                       });
                                     });
-                                  } 
+                                  }
                                   if (ratingRes.value === 'dont-care') {
                                     this.botui.message.bot({
                                       loading: true,
@@ -249,7 +249,7 @@ class ChatWindow extends React.Component {
                                       delay: 1000,
                                     });
                                   }
-                                });                                
+                                });
                               }
                             });
                           }
@@ -276,7 +276,7 @@ class ChatWindow extends React.Component {
     return (
       // eslint-disable-next-line react/jsx-no-comment-textnodes
       <div className="chat-window">
-        <Navbar />
+        {/* <Navbar /> */}
         <Botui ref={cmp => this.botui = cmp} />
       </div>
     );
