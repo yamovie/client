@@ -22,6 +22,7 @@ function getToken() {
 
 function getUserFromToken() {
   const token = getToken();
+  // jwt parsing
   return token ? JSON.parse(atob(token.split('.')[1])).user : null;
 }
 

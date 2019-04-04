@@ -18,8 +18,9 @@ class App extends Component {
       user: null,
     };
   }
+
   componentDidMount() {
-    let user = userServices.getUser();
+    const user = userServices.getUser();
     if (user) {
       this.setState({user})
     }
@@ -47,6 +48,7 @@ class App extends Component {
   }
    
   render() {
+    const {user} = this.state;
     return (
       <div className="App">
         <Route exact path="/" component={HomePage}>
@@ -57,8 +59,8 @@ class App extends Component {
           <Route path="/about" component={AboutPage} />
           <Route path="/movieform" component={MovieForm} />
           <Route path="/chat" component={ChatWindow} />
-          <Route path="/login" render={(props) => <Login {...props} handleLogin={this.handleLogin} />} />
-          <Route path="/signup" render={(props) => <Signup {...props} handleSignup={this.handleSignup} />} />
+          <Route path="/login" render={() => <Login handleLogin={this.handleLogin} />} />
+          <Route path="/signup" render={() => <Signup handleSignup={this.handleSignup} />} />
         </Switch>
       </div>
     );
