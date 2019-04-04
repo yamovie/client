@@ -47,7 +47,11 @@ class ChatWindow extends React.Component {
     });
   }
 
-  // TODO: JDoc comment
+  /**
+   * Shows the initial greeting message, the question for if the user wants recs,
+   * and then the answer option buttons
+   * @returns {Promise} When fulfilled, promise will contain true or false if they want recs
+   */
   greetingQuestion = () => {
     this.botui.message.bot({
       content: 'Hello! 👋 My name is Lloyd! 😁',
@@ -63,21 +67,25 @@ class ChatWindow extends React.Component {
     });
   };
 
-  // TODO: JDoc comment
-  moodQuestion = () => {
+  /**
+   * Asks about the user's mood, displays button response options, then sets the state
+   * and displays a response message when they have selected an option
+   */
+  moodQuestion = async () => {
     this.botui.message.bot({
       content: 'Okay! What kind of movie are you in the mood for?',
       delay: this.delays.response,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 'funny', text: 'Funny 😆' },
           { value: 'sad', text: 'Sad 😭' },
           { value: 'dramatic', text: 'Dramatic 😮' },
           { value: 'scary', text: 'Scary 😱' },
-          { value: 'action-packed', text: 'Action Packed 🏃‍♂️' },
+          { value: 'action-packed', text: 'Action Packed 🏃‍' },
           { value: 'romantic', text: 'Romantic 💘' },
+          { value: 'silly', text: 'Silly 🤡' },
         ],
         delay: this.delays.nextQ,
       })
@@ -90,13 +98,16 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  ageQuestion = () => {
+  /**
+   * Asks about the user's age, displays button response options, then sets the state
+   * and displays a response message when they have selected an option
+   */
+  ageQuestion = async () => {
     this.botui.message.bot({
       content: 'What is your age range?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: '12under', text: '12 and Under' },
@@ -117,13 +128,16 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  eraQuestion = () => {
+  /**
+   * Asks about the user's movie era preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  eraQuestion = async () => {
     this.botui.message.bot({
       content: 'Do you want to watch a classic or modern movie?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 'classic', text: 'Classic' },
@@ -141,13 +155,16 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  animatedQuestion = () => {
+  /**
+   * Asks about the user's animation preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  animatedQuestion = async () => {
     this.botui.message.bot({
       content: 'Do you like animated films?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
         delay: this.delays.ansOptions,
@@ -161,13 +178,16 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  foreignQuestion = () => {
+  /**
+   * Asks about the user's foreign film preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  foreignQuestion = async () => {
     this.botui.message.bot({
       content: 'How about foreign films?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
         delay: this.delays.ansOptions,
@@ -181,13 +201,16 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  indieQuestion = () => {
+  /**
+   * Asks about the user's indie preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  indieQuestion = async () => {
     this.botui.message.bot({
       content: 'Do you like independent films?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
         delay: this.delays.ansOptions,
@@ -202,13 +225,17 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  ratingsQuestion = () => {
+  /**
+   * Asks about the user's ratings preference, displays button response options, then
+   * follows up based on their response. Calls the sub-functions to get actual rating info
+   * for each Rotten Tomatoes and IMDB ratings.
+   */
+  ratingsQuestion = async () => {
     this.botui.message.bot({
       content: 'What ratings do you care about?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 'rotten-tomatoes', text: 'Rotten Tomatoes' },
@@ -228,13 +255,17 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  rtQuestion = () => {
+  /**
+   * Sub-function for Rotten Tomatoes rating preferences --
+   * Asks about the user's RT threshold preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  rtQuestion = async () => {
     this.botui.message.bot({
       content: 'Minimum Rotten Tomatoes rating?',
       delay: this.delays.response,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 60, text: '60%' },
@@ -248,13 +279,17 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  imdbQuestion = () => {
+  /**
+   * Sub-function for IMDB rating preferences --
+   * Asks about the user's IMDB threshold preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  imdbQuestion = async () => {
     this.botui.message.bot({
       content: 'Minimum IMDB rating?',
       delay: this.delays.response,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 5, text: '5/10' },
@@ -268,7 +303,9 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
+  /**
+   * Displays the loading message that its getting results
+   */
   resultsMessage = () => {
     this.botui.message.bot({
       loading: true,
