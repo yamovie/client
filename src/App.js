@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-// import queryString from 'query-string';
+import queryString from 'query-string';
 import HomePage from './pages/HomePage';
 import BrowsePage from './pages/BrowsePage';
 import AboutPage from './pages/AboutPage';
@@ -22,6 +22,17 @@ class App extends Component {
   }
   
   /**
+   * get token and set to local storage
+   */
+  componentWillMount() {
+    const query = queryString.parse(this.props.location.search);
+    if (query.token) {
+      window.localStorage.setItem('token', query.token);
+      this.props.history.push('/');
+    }
+  }
+
+  /**
    * get user data from database
    */
   componentDidMount() {
@@ -30,14 +41,6 @@ class App extends Component {
       this.setState({user});
     }
   }
-
-  // componentWillMount() {
-  //   const query = queryString.parse(this.props.location.search);
-  //   if (query.token) {
-  //     window.localStorage.setItem('jwt', query.token);
-  //     this.props.history.push('/');
-  //   }
-  // }
 
   handleLogout = () => {
     userServices.logout();

@@ -42,8 +42,8 @@ class Login extends Component {
           </div>
         </form>
         { message && <span>{message}</span> }
-        {/* <a href="http://localhost:5000/auth/google" className="button">
-          <div>
+        <a href="http://localhost:5000/auth/google" className="button">
+          <div className="google-link">
             <span className="svgIcon t-popup-svg">
               <svg
                 className="svgIcon-use"
@@ -71,9 +71,9 @@ class Login extends Component {
                 </g>
               </svg>
             </span>
-            <span className="button-label">Login &nbsp; </span>
+            <span className="button-label">Login</span>
           </div>
-        </a> */}
+        </a>
       </div>
     );
   }
