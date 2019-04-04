@@ -1,7 +1,5 @@
 import React from 'react';
-import ChatWindow from '../components/ChatWindow';
 import MovieList from '../components/MovieList';
-import Navbar from '../components/Navbar';
 
 class FindMoviePage extends React.Component {
   constructor(props) {
@@ -15,15 +13,8 @@ class FindMoviePage extends React.Component {
     const { showResults } = this.state;
     return (
       <div>
-        <Navbar />
-        <ChatWindow />
-        {showResults ? (
-          <div>
-            <MovieList showGenreFilter={false} />
-          </div>
-        ) : (
-          undefined
-        )}
+        <h1>Results</h1>
+        {showResults ? <MovieList /> : undefined}
       </div>
     );
   }

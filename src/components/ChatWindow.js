@@ -1,32 +1,39 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import Botui from 'botui-react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 import '../css/ChatWindow.css';
 
-
 class ChatWindow extends React.Component {
+  static propTypes = {
+    getMovieResults: PropTypes.func.isRequired,
+    action: PropTypes.arrayOf(PropTypes.string).isRequired,
+    animationId: PropTypes.string.isRequired,
+  }
+
   constructor(props) {
     super(props);
+    const { action, animationId } = this.props;
     this.state = {
       allGenres: [],
       genres: [''], // => genre
-      maxAge: '', // => mpaaRating
-      minYear: '', // => release date
-      maxYear: '',
+      mpaa: 'R', // => mpaaRating
+      minYear: 0, // => release date
+      maxYear: 0,
       rottenTomato: 0, // => ratings
       imdb: 0,
       animated: true, // => genre animation
       foreign: true, // => originalLanguage =/= English
       indie: true, // => productionCompany does not contain one of 
       // the top ten hollywood production companies :
-      action: [],
+      action,
+      animationId,
       dataObj: {},
     };
   }
 
-  async componentDidMount() {
-    await this.getGenreData();
+  componentDidMount() {
+    const { getMovieResults } = this.props;
     this.botui.message.bot({
       content: 'Hello, My name is Lloyd!',
       delay: 1000,
@@ -64,17 +71,14 @@ class ChatWindow extends React.Component {
             });
             this.botui.action.button({
               action: [
-                { value: 12, text: '12 and Under' },
-                { value: 17, text: '13 - 17' },
-                { value: 29, text: '18 - 29' },
-                { value: 40, text: '30 - 40' },
-                { value: 54, text: '41 - 54' },
-                { value: 99, text: '55+' },
+                { value: 'PG', text: '12 and Under' },
+                { value: 'PG-13', text: '13 - 17' },
+                { value: 'R', text: '18 and over' },
               ],
               delay: 2000,
-            }).then(ageRes => {
-              this.setState({ maxAge: ageRes.value });
-              if (ageRes.value) {
+            }).then(mpaaRes => {
+              this.setState({ mpaa: mpaaRes.value });
+              if (mpaaRes.value) {
                 this.botui.message.bot({
                   content: 'Thanks!',
                   delay: 1000,
@@ -208,6 +212,25 @@ class ChatWindow extends React.Component {
                                           loading: true,
                                           content: 'Getting results now!',
                                           delay: 1000,
+                                        }).then(() => {
+                                          const {
+                                            genres,
+                                            mpaa,
+                                            minYear,
+                                            maxYear,
+                                            rottenTomato,
+                                            imdb,
+                                            foreign,
+                                            indie,
+                                          } = this.state;
+                                          getMovieResults(genres,
+                                            mpaa,
+                                            minYear,
+                                            maxYear,
+                                            rottenTomato,
+                                            imdb,
+                                            foreign,
+                                            indie);
                                         });
                                       });
                                     });
@@ -230,6 +253,25 @@ class ChatWindow extends React.Component {
                                         loading: true,
                                         content: 'Getting results now!',
                                         delay: 1000,
+                                      }).then(() => {
+                                        const {
+                                          genres,
+                                          mpaa,
+                                          minYear,
+                                          maxYear,
+                                          rottenTomato,
+                                          imdb,
+                                          foreign,
+                                          indie,
+                                        } = this.state;
+                                        getMovieResults(genres,
+                                          mpaa,
+                                          minYear,
+                                          maxYear,
+                                          rottenTomato,
+                                          imdb,
+                                          foreign,
+                                          indie);
                                       });
                                     });
                                   }
@@ -251,6 +293,25 @@ class ChatWindow extends React.Component {
                                         loading: true,
                                         content: 'Getting results now!',
                                         delay: 1000,
+                                      }).then(() => {
+                                        const {
+                                          genres,
+                                          mpaa,
+                                          minYear,
+                                          maxYear,
+                                          rottenTomato,
+                                          imdb,
+                                          foreign,
+                                          indie,
+                                        } = this.state;
+                                        getMovieResults(genres,
+                                          mpaa,
+                                          minYear,
+                                          maxYear,
+                                          rottenTomato,
+                                          imdb,
+                                          foreign,
+                                          indie);
                                       });
                                     });
                                   }
@@ -260,6 +321,24 @@ class ChatWindow extends React.Component {
                                       content: 'Getting results now!',
                                       delay: 1000,
                                     }).then(() => {
+                                      const {
+                                        genres,
+                                        mpaa,
+                                        minYear,
+                                        maxYear,
+                                        rottenTomato,
+                                        imdb,
+                                        foreign,
+                                        indie,
+                                      } = this.state;
+                                      getMovieResults(genres,
+                                        mpaa,
+                                        minYear,
+                                        maxYear,
+                                        rottenTomato,
+                                        imdb,
+                                        foreign,
+                                        indie);
                                     });
                                   }
                                 });
@@ -284,42 +363,6 @@ class ChatWindow extends React.Component {
     });
     // .then...
   }
-
-  /* eslint-disable */
-
-  getMovieResults = () => {
-    const { genres, maxAge, minYear, maxYear, rottenTomato, imdb, foreign, indie } = this.state;
-    axios.post('https://yamovie-server-staging.herokuapp.com/api/movies/recommended', {
-      genres,
-      maxAge,
-      minYear,
-      maxYear,
-      rottenTomato,
-      imdb,
-      foreign,
-      indie,
-    }).then(response => console.log(response));
-  }
-
-  getGenreData = () => {
-    axios
-    .get('https://yamovie-server.herokuapp.com/api/genres')
-    .then(response => {
-      const genreArray = response.data
-      let actionArray = new Array()
-      for (let i=0; i < genreArray.length; i++) {
-        if (genreArray[i].name === 'Animation'){
-          this.setState({ animationId: genreArray[i]._id })
-        }
-        actionArray.push({ value: genreArray[i]._id, text: genreArray[i].name })
-      }
-      this.setState({ action : actionArray })
-    }).catch(error => {
-      console.log(error);
-    });
-  }
-  /* eslint-enable */
-
   /* eslint-disable */
   render() {
     return (
