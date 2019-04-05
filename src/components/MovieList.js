@@ -8,6 +8,8 @@ import GenreList from "./GenreList.js";
 
 import "../css/MovieList.css";
 
+const serverLink = 'https://yamovie-server.herokuapp.com/api';
+
 class MovieList extends Component {
   /**
    * Creates a movie list object and connects to the API
@@ -23,47 +25,63 @@ class MovieList extends Component {
       selectedMovie: {},
       hover: false,
       searchInputValue: ""
+      genres: [],
     };
   }
+
+  // ===================== Extracts Get Requests ============================
+  // Makes each get request a function so they can be used with axios.all()
+
+  /**
+   * Gets all the movies, optionally filtered by genreKey
+   * @param {String} [genreKey]
+   * @returns An Axios promise with the movie data
+   */
+  getMovies = (genreKey = 'all') => {
+    if (genreKey !== 'all') {
+      return axios.get(`${serverLink}/movies/genre/${genreKey}`);
+    }
+    return axios.get(`${serverLink}/movies/`);
+  };
+
+  /**
+   * Gets the data for a movie
+   * @param {String} [id]
+   * @returns An Axios promise with the movie data
+   */
+  getSingleMovie = id => axios.get(`${serverLink}/movies/${id}`);
+
+  /**
+   * Gets the list of all genre objects
+   * @returns An Axios promise with the genre data
+   */
+  getGenres = () => axios.get(`${serverLink}/genres/`);
+
   // =================== Grabs Movie Data on Render =========================
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
     const { showGenreFilter } = this.state;
     if (showGenreFilter) {
-      axios
-        .get("https://yamovie-server.herokuapp.com/api/movies")
-        .then(response =>
-          this.setState({
-            movies: response.data
-          })
-        );
+      axios.all([this.getGenres(), this.getMovies()]).then(
+        axios.spread((genreResp, movieResp) => {
+          this.setState({ genres: genreResp.data, movies: movieResp.data });
+        }),
+      );
     }
   };
 
   // ==================== Handles Filter Click ===============================
 
   handleSendGenre = genreKey => {
-    if (genreKey === "all") {
-      axios
-        .get("https://yamovie-server.herokuapp.com/api/movies")
-        .then(response =>
-          this.setState({
-            movies: response.data
-          })
-        );
-    } else {
-      axios
-        .get(
-          `https://yamovie-server.herokuapp.com/api/movies/genre/${genreKey}`
-        )
-        .then(response =>
-          this.setState({
-            movies: response.data
-          })
-        );
-    }
+    this.getMovies(genreKey).then(response => this.setState({ movies: response.data }));
   };
+
+  // handleAllMovies = () => {
+  //   axios
+  //     .get(`${serverLink}/movies/`)
+  //     .then(response => this.setState({ movies: response.data }));
+  // }
 
   toggleModal = id => {
     // eslint-disable-next-line react/destructuring-assignment
@@ -72,15 +90,10 @@ class MovieList extends Component {
         isModalVisible: false
       });
     } else {
-      axios
-        .get(`https://yamovie-server.herokuapp.com/api/movies/${id}`)
+      this.getSingleMovie(id)
         .then(response =>
-          this.setState({
-            isModalVisible: true,
-            selectedMovie: response.data
-          })
+          this.setState({ isModalVisible: true, selectedMovie: response.data }),
         )
-        // eslint-disable-next-line no-console
         .catch(err => console.log(err));
     }
   };
@@ -121,10 +134,12 @@ class MovieList extends Component {
   render() {
     const {
       movies,
+      // filteredGenre,
       showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue
+      genres,
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
     const imagesForAllMovies = postersForAllMovies.map(poster =>
@@ -147,6 +162,7 @@ class MovieList extends Component {
             toggleModal={() => this.toggleModal}
             isModalVisible={isModalVisible}
             movie={selectedMovie}
+            genres={genres}
           />
         )}
         <div
