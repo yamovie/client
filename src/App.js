@@ -1,24 +1,80 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import queryString from 'query-string';
 import HomePage from './pages/HomePage';
 import BrowsePage from './pages/BrowsePage';
 import AboutPage from './pages/AboutPage';
-import MovieForm from './components/MovieForm';
+import NotFoundPage from './pages/NotFoundPage';
 import ChatWindow from './components/ChatWindow';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import userServices from './utils/userServices';
+import LloydChat from './components/LloydChat';
+import Navbar from './components/Navbar';
 import './css/main.css';
 
-const App = () => (
-  <div className="App">
-    <Route exact path="/" component={HomePage}>
-      Home
-    </Route>
-    <Switch>
-      <Route path="/browse" component={BrowsePage} />
-      <Route path="/about" component={AboutPage} />
-      <Route path="/movieform" component={MovieForm} />
-      <Route path="/chat" component={ChatWindow} />
-    </Switch>
-  </div>
-);
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    };
+  }
+  
+  /**
+   * get token and set to local storage
+   */
+  componentWillMount() {
+    const { location, history } = this.props;
+    const query = queryString.parse(location.search);
+    if (query.token) {
+      window.localStorage.setItem('token', query.token);
+      history.push('/');
+    }
+  }
+
+  /**
+   * get user data from database
+   */
+  componentDidMount() {
+    const user = userServices.getUser();
+    if (user) {
+      this.setState({ user });
+    }
+  }
+
+  handleLogout = () => {
+    userServices.logout();
+    this.setState({ user: null });
+  }
+
+  handleLogin = () => {
+    this.setState({ user: userServices.getUser() });
+  }
+
+  handleSignup = () => {
+    this.setState({ user: userServices.getUser() });
+  }
+   
+  render() {
+    const { user } = this.state;
+    return (
+      <div className="App">
+        <Navbar user={user} handleLogout={this.handleLogout} />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/browse" component={BrowsePage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/chat" component={ChatWindow} />
+          <Route path="/login" render={(props) => <Login {...props} handleLogin={this.handleLogin} />} />
+          <Route path="/signup" render={(props) => <Signup {...props} handleSignup={this.handleSignup} />} />
+          <Route component={NotFoundPage} />  
+        </Switch>
+        <LloydChat />
+      </div>
+    );
+  }
+}
+
 
 export default App;
