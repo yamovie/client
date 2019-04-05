@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/users/';
+const BASE_URL = 'https://yamovie-server.herokuapp.com/users';
 /**
  * Axios call to database to signup user
  * @param {Object} user 

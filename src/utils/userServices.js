@@ -27,7 +27,7 @@ async function login(creds) {
  */
 async function signup(user) {
   const response = await userAPI.signup(user);
-  const {token} = response.data;
+  const { token } = response.data;
   tokenServices.setToken(token);
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import '../css/Navbar.css';
 
@@ -11,7 +11,7 @@ library.add(faUser);
  * JSX used to render the navbar on the page. Uses flexboxes to display information and links.
  * @returns JSX to create HTML navbar
  */
-const Navbar = props => (
+const Navbar = ({ user, handleLogout }) => (
   <div className="navbar">
     <NavLink to="/">
       <img
@@ -30,7 +30,7 @@ const Navbar = props => (
       <li>
         <NavLink to="/about">About</NavLink>
       </li>
-      { !props.user ?
+      { !user ?
         (
           <div>
             <li>
@@ -46,7 +46,7 @@ const Navbar = props => (
               <NavLink to="/account"><FontAwesomeIcon icon="user" /></NavLink>
             </li>
             <li>
-              <NavLink onClick={props.handleLogout} to="/">Logout</NavLink>
+              <NavLink onClick={handleLogout} to="/">Logout</NavLink>
             </li>
           </div>
         )
@@ -63,8 +63,9 @@ Navbar.propTypes = {
     email: PropTypes.string,
     fullName: PropTypes.string,
   }),
+  handleLogout: PropTypes.func.isRequired,
 };
 
 Navbar.defaultProps = {
-  user: null,
+  user: null, 
 };

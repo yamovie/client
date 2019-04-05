@@ -25,10 +25,11 @@ class App extends Component {
    * get token and set to local storage
    */
   componentWillMount() {
-    const query = queryString.parse(this.props.location.search);
+    const { location, history } = this.props;
+    const query = queryString.parse(location.search);
     if (query.token) {
       window.localStorage.setItem('token', query.token);
-      this.props.history.push('/');
+      history.push('/');
     }
   }
 
@@ -38,7 +39,7 @@ class App extends Component {
   componentDidMount() {
     const user = userServices.getUser();
     if (user) {
-      this.setState({user});
+      this.setState({ user });
     }
   }
 
