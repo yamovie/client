@@ -36,14 +36,14 @@ body {
   }
 }
 
-button {
+/* button {
   font-size: 1.3rem;
   margin: 10px;
-  background-color: var(--purple);
+  background-color: var(--darkgrey);
   color: var(--offwhite);
   border-radius: 5px;
   border-color: var(--red);
-}
+} */
 
 ::-webkit-scrollbar {
   opacity: 0;

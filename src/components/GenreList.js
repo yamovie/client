@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../css/GenreList.css';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class GenreList extends Component {
   static propTypes = {
     genres: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -11,17 +11,11 @@ class GenreList extends Component {
   // Renders the genre list to the MovieList page. ==================
 
   render() {
-    // const { genres } = this.state;
-    const { moviesByGenreKey, genres } = this.props;
+    const { genres } = this.state;
+    const { moviesByGenreKey, style, toggleHover } = this.props;
     return (
-      <div id="list-genres">
-        <button
-          className="single-genre"
-          type="button"
-          onClick={() => moviesByGenreKey('all')}
-        >
-          All
-        </button>
+      <div id="list-genres" onMouseLeave={toggleHover} style={style}>
+        <button className="single-genre" type="button" onClick={() => moviesByGenreKey('all')}>All</button>
         {genres.map(genre => (
           <button
             className="single-genre"
