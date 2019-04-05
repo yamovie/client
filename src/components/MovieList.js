@@ -24,7 +24,7 @@ class MovieList extends Component {
       isModalVisible: false,
       selectedMovie: {},
       hover: false,
-      searchInputValue: ""
+      searchInputValue: "",
       genres: [],
     };
   }
