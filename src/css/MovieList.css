@@ -1,3 +1,4 @@
+
 #yamovie-movie-list {
   flex-wrap: wrap;
   color: var(--offwhite);
@@ -27,11 +28,29 @@
   flex-wrap: wrap;
   color: var(--offwhite);
   font-family: var(--fontfamily);
+  margin-top: 100px;
+}
+
+#mega-search-genres {
+  position: fixed;
+  top: 55px;
+  left: 0;
+  right: 0;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* margin-top: 70px; */
+  width: 100%;
+  overflow: hidden;
+  /* background-color: dimgrey; */
+  background-color: rgba(0, 0, 0, .9);
+  border-radius: 0px 0px 5px 5px;
 }
 
 #search-genre-bar {
   width: 100%;
-  display: inline;
   margin-top: 75px;
 
 }
@@ -62,23 +81,6 @@
   color: var(--darkgrey);
 }
 
-#mega-search-genres {
-  position: fixed;
-  left: 0;
-  right: 0;
-  margin-top: 5px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  /* margin-top: 70px; */
-  width: 100%;
-  overflow: hidden;
-  /* background-color: dimgrey; */
-  background-color: rgba(0, 0, 0, .9);
-  border-radius: 0px 0px 5px 5px;
-}
-
 #display-genre-button {
   position: relative;
   left: 0;
@@ -107,6 +109,29 @@
   width: 275px; */
   box-shadow: 2px 2px 2px rgba(119, 117, 117, 0.2);
 }
+
+
+/* Both these media tags fixes the size of the mega menu when resized for small screens */
+@media only screen and (max-width: 600px) {
+  #mega-search-genres {
+    top: 35px;
+  }
+
+  #browse-search input {
+    font-size: 15px;
+  }
+
+  #display-genre-button {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #mega-search-genres {
+    top: 25px;
+  }
+}
+
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
