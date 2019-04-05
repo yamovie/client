@@ -11,13 +11,20 @@ class UserPreferences extends React.Component {
     };
   }
 
-
   handleRatingsChange = event => {
     if (event.target.id === 'rt-slider') {
       this.setState({ rottenRating: event.target.value });
     } else if (event.target.id === 'imdb-slider') {
       this.setState({ imdbRating: event.target.value });
     }
+  }
+
+  handleChange(e) {
+    // If you are using babel, you can use ES 6 dictionary syntax
+    // let change = { [e.target.name] = e.target.value }
+    const change = {};
+    change[e.target.name] = e.target.value;
+    this.setState(change);
   }
 
   render() {
@@ -30,13 +37,13 @@ class UserPreferences extends React.Component {
             <h1 className="account-title">Movie preferences</h1>
             <h3 className="account-sub-title">Streaming Subscriptions (enable the once you have)</h3>
             <div className="form-control">
-              <ToggleSwitch labelName="Hulu" />
+              <ToggleSwitch labelName="Hulu" handleChange={() => this.handleChange()} />
             </div>
             <div className="form-control">
-              <ToggleSwitch labelName="Netflix" />
+              <ToggleSwitch labelName="Netflix" handleChange={this.handleChange} />
             </div>
             <div className="form-control">
-              <ToggleSwitch labelName="Disney +" />
+              <ToggleSwitch labelName="Disney +" handleChange={this.handleChange} />
             </div>
 
             <div className="form-control">

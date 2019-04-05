@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ToggleSwitch = ({ labelName }) => (
+
+const ToggleSwitch = ({ labelName, handleChange }) => (
   <>
     { labelName ?
       <span className="form-label switch-label">{labelName}</span>
@@ -8,11 +10,17 @@ const ToggleSwitch = ({ labelName }) => (
       ''
     }
     <label className="switch">
-      <input type="checkbox" />
+      <input type="checkbox" onChange={handleChange} />
       <span className="slider" />
     </label>
   </>
  
 );
+
+ToggleSwitch.propTypes = {
+  handleChange: PropTypes.func,
+  labelName: PropTypes.string,
+};
+
 
 export default ToggleSwitch;
