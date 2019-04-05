@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import userServices from '../utils/userServices';
 
-i;// mport GoogleSvg from './GoogleSvg';
+// mport GoogleSvg from './GoogleSvg';
 
 class Signup extends Component {
   constructor(props) {
