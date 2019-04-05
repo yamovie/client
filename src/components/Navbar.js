@@ -37,9 +37,14 @@ const Navbar = props => (
             </li>
           </div>
         ) : (
+          <div>
           <li>
             <NavLink to="/">Dashboard</NavLink>
           </li>
+          <li>
+            <NavLink onClick={props.handleLogout} to="/">Logout</NavLink>
+          </li>
+          </div>
         )
       }
     </ul>

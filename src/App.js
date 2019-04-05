@@ -59,7 +59,7 @@ class App extends Component {
     const { user } = this.state;
     return (
       <div className="App">
-        <Navbar user={user} />
+        <Navbar user={user} handleLogout={this.handleLogout} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />
