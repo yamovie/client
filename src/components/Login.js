@@ -43,7 +43,7 @@ class Login extends Component {
           </div>
         </form>
         { message && <span>{message}</span> }
-        <a href="http://localhost:5000/auth/google" className="button">
+        <a href="https://yamovie-server.herokuapp.com/auth/google" className="button">
           <div className="google-link">
             <GoogleSvg />
             <span className="button-label">Login</span>
