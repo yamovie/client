@@ -1,8 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types';
 import '../css/Navbar.css';
 
+library.add(faUser);
 /**
  * JSX used to render the navbar on the page. Uses flexboxes to display information and links.
  * @returns JSX to create HTML navbar
@@ -38,12 +42,12 @@ const Navbar = props => (
           </div>
         ) : (
           <div>
-          <li>
-            <NavLink to="/">Dashboard</NavLink>
-          </li>
-          <li>
-            <NavLink onClick={props.handleLogout} to="/">Logout</NavLink>
-          </li>
+            <li>
+              <NavLink to="/account"><FontAwesomeIcon icon="user" /></NavLink>
+            </li>
+            <li>
+              <NavLink onClick={props.handleLogout} to="/">Logout</NavLink>
+            </li>
           </div>
         )
       }
