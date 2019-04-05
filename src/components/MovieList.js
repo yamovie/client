@@ -138,7 +138,7 @@ class MovieList extends Component {
       showGenreFilter,
       isModalVisible,
       selectedMovie,
-      searchInputValue
+      searchInputValue,
       genres,
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
