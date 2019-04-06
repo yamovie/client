@@ -40,6 +40,7 @@ class MovieCard extends Component {
 
   componentDidMount() {
     const { movie } = this.props;
+    console.log(movie);
     this.setState({
       movie,
       loading: false,
@@ -154,8 +155,10 @@ StreamsView.defaultProps = {
 // ============================================================
 // Ratings
 const RatingsView = ({ movie }) => {
-  const rtRating = movie.ratings.find(obj => obj.source === 'Rotten Tomatoes');
-  const imdbRating = movie.ratings.find(obj => obj.source === 'Internet Movie Database');
+  // const rtRating = movie.ratings.find(obj => obj.source === 'rotten_tomatoes');
+  const rtRating = movie.ratings.rotten_tomatoes;
+  // const imdbRating = movie.ratings.find(obj => obj.source === 'internet_movie_database');
+  const imdbRating = movie.ratings.internet_movie_database;
 
   const rtImg =
     rtRating >= '60%'

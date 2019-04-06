@@ -1,3 +1,4 @@
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../css/GenreList.css';
@@ -11,8 +12,7 @@ class GenreList extends Component {
   // Renders the genre list to the MovieList page. ==================
 
   render() {
-    const { genres } = this.state;
-    const { moviesByGenreKey, style, toggleHover } = this.props;
+    const { moviesByGenreKey, style, toggleHover, genres } = this.props;
     return (
       <div id="list-genres" onMouseLeave={toggleHover} style={style}>
         <button className="single-genre" type="button" onClick={() => moviesByGenreKey('all')}>All</button>

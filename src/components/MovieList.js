@@ -8,7 +8,7 @@ import GenreList from "./GenreList.js";
 
 import "../css/MovieList.css";
 
-const serverLink = 'https://yamovie-server.herokuapp.com/api';
+const serverLink = "https://yamovie-server.herokuapp.com/api";
 
 class MovieList extends Component {
   /**
@@ -25,7 +25,7 @@ class MovieList extends Component {
       selectedMovie: {},
       hover: false,
       searchInputValue: "",
-      genres: [],
+      genres: []
     };
   }
 
@@ -37,8 +37,9 @@ class MovieList extends Component {
    * @param {String} [genreKey]
    * @returns An Axios promise with the movie data
    */
-  getMovies = (genreKey = 'all') => {
-    if (genreKey !== 'all') {
+  getMovies = (genreKey = "all") => {
+    console.log(genreKey);
+    if (genreKey !== "all") {
       return axios.get(`${serverLink}/movies/genre/${genreKey}`);
     }
     return axios.get(`${serverLink}/movies/`);
@@ -65,16 +66,20 @@ class MovieList extends Component {
     if (showGenreFilter) {
       axios.all([this.getGenres(), this.getMovies()]).then(
         axios.spread((genreResp, movieResp) => {
-          this.setState({ genres: genreResp.data, movies: movieResp.data });
-        }),
+          this.setState({
+            genres: genreResp.data,
+            movies: movieResp.data.results
+          });
+        })
       );
     }
   };
-
   // ==================== Handles Filter Click ===============================
 
   handleSendGenre = genreKey => {
-    this.getMovies(genreKey).then(response => this.setState({ movies: response.data }));
+    this.getMovies(genreKey).then(response =>
+      this.setState({ movies: response.data })
+    );
   };
 
   // handleAllMovies = () => {
@@ -92,7 +97,7 @@ class MovieList extends Component {
     } else {
       this.getSingleMovie(id)
         .then(response =>
-          this.setState({ isModalVisible: true, selectedMovie: response.data }),
+          this.setState({ isModalVisible: true, selectedMovie: response.data })
         )
         .catch(err => console.log(err));
     }
@@ -134,14 +139,14 @@ class MovieList extends Component {
   render() {
     const {
       movies,
-      // filteredGenre,
       showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue,
-      genres,
+      genres
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
+    console.log(postersForAllMovies);
     const imagesForAllMovies = postersForAllMovies.map(poster =>
       poster.map(p => p.poster_url)
     );
@@ -191,6 +196,7 @@ class MovieList extends Component {
             </button>
             {showGenreFilter ? (
               <GenreList
+                genres={genres}
                 style={hoverStyle}
                 toggleHover={this.toggleHover}
                 moviesByGenreKey={this.handleSendGenre}
