@@ -40,7 +40,6 @@ class MovieCard extends Component {
 
   componentDidMount() {
     const { movie } = this.props;
-    console.log(movie);
     this.setState({
       movie,
       loading: false,

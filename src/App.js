@@ -26,6 +26,8 @@ class App extends Component {
    */
   componentWillMount() {
     const { location, history } = this.props;
+    console.log(history);
+    console.log(location);
     const query = queryString.parse(location.search);
     if (query.token) {
       window.localStorage.setItem('token', query.token);
@@ -68,7 +70,7 @@ class App extends Component {
           <Route path="/chat" component={ChatWindow} />
           <Route path="/login" render={(props) => <Login {...props} handleLogin={this.handleLogin} />} />
           <Route path="/signup" render={(props) => <Signup {...props} handleSignup={this.handleSignup} />} />
-          <Route component={NotFoundPage} />  
+          <Route component={NotFoundPage} />
         </Switch>
         <LloydChat />
       </div>

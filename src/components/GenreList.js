@@ -7,7 +7,15 @@ class GenreList extends Component {
   static propTypes = {
     genres: PropTypes.arrayOf(PropTypes.object).isRequired,
     moviesByGenreKey: PropTypes.func.isRequired,
+    toggleHover: PropTypes.func.isRequired,
+    style: PropTypes.shape({
+      display: PropTypes.string,
+    }),
   };
+
+  static defaultProps = {
+    style: "style",
+  }
 
   // Renders the genre list to the MovieList page. ==================
 

@@ -67,5 +67,5 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-  user: null, 
+  user: null,
 };

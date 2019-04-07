@@ -38,7 +38,6 @@ class MovieList extends Component {
    * @returns An Axios promise with the movie data
    */
   getMovies = (genreKey = "all") => {
-    console.log(genreKey);
     if (genreKey !== "all") {
       return axios.get(`${serverLink}/movies/genre/${genreKey}`);
     }
@@ -78,7 +77,7 @@ class MovieList extends Component {
 
   handleSendGenre = genreKey => {
     this.getMovies(genreKey).then(response =>
-      this.setState({ movies: response.data })
+      this.setState({ movies: response.data.results })
     );
   };
 
@@ -127,7 +126,7 @@ class MovieList extends Component {
       })
       .then(response =>
         this.setState({
-          movies: response.data,
+          movies: response.data.results,
           searchInputValue: ""
         })
       );
@@ -146,7 +145,6 @@ class MovieList extends Component {
       genres
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
-    console.log(postersForAllMovies);
     const imagesForAllMovies = postersForAllMovies.map(poster =>
       poster.map(p => p.poster_url)
     );
