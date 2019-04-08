@@ -44,7 +44,11 @@ class ChatWindow extends React.Component {
     });
   }
 
-  // TODO: JDoc comment
+  /**
+   * Shows the initial greeting message, the question for if the user wants recs,
+   * and then the answer option buttons
+   * @returns {Promise} When fulfilled, promise will contain true or false if they want recs
+   */
   greetingQuestion = () => {
     this.botui.message.bot({
       content: 'Hello! 👋 My name is Lloyd! 😁',
@@ -60,13 +64,16 @@ class ChatWindow extends React.Component {
     });
   };
 
-  // TODO: JDoc comment
-  moodQuestion = genreIds => {
+  /**
+   * Asks about the user's mood, displays button response options, then sets the state
+   * and displays a response message when they have selected an option
+   */
+  moodQuestion = async genreIds => {
     this.botui.message.bot({
       content: 'Okay! What kind of movie are you in the mood for?',
       delay: this.delays.response,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: [genreIds.Comedy], text: 'Funny 😆' },
@@ -103,13 +110,16 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  ageQuestion = () => {
+  /**
+   * Asks about the user's age, displays button response options, then sets the state
+   * and displays a response message when they have selected an option
+   */
+  ageQuestion = async () => {
     this.botui.message.bot({
       content: 'What is your age range?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 'PG', text: '12 and Under' },
@@ -119,12 +129,12 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(ageRes => {
-        this.setState({
+        this.setState(prevState => ({
           dataObj: {
-            ...this.state.dataObj,
+            ...prevState.dataObj,
             mpaa: ageRes.value,
           },
-        });
+        }));
         this.botui.message.bot({
           content: 'Thanks!',
           delay: this.delays.response,
@@ -132,13 +142,16 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  eraQuestion = () => {
+  /**
+   * Asks about the user's movie era preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  eraQuestion = async () => {
     this.botui.message.bot({
       content: 'Do you want to watch a classic or modern movie?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 'classic', text: 'Classic (before 1980)' },
@@ -149,35 +162,35 @@ class ChatWindow extends React.Component {
       })
       .then(eraRes => {
         switch (eraRes.value) {
-        case 'classic':
-          this.setState({
-            dataObj: {
-              ...this.state.dataObj,
-              minYear: 0,
-              maxYear: 1980,
-            },
-          });
-          break;
-        case 'in-between':
-          this.setState({
-            dataObj: {
-              ...this.state.dataObj,
-              minYear: 1980,
-              maxYear: 2010,
-            },
-          });
-          break;
-        case 'modern':
-          this.setState({
-            dataObj: {
-              ...this.state.dataObj,
-              minYear: 2010,
-              maxYear: 3000,
-            },
-          });
-          break;
-        default:
-          console.log('error');
+          case 'classic':
+            this.setState(prevState => ({
+              dataObj: {
+                ...prevState.dataObj,
+                minYear: 0,
+                maxYear: 1980,
+              },
+            }));
+            break;
+          case 'in-between':
+            this.setState(prevState => ({
+              dataObj: {
+                ...prevState.dataObj,
+                minYear: 1980,
+                maxYear: 2010,
+              },
+            }));
+            break;
+          case 'modern':
+            this.setState(prevState => ({
+              dataObj: {
+                ...prevState.dataObj,
+                minYear: 2010,
+                maxYear: 3000,
+              },
+            }));
+            break;
+          default:
+            console.log('error');
         }
         this.botui.message.bot({
           content: 'Me too!',
@@ -186,30 +199,30 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  animatedQuestion = genreIds => {
+  /**
+   * Asks about the user's animation preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  animatedQuestion = async genreIds => {
     this.botui.message.bot({
       content: 'Do you like animated films?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
-        action: [
-          { value: true, text: 'Yes 👍' },
-          { value: false, text: 'No 👎' },
-        ],
+        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
         delay: this.delays.ansOptions,
       })
       .then(animRes => {
         if (animRes.value === true) {
           const array = [...this.state.dataObj.genres];
           array.push(genreIds.Animation);
-          this.setState({
+          this.setState(prevState => ({
             dataObj: {
-              ...this.state.dataObj,
+              ...prevState.dataObj,
               genres: array,
             },
-          });
+          }));
         }
         this.botui.message.bot({
           content: 'Cool!',
@@ -218,27 +231,27 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  foreignQuestion = () => {
+  /**
+   * Asks about the user's foreign film preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  foreignQuestion = async () => {
     this.botui.message.bot({
       content: 'How about foreign films?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
-        action: [
-          { value: true, text: 'Yes 👍' },
-          { value: false, text: 'No 👎' },
-        ],
+        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
         delay: this.delays.ansOptions,
       })
       .then(forRes => {
-        this.setState({
+        this.setState(prevState => ({
           dataObj: {
-            ...this.state.dataObj,
+            ...prevState.dataObj,
             foreign: forRes.value,
           },
-        });
+        }));
         this.botui.message.bot({
           content: 'Great!',
           delay: this.delays.response,
@@ -246,27 +259,27 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  indieQuestion = () => {
+  /**
+   * Asks about the user's indie preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  indieQuestion = async () => {
     this.botui.message.bot({
       content: 'Do you like independent films?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
-        action: [
-          { value: true, text: 'Yes 👍' },
-          { value: false, text: 'No 👎' },
-        ],
+        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
         delay: this.delays.ansOptions,
       })
       .then(indieRes => {
-        this.setState({
+        this.setState(prevState => ({
           dataObj: {
-            ...this.state.dataObj,
+            ...prevState.dataObj,
             indie: indieRes.value,
           },
-        });
+        }));
         this.botui.message.bot({
           // TODO: Move this response to after a different question
           content: 'You have good taste!',
@@ -275,13 +288,17 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  ratingsQuestion = () => {
+  /**
+   * Asks about the user's ratings preference, displays button response options, then
+   * follows up based on their response. Calls the sub-functions to get actual rating info
+   * for each Rotten Tomatoes and IMDB ratings.
+   */
+  ratingsQuestion = async () => {
     this.botui.message.bot({
       content: 'What ratings do you care about?',
       delay: this.delays.nextQ,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 'rotten-tomatoes', text: 'Rotten Tomatoes' },
@@ -292,10 +309,7 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(async ratingsRes => {
-        if (
-          ratingsRes.value === 'both' ||
-          ratingsRes.value === 'rotten-tomatoes'
-        ) {
+        if (ratingsRes.value === 'both' || ratingsRes.value === 'rotten-tomatoes') {
           await this.rtQuestion();
         }
         if (ratingsRes.value === 'both' || ratingsRes.value === 'imdb') {
@@ -304,13 +318,17 @@ class ChatWindow extends React.Component {
       });
   };
 
-  // TODO: JDoc comment
-  rtQuestion = () => {
+  /**
+   * Sub-function for Rotten Tomatoes rating preferences --
+   * Asks about the user's RT threshold preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  rtQuestion = async () => {
     this.botui.message.bot({
       content: 'Minimum Rotten Tomatoes rating?',
       delay: this.delays.response,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 60, text: '60%' },
@@ -320,22 +338,26 @@ class ChatWindow extends React.Component {
         delay: this.delays.nextQ,
       })
       .then(rtRes => {
-        this.setState({
+        this.setState(prevState => ({
           dataObj: {
-            ...this.state.dataObj,
+            ...prevState.dataObj,
             rottenTomato: rtRes.value,
           },
-        });
+        }));
       });
   };
 
-  // TODO: JDoc comment
-  imdbQuestion = () => {
+  /**
+   * Sub-function for IMDB rating preferences --
+   * Asks about the user's IMDB threshold preference, displays button response options, then
+   * sets the state and displays a response message when they have selected an option
+   */
+  imdbQuestion = async () => {
     this.botui.message.bot({
       content: 'Minimum IMDB rating?',
       delay: this.delays.response,
     });
-    return this.botui.action
+    await this.botui.action
       .button({
         action: [
           { value: 5, text: '5/10' },
@@ -345,16 +367,18 @@ class ChatWindow extends React.Component {
         delay: this.delays.nextQ,
       })
       .then(imdbRes => {
-        this.setState({
+        this.setState(prevState => ({
           dataObj: {
-            ...this.state.dataObj,
+            ...prevState.dataObj,
             imdb: imdbRes.value,
           },
-        });
+        }));
       });
   };
 
-  // TODO: JDoc comment
+  /**
+   * Displays the loading message that its getting results
+   */
   resultsMessage = getMovieResults => {
     const { dataObj } = this.state;
     this.botui.message
