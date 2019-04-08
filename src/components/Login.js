@@ -14,20 +14,23 @@ class Login extends Component {
       message: '',
     };
   }
-  
+
   handleChange = (field, e) => {
     this.setState({
       [field]: e.target.value,
     });
-  }
+  };
 
   handleSubmit = e => {
     e.preventDefault();
-    userServices.login(this.state).then(() => {
-      this.props.handleLogin();
-      this.props.history.push('/');
-    }).catch(err => this.setState({ message: 'Invalid Credentials!' }));
-  }
+    userServices
+      .login(this.state)
+      .then(() => {
+        this.props.handleLogin();
+        this.props.history.push('/');
+      })
+      .catch(err => this.setState({ message: 'Invalid Credentials!' }));
+  };
 
   render() {
     const { email, pw, message } = this.state;
@@ -36,28 +39,48 @@ class Login extends Component {
         <div className="login">
           <div className="form-container">
             <form onSubmit={this.handleSubmit}>
-              <img className="popcorn-logo" src="/images/popcornKernal.png" alt="Broken" />
+              <img
+                className="popcorn-logo"
+                src="/images/popcornKernal.png"
+                alt="Broken"
+              />
               <header>Log In To YaMovie!</header>
               <div className="input-container">
-                <input className="login-input" type="email" placeholder="Email" value={email} onChange={(e) => this.handleChange('email', e)} />
-                <input className="login-input" type="password" placeholder="Password" value={pw} onChange={(e) => this.handleChange('pw', e)} />
+                <input
+                  className="login-input"
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={e => this.handleChange('email', e)}
+                />
+                <input
+                  className="login-input"
+                  type="password"
+                  placeholder="Password"
+                  value={pw}
+                  onChange={e => this.handleChange('pw', e)}
+                />
               </div>
               <div className="button-container">
-                <button className="login-submit" type="button" onClick={this.handleSubmit}> Log In </button>
-                <Link className="login-cancel" to="/">Cancel</Link>
+                <button
+                  className="login-submit"
+                  type="button"
+                  onClick={this.handleSubmit}
+                >
+                  {' '}
+                  Log In{' '}
+                </button>
+                <Link className="login-cancel" to="/">
+                  Cancel
+                </Link>
               </div>
             </form>
           </div>
-          { message && <span>{message}</span> }
+          {message && <span>{message}</span>}
           <a href="https://yamovie-server.herokuapp.com/auth/google" className="button">
             <div className="google-link">
               <span className="svgIcon t-popup-svg">
-                <svg
-                  className="svgIcon-use"
-                  width="25"
-                  height="37"
-                  viewBox="0 0 25 25"
-                >
+                <svg className="svgIcon-use" width="25" height="37" viewBox="0 0 25 25">
                   <g fill="none" fillRule="evenodd">
                     <path
                       d="M20.66 12.693c0-.603-.054-1.182-.155-1.738H12.5v3.287h4.575a3.91 3.91 0 0 1-1.697 2.566v2.133h2.747c1.608-1.48 2.535-3.65 2.535-6.24z"

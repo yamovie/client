@@ -7,23 +7,28 @@ class GenreList extends Component {
   static propTypes = {
     genres: PropTypes.arrayOf(PropTypes.object).isRequired,
     moviesByGenreKey: PropTypes.func.isRequired,
-    toggleHover: PropTypes.func.isRequired,
     style: PropTypes.shape({
       display: PropTypes.string,
     }),
   };
 
   static defaultProps = {
-    style: "style",
-  }
+    style: 'style',
+  };
 
   // Renders the genre list to the MovieList page. ==================
 
   render() {
-    const { moviesByGenreKey, style, toggleHover, genres } = this.props;
+    const { moviesByGenreKey, style, genres } = this.props;
     return (
-      <div id="list-genres" onMouseLeave={toggleHover} style={style}>
-        <button className="single-genre" type="button" onClick={() => moviesByGenreKey('all')}>All</button>
+      <div id="list-genres" style={style}>
+        <button
+          className="single-genre"
+          type="button"
+          onClick={() => moviesByGenreKey('all')}
+        >
+          All
+        </button>
         {genres.map(genre => (
           <button
             className="single-genre"

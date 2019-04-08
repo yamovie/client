@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import userServices from '../utils/userServices';
 
-import "../css/Signup.css";
+import '../css/Signup.css';
 
 // mport GoogleSvg from './GoogleSvg';
 
@@ -23,61 +23,92 @@ class Signup extends Component {
     this.setState({
       [field]: e.target.value,
     });
-  }
+  };
 
   /**
-  * submit user information to signup
-  * if successful redirect to homepage
-  */
+   * submit user information to signup
+   * if successful redirect to homepage
+   */
   handleSubmit = e => {
     const { handleSignup, history } = this.props;
     e.preventDefault();
-    userServices.signup(this.state).then(() => {
-      handleSignup();
-      history.push('/');
-    }).catch(err => this.setState({ message: 'Invalid Information!' }));
-  }
+    userServices
+      .signup(this.state)
+      .then(() => {
+        handleSignup();
+        history.push('/');
+      })
+      .catch(err => this.setState({ message: 'Invalid Information!' }));
+  };
 
   isFormInvalid() {
-    const {
-      email, fullName, pw, pwConfirm
-    } = this.state;
+    const { email, fullName, pw, pwConfirm } = this.state;
     return !(fullName && email && pw === pwConfirm);
   }
 
   render() {
-    const {
-      email, fullName, pw, pwConfirm, message
-    } = this.state;
+    const { email, fullName, pw, pwConfirm, message } = this.state;
     return (
       <div className="signup-page">
         <div className="signup">
           <div className="form-container">
             <form onSubmit={this.handleSubmit}>
-              <img className="popcorn-logo" src="/images/popcornKernal.png" alt="Broken" />
+              <img
+                className="popcorn-logo"
+                src="/images/popcornKernal.png"
+                alt="Broken"
+              />
               <header>Signup with YaMovie!</header>
               <div className="input-container">
-                <input className="signup-input" type="email" placeholder="Email" value={email} onChange={(e) => this.handleChange('email', e)} />
-                <input className="signup-input" type="name" placeholder="First and Last Name" value={fullName} onChange={(e) => this.handleChange('fullName', e)} />
-                <input className="signup-input" type="password" placeholder="Password" value={pw} onChange={(e) => this.handleChange('pw', e)} />
-                <input className="signup-input" type="password" placeholder="Password Confirmation" value={pwConfirm} onChange={(e) => this.handleChange('pwConfirm', e)} />
+                <input
+                  className="signup-input"
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={e => this.handleChange('email', e)}
+                />
+                <input
+                  className="signup-input"
+                  type="name"
+                  placeholder="First and Last Name"
+                  value={fullName}
+                  onChange={e => this.handleChange('fullName', e)}
+                />
+                <input
+                  className="signup-input"
+                  type="password"
+                  placeholder="Password"
+                  value={pw}
+                  onChange={e => this.handleChange('pw', e)}
+                />
+                <input
+                  className="signup-input"
+                  type="password"
+                  placeholder="Password Confirmation"
+                  value={pwConfirm}
+                  onChange={e => this.handleChange('pwConfirm', e)}
+                />
               </div>
               <div className="button-container">
-                <button className="signup-submit" type="button" onClick={this.handleSubmit}> Signup </button>
-                <Link className="signup-cancel" to="/">Cancel</Link>
+                <button
+                  className="signup-submit"
+                  type="button"
+                  onClick={this.handleSubmit}
+                >
+                  {' '}
+                  Signup{' '}
+                </button>
+                <Link className="signup-cancel" to="/">
+                  Cancel
+                </Link>
               </div>
             </form>
           </div>
-          { message && <span>{message}</span> }
+          {message && <span>{message}</span>}
           <a href="https://yamovie-server.herokuapp.com/auth/google" className="button">
             <div className="google-link">
               <span className="svgIcon t-popup-svg">
-                <svg
-                  className="svgIcon-use"
-                  width="25"
-                  height="37"
-                  viewBox="0 0 25 25"
-                >
+                <svg className="svgIcon-use" width="25" height="37" viewBox="0 0 25 25">
                   <g fill="none" fillRule="evenodd">
                     <path
                       d="M20.66 12.693c0-.603-.054-1.182-.155-1.738H12.5v3.287h4.575a3.91 3.91 0 0 1-1.697 2.566v2.133h2.747c1.608-1.48 2.535-3.65 2.535-6.24z"
@@ -109,6 +140,6 @@ class Signup extends Component {
 
 Signup.propTypes = {
   handleSignup: Proptypes.func.isRequired,
-}
+};
 
 export default Signup;

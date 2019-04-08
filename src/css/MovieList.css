@@ -1,4 +1,3 @@
-
 #yamovie-movie-list {
   flex-wrap: wrap;
   color: var(--offwhite);
@@ -32,6 +31,7 @@
 
 #mega-search-genres {
   position: sticky;
+  z-index: 5;
   top: 60px;
   width: 100%;
   display: flex;
@@ -39,14 +39,13 @@
   flex-wrap: wrap;
   justify-content: center;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, .9);
+  background-color: rgba(0, 0, 0, 0.9);
   border-radius: 0px 0px 5px 5px;
 }
 
 #search-genre-bar {
   width: 100%;
   margin-top: 75px;
-
 }
 
 #browse-search {
@@ -90,6 +89,7 @@
   display: flex;
   justify-content: center;
   background: none;
+  cursor: pointer;
 }
 
 /* #display-genre-button:hover.list-genres {
@@ -103,7 +103,6 @@
   width: 275px; */
   box-shadow: 2px 2px 2px rgba(119, 117, 117, 0.2);
 }
-
 
 /* Both these media tags fixes the size of the mega menu when resized for small screens */
 @media only screen and (max-width: 600px) {
@@ -125,7 +124,6 @@
     top: 25px;
   }
 }
-
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {

@@ -9,7 +9,11 @@ class MovieCard extends Component {
     movie: PropTypes.shape({
       genre_ids: PropTypes.array,
       overview: PropTypes.string,
-      ratings: PropTypes.arrayOf(PropTypes.object),
+      ratings: PropTypes.shape({
+        internet_movie_database: PropTypes.object,
+        metacritic: PropTypes.object,
+        rotten_tomatoes: PropTypes.object,
+      }),
       release_date: PropTypes.string,
       runtime: PropTypes.number,
       title: PropTypes.string,
@@ -154,13 +158,10 @@ StreamsView.defaultProps = {
 // ============================================================
 // Ratings
 const RatingsView = ({ movie }) => {
-  // const rtRating = movie.ratings.find(obj => obj.source === 'rotten_tomatoes');
   const rtRating = movie.ratings.rotten_tomatoes;
-  // const imdbRating = movie.ratings.find(obj => obj.source === 'internet_movie_database');
   const imdbRating = movie.ratings.internet_movie_database;
-
   const rtImg =
-    rtRating >= '60%'
+    rtRating.value >= 60
       ? 'icon-rottentomatoes-fresh.png'
       : 'icon-rottentomatoes-rotten.png';
   return (
@@ -176,7 +177,7 @@ const RatingsView = ({ movie }) => {
               src={`${process.env.PUBLIC_URL}/images/${rtImg}`}
               alt="Rotten Tomatoes"
             />
-            {rtRating.value}
+            {`${rtRating.rate}`}
           </a>
         </li>
       ) : (
@@ -186,7 +187,7 @@ const RatingsView = ({ movie }) => {
         <li>
           <a href="http://www.imdb.com" target="_blank" rel="noopener noreferrer">
             <img src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`} alt="IMDb" />
-            {imdbRating.value}
+            {imdbRating.rate}
           </a>
         </li>
       ) : (
@@ -202,7 +203,11 @@ const RatingsView = ({ movie }) => {
 
 RatingsView.propTypes = {
   movie: PropTypes.shape({
-    ratings: PropTypes.arrayOf(PropTypes.object),
+    ratings: PropTypes.shape({
+      internet_movie_database: PropTypes.object,
+      metacritic: PropTypes.object,
+      rotten_tomatoes: PropTypes.object,
+    }),
   }).isRequired,
 };
 

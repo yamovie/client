@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react';
+import axios from 'axios';
 
-import MovieAPI from "../MovieApi.js";
-import MovieCard from "./MovieCard";
-import GenreList from "./GenreList.js";
+import MovieAPI from '../MovieApi.js';
+import MovieCard from './MovieCard';
+import GenreList from './GenreList.js';
 
-import "../css/MovieList.css";
+import '../css/MovieList.css';
 
-const serverLink = "https://yamovie-server.herokuapp.com/api";
+const serverLink = 'https://yamovie-server.herokuapp.com/api';
 
 class MovieList extends Component {
   /**
@@ -24,8 +24,8 @@ class MovieList extends Component {
       isModalVisible: false,
       selectedMovie: {},
       hover: false,
-      searchInputValue: "",
-      genres: []
+      searchInputValue: '',
+      genres: [],
     };
   }
 
@@ -37,8 +37,8 @@ class MovieList extends Component {
    * @param {String} [genreKey]
    * @returns An Axios promise with the movie data
    */
-  getMovies = (genreKey = "all") => {
-    if (genreKey !== "all") {
+  getMovies = (genreKey = 'all') => {
+    if (genreKey !== 'all') {
       return axios.get(`${serverLink}/movies/genre/${genreKey}`);
     }
     return axios.get(`${serverLink}/movies/`);
@@ -67,9 +67,9 @@ class MovieList extends Component {
         axios.spread((genreResp, movieResp) => {
           this.setState({
             genres: genreResp.data,
-            movies: movieResp.data.results
+            movies: movieResp.data.results,
           });
-        })
+        }),
       );
     }
   };
@@ -77,7 +77,7 @@ class MovieList extends Component {
 
   handleSendGenre = genreKey => {
     this.getMovies(genreKey).then(response =>
-      this.setState({ movies: response.data.results })
+      this.setState({ movies: response.data.results }),
     );
   };
 
@@ -91,12 +91,12 @@ class MovieList extends Component {
     // eslint-disable-next-line react/destructuring-assignment
     if (this.state.isModalVisible) {
       this.setState({
-        isModalVisible: false
+        isModalVisible: false,
       });
     } else {
       this.getSingleMovie(id)
         .then(response =>
-          this.setState({ isModalVisible: true, selectedMovie: response.data })
+          this.setState({ isModalVisible: true, selectedMovie: response.data }),
         )
         .catch(err => console.log(err));
     }
@@ -105,13 +105,13 @@ class MovieList extends Component {
   toggleHover = () => {
     const { hover } = this.state;
     this.setState({
-      hover: !hover
+      hover: !hover,
     });
   };
 
   handleChange = event => {
     this.setState({
-      searchInputValue: event.target.value
+      searchInputValue: event.target.value,
     });
   };
 
@@ -119,16 +119,16 @@ class MovieList extends Component {
     const { searchInputValue } = this.state;
     event.preventDefault();
     axios
-      .get("https://yamovie-server.herokuapp.com/api/movies/search", {
+      .get('https://yamovie-server.herokuapp.com/api/movies/search', {
         params: {
-          query: searchInputValue
-        }
+          query: searchInputValue,
+        },
       })
       .then(response =>
         this.setState({
           movies: response.data.results,
-          searchInputValue: ""
-        })
+          searchInputValue: '',
+        }),
       );
   };
 
@@ -142,20 +142,20 @@ class MovieList extends Component {
       isModalVisible,
       selectedMovie,
       searchInputValue,
-      genres
+      genres,
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
     const imagesForAllMovies = postersForAllMovies.map(poster =>
-      poster.map(p => p.poster_url)
+      poster.map(p => p.poster_url),
     );
 
     // On hover function to display genre list through mega menu
     let hoverStyle;
     const { hover } = this.state;
     if (hover) {
-      hoverStyle = { display: "flex" };
+      hoverStyle = { display: 'flex' };
     } else {
-      hoverStyle = { display: "none" };
+      hoverStyle = { display: 'none' };
     }
 
     return (
@@ -172,7 +172,7 @@ class MovieList extends Component {
           id="yamovie-movie-list"
           className="container"
           style={{
-            opacity: isModalVisible ? 0.08 : ""
+            opacity: isModalVisible ? 0.08 : '',
           }}
         >
           <div id="mega-search-genres">
@@ -184,12 +184,7 @@ class MovieList extends Component {
                 placeholder="Search Movies"
               />
             </form>
-            <button
-              type="button"
-              id="display-genre-button"
-              onMouseEnter={this.toggleHover}
-              onClick={this.toggleHover}
-            >
+            <button type="button" id="display-genre-button" onClick={this.toggleHover}>
               Display Genres
             </button>
             {showGenreFilter ? (
@@ -200,7 +195,7 @@ class MovieList extends Component {
                 moviesByGenreKey={this.handleSendGenre}
               />
             ) : (
-              " "
+              ' '
             )}
           </div>
           <div id="list-all-movies">
