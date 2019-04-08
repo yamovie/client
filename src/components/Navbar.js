@@ -14,11 +14,7 @@ library.add(faUser);
 const Navbar = ({ user, handleLogout }) => (
   <div className="navbar">
     <NavLink to="/">
-      <img
-        src="/images/logo-v3-white-whitepopcorn.png"
-        alt="YaMovie"
-        id="main-logo"
-      />
+      <img src="/images/logo-v3-white-whitepopcorn.png" alt="YaMovie" id="main-logo" />
     </NavLink>
     <ul id="navbar-links">
       <li>
@@ -30,29 +26,30 @@ const Navbar = ({ user, handleLogout }) => (
       <li>
         <NavLink to="/about">About</NavLink>
       </li>
-      { !user ?
-        (
-          <div>
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-            <li>
-              <NavLink to="/signup">Signup</NavLink>
-            </li>
-          </div>
-        ) : (
-          <div>
-            <li>
-              <NavLink to="/account"><FontAwesomeIcon icon="user" /></NavLink>
-            </li>
-            <li>
-              <NavLink onClick={handleLogout} to="/">Logout</NavLink>
-            </li>
-          </div>
-        )
-      }
+      {!user ? (
+        <div>
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+          <li>
+            <NavLink to="/signup">Signup</NavLink>
+          </li>
+        </div>
+      ) : (
+        <div>
+          <li>
+            <NavLink to="/account">
+              <FontAwesomeIcon icon="user" />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink onClick={handleLogout} to="/">
+              Logout
+            </NavLink>
+          </li>
+        </div>
+      )}
     </ul>
-
   </div>
 );
 
@@ -67,5 +64,5 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-  user: null, 
+  user: null,
 };

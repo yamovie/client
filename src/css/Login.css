@@ -1,0 +1,96 @@
+.login-page {
+  background-image: url('/images/login-splash2.jpg');
+  height: 100vh;
+  max-width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.popcorn-logo {
+  height: 60px;
+}
+
+.login {
+  /* background-color: var(--offwhite); */
+  background-color: rgba(231, 230, 230, 0.9);
+  position: fixed;
+  top: 25%;
+  left: 27%;
+  width: 45%;
+  height: 50%;
+  box-shadow: 0px 5px 10px 2px var(--lightgrey);
+  border-radius: 5px;
+  
+}
+
+.form-container {
+  display: block;
+  text-align: center;
+}
+
+.login form {
+  display: inline-block;
+}
+
+.login header {
+  text-align: center;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-input {
+  margin: 5px;
+  font-size: 20px;
+  border-radius: 15px;
+  border-color: var(--purple);
+  outline: none;
+  width: 300px;
+  height: 30px;
+}
+
+.login-input::placeholder {
+  padding-left: 5px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-submit {
+  background-color: var(--purple);
+  font-size: 20px;
+  color: white;
+  width: 300px;
+  height: 30px;
+  margin: 5px auto;
+  border-radius: 15px;
+}
+
+.login-cancel {
+  background-color: var(--purple);
+  font-size: 20px;
+  color: white;
+  width: 300px;
+  height: 30px;
+  margin: 5px auto;
+  border-radius: 15px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.google-link {
+  background-color: white;
+  width: 300px;
+  margin: 25px auto;
+  border-radius: 15px;
+}
+
+.button-label {
+
+}
