@@ -17,9 +17,9 @@ const Navbar = ({ user, handleLogout }) => (
       <img src="/images/logo-v3-white-whitepopcorn.png" alt="YaMovie" id="main-logo" />
     </NavLink>
     <ul id="navbar-links">
-      <li>
+      {/* <li>
         <NavLink to="/chat">Find YaMovie</NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink to="/browse">Browse</NavLink>
       </li>

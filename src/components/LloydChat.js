@@ -4,7 +4,6 @@ import ChatWindow from './ChatWindow';
 import '../css/LloydChat.css';
 
 class LloydChat extends Component {
-
   constructor(props) {
     super(props);
 
@@ -15,12 +14,8 @@ class LloydChat extends Component {
 
   toggleChatWindow = () => {
     const { isChatVisible } = this.state;
-    if (isChatVisible) {
-      this.setState({ isChatVisible: false });
-    } else {
-      this.setState({ isChatVisible: true });
-    }
-  }
+    this.setState({ isChatVisible: !isChatVisible });
+  };
 
   componentDidMount = () => {
     const visited = localStorage.alreadyVisited;
@@ -32,12 +27,11 @@ class LloydChat extends Component {
         this.setState({ isChatVisible: true });
       }, 6000);
     }
-  }
+  };
 
   // componentWillUnmount = () => {
   //   clearTimeout(myTimeout);
   // }
-  
 
   render() {
     const { isChatVisible } = this.state;
@@ -50,12 +44,12 @@ class LloydChat extends Component {
             id="chatbot-btn"
           />
         </button>
-        {isChatVisible &&
-        <ChatWindow toggleChat={this.toggleChatWindow} isChatVisible={isChatVisible} />}
+        {isChatVisible && (
+          <ChatWindow toggleChat={this.toggleChatWindow} isChatVisible={isChatVisible} />
+        )}
       </div>
     );
   }
 }
-
 
 export default LloydChat;

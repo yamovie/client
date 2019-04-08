@@ -1,11 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
 import GenreList from './GenreList.js';
-
 import '../css/MovieList.css';
 
 const serverLink = 'https://yamovie-server.herokuapp.com/api';
@@ -33,13 +31,13 @@ class MovieList extends Component {
   // Makes each get request a function so they can be used with axios.all()
 
   /**
-   * Gets all the movies, optionally filtered by genreKey
-   * @param {String} [genreKey]
+   * Gets all the movies, optionally filtered by genreId
+   * @param {String} [genreId]
    * @returns An Axios promise with the movie data
    */
-  getMovies = (genreKey = 'all') => {
-    if (genreKey !== 'all') {
-      return axios.get(`${serverLink}/movies/genre/${genreKey}`);
+  getMovies = (genreId = 'all') => {
+    if (genreId !== 'all') {
+      return axios.get(`${serverLink}/movies/genre/${genreId}`);
     }
     return axios.get(`${serverLink}/movies/`);
   };
@@ -168,13 +166,7 @@ class MovieList extends Component {
             genres={genres}
           />
         )}
-        <div
-          id="yamovie-movie-list"
-          className="container"
-          style={{
-            opacity: isModalVisible ? 0.08 : '',
-          }}
-        >
+        <div id="yamovie-movie-list" className="container">
           <div id="mega-search-genres">
             <form id="browse-search" onSubmit={this.handleSubmit}>
               <input

@@ -6,7 +6,7 @@ import '../css/GenreList.css';
 class GenreList extends Component {
   static propTypes = {
     genres: PropTypes.arrayOf(PropTypes.object).isRequired,
-    moviesByGenreKey: PropTypes.func.isRequired,
+    moviesByGenreId: PropTypes.func.isRequired,
     style: PropTypes.shape({
       display: PropTypes.string,
     }),
@@ -19,13 +19,13 @@ class GenreList extends Component {
   // Renders the genre list to the MovieList page. ==================
 
   render() {
-    const { moviesByGenreKey, style, genres } = this.props;
+    const { moviesByGenreId, style, genres } = this.props;
     return (
       <div id="list-genres" style={style}>
         <button
           className="single-genre"
           type="button"
-          onClick={() => moviesByGenreKey('all')}
+          onClick={() => moviesByGenreId('all')}
         >
           All
         </button>
@@ -34,7 +34,7 @@ class GenreList extends Component {
             className="single-genre"
             type="button"
             key={genre.name}
-            onClick={() => moviesByGenreKey(genre._id)}
+            onClick={() => moviesByGenreId(genre._id)}
           >
             {genre.name}
           </button>
