@@ -60,7 +60,10 @@ class App extends Component {
   getMovieResults = dataObj => {
     const { history } = this.props;
     axios
-      .post('https://yamovie-server.herokuapp.com/api/movies/recommend', dataObj)
+      .post(
+        'https://yamovie-server.herokuapp.com/api/movies/recommend',
+        dataObj,
+      )
       .then(response => {
         // console.log(response.data);
         this.setState({
@@ -68,6 +71,7 @@ class App extends Component {
           talkedToLloyd: true,
         });
         history.push('/results');
+        console.log(response.data.results);
       })
       .catch(error => console.log(error));
   };
@@ -104,6 +108,7 @@ class App extends Component {
 
   render() {
     const { user, genreIds, results, talkedToLloyd } = this.state;
+    const { history } = this.props;
     return (
       <div className="App">
         <Navbar user={user} handleLogout={this.handleLogout} />
@@ -117,6 +122,7 @@ class App extends Component {
             render={props => (
               <FindMoviePage
                 {...props}
+                history={history}
                 results={results}
                 showGenreFilter={false}
                 talkedToLloyd={talkedToLloyd}
@@ -126,11 +132,15 @@ class App extends Component {
           <Route component={NotFoundPage} />
           <Route
             path="/login"
-            render={props => <Login {...props} handleLogin={this.handleLogin} />}
+            render={props => (
+              <Login {...props} handleLogin={this.handleLogin} />
+            )}
           />
           <Route
             path="/signup"
-            render={props => <Signup {...props} handleSignup={this.handleSignup} />}
+            render={props => (
+              <Signup {...props} handleSignup={this.handleSignup} />
+            )}
           />
           <Route component={NotFoundPage} />
         </Switch>

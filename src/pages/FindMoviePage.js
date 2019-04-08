@@ -15,27 +15,43 @@ class FindMoviePage extends React.Component {
   }
 
   render() {
-    const { results, talkedToLloyd } = this.props;
+    const { results, talkedToLloyd, history } = this.props;
     return (
       <div>
         {talkedToLloyd && results.length > 0 ? (
-          <MovieList results={results} showGenreFilter={false} />
+          <MovieList
+            results={this.props.results}
+            showGenreFilter={false}
+            history={history}
+          />
         ) : (
           ''
         )}
         {!talkedToLloyd ? (
-          <h1>Talk to our chatbot Lloyd to find movie recommendations! 😊</h1>
+          <h1>
+            Talk to our chatbot Lloyd to find movie recommendations!{' '}
+            <span role="img" aria-label="smile">
+              😊
+            </span>
+          </h1>
         ) : (
           ''
         )}
         {results.length === 0 ? (
           <div>
             <h1>
-              Lloyd could not find anything that matched your preferences. 😞
+              Lloyd could not find anything that matched your preferences.{' '}
+              <span role="img" aria-label="sad">
+                😞
+              </span>
             </h1>
             <br />
             <h3>
-              Ask him again with different criteria so he can find ya movie 🎦!
+              Ask him again with different criteria so he can find ya movie{' '}
+              <span role="img" aria-label="movie">
+                🎦
+              </span>
+              !
             </h3>
           </div>
         ) : (

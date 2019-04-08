@@ -210,7 +210,10 @@ class ChatWindow extends React.Component {
     });
     await this.botui.action
       .button({
-        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
+        action: [
+          { value: true, text: 'Yes 👍' },
+          { value: false, text: 'No 👎' },
+        ],
         delay: this.delays.ansOptions,
       })
       .then(animRes => {
@@ -242,7 +245,10 @@ class ChatWindow extends React.Component {
     });
     await this.botui.action
       .button({
-        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
+        action: [
+          { value: true, text: 'Yes 👍' },
+          { value: false, text: 'No 👎' },
+        ],
         delay: this.delays.ansOptions,
       })
       .then(forRes => {
@@ -270,7 +276,10 @@ class ChatWindow extends React.Component {
     });
     await this.botui.action
       .button({
-        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
+        action: [
+          { value: true, text: 'Yes 👍' },
+          { value: false, text: 'No 👎' },
+        ],
         delay: this.delays.ansOptions,
       })
       .then(indieRes => {
@@ -309,11 +318,23 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(async ratingsRes => {
-        if (ratingsRes.value === 'both' || ratingsRes.value === 'rotten-tomatoes') {
+        if (
+          ratingsRes.value === 'both' ||
+          ratingsRes.value === 'rotten-tomatoes'
+        ) {
           await this.rtQuestion();
         }
         if (ratingsRes.value === 'both' || ratingsRes.value === 'imdb') {
           await this.imdbQuestion();
+        }
+        if (ratingsRes.value === 'dont-care') {
+          this.setState(prevState => ({
+            dataObj: {
+              ...prevState.dataObj,
+              rottenTomato: 0,
+              imdb: 0,
+            },
+          }));
         }
       });
   };

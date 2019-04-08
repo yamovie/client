@@ -69,15 +69,21 @@ class MovieCard extends Component {
     });
     genreString = genreString.slice(2);
 
-    const release = movie.release_date ? movie.release_date.substring(0, 4) : 'No Date';
+    const release = movie.release_date
+      ? movie.release_date.substring(0, 4)
+      : 'No Date';
 
-    const directorList = movie.credits.crew.filter(member => member.job === 'Director');
+    const directorList = movie.credits.crew.filter(
+      member => member.job === 'Director',
+    );
     const directors =
       directorList.length <= 0
         ? ', No Director'
         : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
 
-    const backdropNum = Math.floor(Math.random() * movie.images.backdrops.length);
+    const backdropNum = Math.floor(
+      Math.random() * movie.images.backdrops.length,
+    );
     const backdrop = movie.images.backdrops[backdropNum];
 
     const posterNum = Math.floor(Math.random() * movie.images.posters.length);
@@ -95,7 +101,11 @@ class MovieCard extends Component {
           </button>
           <div className="heading">
             {poster ? (
-              <img className="poster" alt={movie.title} src={poster.poster_url} />
+              <img
+                className="poster"
+                alt={movie.title}
+                src={poster.poster_url}
+              />
             ) : (
               ''
             )}
@@ -104,11 +114,17 @@ class MovieCard extends Component {
               <h4>{`${release}${directors}`}</h4>
               <RatingsView movie={movie} />
             </div>
-            {movie.runtime ? <span className="runtime">{movie.runtime} min</span> : ''}
+            {movie.runtime ? (
+              <span className="runtime">{movie.runtime} min</span>
+            ) : (
+              ''
+            )}
             <p className="genres">{genreString}</p>
           </div>
           <div className="description">
-            <p>{movie.overview ? movie.overview : 'No plot summary available'}</p>
+            <p>
+              {movie.overview ? movie.overview : 'No plot summary available'}
+            </p>
           </div>
           <StreamsView movie={movie} />
         </div>
@@ -158,12 +174,11 @@ StreamsView.defaultProps = {
 // ============================================================
 // Ratings
 const RatingsView = ({ movie }) => {
+  if (!movie.ratings) {
+    return <div id="ratings" />;
+  }
   const rtRating = movie.ratings.rotten_tomatoes;
   const imdbRating = movie.ratings.internet_movie_database;
-  const rtImg =
-    rtRating.value >= 60
-      ? 'icon-rottentomatoes-fresh.png'
-      : 'icon-rottentomatoes-rotten.png';
   return (
     <div id="ratings">
       {rtRating ? (
@@ -174,7 +189,9 @@ const RatingsView = ({ movie }) => {
             rel="noopener noreferrer"
           >
             <img
-              src={`${process.env.PUBLIC_URL}/images/${rtImg}`}
+              src={`${process.env.PUBLIC_URL}/images/icon-rottentomatoes-${
+                rtRating.value >= 60 ? 'fresh' : 'rotten'
+              }.png`}
               alt="Rotten Tomatoes"
             />
             {`${rtRating.rate}`}
@@ -185,8 +202,15 @@ const RatingsView = ({ movie }) => {
       )}
       {imdbRating ? (
         <li>
-          <a href="http://www.imdb.com" target="_blank" rel="noopener noreferrer">
-            <img src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`} alt="IMDb" />
+          <a
+            href="http://www.imdb.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`}
+              alt="IMDb"
+            />
             {imdbRating.rate}
           </a>
         </li>

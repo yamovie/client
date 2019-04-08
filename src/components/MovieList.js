@@ -70,7 +70,6 @@ class MovieList extends Component {
     const { results, showGenreFilter, history } = this.props;
     if (showGenreFilter === undefined) {
       history.push('/');
-      // console.log('undefined');
     } else if (showGenreFilter === true) {
       axios.all([this.getGenres(), this.getMovies()]).then(
         axios.spread((genreResp, movieResp) => {
@@ -79,12 +78,16 @@ class MovieList extends Component {
             movies: movieResp.data.results,
           });
         }),
-        // console.log('browse'),
       );
     } else if (showGenreFilter === false) {
-      // console.log(results);
-      this.setState({ movies: results });
-      // console.log('find yaMovie');
+      axios.all([this.getGenres()]).then(
+        axios.spread(genreResp => {
+          this.setState({
+            genres: genreResp.data,
+            movies: results,
+          });
+        }),
+      );
     }
   };
   // ==================== Handles Filter Click ===============================
@@ -109,9 +112,13 @@ class MovieList extends Component {
       });
     } else {
       this.getSingleMovie(id)
-        .then(response =>
-          this.setState({ isModalVisible: true, selectedMovie: response.data }),
-        )
+        .then(response => {
+          console.log(response.data);
+          this.setState({
+            isModalVisible: true,
+            selectedMovie: response.data,
+          });
+        })
         .catch(err => console.log(err));
     }
   };
@@ -152,12 +159,12 @@ class MovieList extends Component {
   render() {
     const {
       movies,
-      showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue,
       genres,
     } = this.state;
+    const { showGenreFilter } = this.props;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
     const imagesForAllMovies = postersForAllMovies.map(poster =>
       poster.map(p => p.poster_url),
@@ -198,7 +205,11 @@ class MovieList extends Component {
                 placeholder="Search Movies"
               />
             </form>
-            <button type="button" id="display-genre-button" onClick={this.toggleHover}>
+            <button
+              type="button"
+              id="display-genre-button"
+              onClick={this.toggleHover}
+            >
               Display Genres
             </button>
             {showGenreFilter ? (
