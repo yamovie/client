@@ -1,21 +1,28 @@
 import React from 'react';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
+import Proptypes from 'prop-types';
 import HomePage from './pages/HomePage';
 import BrowsePage from './pages/BrowsePage';
 import AboutPage from './pages/AboutPage';
 import NotFoundPage from './pages/NotFoundPage';
+import FindMoviePage from './pages/FindMoviePage';
 import ChatWindow from './components/ChatWindow';
 import LloydChat from './components/LloydChat';
 import Navbar from './components/Navbar';
 import './css/main.css';
 
 class App extends React.Component {
+  static propTypes = {
+    history: Proptypes.shape(Object).isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      action: [],
-      animationId: '',
+      genreIds: {},
+      results: [{}],
+      talkedToLloyd: false,
     };
   }
 
@@ -23,51 +30,35 @@ class App extends React.Component {
     this.getGenreData();
   };
 
-  getMovieResults = (
-    genres,
-    mpaa,
-    minYear,
-    maxYear,
-    rottenTomato,
-    imdb,
-    foreign,
-    indie,
-  ) => {
+  getMovieResults = dataObj => {
+    const { history } = this.props;
     axios
       .post(
-        'https://yamovie-server-staging.herokuapp.com/api/movies/recommended',
-        {
-          genres,
-          mpaa,
-          minYear,
-          maxYear,
-          rottenTomato,
-          imdb,
-          foreign,
-          indie,
-        },
+        'https://yamovie-server.herokuapp.com/api/movies/recommend',
+        dataObj,
       )
-      .then(response => console.log(response))
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          results: response.data.results,
+          talkedToLloyd: true,
+        });
+        history.push('/results');
+      })
       .catch(error => console.log(error));
   };
 
   getGenreData = () => {
     axios
-      .get('https://yamovie-server-staging.herokuapp.com/api/genres')
+      .get('https://yamovie-server.herokuapp.com/api/genres')
       .then(response => {
-        console.log(response);
         const genreArray = response.data;
-        const actionArray = [];
+        const idObject = {};
         for (let i = 0; i < genreArray.length; i++) {
-          if (genreArray[i].name === 'Animation') {
-            this.setState({ animationId: genreArray[i]._id });
-          }
-          actionArray.push({
-            value: genreArray[i]._id,
-            text: genreArray[i].name,
-          });
+          const str = genreArray[i].name.replace(/\s+/g, '');
+          idObject[str] = genreArray[i]._id;
         }
-        this.setState({ action: actionArray });
+        this.setState({ genreIds: idObject });
       })
       .catch(error => {
         console.log(error);
@@ -75,7 +66,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { action, animationId } = this.state;
+    const { genreIds, results, talkedToLloyd } = this.state;
     return (
       <div className="App">
         <Navbar />
@@ -84,13 +75,20 @@ class App extends React.Component {
           <Route path="/browse" component={BrowsePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/chat" component={ChatWindow} />
+          <Route
+            path="/results"
+            render={props => (
+              <FindMoviePage
+                {...props}
+                results={results}
+                showGenreFilter={false}
+                talkedToLloyd={talkedToLloyd}
+              />
+            )}
+          />
           <Route component={NotFoundPage} />
         </Switch>
-        <LloydChat
-          getMovieResults={this.getMovieResults}
-          action={action}
-          animationId={animationId}
-        />
+        <LloydChat getMovieResults={this.getMovieResults} genreIds={genreIds} />
       </div>
     );
   }

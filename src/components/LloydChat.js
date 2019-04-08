@@ -7,8 +7,7 @@ import '../css/LloydChat.css';
 class LloydChat extends Component {
   static propTypes = {
     getMovieResults: PropTypes.func.isRequired,
-    action: PropTypes.arrayOf(PropTypes.string).isRequired,
-    animationId: PropTypes.string.isRequired,
+    genreIds: PropTypes.shape().isRequired,
   };
 
   constructor(props) {
@@ -46,7 +45,7 @@ class LloydChat extends Component {
 
   render() {
     const { isChatVisible } = this.state;
-    const { getMovieResults, action, animationId } = this.props;
+    const { getMovieResults, genreIds } = this.props;
     return (
       <div id="lloyd-outline">
         <button
@@ -65,8 +64,7 @@ class LloydChat extends Component {
             toggleChat={this.toggleChatWindow}
             isChatVisible={isChatVisible}
             getMovieResults={getMovieResults}
-            action={action}
-            animationId={animationId}
+            genreIds={genreIds}
           />
         )}
       </div>

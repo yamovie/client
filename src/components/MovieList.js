@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
@@ -9,6 +10,12 @@ import GenreList from './GenreList.js';
 const serverLink = 'https://yamovie-server.herokuapp.com/api';
 
 class MovieList extends Component {
+  static propTypes = {
+    results: PropTypes.arrayOf(PropTypes.object).isRequired,
+    showGenreFilter: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired,
+  };
+
   /**
    * Creates a movie list object and connects to the API
    */
@@ -18,7 +25,6 @@ class MovieList extends Component {
     this.state = {
       movies: [],
       // filteredGenre: null,
-      showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
       genres: [],
@@ -57,20 +63,33 @@ class MovieList extends Component {
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
-    const { showGenreFilter } = this.state;
-    if (showGenreFilter) {
+    const { results, showGenreFilter, history } = this.props;
+    if (showGenreFilter === undefined) {
+      history.push('/');
+      console.log('undefined');
+    } else if (showGenreFilter === true) {
       axios.all([this.getGenres(), this.getMovies()]).then(
         axios.spread((genreResp, movieResp) => {
-          this.setState({ genres: genreResp.data, movies: movieResp.data });
+          this.setState({
+            genres: genreResp.data,
+            movies: movieResp.data.results,
+          });
         }),
+        console.log('browse'),
       );
+    } else if (showGenreFilter === false) {
+      console.log(results);
+      this.setState({ movies: results });
+      console.log('find yaMovie');
     }
   };
 
   // ==================== Handles Filter Click ===============================
 
   handleSendGenre = genreKey => {
-    this.getMovies(genreKey).then(response => this.setState({ movies: response.data }));
+    this.getMovies(genreKey).then(response =>
+      this.setState({ movies: response.data }),
+    );
   };
 
   // handleAllMovies = () => {
@@ -99,11 +118,11 @@ class MovieList extends Component {
     const {
       movies,
       // filteredGenre,
-      showGenreFilter,
       isModalVisible,
       selectedMovie,
       genres,
     } = this.state;
+    const { showGenreFilter } = this.props;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
 
     const imagesForAllMovies = postersForAllMovies.map(poster =>
@@ -127,7 +146,10 @@ class MovieList extends Component {
 
         <div id="yamovie-movie-list" className="container">
           {showGenreFilter ? (
-            <GenreList moviesByGenreKey={this.handleSendGenre} genres={genres} />
+            <GenreList
+              moviesByGenreKey={this.handleSendGenre}
+              genres={genres}
+            />
           ) : (
             ''
           )}

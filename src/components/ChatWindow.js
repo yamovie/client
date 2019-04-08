@@ -7,29 +7,14 @@ import '../css/ChatWindow.css';
 class ChatWindow extends React.Component {
   static propTypes = {
     getMovieResults: PropTypes.func.isRequired,
-    action: PropTypes.arrayOf(PropTypes.string).isRequired,
-    animationId: PropTypes.string.isRequired,
-  }
+    genreIds: PropTypes.shape().isRequired,
+  };
 
   constructor(props) {
     super(props);
-    const { action, animationId } = this.props;
     this.state = {
-      allGenres: [],
-      genres: [''], // => genre
-      mpaa: 'R', // => mpaaRating
-      minYear: 0, // => release date
-      maxYear: 0,
-      rottenTomato: 0, // => ratings
-      imdb: 0,
-      animated: true, // => genre animation
-      foreign: true, // => originalLanguage =/= English
-      indie: true, // => productionCompany does not contain one of 
-      // the top ten hollywood production companies :
-      action,
-      animationId,
       dataObj: {},
-    }
+    };
     this.delays = {
       initial: 250,
       response: 500,
@@ -39,17 +24,17 @@ class ChatWindow extends React.Component {
   }
 
   componentDidMount() {
-    const { getMovieResults } = this.props;
+    const { genreIds, getMovieResults } = this.props;
     this.greetingQuestion().then(async res => {
       if (res.value) {
-        await this.moodQuestion();
+        await this.moodQuestion(genreIds);
         await this.ageQuestion();
         await this.eraQuestion();
-        await this.animatedQuestion();
+        await this.animatedQuestion(genreIds);
         await this.foreignQuestion();
         await this.indieQuestion();
         await this.ratingsQuestion();
-        this.resultsMessage();
+        this.resultsMessage(getMovieResults);
       } else {
         this.botui.message.bot({
           content: 'Okay, goodbye! 👋',
@@ -76,7 +61,7 @@ class ChatWindow extends React.Component {
   };
 
   // TODO: JDoc comment
-  moodQuestion = () => {
+  moodQuestion = genreIds => {
     this.botui.message.bot({
       content: 'Okay! What kind of movie are you in the mood for?',
       delay: this.delays.response,
@@ -84,17 +69,33 @@ class ChatWindow extends React.Component {
     return this.botui.action
       .button({
         action: [
-          { value: 'funny', text: 'Funny 😆' },
-          { value: 'sad', text: 'Sad 😭' },
-          { value: 'dramatic', text: 'Dramatic 😮' },
-          { value: 'scary', text: 'Scary 😱' },
-          { value: 'action-packed', text: 'Action Packed 🏃‍♂️' },
-          { value: 'romantic', text: 'Romantic 💘' },
+          { value: [genreIds.Comedy], text: 'Funny 😆' },
+          { value: [genreIds.War, genreIds.Western], text: 'Sad 😭' },
+          { value: [genreIds.Crime, genreIds.Mystery], text: 'Mysterious 🤔' },
+          { value: [genreIds.Drama, genreIds.Thriller], text: 'Dramatic 😮' },
+          { value: [genreIds.Horror, genreIds.Thriller], text: 'Scary 😱' },
+          {
+            value: [genreIds.Action, genreIds.Adventure],
+            text: 'Action Packed 🏃‍♀️💥',
+          },
+          { value: [genreIds.Romance], text: 'Romantic 😍' },
+          {
+            value: [genreIds.Fantasy, genreIds.ScienceFiction],
+            text: 'Fantastical 👽🧝‍♀️',
+          },
+          {
+            value: [genreIds.History, genreIds.Documentary],
+            text: 'Informative 🌍',
+          },
+          { value: [genreIds.Family], text: 'Heartwarming 👨‍👩‍👧‍👦' },
+          { value: [genreIds.Musical], text: 'Musical 🎶' },
         ],
         delay: this.delays.nextQ,
       })
       .then(moodRes => {
-        this.setState({ mood: moodRes.value });
+        this.setState(prevState => ({
+          dataObj: { ...prevState.dataObj, genres: moodRes.value },
+        }));
         this.botui.message.bot({
           content: 'Awesome!',
           delay: this.delays.response,
@@ -111,17 +112,19 @@ class ChatWindow extends React.Component {
     return this.botui.action
       .button({
         action: [
-          { value: '12under', text: '12 and Under' },
-          { value: '13to17', text: '13 - 17' },
-          { value: '18to29', text: '18 - 29' },
-          { value: '30to40', text: '30 - 40' },
-          { value: '41to54', text: '41 - 54' },
-          { value: '55plus', text: '55+' },
+          { value: 'PG', text: '12 and Under' },
+          { value: 'PG-13', text: '13 - 17' },
+          { value: 'R', text: '18 +' },
         ],
         delay: this.delays.ansOptions,
       })
       .then(ageRes => {
-        this.setState({ age: ageRes.value });
+        this.setState({
+          dataObj: {
+            ...this.state.dataObj,
+            mpaa: ageRes.value,
+          },
+        });
         this.botui.message.bot({
           content: 'Thanks!',
           delay: this.delays.response,
@@ -138,14 +141,44 @@ class ChatWindow extends React.Component {
     return this.botui.action
       .button({
         action: [
-          { value: 'classic', text: 'Classic' },
-          { value: 'modern', text: 'Modern' },
-          { value: 'in-between', text: 'In Between' },
+          { value: 'classic', text: 'Classic (before 1980)' },
+          { value: 'in-between', text: 'In Between (1980-2010)' },
+          { value: 'modern', text: 'Modern (after 2010)' },
         ],
         delay: this.delays.ansOptions,
       })
       .then(eraRes => {
-        this.setState({ era: eraRes.value });
+        switch (eraRes.value) {
+        case 'classic':
+          this.setState({
+            dataObj: {
+              ...this.state.dataObj,
+              minYear: 0,
+              maxYear: 1980,
+            },
+          });
+          break;
+        case 'in-between':
+          this.setState({
+            dataObj: {
+              ...this.state.dataObj,
+              minYear: 1980,
+              maxYear: 2010,
+            },
+          });
+          break;
+        case 'modern':
+          this.setState({
+            dataObj: {
+              ...this.state.dataObj,
+              minYear: 2010,
+              maxYear: 3000,
+            },
+          });
+          break;
+        default:
+          console.log('error');
+        }
         this.botui.message.bot({
           content: 'Me too!',
           delay: this.delays.response,
@@ -154,18 +187,30 @@ class ChatWindow extends React.Component {
   };
 
   // TODO: JDoc comment
-  animatedQuestion = () => {
+  animatedQuestion = genreIds => {
     this.botui.message.bot({
       content: 'Do you like animated films?',
       delay: this.delays.nextQ,
     });
     return this.botui.action
       .button({
-        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
+        action: [
+          { value: true, text: 'Yes 👍' },
+          { value: false, text: 'No 👎' },
+        ],
         delay: this.delays.ansOptions,
       })
       .then(animRes => {
-        this.setState({ animated: animRes.value });
+        if (animRes.value === true) {
+          const array = [...this.state.dataObj.genres];
+          array.push(genreIds.Animation);
+          this.setState({
+            dataObj: {
+              ...this.state.dataObj,
+              genres: array,
+            },
+          });
+        }
         this.botui.message.bot({
           content: 'Cool!',
           delay: this.delays.response,
@@ -181,11 +226,19 @@ class ChatWindow extends React.Component {
     });
     return this.botui.action
       .button({
-        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
+        action: [
+          { value: true, text: 'Yes 👍' },
+          { value: false, text: 'No 👎' },
+        ],
         delay: this.delays.ansOptions,
       })
       .then(forRes => {
-        this.setState({ foreign: forRes.value });
+        this.setState({
+          dataObj: {
+            ...this.state.dataObj,
+            foreign: forRes.value,
+          },
+        });
         this.botui.message.bot({
           content: 'Great!',
           delay: this.delays.response,
@@ -201,11 +254,19 @@ class ChatWindow extends React.Component {
     });
     return this.botui.action
       .button({
-        action: [{ value: true, text: 'Yes 👍' }, { value: false, text: 'No 👎' }],
+        action: [
+          { value: true, text: 'Yes 👍' },
+          { value: false, text: 'No 👎' },
+        ],
         delay: this.delays.ansOptions,
       })
       .then(indieRes => {
-        this.setState({ indie: indieRes.value });
+        this.setState({
+          dataObj: {
+            ...this.state.dataObj,
+            indie: indieRes.value,
+          },
+        });
         this.botui.message.bot({
           // TODO: Move this response to after a different question
           content: 'You have good taste!',
@@ -231,7 +292,10 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(async ratingsRes => {
-        if (ratingsRes.value === 'both' || ratingsRes.value === 'rotten-tomatoes') {
+        if (
+          ratingsRes.value === 'both' ||
+          ratingsRes.value === 'rotten-tomatoes'
+        ) {
           await this.rtQuestion();
         }
         if (ratingsRes.value === 'both' || ratingsRes.value === 'imdb') {
@@ -256,7 +320,12 @@ class ChatWindow extends React.Component {
         delay: this.delays.nextQ,
       })
       .then(rtRes => {
-        this.setState({ ratingsValue: { rottenTomatoes: rtRes.value } });
+        this.setState({
+          dataObj: {
+            ...this.state.dataObj,
+            rottenTomato: rtRes.value,
+          },
+        });
       });
   };
 
@@ -276,17 +345,25 @@ class ChatWindow extends React.Component {
         delay: this.delays.nextQ,
       })
       .then(imdbRes => {
-        this.setState({ ratingsValue: { imdb: imdbRes.value } });
+        this.setState({
+          dataObj: {
+            ...this.state.dataObj,
+            imdb: imdbRes.value,
+          },
+        });
       });
   };
 
   // TODO: JDoc comment
-  resultsMessage = () => {
-    this.botui.message.bot({
-      loading: true,
-      content: 'Getting results now!',
-      delay: this.delays.response,
-    });
+  resultsMessage = getMovieResults => {
+    const { dataObj } = this.state;
+    this.botui.message
+      .bot({
+        loading: true,
+        content: 'Getting results now!',
+        delay: this.delays.response,
+      })
+      .then(getMovieResults(dataObj));
   };
 
   render() {

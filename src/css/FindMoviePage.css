@@ -1,0 +1,12 @@
+body {
+  color: var(--offwhite);
+}
+
+h1 {
+  margin-top: 25%;
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}

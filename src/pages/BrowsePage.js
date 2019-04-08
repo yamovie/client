@@ -7,7 +7,7 @@ class BrowsePage extends React.Component {
   render() {
     return (
       <div>
-        <MovieList class="container" />
+        <MovieList class="container" showGenreFilter results={[{}]} />
       </div>
     );
   }
