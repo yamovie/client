@@ -9,11 +9,16 @@ class UserPreferences extends React.Component {
     this.state = {
       rottenRating: 'N/A',
       imdbRating: 'N/A',
+      genres: [],
     };
   }
 
+  // =================== Grabs Genre List from API ==============
+
   componentDidMount() {
-    // Inital settings here
+    axios
+      .get('https://yamovie-server.herokuapp.com/api/genres')
+      .then(response => this.setState({ genres: response.data }));
   }
 
   componentDidUpdate() {
@@ -21,7 +26,7 @@ class UserPreferences extends React.Component {
   }
 
   savePreferences() {
-    axios;
+    // axios.patch('yamovie')
   }
 
   handleRatingsChange = event => {
@@ -72,7 +77,7 @@ class UserPreferences extends React.Component {
 
             <div className="form-control">
               <h3 className="account-sub-title">Filter movies by the genres you like (Leave blank for all genres)</h3>
-              <GenreList checkboxesVisible />
+              <GenreList checkboxesVisible genres={this.state.genres} />
             </div>
       
             <section className="ratings">

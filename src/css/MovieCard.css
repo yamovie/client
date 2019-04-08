@@ -66,11 +66,11 @@
 /* Info Heading */
 
 .movie-card .info .heading {
-  margin-top: 10%;
+  margin-top: 13%;
   position: relative;
-  padding: 25px;
-  padding-bottom: 5px;
+  padding: 0px 25px;
   height: 30%;
+  overflow: hidden;
 }
 
 .movie-card .heading .poster {
@@ -85,20 +85,20 @@
   color: var(--darkgrey);
   font-weight: 500;
   margin: 0;
-  /* font-size: 2.7vw; */
+  font-size: 3.2vw;
 }
 
 .movie-card .heading h4 {
   font-weight: 400;
   margin: 0;
-  /* font-size: 2vw; */
+  font-size: 2vw;
 }
 
 .movie-card .heading .genres {
   display: inline-block;
   margin-left: 10px;
   color: var(--lightgrey);
-  /* font-size: 1.5vw; */
+  font-size: 2vw;
 }
 
 .movie-card .heading .runtime {
@@ -107,6 +107,7 @@
   padding: 5px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1.7vw;
 }
 
 /* ======================================================= */
@@ -114,14 +115,14 @@
 
 .movie-card .description {
   color: var(--darkgrey);
-  padding: 10px 25px;
+  padding: 15px 25px;
   overflow: hidden;
   height: 40%;
 }
 
 .movie-card .description p {
   margin: 0;
-  /* font-size: 1.8vw; */
+  font-size: 1.8vw;
 }
 
 /* ======================================================= */
@@ -129,31 +130,34 @@
 
 .movie-card #line2 {
   display: flex;
+  align-items: center;
   height: 1.4em;
+  margin: 5px 0px;
 }
 
 .movie-card #ratings {
   display: flex;
   justify-content: space-evenly;
-  margin-left: 10px;
+  margin-left: 15px;
   font-size: 2.8vh;
   overflow: hidden;
 }
 
 .movie-card #ratings li {
   list-style: none;
-  padding: 4px;
+  padding: 0px 5px;
 }
 
 .movie-card #ratings li img {
-  height: 70%;
-  float: left;
-  margin: 3px 6px 2px 2px;
+  height: 1.5vw;
+  margin-right: 4px;
 }
 
 .movie-card #ratings li a {
   text-decoration: none;
   color: var(--darkgrey);
+  font-size: 1.5vw;
+  display: flex;
 }
 
 /* ======================================================= */
@@ -208,6 +212,15 @@
   border-radius: 20px;
   width: 30px;
   height: 30px;
+}
+
+.movie-card button {
+  font-size: 1.3rem;
+  margin: 10px;
+  background-color: var(--purple);
+  color: var(--offwhite);
+  border-radius: 5px;
+  border-color: var(--red);
 }
 
 /* ======================================================= */

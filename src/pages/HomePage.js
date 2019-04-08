@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
 
 const background = {
-  backgroundImage: "url('%PUBLIC_URL%../../images/landing-bg-v1.jpg')",
+  backgroundImage: "url('/images/landing-bg-v1.jpg')",
 };
 
 const HomePage = () => (

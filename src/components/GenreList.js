@@ -1,23 +1,32 @@
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import '../css/GenreList.css';
 import axios from 'axios';
 
 class GenreList extends Component {
+  static propTypes = {
+    genres: PropTypes.arrayOf(PropTypes.object).isRequired,
+    moviesByGenreKey: PropTypes.func.isRequired,
+    checkboxesVisible: PropTypes.bool,
+    style: PropTypes.shape({
+      display: PropTypes.string,
+    }),
+  };
+
+  static defaultProps = {
+    style: 'style',
+    checkboxesVisible: false,
+  };
+
   constructor(props) {
     super(props);
 
-    this.state = {
-      checkboxesVisible: false,
-      genres: [],
-    };
+    // this.state = {
+    //   checkboxesVisible: false,
+    //   genres: [],
+    // };
     this.handleSelectionReset = this.handleSelectionReset.bind(this);
-  }
-
-  // =================== Grabs Genre List from API ==============
-
-  componentDidMount() {
-    axios
-      .get('https://yamovie-server.herokuapp.com/api/genres')
-      .then(response => this.setState({ genres: response.data }));
   }
 
   // =================== Unticks all checked genreboxes ==============
@@ -30,19 +39,33 @@ class GenreList extends Component {
   // ================== Renders the genre list ==================
 
   render() {
-    const { genres } = this.state;
-    const { moviesByGenreKey, checkboxesVisible } = this.props;
+    const { moviesByGenreKey, genres, style, checkboxesVisible } = this.props;
     if (!checkboxesVisible) {
       return (
-        <div id="list-genres">
-          <button className="single-genre" type="button" onClick={() => moviesByGenreKey('all')}>All</button>
+        <div id="list-genres" style={style}>
+          <button
+            className="single-genre"
+            type="button"
+            onClick={() => moviesByGenreKey('all')}
+          >
+          All
+          </button>
           {genres.map(genre => (
-            <button className="single-genre" type="button" onClick={() => moviesByGenreKey(genre.key)}>{genre.name}</button>
+            <button
+              className="single-genre"
+              type="button"
+              key={genre.name}
+              onClick={() => moviesByGenreKey(genre._id)}
+            >
+              {genre.name}
+            </button>
+          
           ))}
         </div>
       );
     }
 
+    
     return (
       <div>
         <form onSubmit={this.handleSelectionReset}>
@@ -58,7 +81,6 @@ class GenreList extends Component {
           <button className="reset-button" type="submit">reset</button>
         </form>
       </div>
-      
     );
   }
 }

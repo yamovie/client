@@ -6,6 +6,10 @@ import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
 import GenreList from './GenreList.js';
 
+import '../css/MovieList.css';
+
+const serverLink = 'https://yamovie-server.herokuapp.com/api';
+
 class MovieList extends Component {
   /**
    * Creates a movie list object and connects to the API
@@ -19,54 +23,113 @@ class MovieList extends Component {
       showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
-      loading: true,
+      hover: false,
+      searchInputValue: '',
+      genres: [],
     };
   }
+
+  // ===================== Extracts Get Requests ============================
+  // Makes each get request a function so they can be used with axios.all()
+
+  /**
+   * Gets all the movies, optionally filtered by genreKey
+   * @param {String} [genreKey]
+   * @returns An Axios promise with the movie data
+   */
+  getMovies = (genreKey = 'all') => {
+    if (genreKey !== 'all') {
+      return axios.get(`${serverLink}/movies/genre/${genreKey}`);
+    }
+    return axios.get(`${serverLink}/movies/`);
+  };
+
+  /**
+   * Gets the data for a movie
+   * @param {String} [id]
+   * @returns An Axios promise with the movie data
+   */
+  getSingleMovie = id => axios.get(`${serverLink}/movies/${id}`);
+
+  /**
+   * Gets the list of all genre objects
+   * @returns An Axios promise with the genre data
+   */
+  getGenres = () => axios.get(`${serverLink}/genres/`);
+
   // =================== Grabs Movie Data on Render =========================
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
     const { showGenreFilter } = this.state;
     if (showGenreFilter) {
-      axios
-        .get('https://yamovie-server.herokuapp.com/api/movies')
-        .then(response => this.setState({ movies: response.data, loading: false }));
+      axios.all([this.getGenres(), this.getMovies()]).then(
+        axios.spread((genreResp, movieResp) => {
+          this.setState({
+            genres: genreResp.data,
+            movies: movieResp.data.results,
+          });
+        }),
+      );
     }
   };
-
   // ==================== Handles Filter Click ===============================
 
   handleSendGenre = genreKey => {
-    if (genreKey === 'all') {
-      axios
-        .get('https://yamovie-server.herokuapp.com/api/movies')
-        .then(response => this.setState({ movies: response.data }));
-    } else {
-      axios
-        .get(`https://yamovie-server.herokuapp.com/api/movies/genre/${genreKey}`)
-        .then(response => this.setState({ movies: response.data }));
-    }
+    this.getMovies(genreKey).then(response =>
+      this.setState({ movies: response.data.results }),
+    );
   };
 
   // handleAllMovies = () => {
   //   axios
-  //     .get('https://yamovie-server.herokuapp.com/api/movies')
+  //     .get(`${serverLink}/movies/`)
   //     .then(response => this.setState({ movies: response.data }));
   // }
 
   toggleModal = id => {
     // eslint-disable-next-line react/destructuring-assignment
     if (this.state.isModalVisible) {
-      this.setState({ isModalVisible: false });
+      this.setState({
+        isModalVisible: false,
+      });
     } else {
-      axios
-        .get(`https://yamovie-server.herokuapp.com/api/movies/${id}`)
-        .then(response => this.setState({
-          isModalVisible: true,
-          selectedMovie: response.data,
-        }))
+      this.getSingleMovie(id)
+        .then(response =>
+          this.setState({ isModalVisible: true, selectedMovie: response.data }),
+        )
         .catch(err => console.log(err));
     }
+  };
+
+  toggleHover = () => {
+    const { hover } = this.state;
+    this.setState({
+      hover: !hover,
+    });
+  };
+
+  handleChange = event => {
+    this.setState({
+      searchInputValue: event.target.value,
+    });
+  };
+
+  handleSubmit = event => {
+    const { searchInputValue } = this.state;
+    event.preventDefault();
+    axios
+      .get('https://yamovie-server.herokuapp.com/api/movies/search', {
+        params: {
+          query: searchInputValue,
+        },
+      })
+      .then(response =>
+        this.setState({
+          movies: response.data.results,
+          searchInputValue: '',
+        }),
+      );
   };
 
   // Renders the movie list in HTML on the page. Uses flexboxes to display
@@ -74,23 +137,27 @@ class MovieList extends Component {
 
   render() {
     const {
-      movies, showGenreFilter, isModalVisible, selectedMovie, filteredGenre, loading,
+      movies,
+      showGenreFilter,
+      isModalVisible,
+      selectedMovie,
+      searchInputValue,
+      genres,
     } = this.state;
     const postersForAllMovies = movies.map(movie => movie.images.posters);
-    
     const imagesForAllMovies = postersForAllMovies.map(poster =>
       poster.map(p => p.poster_url),
     );
-    
-    // if (image && image[0] && image[0][0]) {
-    //   console.log(image[0][0]);
-    // }
 
-    if (!loading) {
-      // console.log(movies.images.posters.map(poster => poster.url));
-      console.log(movies[0].images.posters[0].url);
-
+    // On hover function to display genre list through mega menu
+    let hoverStyle;
+    const { hover } = this.state;
+    if (hover) {
+      hoverStyle = { display: 'flex' };
+    } else {
+      hoverStyle = { display: 'none' };
     }
+
 
     return (
       <div id="movie-page">
@@ -99,38 +166,52 @@ class MovieList extends Component {
             toggleModal={() => this.toggleModal}
             isModalVisible={isModalVisible}
             movie={selectedMovie}
+            genres={genres}
           />
         )}
-
         <div
           id="yamovie-movie-list"
           className="container"
-          style={{ opacity: isModalVisible ? 0.08 : '' }}
+          style={{
+            opacity: isModalVisible ? 0.08 : '',
+          }}
         >
-          {showGenreFilter ? <GenreList moviesByGenreKey={this.handleSendGenre} /> : ''}
-          <div id="list-all-movies">
-            {/* console.log(image);
-             if (image && image[0]) { */}
-            {imagesForAllMovies.map(
-              (moviePosters, i) => (
-                <div id="yamovie-movie-item" key={movies[i].title}>
-                  {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
-                  {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-                  <img
-                    src={moviePosters[0]}
-                    alt={movies[i].title}
-                    className="img-fluid"
-                    onClick={() => this.toggleModal(movies[i]._id)}
-                  />
-                </div>
-              ),
-              /* }
-              return (
-                <div id="yamovie-movie-loading">
-                  loading...
-                </div>
-              ); */
+          <div id="mega-search-genres">
+            <form id="browse-search" onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                value={searchInputValue}
+                onChange={this.handleChange}
+                placeholder="Search Movies"
+              />
+            </form>
+            <button type="button" id="display-genre-button" onClick={this.toggleHover}>
+              Display Genres
+            </button>
+            {showGenreFilter ? (
+              <GenreList
+                genres={genres}
+                style={hoverStyle}
+                toggleHover={this.toggleHover}
+                moviesByGenreKey={this.handleSendGenre}
+              />
+            ) : (
+              ' '
             )}
+          </div>
+          <div id="list-all-movies">
+            {imagesForAllMovies.map((moviePosters, i) => (
+              <div id="yamovie-movie-item" key={movies[i].title}>
+                {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                <img
+                  src={moviePosters[0]}
+                  alt={movies[i].title}
+                  className="img-fluid"
+                  onClick={() => this.toggleModal(movies[i]._id)}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
