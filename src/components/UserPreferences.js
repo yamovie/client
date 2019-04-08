@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import GenreList from './GenreList';
 import ToggleSwitch from './ToggleSwitch';
 
@@ -6,16 +7,39 @@ class UserPreferences extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rottenRating: 0,
-      imdbRating: 0,
+      rottenRating: 'N/A',
+      imdbRating: 'N/A',
     };
+  }
+
+  componentDidMount() {
+    // Inital settings here
+  }
+
+  componentDidUpdate() {
+    // updates here
+  }
+
+  savePreferences() {
+    axios;
   }
 
   handleRatingsChange = event => {
     if (event.target.id === 'rt-slider') {
-      this.setState({ rottenRating: event.target.value });
+      if (event.target.value === '0') {
+        var rottenTomatoeValue = 'N/A';
+      } else {
+        var rottenTomatoeValue = event.target.value;
+      }
+      this.setState({ rottenRating: rottenTomatoeValue });
     } else if (event.target.id === 'imdb-slider') {
-      this.setState({ imdbRating: event.target.value });
+      if (event.target.value === '0') {
+        console.log('imdb is zero');
+        var IMBDValue = 'N/A';
+      } else {
+        var IMBDValue = event.target.value;
+      }
+      this.setState({ imdbRating: IMBDValue });
     }
   }
 
@@ -47,11 +71,12 @@ class UserPreferences extends React.Component {
             </div>
 
             <div className="form-control">
-              <h3 className="account-sub-title">Filter movis by the genres you like (Leave blank for all genres)</h3>
+              <h3 className="account-sub-title">Filter movies by the genres you like (Leave blank for all genres)</h3>
               <GenreList checkboxesVisible />
             </div>
       
             <section className="ratings">
+              <h3 className="account-sub-title">Choose your lowest prefered movie rating score</h3>
               <div className="form-control">
                 <label className="form-label top-label" htmlFor="rt-slider">Rotten Tomatoes</label>
                 <input type="range" min="0" max="100" defaultValue="0" onChange={this.handleRatingsChange} id="rt-slider" />
