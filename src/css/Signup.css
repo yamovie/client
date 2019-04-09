@@ -14,14 +14,16 @@
 
 .signup {
   /* background-color: var(--offwhite); */
-  background-color: rgba(245, 248, 232, 0.9);
-  position: fixed;
-  top: 25%;
-  left: 27%;
-  width: 45%;
+  background-color: rgba(231, 230, 230, 0.9);
+  width: 50%;
   height: 60%;
+  margin: 0 auto;
+  min-height: 400px;
+  max-width: 500px;
   box-shadow: 0px 5px 10px 2px var(--lightgrey);
   border-radius: 5px;
+  position: relative;
+  top: 15%;
 }
 
 .form-container {
@@ -50,6 +52,7 @@
   outline: none;
   width: 300px;
   height: 30px;
+  padding-left: 10px;
 }
 
 .signup-input::placeholder {
@@ -83,9 +86,31 @@
   text-decoration: none;
 }
 
-.google-link {
+.google-link-signup {
   background-color: white;
   width: 300px;
   margin: 25px auto;
   border-radius: 15px;
+}
+
+@media only screen and (max-width: 650px) {
+  .signup {
+    width: 300px;
+  }
+
+  .signup-input {
+    width: 200px;
+  }
+
+  .signup-submit {
+    width: 200px;
+  }
+
+  .signup-cancel {
+    width: 200px;
+  }
+
+  .google-link-signup {
+    width: 200px;
+  }
 }

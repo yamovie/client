@@ -78,7 +78,7 @@ class Login extends Component {
           </div>
           {message && <span>{message}</span>}
           <a href="https://yamovie-server.herokuapp.com/auth/google" className="button">
-            <div className="google-link">
+            <div className="google-link-login">
               <span className="svgIcon t-popup-svg">
                 <svg className="svgIcon-use" width="25" height="37" viewBox="0 0 25 25">
                   <g fill="none" fillRule="evenodd">

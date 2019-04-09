@@ -106,9 +106,6 @@
 
 /* Both these media tags fixes the size of the mega menu when resized for small screens */
 @media only screen and (max-width: 600px) {
-  #mega-search-genres {
-    top: 35px;
-  }
 
   #browse-search input {
     font-size: 15px;
@@ -116,12 +113,6 @@
 
   #display-genre-button {
     font-size: 13px;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  #mega-search-genres {
-    top: 25px;
   }
 }
 
