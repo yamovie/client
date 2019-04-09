@@ -1,3 +1,4 @@
+// TODO: Remove this disable once Will's changes are merged in so the state is actually used
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import Botui from 'botui-react';

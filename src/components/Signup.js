@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import userServices from '../utils/userServices';
-import GoogleLogin from './GoogleLogin';
+import { GoogleLogin } from './Components';
 import '../css/Signup.css';
 
 class Signup extends Component {

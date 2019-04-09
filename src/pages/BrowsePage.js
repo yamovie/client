@@ -1,16 +1,11 @@
-/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import MovieList from '../components/MovieList';
+import { MovieList } from '../components/Components';
 import '../css/BrowsePage.css';
 
-class BrowsePage extends React.Component {
-  render() {
-    return (
-      <div>
-        <MovieList class="container" />
-      </div>
-    );
-  }
-}
+const BrowsePage = () => (
+  <div>
+    <MovieList />
+  </div>
+);
 
 export default BrowsePage;

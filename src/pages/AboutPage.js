@@ -55,13 +55,6 @@ const AboutPage = () => (
         </div>
       </div>
     </div>
-    {/* <div className="lloyd-image">
-          <img src={`/images/Lloyd.png`} />
-        </div>
-        <div className="lloyd">
-          <h2>Lloyd</h2>
-          <p>Chatbot, AI Assistant, the Mastermind Behind YaMovie.</p>
-        </div> */}
     <div className="avatar-section">
       <h2 className="avatar-header">Meet The Team</h2>
       <div className="avatar-list">
@@ -80,8 +73,8 @@ const AboutPage = () => (
             <img src="/images/sam.png" alt="Sam Saks-Fithian" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Sam</h3>
-          <h5 className="avatar-role">Software Engineer</h5>
-          <p className="avatar-movie">Favorite Movie: Black Panther </p>
+          <h5 className="avatar-role">GitHub Manager / Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movies: MCU, especially Black Panther</p>
           <p className="avatar-show">Favorite Show: The Good Place</p>
           <p className="avatar-genre"> Favorite Genre: Action Comedy</p>
         </div>

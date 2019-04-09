@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import ChatWindow from './ChatWindow';
+import { ChatWindow } from './Components';
 import '../css/LloydChat.css';
 
 class LloydChat extends Component {
@@ -13,8 +12,7 @@ class LloydChat extends Component {
   }
 
   toggleChatWindow = () => {
-    const { isChatVisible } = this.state;
-    this.setState({ isChatVisible: !isChatVisible });
+    this.setState(prevState => ({ isChatVisible: !prevState.isChatVisible }));
   };
 
   componentDidMount = () => {
@@ -25,24 +23,16 @@ class LloydChat extends Component {
       localStorage.alreadyVisited = true;
       setTimeout(() => {
         this.setState({ isChatVisible: true });
-      }, 6000);
+      }, 30000);
     }
   };
-
-  // componentWillUnmount = () => {
-  //   clearTimeout(myTimeout);
-  // }
 
   render() {
     const { isChatVisible } = this.state;
     return (
       <div id="lloyd-outline">
         <button id="lloyd-button-wrapper" type="button" onClick={this.toggleChatWindow}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/Lloyd.png`}
-            alt="Talk to Lloyd!"
-            id="chatbot-btn"
-          />
+          <img src="/images/Lloyd.png" alt="Talk to Lloyd!" id="chatbot-btn" />
         </button>
         {isChatVisible && (
           <ChatWindow toggleChat={this.toggleChatWindow} isChatVisible={isChatVisible} />

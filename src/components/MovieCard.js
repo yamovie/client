@@ -170,7 +170,7 @@ export default MovieCard;
 // ============================================================
 // Stream Links
 
-// temporarily disabling ESlint stuff for next line until we get this section working
+// TODO: remove this when this section is working again
 // eslint-disable-next-line react/prop-types
 const StreamsView = ({ title }) => (
   // const streamOptions = streams;
