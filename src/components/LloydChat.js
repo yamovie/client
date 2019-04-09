@@ -39,10 +39,6 @@ class LloydChat extends Component {
     }
   };
 
-  // componentWillUnmount = () => {
-  //   clearTimeout(myTimeout);
-  // }
-
   render() {
     const { isChatVisible } = this.state;
     const { getMovieResults, genreIds } = this.props;

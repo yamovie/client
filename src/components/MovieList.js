@@ -35,6 +35,19 @@ class MovieList extends Component {
     };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.results !== state.movies) {
+      return { movies: props.results };
+    } else return null;
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.props.results !== prevProps.results) {
+      console.log('props have changed2');
+      this.setState({ movies: this.getDerivedStateFromProps });
+    }
+  };
+
   // ===================== Extracts Get Requests ============================
   // Makes each get request a function so they can be used with axios.all()
 

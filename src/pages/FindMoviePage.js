@@ -11,16 +11,31 @@ class FindMoviePage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      results: [{}],
+    };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.results !== state.results) {
+      return { results: props.results };
+    } else return null;
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.props.results !== prevProps.results) {
+      console.log('props have changed');
+      this.setState({ results: this.getDerivedStateFromProps });
+    }
+  };
+
   render() {
-    const { results, talkedToLloyd, history } = this.props;
+    const { talkedToLloyd, results, history } = this.props;
     return (
       <div>
         {talkedToLloyd && results.length > 0 ? (
           <MovieList
-            results={this.props.results}
+            results={results}
             showGenreFilter={false}
             history={history}
           />
