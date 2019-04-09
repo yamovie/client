@@ -24,7 +24,6 @@ class FindMoviePage extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props.results !== prevProps.results) {
-      console.log('props have changed');
       this.setState({ results: this.getDerivedStateFromProps });
     }
   };

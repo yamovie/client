@@ -43,7 +43,6 @@ class MovieList extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props.results !== prevProps.results) {
-      console.log('props have changed2');
       this.setState({ movies: this.getDerivedStateFromProps });
     }
   };
