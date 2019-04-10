@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import MovieAPI from '../MovieApi.js';
 import MovieCard from './MovieCard';
-import GenreList from './GenreList.js';
+import SearchBar from './SearchBar';
 
 import '../css/MovieList.css';
 
@@ -19,11 +19,9 @@ class MovieList extends Component {
     this.api = new MovieAPI();
     this.state = {
       movies: [],
-      // filteredGenre: null,
       showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
-      hover: false,
       searchInputValue: '',
       genres: [],
     };
@@ -81,12 +79,6 @@ class MovieList extends Component {
     );
   };
 
-  // handleAllMovies = () => {
-  //   axios
-  //     .get(`${serverLink}/movies/`)
-  //     .then(response => this.setState({ movies: response.data }));
-  // }
-
   toggleModal = id => {
     // eslint-disable-next-line react/destructuring-assignment
     if (this.state.isModalVisible) {
@@ -100,13 +92,6 @@ class MovieList extends Component {
         )
         .catch(err => console.log(err));
     }
-  };
-
-  toggleHover = () => {
-    const { hover } = this.state;
-    this.setState({
-      hover: !hover,
-    });
   };
 
   handleChange = event => {
@@ -136,6 +121,7 @@ class MovieList extends Component {
   // the genre list, and to display a grid of MovieItems based on breakpoints.
 
   render() {
+
     const {
       movies,
       showGenreFilter,
@@ -144,19 +130,11 @@ class MovieList extends Component {
       searchInputValue,
       genres,
     } = this.state;
+
     const postersForAllMovies = movies.map(movie => movie.images.posters);
     const imagesForAllMovies = postersForAllMovies.map(poster =>
       poster.map(p => p.poster_url),
     );
-
-    // On hover function to display genre list through mega menu
-    let hoverStyle;
-    const { hover } = this.state;
-    if (hover) {
-      hoverStyle = { display: 'flex' };
-    } else {
-      hoverStyle = { display: 'none' };
-    }
 
     return (
       <div id="movie-page">
@@ -166,8 +144,17 @@ class MovieList extends Component {
             isModalVisible={isModalVisible}
             movie={selectedMovie}
             genres={genres}
+            searchInputValue={searchInputValue}
+            showGenreFilter={showGenreFilter}
           />
         )}
+        <SearchBar
+          onSubmit={this.handleSubmit}
+          onChange={this.handleChange}
+          genres={genres}
+          handleSendGenre={this.handleSendGenre}
+          showGenreFilter={showGenreFilter}
+        />
         <div
           id="yamovie-movie-list"
           className="container"
@@ -175,29 +162,6 @@ class MovieList extends Component {
             opacity: isModalVisible ? 0.08 : '',
           }}
         >
-          <div id="mega-search-genres">
-            <form id="browse-search" onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                value={searchInputValue}
-                onChange={this.handleChange}
-                placeholder="Search Movies"
-              />
-            </form>
-            <button type="button" id="display-genre-button" onClick={this.toggleHover}>
-              Display Genres
-            </button>
-            {showGenreFilter ? (
-              <GenreList
-                genres={genres}
-                style={hoverStyle}
-                toggleHover={this.toggleHover}
-                moviesByGenreKey={this.handleSendGenre}
-              />
-            ) : (
-              ' '
-            )}
-          </div>
           <div id="list-all-movies">
             {imagesForAllMovies.map((moviePosters, i) => (
               <div id="yamovie-movie-item" key={movies[i].title}>
