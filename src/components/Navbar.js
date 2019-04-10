@@ -36,7 +36,7 @@ const Navbar = ({ user, handleLogout }) => (
         <div>
           <li>
             <NavLink to="/account">
-              <FontAwesomeIcon icon="book" />
+              <FontAwesomeIcon icon="user" />
             </NavLink>
           </li>
           <li>
