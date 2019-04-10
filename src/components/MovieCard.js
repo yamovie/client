@@ -86,7 +86,7 @@ class MovieCard extends Component {
 
     this.setState({
       genres: genresArray,
-      release: release_year,
+      release: release_year || 'No Year',
       title,
       runtime,
       credits,
