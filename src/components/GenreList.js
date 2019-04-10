@@ -32,14 +32,33 @@ class GenreList extends Component {
   // =================== Unticks all checked genreboxes ==============
 
   handleSelectionReset(e) {
-    e.target.reset();
     e.preventDefault();
+    e.target.reset();
   }
 
   // ================== Renders the genre list ==================
 
   render() {
-    const { moviesByGenreKey, genres, style, checkboxesVisible } = this.props;
+    const { moviesByGenreKey, genres, style, checkboxesVisible, showCertifications, handleFormChange } = this.props;
+    const certifications = ['PG', 'PG-13', 'R', 'G', 'NC-17'];
+    if (showCertifications) {
+      return (
+        <div>
+          <form onSubmit={this.handleSelectionReset}>
+            <div id="list-genres">
+              {certifications.map((certification, i) => (
+                <label className="single-genre checkmark-container" key={i}>
+                  <input type="checkbox" onChange={handleFormChange} />
+                  <span className="checkmark" />
+                  <span className="single-genre">{certification}</span>
+                </label>
+              ))}
+            </div>
+            <button className="reset-button" type="submit">reset</button>
+          </form>
+        </div>
+      );
+    }
     if (!checkboxesVisible) {
       return (
         <div id="list-genres" style={style}>
@@ -65,14 +84,13 @@ class GenreList extends Component {
       );
     }
 
-    
     return (
       <div>
         <form onSubmit={this.handleSelectionReset}>
           <div id="list-genres">
             {genres.map((genre) => (
               <label className="single-genre checkmark-container" key={genre.id}>
-                <input type="checkbox" />
+                <input type="checkbox" onChange={handleFormChange} />
                 <span className="checkmark" />
                 <span className="single-genre">{genre.name}</span>
               </label>

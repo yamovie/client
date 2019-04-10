@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const ToggleSwitch = ({ labelName, handleChange }) => (
+const ToggleSwitch = ({ labelName, handleChange, name }) => (
   <>
     { labelName ?
       <span className="form-label switch-label">{labelName}</span>
@@ -10,7 +10,7 @@ const ToggleSwitch = ({ labelName, handleChange }) => (
       ''
     }
     <label className="switch">
-      <input type="checkbox" onChange={handleChange} />
+      <input name={name} type="checkbox" onChange={handleChange} />
       <span className="slider" />
     </label>
   </>
