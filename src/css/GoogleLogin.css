@@ -1,11 +1,12 @@
 .google-link {
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  align-items: center;
   background-color: white;
   width: 300px;
   margin: 25px auto;
   border-radius: 15px;
+  text-decoration: none;
 }
 
 .svgIcon {
@@ -14,7 +15,7 @@
 }
 
 @media only screen and (max-width: 650px) {
-  .google-link-signup {
+  .google-link {
     width: 200px;
   }
 }
