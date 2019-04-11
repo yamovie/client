@@ -61,11 +61,10 @@ class App extends Component {
     const { history } = this.props;
     axios
       .post(
-        'https://yamovie-server-staging.herokuapp.com/api/movies/recommend',
+        'https://yamovie-server-staging.herokuapp.com/api/movies/recommended',
         dataObj,
       )
       .then(response => {
-        // console.log(response.data);
         this.setState({
           results: response.data.results,
           talkedToLloyd: true,

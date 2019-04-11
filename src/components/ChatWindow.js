@@ -13,7 +13,15 @@ class ChatWindow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataObj: {},
+      dataObj: {
+        mpaa: 'R',
+        minYear: 0,
+        maxYear: 3000,
+        foreign: true,
+        indie: true,
+        imdb: 0,
+        rottenTomato: 0,
+      },
     };
     this.delays = {
       initial: 250,
