@@ -1,12 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '../utils/fontAwesome';
 import '../css/Navbar.css';
 
-library.add(faUser);
 /**
  * JSX used to render the navbar on the page. Uses flexboxes to display information and links.
  * @returns JSX to create HTML navbar
@@ -18,7 +15,7 @@ const Navbar = ({ user, handleLogout }) => (
     </NavLink>
     <ul id="navbar-links">
       <li>
-        <NavLink to="/chat">Find YaMovie</NavLink>
+        <NavLink to="/recommendations">Find YaMovie</NavLink>
       </li>
       <li>
         <NavLink to="/browse">Browse</NavLink>

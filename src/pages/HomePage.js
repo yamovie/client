@@ -14,7 +14,7 @@ const HomePage = () => (
         <h3>You bring the popcorn!</h3>
       </div>
       <div id="link-info">
-        <Link to="/chat">Find YaMovie!</Link>
+        <Link to="/recommendations">Find YaMovie!</Link>
       </div>
     </section>
 
