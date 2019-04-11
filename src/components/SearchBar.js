@@ -1,15 +1,21 @@
 import React, { Component } from 'react'
-import PropTypes, { array } from 'prop-types'
+import PropTypes, { object } from 'prop-types'
 import GenreList from "./GenreList";
+
+import '../css/SearchBar.css';
 
 export default class SearchBar extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    searchInputValue: PropTypes.string.isRequired,
-    genres: PropTypes.shape(array).isRequired,
+    searchInputValue: PropTypes.string,
+    genres: PropTypes.shape(object).isRequired,
     showGenreFilter: PropTypes.bool.isRequired,
     handleSendGenre: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    searchInputValue: '',
   }
 
   constructor(props) {

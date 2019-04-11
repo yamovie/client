@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { stack as Menu } from 'react-burger-menu';
+import { slide as Menu } from 'react-burger-menu';
 import { faUser, faHome, faSearch, faColumns, faAddressCard, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import '../css/BurgerMenu.css';
@@ -63,9 +63,9 @@ class Navbar extends Component {
               <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/signup"><FontAwesomeIcon icon={faUserPlus} /> Signup</NavLink>
             </div>
           ) : (
-            <div>
-              <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/account"><FontAwesomeIcon icon="user" /></NavLink>
-              <NavLink className="bm-item" onClick={() => { handleLogout(); this.closeMenu();}} to="/">Logout</NavLink>
+            <div className="bm-div">
+              <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/account"><FontAwesomeIcon icon="user" /> My Account</NavLink>
+              <NavLink className="bm-item" onClick={() => { handleLogout(); this.closeMenu();}} to="/"><FontAwesomeIcon icon={faSignInAlt} /> Logout</NavLink>
             </div>
           )}
         </Menu>
