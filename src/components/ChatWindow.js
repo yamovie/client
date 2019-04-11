@@ -1,3 +1,4 @@
+// TODO: Remove this disable once Will's changes are merged in so the state is actually used
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import Botui from 'botui-react';
@@ -14,13 +15,13 @@ class ChatWindow extends React.Component {
     super(props);
     this.state = {
       dataObj: {
-        mpaa: 'R',
+        certification: 'R',
         minYear: 0,
         maxYear: 3000,
         foreign: true,
         indie: true,
         imdb: 0,
-        rottenTomato: 0,
+        rotten_tomatoes: 0,
       },
     };
     this.delays = {
@@ -140,7 +141,7 @@ class ChatWindow extends React.Component {
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
-            mpaa: ageRes.value,
+            certification: ageRes.value,
           },
         }));
         this.botui.message.bot({
@@ -339,7 +340,7 @@ class ChatWindow extends React.Component {
           this.setState(prevState => ({
             dataObj: {
               ...prevState.dataObj,
-              rottenTomato: 0,
+              rotten_tomatoes: 0,
               imdb: 0,
             },
           }));
@@ -370,7 +371,7 @@ class ChatWindow extends React.Component {
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
-            rottenTomato: rtRes.value,
+            rotten_tomatoes: rtRes.value,
           },
         }));
       });

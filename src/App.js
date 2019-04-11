@@ -3,17 +3,15 @@ import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import HomePage from './pages/HomePage';
-import BrowsePage from './pages/BrowsePage';
-import AboutPage from './pages/AboutPage';
-import NotFoundPage from './pages/NotFoundPage';
-import FindMoviePage from './pages/FindMoviePage';
-import ChatWindow from './components/ChatWindow';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import {
+  HomePage,
+  BrowsePage,
+  AboutPage,
+  FindMoviePage,
+  NotFoundPage,
+} from './pages';
+import { ChatWindow, Login, Signup, LloydChat, Navbar } from './components';
 import userServices from './utils/userServices';
-import LloydChat from './components/LloydChat';
-import Navbar from './components/Navbar';
 import './css/main.css';
 
 class App extends Component {
@@ -37,8 +35,6 @@ class App extends Component {
    */
   componentWillMount() {
     const { location, history } = this.props;
-    // console.log(history);
-    // console.log(location);
     const query = queryString.parse(location.search);
     if (query.token) {
       window.localStorage.setItem('token', query.token);
@@ -117,7 +113,7 @@ class App extends Component {
           <Route path="/about" component={AboutPage} />
           <Route path="/chat" component={ChatWindow} />
           <Route
-            path="/results"
+            path="/recommendations"
             render={props => (
               <FindMoviePage
                 {...props}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
-import ChatWindow from './ChatWindow';
+import { ChatWindow } from '.';
 import '../css/LloydChat.css';
 
 class LloydChat extends Component {
@@ -19,12 +18,7 @@ class LloydChat extends Component {
   }
 
   toggleChatWindow = () => {
-    const { isChatVisible } = this.state;
-    if (isChatVisible) {
-      this.setState({ isChatVisible: false });
-    } else {
-      this.setState({ isChatVisible: true });
-    }
+    this.setState(prevState => ({ isChatVisible: !prevState.isChatVisible }));
   };
 
   componentDidMount = () => {
@@ -35,7 +29,7 @@ class LloydChat extends Component {
       localStorage.alreadyVisited = true;
       setTimeout(() => {
         this.setState({ isChatVisible: true });
-      }, 6000);
+      }, 30000);
     }
   };
 
