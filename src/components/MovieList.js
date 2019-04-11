@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { MovieCard, GenreList } from './Components';
+import { MovieCard, GenreList } from '.';
 import '../css/MovieList.css';
 
 const serverLink = 'https://yamovie-server.herokuapp.com/api';

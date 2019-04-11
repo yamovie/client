@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ChatWindow } from './Components';
+import { ChatWindow } from '.';
 import '../css/LloydChat.css';
 
 class LloydChat extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { GoogleLogin } from './Components';
+import { GoogleLogin } from '.';
 import userServices from '../utils/userServices';
 import '../css/Login.css';
 

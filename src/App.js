@@ -2,14 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import queryString from 'query-string';
-import {
-  HomePage,
-  BrowsePage,
-  AboutPage,
-  FindMoviePage,
-  NotFoundPage,
-} from './pages/Pages';
-import { ChatWindow, Login, Signup, LloydChat, Navbar } from './components/Components';
+import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
+import { ChatWindow, Login, Signup, LloydChat, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
 
