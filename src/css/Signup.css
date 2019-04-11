@@ -86,20 +86,7 @@
   text-decoration: none;
 }
 
-.google-link-signup {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: white;
-  width: 300px;
-  margin: 25px auto;
-  border-radius: 15px;
-}
 
-.svgIcon {
-  height: 30px;
-  text-decoration: none;
-}
 
 @media only screen and (max-width: 650px) {
   .signup {
@@ -115,10 +102,6 @@
   }
 
   .signup-cancel {
-    width: 200px;
-  }
-
-  .google-link-signup {
     width: 200px;
   }
 }

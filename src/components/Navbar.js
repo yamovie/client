@@ -1,21 +1,15 @@
-/* eslint-disable react/no-multi-comp */
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { slide as Menu } from 'react-burger-menu';
-import { faUser, faHome, faSearch, faColumns, faAddressCard, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
+import { slide as Menu } from 'react-burger-menu';
+import { FontAwesomeIcon } from '../utils/fontAwesome';
 import '../css/BurgerMenu.css';
-
-// Adding Font Awesome icons to the library
-library.add(faUser, faHome, faSearch, faColumns, faAddressCard, faSignInAlt, faUserPlus);
 
 /**
  * JSX used to render the navbar on the page. Uses flexboxes to display information and links.
  * @returns JSX to create HTML navbar
  */
-class Navbar extends Component {
+class Navbar extends React.Component {
   constructor(props){
     super(props);
 
@@ -53,19 +47,19 @@ class Navbar extends Component {
         </NavLink>
         <Menu right isOpen={menuOpen}
           onStateChange={(state) => this.handleStateChange(state)}>
-          <NavLink onClick={() => this.closeMenu()} to="/" ><FontAwesomeIcon icon={faHome} /> Home</NavLink>
-          <NavLink onClick={() => this.closeMenu()} to="/chat"><FontAwesomeIcon icon={faSearch} /> Find YaMovie</NavLink>
-          <NavLink onClick={() => this.closeMenu()} to="/browse"><FontAwesomeIcon icon={faColumns} /> Browse</NavLink>
-          <NavLink onClick={() => this.closeMenu()} to="/about"><FontAwesomeIcon icon={faAddressCard} /> About</NavLink>
+          <NavLink onClick={() => this.closeMenu()} to="/" ><FontAwesomeIcon icon="home" /> Home</NavLink>
+          <NavLink onClick={() => this.closeMenu()} to="/chat"><FontAwesomeIcon icon="search" /> Find YaMovie</NavLink>
+          <NavLink onClick={() => this.closeMenu()} to="/browse"><FontAwesomeIcon icon="columns" /> Browse</NavLink>
+          <NavLink onClick={() => this.closeMenu()} to="/about"><FontAwesomeIcon icon="address-card" /> About</NavLink>
           {!user ? (
             <div className="bm-div">
-              <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/login"><FontAwesomeIcon icon={faSignInAlt} /> Login</NavLink>
-              <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/signup"><FontAwesomeIcon icon={faUserPlus} /> Signup</NavLink>
+              <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/login"><FontAwesomeIcon icon="sign-in-alt" /> Login</NavLink>
+              <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/signup"><FontAwesomeIcon icon="user-plus" /> Signup</NavLink>
             </div>
           ) : (
             <div className="bm-div">
               <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/account"><FontAwesomeIcon icon="user" /> My Account</NavLink>
-              <NavLink className="bm-item" onClick={() => { handleLogout(); this.closeMenu();}} to="/"><FontAwesomeIcon icon={faSignInAlt} /> Logout</NavLink>
+              <NavLink className="bm-item" onClick={() => { handleLogout(); this.closeMenu();}} to="/"><FontAwesomeIcon icon="sign-in-alt" /> Logout</NavLink>
             </div>
           )}
         </Menu>

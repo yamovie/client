@@ -70,7 +70,7 @@ export default class SearchBar extends Component {
             genres={genres}
             style={hoverStyle}
             toggleHover={this.toggleHover}
-            moviesByGenreKey={handleSendGenre}
+            moviesByGenreId={handleSendGenre}
           />
         ) : (
           ' '
