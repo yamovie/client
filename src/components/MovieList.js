@@ -18,7 +18,11 @@ class MovieList extends Component {
       selectedMovie: {},
       searchInputValue: '',
       genres: [],
+      nextPage: 2,
+      hasNextPage: true,
     };
+
+    window.addEventListener('scroll', event => this.scrollHandler(event));
   }
 
   // ===================== Extracts Get Requests ============================
@@ -60,6 +64,8 @@ class MovieList extends Component {
           this.setState({
             genres: genreResp.data,
             movies: movieResp.data.results,
+            page: movieResp.data.page,
+            hasNextPage: movieResp.data.hasNextPage,
           });
         }),
       );
@@ -111,6 +117,42 @@ class MovieList extends Component {
           searchInputValue: '',
         }),
       );
+  };
+
+  scrollHandler = () => {
+    window.onscroll = () => {
+      const list = document.documentElement;
+      const pageHeight = window.innerHeight + list.scrollTop;
+      const listHeight = list.offsetHeight;
+      const scrollOffsetHeight = 600;
+
+      if (pageHeight >= listHeight - scrollOffsetHeight) {
+        this.loadMoreMovies();
+      }
+    }
+  }
+
+  loadMoreMovies = () => {
+    const { hasNextPage, nextPage } = this.state;
+    if(hasNextPage) {
+      axios.get(`${serverLink}/movies/?page=${nextPage}`)
+        .then(res => {
+          console.log(res.data.page);
+          this.setState(prevState => ({
+            movies: [...prevState.movies, ...res.data.results],
+            nextPage: prevState.page + 1,
+            hasNextPage: res.data.hasNextPage
+          }), () => console.log('done'))}).catch(err => console.log(err))
+
+
+      // const res = axios.get(`${serverLink}/movies/?page=${nextPage}`);
+      // console.log(res.data.next);
+      // this.setState({
+      //   movies: [...this.state.movies, ...res.data.results],
+      //   nextPage: res.data.next,
+      //   hasNextPage: res.data.hasNextPage,
+      // });
+    }
   };
 
   /**
