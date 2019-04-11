@@ -102,11 +102,12 @@ class MovieList extends Component {
 
   handleSubmit = event => {
     const { searchInputValue } = this.state;
+    console.log({searchInputValue});
     event.preventDefault();
     axios
       .get('https://yamovie-server.herokuapp.com/api/movies/search', {
         params: {
-          query: searchInputValue,
+          title: searchInputValue,
         },
       })
       .then(response =>
@@ -144,7 +145,6 @@ class MovieList extends Component {
             isModalVisible={isModalVisible}
             movie={selectedMovie}
             genres={genres}
-            searchInputValue={searchInputValue}
             showGenreFilter={showGenreFilter}
           />
         )}
@@ -152,6 +152,7 @@ class MovieList extends Component {
           onSubmit={this.handleSubmit}
           onChange={this.handleChange}
           genres={genres}
+          searchInputValue={searchInputValue}
           handleSendGenre={this.handleSendGenre}
           showGenreFilter={showGenreFilter}
         />
