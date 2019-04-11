@@ -19,6 +19,11 @@ body {
   height: 100%;
 }
 
+.google-link { 
+  align-items: center;
+  display: flex;
+}
+
 @media only screen and (max-width: 600px) {
   body {
     margin-top: 40px;
@@ -31,14 +36,14 @@ body {
   }
 }
 
-button {
+/* button {
   font-size: 1.3rem;
   margin: 10px;
-  background-color: var(--purple);
+  background-color: var(--darkgrey);
   color: var(--offwhite);
   border-radius: 5px;
   border-color: var(--red);
-}
+} */
 
 ::-webkit-scrollbar {
   opacity: 0;

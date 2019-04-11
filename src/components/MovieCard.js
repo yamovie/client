@@ -1,8 +1,33 @@
 import React, { Component } from 'react';
-import MovieAPI from '../MovieApi.js';
+import PropTypes from 'prop-types';
 import '../css/MovieCard.css';
 
 class MovieCard extends Component {
+  static propTypes = {
+    genres: PropTypes.arrayOf(PropTypes.object).isRequired,
+    movie: PropTypes.shape({
+      genre_ids: PropTypes.array,
+      overview: PropTypes.string,
+      ratings: PropTypes.shape({
+        internet_movie_database: PropTypes.object,
+        metacritic: PropTypes.object,
+        rotten_tomatoes: PropTypes.object,
+      }),
+      release_year: PropTypes.number,
+      runtime: PropTypes.number,
+      title: PropTypes.string,
+      credits: PropTypes.shape({
+        cast: PropTypes.arrayOf(PropTypes.object),
+        crew: PropTypes.arrayOf(PropTypes.object),
+      }),
+      images: PropTypes.shape({
+        backdrops: PropTypes.arrayOf(PropTypes.object),
+        posters: PropTypes.arrayOf(PropTypes.object),
+      }),
+    }).isRequired,
+    toggleModal: PropTypes.func.isRequired,
+  };
+
   /**
    * Creates a new movie card element using a movie data object
    * @param {object} [movie] the movie data to use to fill this card
@@ -10,16 +35,64 @@ class MovieCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movie: {},
+      overview: '',
+      ratings: {
+        imdb: {},
+        metacritic: {},
+        rotten_tomatoes: {},
+      },
+      release: 0,
+      runtime: 0,
+      title: '',
+      credits: { cast: [], crew: [] },
+      images: { backdrops: [], posters: [] },
       loading: true,
     };
-    this.movieApi = new MovieAPI();
   }
 
   componentDidMount() {
-    const { movie } = this.props;
+    const { movie, genres } = this.props;
+    const {
+      genre_ids,
+      overview,
+      ratings,
+      release_year,
+      runtime,
+      title,
+      credits,
+      images,
+      external_ids,
+    } = movie;
+
+    const genresArray = [];
+    genre_ids.forEach(id => {
+      const genreName = genres.find(genre => genre._id === id).name;
+      if (genreName) {
+        genresArray.push(genreName);
+      }
+    });
+
+    // prettier-ignore
+    const modRatings = ratings
+      ? {
+        imdb: {
+          ...ratings.internet_movie_database,
+          url: `http://www.imdb.com/title/${external_ids.imdb_id}`,
+        },
+        metacritic: ratings.metacritic,
+        rotten_tomatoes: ratings.rotten_tomatoes,
+      }
+      : {};
+
     this.setState({
-      movie,
+      genres: genresArray,
+      release: release_year || 'No Year',
+      title,
+      runtime,
+      credits,
+      images,
+      overview,
+      ratings: modRatings,
       loading: false,
     });
   }
@@ -29,45 +102,59 @@ class MovieCard extends Component {
    * in three segments: trailer, descriptive info, and stream links.
    */
   render() {
-    const { movie, loading } = this.state;
+    const {
+      loading,
+      genres,
+      release,
+      title,
+      runtime,
+      credits,
+      images,
+      overview,
+      ratings,
+    } = this.state;
     const { toggleModal } = this.props;
 
-    if (loading === true) {
+    if (loading) {
       return <div>Loading...</div>;
     }
+
+    const directorList = credits.crew.filter(member => member.job === 'Director');
+    const directors =
+      directorList.length <= 0
+        ? ', No Director'
+        : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
+
+    const backdropNum = Math.floor(Math.random() * images.backdrops.length);
+    const backdrop = images.backdrops[backdropNum];
+
+    const posterNum = Math.floor(Math.random() * images.posters.length);
+    const poster = images.posters[posterNum];
 
     return (
       <div className="movie-card">
         <div className="backdrop">
           {/* <div className="overlay" /> */}
-          <img src={movie.images.backdrops[0].backdrop_url} alt="" />
+          {backdrop ? <img src={backdrop.backdrop_url} alt="" /> : ''}
         </div>
         <div className="info">
           <button type="button" className="close-modal" onClick={toggleModal()}>
             &times;
           </button>
           <div className="heading">
-            <img
-              className="poster"
-              alt={movie.title}
-              src={movie.images.posters[0].poster_url}
-            />
-            <h1>{movie.title}</h1>
+            {poster ? <img className="poster" alt={title} src={poster.poster_url} /> : ''}
+            <h1>{title}</h1>
             <div id="line2">
-              <h4>
-                {`${movie.release_date.substring(0, 4)}, ${
-                  movie.credits.crew.find(member => member.job === 'Director').name
-                }`}
-              </h4>
-              <RatingsView movie={movie} />
+              <h4>{`${release}${directors}`}</h4>
+              <RatingsView ratings={ratings} />
             </div>
-            <span className="runtime">{movie.runtime} min</span>
-            <p className="genres">Some Genres</p>
+            {runtime ? <span className="runtime">{runtime} min</span> : ''}
+            <p className="genres">{genres.join(', ')}</p>
           </div>
           <div className="description">
-            <p>{movie.overview}</p>
+            <p>{overview || 'No plot summary available'}</p>
           </div>
-          <StreamsView movie={movie} />
+          <StreamsView title={title} />
         </div>
       </div>
     );
@@ -83,60 +170,79 @@ export default MovieCard;
 // ============================================================
 // Stream Links
 
-const StreamsView = ({ movie }) => (
-// const streamOptions = movie.streams;
-// const streamKeys = Object.keys(streamOptions);
+// TODO: remove this when this section is working again
+// eslint-disable-next-line react/prop-types
+const StreamsView = ({ title }) => (
+  // const streamOptions = streams;
+  // const streamKeys = Object.keys(streamOptions);
   <div id="streams">
-    <h3>Watch Links Coming Soon!</h3>
+    <h3>{`Watch Links for '${title}' Coming Soon!`}</h3>
     {/* <ul>
-        {streamKeys.map(streamName => (
-          <li>
-            <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
-              <img
-                src=`/images/icon-${streamName}.png`
-                alt={`${streamName.charAt(0).toUpperCase()}${streamName.slice(1)}`}
-              />
-            </a>
-          </li>
-        ))}
-      </ul> */}
+      {streamKeys.map(streamName => (
+        <li>
+          <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
+            <img
+              src=`/images/icon-${streamName}.png`
+              alt={`${streamName.charAt(0).toUpperCase()}${streamName.slice(1)}`}
+            />
+          </a>
+        </li>
+      ))}
+    </ul> */}
   </div>
 );
 
 // ============================================================
 // Ratings
-const RatingsView = ({ movie }) => {
-  const rtRatingObj = movie.ratings.find(obj => obj.source === 'Rotten Tomatoes');
-  const rtRating = rtRatingObj ? rtRatingObj.value : '??';
-  const imdbRatingObj = movie.ratings.find(
-    obj => obj.source === 'Internet Movie Database',
-  );
-  const imdbRating = imdbRatingObj ? imdbRatingObj.value : '??';
-
-  const rtImg =
-    rtRating >= '60%'
-      ? 'icon-rottentomatoes-fresh.png'
-      : 'icon-rottentomatoes-rotten.png';
+const RatingsView = ({ ratings }) => {
+  if (!ratings) {
+    return <div id="ratings" />;
+  }
   return (
     <div id="ratings">
-      <li>
-        <a href="http://www.rottentomatoes.com" target="_blank" rel="noopener noreferrer">
-          <img src={`/images/${rtImg}`} alt="Rotten Tomatoes" />
-          {rtRating}
-        </a>
-      </li>
-      <li>
-        <a href="http://www.imdb.com" target="_blank" rel="noopener noreferrer">
-          <img src="/images/icon-IMDb.png" alt="IMDb" />
-          {imdbRating}
-        </a>
-      </li>
+      {ratings.rotten_tomatoes ? (
+        <li>
+          <a
+            href="http://www.rottentomatoes.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={`${process.env.PUBLIC_URL}/images/icon-rottentomatoes-${
+                ratings.rotten_tomatoes.value >= 60 ? 'fresh' : 'rotten'
+              }.png`}
+              alt="Rotten Tomatoes"
+            />
+            {`${ratings.rotten_tomatoes.rate}`}
+          </a>
+        </li>
+      ) : (
+        ''
+      )}
+      {ratings.imdb ? (
+        <li>
+          <a href={ratings.imdb.url} target="_blank" rel="noopener noreferrer">
+            <img src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`} alt="IMDb" />
+            {ratings.imdb.rate}
+          </a>
+        </li>
+      ) : (
+        ''
+      )}
       {/* <li>
       <img src="/images/icon-star.png" alt="User Rating" />
       Users: 5/5
     </li> */}
     </div>
   );
+};
+
+RatingsView.propTypes = {
+  ratings: PropTypes.shape({
+    internet_movie_database: PropTypes.object,
+    metacritic: PropTypes.object,
+    rotten_tomatoes: PropTypes.object,
+  }).isRequired,
 };
 
 // ============================================================

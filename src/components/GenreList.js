@@ -1,37 +1,36 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
+import PropTypes from 'prop-types';
+import '../css/GenreList.css';
 
-class GenreList extends Component {
-  constructor(props) {
-    super(props);
+// Renders the genre list to the MovieList page. ==================
+const GenreList = ({ moviesByGenreId, style, genres }) => (
+  <div id="list-genres" style={style}>
+    <button className="single-genre" type="button" onClick={() => moviesByGenreId('all')}>
+      All
+    </button>
+    {genres.map(genre => (
+      <button
+        className="single-genre"
+        type="button"
+        key={genre.name}
+        onClick={() => moviesByGenreId(genre._id)}
+      >
+        {genre.name}
+      </button>
+    ))}
+  </div>
+);
 
-    this.state = {
-      genres: [],
-    };
-  }
+GenreList.propTypes = {
+  genres: PropTypes.arrayOf(PropTypes.object).isRequired,
+  moviesByGenreId: PropTypes.func.isRequired,
+  style: PropTypes.shape({
+    display: PropTypes.string,
+  }),
+};
 
-  // =================== Grabs Genre List from API ==============
-
-  componentDidMount() {
-    axios
-      .get('https://yamovie-server.herokuapp.com/api/genres')
-      .then(response => this.setState({ genres: response.data }));
-  }
-
-  // Renders the genre list to the MovieList page. ==================
-
-  render() {
-    const { genres } = this.state;
-    const { moviesByGenreKey } = this.props;
-    return (
-      <div id="list-genres">
-        <button className="single-genre" type="button" onClick={() => moviesByGenreKey('all')}>All</button>
-        {genres.map(genre => (
-          <button className="single-genre" type="button" key={genre.name} onClick={() => moviesByGenreKey(genre._id)}>{genre.name}</button>
-        ))}
-      </div>
-    );
-  }
-}
+GenreList.defaultProps = {
+  style: 'style',
+};
 
 export default GenreList;
