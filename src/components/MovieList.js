@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { MovieCard, GenreList } from '.';
+import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
 const serverLink = 'https://yamovie-server.herokuapp.com/api';
@@ -13,11 +13,9 @@ class MovieList extends Component {
     super();
     this.state = {
       movies: [],
-      // filteredGenre: null,
       showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
-      hover: false,
       searchInputValue: '',
       genres: [],
     };
@@ -99,11 +97,12 @@ class MovieList extends Component {
   // TODO: Factor this out into API call utils
   handleSubmit = event => {
     const { searchInputValue } = this.state;
+    console.log({searchInputValue});
     event.preventDefault();
     axios
       .get('https://yamovie-server.herokuapp.com/api/movies/search', {
         params: {
-          query: searchInputValue,
+          title: searchInputValue,
         },
       })
       .then(response =>
@@ -119,6 +118,7 @@ class MovieList extends Component {
    * the genre list, and to display a grid of MovieItems based on breakpoints.
    */
   render() {
+
     const {
       movies,
       showGenreFilter,
@@ -132,10 +132,6 @@ class MovieList extends Component {
       .map(movie => movie.images.posters)
       .map(poster => poster.map(p => p.poster_url));
 
-    // On hover function to display genre list through mega menu
-    const { hover } = this.state;
-    const hoverStyle = hover ? { display: 'flex' } : { display: 'none' };
-
     return (
       <div id="movie-page">
         {isModalVisible && (
@@ -144,32 +140,24 @@ class MovieList extends Component {
             isModalVisible={isModalVisible}
             movie={selectedMovie}
             genres={genres}
+            showGenreFilter={showGenreFilter}
           />
         )}
-        <div id="yamovie-movie-list" className="container">
-          <div id="mega-search-genres">
-            <form id="browse-search" onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                value={searchInputValue}
-                onChange={this.handleChange}
-                placeholder="Search Movies"
-              />
-            </form>
-            <button type="button" id="display-genre-button" onClick={this.toggleHover}>
-              Display Genres
-            </button>
-            {showGenreFilter ? (
-              <GenreList
-                genres={genres}
-                style={hoverStyle}
-                toggleHover={this.toggleHover}
-                moviesByGenreId={this.handleSendGenre}
-              />
-            ) : (
-              ' '
-            )}
-          </div>
+        <SearchBar
+          onSubmit={this.handleSubmit}
+          onChange={this.handleChange}
+          genres={genres}
+          searchInputValue={searchInputValue}
+          handleSendGenre={this.handleSendGenre}
+          showGenreFilter={showGenreFilter}
+        />
+        <div
+          id="yamovie-movie-list"
+          className="container"
+          style={{
+            opacity: isModalVisible ? 0.08 : '',
+          }}
+        >
           <div id="list-all-movies">
             {imagesForAllMovies.map((moviePosters, i) => (
               <div id="yamovie-movie-item" key={movies[i].title}>
