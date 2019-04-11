@@ -18,7 +18,7 @@ class MovieList extends Component {
       selectedMovie: {},
       searchInputValue: '',
       genres: [],
-      nextPage: 2,
+      page: 1,
       hasNextPage: true,
     };
 
@@ -124,7 +124,7 @@ class MovieList extends Component {
       const list = document.documentElement;
       const pageHeight = window.innerHeight + list.scrollTop;
       const listHeight = list.offsetHeight;
-      const scrollOffsetHeight = 600;
+      const scrollOffsetHeight = 300;
 
       if (pageHeight >= listHeight - scrollOffsetHeight) {
         this.loadMoreMovies();
@@ -132,26 +132,16 @@ class MovieList extends Component {
     }
   }
 
-  loadMoreMovies = () => {
-    const { hasNextPage, nextPage } = this.state;
-    if(hasNextPage) {
-      axios.get(`${serverLink}/movies/?page=${nextPage}`)
-        .then(res => {
-          console.log(res.data.page);
-          this.setState(prevState => ({
-            movies: [...prevState.movies, ...res.data.results],
-            nextPage: prevState.page + 1,
-            hasNextPage: res.data.hasNextPage
-          }), () => console.log('done'))}).catch(err => console.log(err))
-
-
-      // const res = axios.get(`${serverLink}/movies/?page=${nextPage}`);
-      // console.log(res.data.next);
-      // this.setState({
-      //   movies: [...this.state.movies, ...res.data.results],
-      //   nextPage: res.data.next,
-      //   hasNextPage: res.data.hasNextPage,
-      // });
+  loadMoreMovies = async () => {
+    const { hasNextPage, page, movies, loading } = this.state;
+    if (hasNextPage && !loading) {
+      const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
+      this.setState({
+        // movies: [...movies, ...res.data.results],
+        movies: movies.concat(res.data.results),
+        page: res.data.page + 1,
+        hasNextPage: res.data.hasNextPage,
+      });
     }
   };
 
