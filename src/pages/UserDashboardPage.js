@@ -12,14 +12,13 @@ import Watchlist from '../components/Watchlist';
 
 class userDashboardPage extends Component {
   render() {
-    const { match } = this.props;
+    const { match, user } = this.props;
     return (
       <div>
-        <Navbar />
         <div className="account-wrapper">
           <AccountNav />
 
-          <Route exact path={`${match.url}`} component={UserPreferences} />
+          <Route exact path={`${match.url}`} render={({ props }) => <UserPreferences {...props} user={user} />} />
           <Route path={`${match.url}/:watchlist`} component={Watchlist} />
         </div>
       </div>

@@ -13,7 +13,7 @@ import userServices from './utils/userServices';
 import LloydChat from './components/LloydChat';
 import Navbar from './components/Navbar';
 import './css/main.css';
-import userDashboardPage from './pages/UserDashboardPage';
+import UserDashboardPage from './pages/UserDashboardPage';
 // import Watchlist from './components/Watchlist';
 
 class App extends Component {
@@ -84,7 +84,7 @@ class App extends Component {
             path="/signup"
             render={props => <Signup {...props} handleSignup={this.handleSignup} />}
           />
-          <Route path="/account" component={userDashboardPage} />
+          <Route path="/account" render={({ match, props }) => <UserDashboardPage {...props} match={match} user={user} />} />
           <Route component={NotFoundPage} />
         </Switch>
         <LloydChat />
