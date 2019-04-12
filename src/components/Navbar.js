@@ -48,7 +48,7 @@ class Navbar extends React.Component {
         <Menu right isOpen={menuOpen}
           onStateChange={(state) => this.handleStateChange(state)}>
           <NavLink onClick={() => this.closeMenu()} to="/" ><FontAwesomeIcon icon="home" /> Home</NavLink>
-          <NavLink onClick={() => this.closeMenu()} to="/chat"><FontAwesomeIcon icon="search" /> Find YaMovie</NavLink>
+          <NavLink onClick={() => this.closeMenu()} to="/recommendations"><FontAwesomeIcon icon="search" /> Find YaMovie</NavLink>
           <NavLink onClick={() => this.closeMenu()} to="/browse"><FontAwesomeIcon icon="columns" /> Browse</NavLink>
           <NavLink onClick={() => this.closeMenu()} to="/about"><FontAwesomeIcon icon="address-card" /> About</NavLink>
           {!user ? (
@@ -59,7 +59,7 @@ class Navbar extends React.Component {
           ) : (
             <div className="bm-div">
               <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/account"><FontAwesomeIcon icon="user" /> My Account</NavLink>
-              <NavLink className="bm-item" onClick={() => { handleLogout(); this.closeMenu();}} to="/"><FontAwesomeIcon icon="sign-in-alt" /> Logout</NavLink>
+              <NavLink className="bm-item" onClick={() => { handleLogout(); this.closeMenu()}} to="/"><FontAwesomeIcon icon="sign-in-alt" /> Logout</NavLink>
             </div>
           )}
         </Menu>
