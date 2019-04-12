@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroller';
 import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
@@ -22,7 +23,7 @@ class MovieList extends Component {
       hasNextPage: true,
     };
 
-    window.addEventListener('scroll', event => this.scrollHandler(event));
+    // window.addEventListener('scroll', event => this.scrollHandler(event));
   }
 
   // ===================== Extracts Get Requests ============================
@@ -79,6 +80,7 @@ class MovieList extends Component {
     );
   };
 
+  // ==================== Toggle Modal Click ===============================
   toggleModal = id => {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
@@ -92,14 +94,12 @@ class MovieList extends Component {
     }
   };
 
-  toggleHover = () => {
-    this.setState(prevState => ({ hover: !prevState.hover }));
-  };
-
+  // ==================== Handles Search Bar Input Change ==================
   handleChange = event => {
     this.setState({ searchInputValue: event.target.value });
   };
 
+  // ==================== Handles Search Bar Input Submit ==================
   // TODO: Factor this out into API call utils
   handleSubmit = event => {
     const { searchInputValue } = this.state;
@@ -119,19 +119,21 @@ class MovieList extends Component {
       );
   };
 
-  scrollHandler = () => {
-    window.onscroll = () => {
-      const list = document.documentElement;
-      const pageHeight = window.innerHeight + list.scrollTop;
-      const listHeight = list.offsetHeight;
-      const scrollOffsetHeight = 300;
+  // =================== Handles Scroll activiation for more movies =========
+  // scrollHandler = () => {
+  //   window.onscroll = () => {
+  //     const list = document.documentElement;
+  //     const pageHeight = window.innerHeight + list.scrollTop;
+  //     const listHeight = list.offsetHeight;
+  //     const scrollOffsetHeight = 300;
 
-      if (pageHeight >= listHeight - scrollOffsetHeight) {
-        this.loadMoreMovies();
-      }
-    }
-  }
+  //     if (pageHeight >= listHeight - scrollOffsetHeight) {
+  //       this.loadMoreMovies();
+  //     }
+  //   }
+  // }
 
+  // ================== Function to load more movies on scroll ===============
   loadMoreMovies = async () => {
     const { hasNextPage, page, movies, loading } = this.state;
     if (hasNextPage && !loading) {
@@ -190,19 +192,26 @@ class MovieList extends Component {
             opacity: isModalVisible ? 0.08 : '',
           }}
         >
-          <div id="list-all-movies">
-            {imagesForAllMovies.map((moviePosters, i) => (
-              <div id="yamovie-movie-item" key={movies[i].title}>
-                {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
-                <img
-                  src={moviePosters[0]}
-                  alt={movies[i].title}
-                  className="img-fluid"
-                  onClick={() => this.toggleModal(movies[i]._id)}
-                />
-              </div>
-            ))}
-          </div>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadMoreMovies}
+            hasMore={true || false}
+            loader={<div className="loader" key={0}><img style={{ height: 200 }} src="./images/popcorn-loading.gif" alt="Loading ..."/></div>}
+          >
+            <div id="list-all-movies">
+              {imagesForAllMovies.map((moviePosters, i) => (
+                <div id="yamovie-movie-item" key={movies[i].title}>
+                  {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                  <img
+                    src={moviePosters[0]}
+                    alt={movies[i].title}
+                    className="img-fluid"
+                    onClick={() => this.toggleModal(movies[i]._id)}
+                  />
+                </div>
+              ))}
+            </div>
+          </InfiniteScroll>
         </div>
       </div>
     );
