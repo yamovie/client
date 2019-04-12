@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import queryString from 'query-string';
 import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
-import { ChatWindow, Login, Signup, LloydChat, Navbar } from './components';
+import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
 
@@ -76,7 +76,6 @@ class App extends Component {
           />
           <Route component={NotFoundPage} />
         </Switch>
-        <LloydChat />
       </div>
     );
   }
