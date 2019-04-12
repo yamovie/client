@@ -57,7 +57,7 @@ class App extends Component {
     const { history } = this.props;
     axios
       .post(
-        'https://yamovie-server-staging.herokuapp.com/api/movies/recommended',
+        'https://yamovie-server-staging.herokuapp.com/api/movies/recommend',
         dataObj,
       )
       .then(response => {
@@ -65,7 +65,7 @@ class App extends Component {
           results: response.data.results,
           talkedToLloyd: true,
         });
-        history.push('/results');
+        history.push('/recommendations');
         console.log(response.data.results);
       })
       .catch(error => console.log(error));

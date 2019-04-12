@@ -119,15 +119,6 @@ class MovieCard extends Component {
       return <div>Loading...</div>;
     }
 
-    // let genreString = '';
-    // genre_ids.forEach(id => {
-    //   const genreName = genres.find(genre => genre._id === id).name;
-    //   genreString = `${genreString}, ${genreName}`;
-    // });
-    // genreString = genreString.slice(2);
-
-    // const release = release_date ? release_date.substring(0, 4) : 'No Date';
-
     const directorList = credits.crew.filter(
       member => member.job === 'Director',
     );
@@ -209,9 +200,6 @@ const StreamsView = ({ title }) => (
 
 // ============================================================
 // Ratings
-
-// const rtRating = movie.ratings.rotten_tomatoes;
-// const imdbRating = movie.ratings.internet_movie_database;
 const RatingsView = ({ ratings }) => {
   if (!ratings) {
     return <div id="ratings" />;

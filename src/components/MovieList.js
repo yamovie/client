@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import { MovieCard, GenreList } from '.';
 import '../css/MovieList.css';
 
 const serverLink = 'https://yamovie-server.herokuapp.com/api';
 
 class MovieList extends Component {
-  static propTypes = {
-    results: PropTypes.arrayOf(PropTypes.object).isRequired,
-    showGenreFilter: PropTypes.bool.isRequired,
-    history: PropTypes.shape(Object).isRequired,
-  };
-
   /**
    * Creates a movie list object and connects to the API
    */
@@ -21,6 +14,7 @@ class MovieList extends Component {
     this.state = {
       movies: [],
       // filteredGenre: null,
+      showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
       hover: false,
@@ -28,18 +22,6 @@ class MovieList extends Component {
       genres: [],
     };
   }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.results !== state.movies) {
-      return { movies: props.results };
-    } else return null;
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.results !== prevProps.results) {
-      this.setState({ movies: this.getDerivedStateFromProps });
-    }
-  };
 
   // ===================== Extracts Get Requests ============================
   // Makes each get request a function so they can be used with axios.all()
@@ -73,24 +55,13 @@ class MovieList extends Component {
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
-    const { results, showGenreFilter, history } = this.props;
-    if (showGenreFilter === undefined) {
-      history.push('/');
-    } else if (showGenreFilter === true) {
+    const { showGenreFilter } = this.state;
+    if (showGenreFilter) {
       axios.all([this.getGenres(), this.getMovies()]).then(
         axios.spread((genreResp, movieResp) => {
           this.setState({
             genres: genreResp.data,
             movies: movieResp.data.results,
-          });
-        }),
-      );
-    } else if (showGenreFilter === false) {
-      axios.all([this.getGenres()]).then(
-        axios.spread(genreResp => {
-          this.setState({
-            genres: genreResp.data,
-            movies: results,
           });
         }),
       );
@@ -110,14 +81,10 @@ class MovieList extends Component {
       this.setState({ isModalVisible: false });
     } else {
       this.getSingleMovie(id)
-        .then(response => {
-          console.log(response.data);
-          this.setState({
-            isModalVisible: true,
-            selectedMovie: response.data,
-          });
-        })
-        .catch(err => console.log(err));
+        .then(response =>
+          this.setState({ isModalVisible: true, selectedMovie: response.data }),
+        )
+        .catch(err => console.error(err));
     }
   };
 
@@ -154,13 +121,13 @@ class MovieList extends Component {
   render() {
     const {
       movies,
+      showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue,
       genres,
     } = this.state;
 
-    const { showGenreFilter } = this.props;
     const imagesForAllMovies = movies
       .map(movie => movie.images.posters)
       .map(poster => poster.map(p => p.poster_url));
