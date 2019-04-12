@@ -63,7 +63,7 @@ class MovieCard extends Component {
       images,
       external_ids,
     } = movie;
-
+    console.log(movie);
     const genresArray = [];
     genre_ids.forEach(id => {
       const genreName = genres.find(genre => genre._id === id).name;
@@ -72,6 +72,7 @@ class MovieCard extends Component {
       }
     });
 
+    // TODO: no longer need this, backend does link construction
     // prettier-ignore
     const modRatings = ratings
       ? {
@@ -128,6 +129,7 @@ class MovieCard extends Component {
     const backdropNum = Math.floor(Math.random() * images.backdrops.length);
     const backdrop = images.backdrops[backdropNum];
 
+    // TODO: only one poster now, so change from url to singular poster, which is the link
     const posterNum = Math.floor(Math.random() * images.posters.length);
     const poster = images.posters[posterNum];
 
@@ -135,6 +137,7 @@ class MovieCard extends Component {
       <div className="movie-card">
         <div className="backdrop">
           {/* <div className="overlay" /> */}
+          {/* TODO: no longer an object, so can just use string */}
           {backdrop ? <img src={backdrop.backdrop_url} alt="" /> : ''}
         </div>
         <div className="info">
@@ -142,6 +145,7 @@ class MovieCard extends Component {
             &times;
           </button>
           <div className="heading">
+            {/* TODO: no longer poster.poster_url */}
             {poster ? <img className="poster" alt={title} src={poster.poster_url} /> : ''}
             <h1>{title}</h1>
             <div id="line2">
