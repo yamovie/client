@@ -1,4 +1,5 @@
 import React from 'react';
+import { LloydChat } from '../components';
 
 const FindMoviePage = () => (
   <div>
@@ -12,6 +13,7 @@ const FindMoviePage = () => (
     >
       Some recommendations will show up here.
     </h1>
+    <LloydChat />
   </div>
 );
 

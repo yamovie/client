@@ -35,9 +35,15 @@ class LloydChat extends Component {
           <img src="/images/Lloyd.png" alt="Talk to Lloyd!" id="chatbot-btn" />
         </button>
         {isChatVisible && (
+        <div>  
           <ChatWindow toggleChat={this.toggleChatWindow} isChatVisible={isChatVisible} />
+          <button type="button" className="close-chat" onClick={this.toggleChatWindow}>
+            &times;
+          </button>
+          </div>
         )}
       </div>
+       
     );
   }
 }

@@ -35,6 +35,19 @@
   outline: none;
 }
 
+.close-chat {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.3rem;
+  background-color: var(--purple);
+  color: var(--offwhite);
+  border-radius: 20px;
+  border-color: var(--red);
+  width: 30px;
+  height: 30px;
+}
+
 .botui-container {
   float: right;
 }
