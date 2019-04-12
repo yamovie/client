@@ -316,7 +316,6 @@ class ChatWindow extends React.Component {
   };
 
   render() {
-    const { toggleChat } = this.props;
     return (
       <div className="chat-window">
         {/* eslint-disable-next-line no-return-assign */}        
