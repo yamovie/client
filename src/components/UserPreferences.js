@@ -3,8 +3,9 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import GenreList from './GenreList';
 import ToggleSwitch from './ToggleSwitch';
+import { getUserFromToken } from '../utils/tokenServices';
 
-const YearDropdown = ({ name, ascending }) => {
+const YearDropdown = ({ name, selectedMinYear, selectedMaxYear, handlePreferencesChange }) => {
   const currentYear = new Date().getFullYear();
   const oldestYear = 2018
   const listOfYears = []
@@ -15,13 +16,19 @@ const YearDropdown = ({ name, ascending }) => {
  
   return (
     <>
-      <select name={name}>
+      <select name={name} onChange={handlePreferencesChange}>
         {
-          ascending ? listOfYears.reverse().map(year =>
-            <option value={year}>{year}</option>
+          selectedMinYear ? listOfYears.reverse().map(year =>
+            selectedMinYear === year ?
+              <option value={year} selected>{year}</option>
+              :
+              <option value={year}>{year}</option>
           )
             : listOfYears.map(year =>
-              <option value={year}>{year}</option>
+              selectedMaxYear === year ?
+                <option value={year} selected>{year}</option>
+                :
+                <option value={year}>{year}</option>
             )
         }
       </select>
@@ -38,7 +45,10 @@ class UserPreferences extends React.Component {
     super(props);
     this.state = {
       genres: [],
+      pageIsLoading: true,
+      prefUpdatesQueued: false,
       preferences: {
+        genres: [],
         rottenRating: 'N/A',
         imdbRating: 'N/A',
         certifications: [],
@@ -64,84 +74,137 @@ class UserPreferences extends React.Component {
       }
     };
 
-    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handlePreferencesChange = this.handlePreferencesChange.bind(this);
   }
 
   // =================== Grabs Genre List from API ==============
 
   componentDidMount() {
-    const { user } = this.props;
-    const { preferences} = this.state;
-    console.log(user);
-    axios
-      .get('https://yamovie-server.herokuapp.com/api/genres')
-      .then(response => this.setState({ genres: response.data }));
+    const user = getUserFromToken();
+    const userId = user._id
+    const { preferences, genres, pageIsLoading} = this.state;
     
-    axios
-      .get('http://localhost:5000/preferences', { params: {userId: user._id} })
-      .then(response => {
-        const updatedPreferences = {...preferences, ...response.data.preferences}
+    if (!genres.length) {
+      axios
+        .get('https://yamovie-server.herokuapp.com/api/genres')
+        .then(response => this.setState({ genres: response.data }));
+    }
+    
+    if (pageIsLoading) {
+      axios
+        .get('http://localhost:5000/preferences', { params: {userId} })
+        .then(response => {
+          const updatedPreferences = {...preferences, ...response.data.preferences}
 
-        this.setState({preferences: updatedPreferences })
-      });
-    // .then(response => console.log(response.data.preferences))
-
-
+          this.setState({preferences: updatedPreferences, pageIsLoading: false })
+        });
+    }
   }
 
   componentDidUpdate() {
-    console.log('did update');
-    const { preferences } = this.state;
-    const { user } = this.props;
-    axios.patch("http://localhost:5000/preferences/update", { preferences, user }, {headers: new Headers({ 'Content-Type': 'application/json' }) })
+    const { preferences, prefUpdatesQueued } = this.state;
+    const user = getUserFromToken();
+    const userId = user._id
+    
+    if (prefUpdatesQueued) {
+      axios.patch("http://localhost:5000/preferences/update", { preferences, userId }, {headers: new Headers({ 'Content-Type': 'application/json' }) })
+        .then(() => this.setState({ prefUpdatesQueued: false }))
+    }
   }
+
+  handlePreferencesChange(e, reset, passedProps) {
+    const { preferences} = this.state;
+    const updatedPreferences = {...preferences}
+    const formInput = e.target;
+
+    // Handle movie ratings change
+    if (formInput.id === 'rt-slider') {
+      updatedPreferences.ratings.rottenTomatoes.minRating = formInput.value;
+    } else if (formInput.id === 'imdb-slider') {
+      updatedPreferences.ratings.imdb.minRating = formInput.value;
+    }
+
+    // Handle streaming choices
+    else if (formInput.name === 'hulu' || formInput.name ===  'netflix' ) {
+      updatedPreferences.streamingServices[formInput.name] = formInput.checked;
+    }
+
+    // Handle min and max years for movie title preferences
+    else if (formInput.name === 'minYear' || formInput.name === 'maxYear' ) {
+      updatedPreferences.release[formInput.name] = formInput.value;
+    }
+
+    // Handle form reset for both genres and certifications
+    else if (reset) {
+      if (formInput.id === 'genrePreferencesForm') {
+        updatedPreferences.genres = [];
+      }
+      else if (formInput.id === 'certificationsForm') {
+        updatedPreferences.certifications = [];
+      }
+    }
+
+    // Handle the user's selected certifications
+    else if (formInput.name === 'certification') {
+      if (formInput.checked) {
+        updatedPreferences.certifications.push(formInput.value);
+      }
+      else if (!formInput.checked) {
+        updatedPreferences.certifications.forEach((certification, i) => {
+          if (certification === formInput.value) {
+            updatedPreferences.certifications.splice(i, 1);
+          }
+        })
+      }
+    }
+
+    // Handle the user's selected genres
+    else if (formInput.name === 'genre') {
+      if (formInput.checked) {
+        updatedPreferences.genres.push(formInput.value);
+      }
+      else if (!formInput.checked) {
+        updatedPreferences.genres.forEach((genre, i) => {
+          if (genre === formInput.value) {
+            updatedPreferences.genres.splice(i, 1);
+          }
+        })
+      }
+    }
+
+    
+    
+    // Updates preferences based on previous conditionals, and makes sure component did update will update
+    this.setState({ preferences: updatedPreferences, prefUpdatesQueued: true });
+  }
+
   
-  handleRatingsChange = event => {
-    if (event.target.id === 'rt-slider') {
-      if (event.target.value === '0') {
-        var rottenTomatoeValue = 'N/A';
-      } else {
-        var rottenTomatoeValue = event.target.value;
-      }
-      this.setState({ rottenRating: rottenTomatoeValue });
-    } else if (event.target.id === 'imdb-slider') {
-      if (event.target.value === '0') {
-        var IMBDValue = 'N/A';
-      } else {
-        var IMBDValue = event.target.value;
-      }
-      this.setState({ imdbRating: IMBDValue });
-    }
-
-  }
-
-  async handleFormChange(e) {
-    const { preferences, preferences: { streamingServices } } = this.state;
-    const { user } = this.props;
-    let updatedPreferences;
-
-    if (e.target.name === 'hulu' || e.target.name ===  'netflix' ) {
-      updatedPreferences = {...preferences, streamingServices: {...streamingServices, [e.target.name]: e.target.checked}}
-    }
-
-
-    this.setState({ preferences: updatedPreferences });
-  }
 
   render() {
     const {
       preferences: {
-        rottenRating,
-        imdbRating,
         certifications,
         streamingServices: {
           hulu, netflix
         },
-        ratings,
-        release
+        ratings: {
+          imdb: {
+            minRating: imdbRating
+          },
+          rottenTomatoes: {
+            minRating: rottenRating
+          }
+        },
+        release,
+        genres: selectedGenres,
       },
-      genres
+      genres,
+      pageIsLoading,
     } = this.state;
+
+    if (pageIsLoading) {
+      return <></>;
+    }
 
     return (
       <div className="account-page">
@@ -150,37 +213,37 @@ class UserPreferences extends React.Component {
             <h1 className="account-title">Movie preferences</h1>
             <h3 className="account-sub-title">Streaming Subscriptions (enable the once you have)</h3>
             <div className="form-control">
-              <ToggleSwitch labelName="Hulu" handleChange={this.handleFormChange} selectedValue={hulu} name="hulu" />
+              <ToggleSwitch labelName="Hulu" handleChange={this.handlePreferencesChange} selectedValue={hulu} name="hulu" />
             </div>
             <div className="form-control">
-              <ToggleSwitch labelName="Netflix" handleChange={this.handleFormChange} selectedValue={netflix} name="netflix" />
+              <ToggleSwitch labelName="Netflix" handleChange={this.handlePreferencesChange} selectedValue={netflix} name="netflix" />
             </div>
             <div>
               <h3 className="account-sub-title">Release Year</h3>
               <span className="white">From </span>
-              <YearDropdown name="start-year" ascending selectedMinYear={release.minYear} />
+              <YearDropdown name="minYear" selectedMinYear={release.minYear} handlePreferencesChange={this.handlePreferencesChange} />
               <span className="white">To </span>
-              <YearDropdown name="end-year" selectedMaxYear={release.maxYear} />
+              <YearDropdown name="maxYear" selectedMaxYear={release.maxYear} handlePreferencesChange={this.handlePreferencesChange} />
             </div>
             <div className="form-control">
               <h3 className="account-sub-title">Filter movies by the genres you like (Leave blank for all genres)</h3>
-              <GenreList checkboxesVisible genres={genres} handleFormChange={this.handleFormChange} selectedGenres={genres}  />
+              <GenreList checkboxesVisible genres={genres} handleFormChange={this.handlePreferencesChange} selectedGenres={selectedGenres}  />
             </div>
             <div className="form-control">
               <h3 className="account-sub-title">Filter movies by age/mpaa ratings (Leave blank for all ratings)</h3>
-              <GenreList checkboxesVisible showCertifications handleFormChange={this.handleFormChange} selectedCertifications={certifications}/>
+              <GenreList checkboxesVisible showCertifications handleFormChange={this.handlePreferencesChange} selectedCertifications={certifications}/>
             </div>
       
             <section className="ratings">
               <h3 className="account-sub-title">Choose a minimum rating score (leave for any ratings)</h3>
               <div className="form-control">
                 <label className="form-label top-label" htmlFor="rt-slider">Rotten Tomatoes</label>
-                <input type="range" min="0" max="100" defaultValue={rottenRating} onChange={this.handleRatingsChange} id="rt-slider" />
+                <input type="range" min="0" max="100" defaultValue={rottenRating} onChange={this.handlePreferencesChange} id="rt-slider" />
                 <span className="rating-display white">{rottenRating}%</span>
               </div>
               <div className="form-control">
                 <label className="form-label top-label" htmlFor="imdb-slider">IMDB</label>
-                <input type="range" min="0" max="10" step="0.1" defaultValue={imdbRating} onChange={this.handleRatingsChange} id="imdb-slider" />
+                <input type="range" min="0" max="10" step="0.1" defaultValue={imdbRating} onChange={this.handlePreferencesChange} id="imdb-slider" />
                 <span className="rating-display white">{imdbRating}/10</span>
               </div>
             </section>

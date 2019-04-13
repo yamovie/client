@@ -12,21 +12,25 @@ class GenreList extends Component {
     style: PropTypes.shape({
       display: PropTypes.string,
     }),
+    selectedGenres: [],
+
   };
 
   static defaultProps = {
     style: 'style',
     checkboxesVisible: false,
+    selectedGenres: [],
   };
 
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   checkboxesVisible: false,
-    //   genres: [],
-    // };
     this.handleSelectionReset = this.handleSelectionReset.bind(this);
+    this.handlePreferencesChange = this.handlePreferencesChange.bind(this);
+  }
+
+  handlePreferencesChange(e, reset) {
+    this.props.handleFormChange(e, reset);
   }
 
   // =================== Unticks all checked genreboxes ==============
@@ -34,21 +38,32 @@ class GenreList extends Component {
   handleSelectionReset(e) {
     e.preventDefault();
     e.target.reset();
+    this.handlePreferencesChange(e, true);
   }
 
   // ================== Renders the genre list ==================
 
   render() {
-    const { moviesByGenreKey, genres, style, checkboxesVisible, showCertifications, handleFormChange } = this.props;
+    const {
+      moviesByGenreKey,
+      genres,
+      style,
+      checkboxesVisible,
+      showCertifications,
+      handlePreferencesChange,
+      selectedGenres,
+      selectedCertifications,
+    } = this.props;
     const certifications = ['PG', 'PG-13', 'R', 'G', 'NC-17'];
+
     if (showCertifications) {
       return (
         <div>
-          <form onSubmit={this.handleSelectionReset}>
+          <form onSubmit={this.handleSelectionReset} id='certificationsForm'>
             <div id="list-genres">
               {certifications.map((certification, i) => (
                 <label className="single-genre checkmark-container" key={i}>
-                  <input type="checkbox" onChange={handleFormChange} />
+                  <input type="checkbox" name="certification" defaultChecked={selectedCertifications.includes(certification)} value={certification} onChange={this.handlePreferencesChange} />
                   <span className="checkmark" />
                   <span className="single-genre">{certification}</span>
                 </label>
@@ -59,47 +74,49 @@ class GenreList extends Component {
         </div>
       );
     }
-    if (!checkboxesVisible) {
+    if (checkboxesVisible) {
       return (
-        <div id="list-genres" style={style}>
-          <button
-            className="single-genre"
-            type="button"
-            onClick={() => moviesByGenreKey('all')}
-          >
-          All
-          </button>
-          {genres.map(genre => (
-            <button
-              className="single-genre"
-              type="button"
-              key={genre.name}
-              onClick={() => moviesByGenreKey(genre._id)}
-            >
-              {genre.name}
-            </button>
-          
-          ))}
+        <div>
+          <form onSubmit={this.handleSelectionReset} id='genrePreferencesForm'>
+            <div id="list-genres">
+              {genres.map(genre => (
+                <label className="single-genre checkmark-container" key={genre._id}>
+                  <input type="checkbox" name="genre" value={genre._id} defaultChecked={selectedGenres.includes(genre._id)} onChange={this.handlePreferencesChange} />
+                  <span className="checkmark" />
+                  <span className="single-genre">{genre.name}</span>
+                </label>
+              ))}
+            </div>
+            <button className="reset-button" type="submit">reset</button>
+          </form>
         </div>
       );
     }
 
     return (
-      <div>
-        <form onSubmit={this.handleSelectionReset}>
-          <div id="list-genres">
-            {genres.map((genre) => (
-              <label className="single-genre checkmark-container" key={genre.id}>
-                <input type="checkbox" onChange={handleFormChange} />
-                <span className="checkmark" />
-                <span className="single-genre">{genre.name}</span>
-              </label>
-            ))}
-          </div>
-          <button className="reset-button" type="submit">reset</button>
-        </form>
+      <div id="list-genres" style={style}>
+        <button
+          className="single-genre"
+          type="button"
+          onClick={() => moviesByGenreKey('all')}
+        >
+          All
+        </button>
+        {genres.map(genre => (
+          <button
+            className="single-genre"
+            type="button"
+            key={genre.name}
+            onClick={() => moviesByGenreKey(genre._id)}
+          >
+            {genre.name}
+          </button>
+          
+        ))}
       </div>
     );
+
+    
   }
 }
 

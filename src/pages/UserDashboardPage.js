@@ -17,8 +17,8 @@ class userDashboardPage extends Component {
       <div>
         <div className="account-wrapper">
           <AccountNav />
-
-          <Route exact path={`${match.url}`} render={({ props }) => <UserPreferences {...props} user={user} />} />
+          
+          <Route exact path={`${match.url}`} render={({ props }) =>  <UserPreferences {...props} user={user} />} />
           <Route path={`${match.url}/:watchlist`} component={Watchlist} />
         </div>
       </div>
