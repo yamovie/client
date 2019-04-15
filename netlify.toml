@@ -2,3 +2,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[context.deploy-preview]
+  REACT_APP_BASE_URL = "http://localhost:5000/"
