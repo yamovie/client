@@ -71,7 +71,7 @@
 .about-page .info p {
   letter-spacing: 1px;
   line-height: 1.5;
-  color: black;
+  color: var(--darkgrey);
 }
 
 .about-page .info {
