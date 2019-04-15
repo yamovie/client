@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { MovieCard, GenreList } from '.';
+import InfiniteScroll from 'react-infinite-scroller';
+import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
 const serverLink = 'https://yamovie-server.herokuapp.com/api';
@@ -13,14 +14,16 @@ class MovieList extends Component {
     super();
     this.state = {
       movies: [],
-      // filteredGenre: null,
       showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
-      hover: false,
       searchInputValue: '',
       genres: [],
+      page: 1,
+      hasNextPage: true,
     };
+
+    // window.addEventListener('scroll', event => this.scrollHandler(event));
   }
 
   // ===================== Extracts Get Requests ============================
@@ -62,6 +65,8 @@ class MovieList extends Component {
           this.setState({
             genres: genreResp.data,
             movies: movieResp.data.results,
+            page: movieResp.data.page,
+            hasNextPage: movieResp.data.hasNextPage,
           });
         }),
       );
@@ -75,6 +80,7 @@ class MovieList extends Component {
     );
   };
 
+  // ==================== Toggle Modal Click ===============================
   toggleModal = id => {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
@@ -88,22 +94,21 @@ class MovieList extends Component {
     }
   };
 
-  toggleHover = () => {
-    this.setState(prevState => ({ hover: !prevState.hover }));
-  };
-
+  // ==================== Handles Search Bar Input Change ==================
   handleChange = event => {
     this.setState({ searchInputValue: event.target.value });
   };
 
+  // ==================== Handles Search Bar Input Submit ==================
   // TODO: Factor this out into API call utils
   handleSubmit = event => {
     const { searchInputValue } = this.state;
+    console.log({searchInputValue});
     event.preventDefault();
     axios
       .get('https://yamovie-server.herokuapp.com/api/movies/search', {
         params: {
-          query: searchInputValue,
+          title: searchInputValue,
         },
       })
       .then(response =>
@@ -114,11 +119,40 @@ class MovieList extends Component {
       );
   };
 
+  // =================== Handles Scroll activiation for more movies =========
+  // scrollHandler = () => {
+  //   window.onscroll = () => {
+  //     const list = document.documentElement;
+  //     const pageHeight = window.innerHeight + list.scrollTop;
+  //     const listHeight = list.offsetHeight;
+  //     const scrollOffsetHeight = 300;
+
+  //     if (pageHeight >= listHeight - scrollOffsetHeight) {
+  //       this.loadMoreMovies();
+  //     }
+  //   }
+  // }
+
+  // ================== Function to load more movies on scroll ===============
+  loadMoreMovies = async () => {
+    const { hasNextPage, page, movies, loading } = this.state;
+    if (hasNextPage && !loading) {
+      const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
+      this.setState({
+        // movies: [...movies, ...res.data.results],
+        movies: movies.concat(res.data.results),
+        page: res.data.page + 1,
+        hasNextPage: res.data.hasNextPage,
+      });
+    }
+  };
+
   /**
    * Renders the movie list in HTML on the page. Uses flexboxes to display
    * the genre list, and to display a grid of MovieItems based on breakpoints.
    */
   render() {
+
     const {
       movies,
       showGenreFilter,
@@ -132,10 +166,6 @@ class MovieList extends Component {
       .map(movie => movie.images.posters)
       .map(poster => poster.map(p => p.poster_url));
 
-    // On hover function to display genre list through mega menu
-    const { hover } = this.state;
-    const hoverStyle = hover ? { display: 'flex' } : { display: 'none' };
-
     return (
       <div id="movie-page">
         {isModalVisible && (
@@ -144,45 +174,44 @@ class MovieList extends Component {
             isModalVisible={isModalVisible}
             movie={selectedMovie}
             genres={genres}
+            showGenreFilter={showGenreFilter}
           />
         )}
-        <div id="yamovie-movie-list" className="container">
-          <div id="mega-search-genres">
-            <form id="browse-search" onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                value={searchInputValue}
-                onChange={this.handleChange}
-                placeholder="Search Movies"
-              />
-            </form>
-            <button type="button" id="display-genre-button" onClick={this.toggleHover}>
-              Display Genres
-            </button>
-            {showGenreFilter ? (
-              <GenreList
-                genres={genres}
-                style={hoverStyle}
-                toggleHover={this.toggleHover}
-                moviesByGenreId={this.handleSendGenre}
-              />
-            ) : (
-              ' '
-            )}
-          </div>
-          <div id="list-all-movies">
-            {imagesForAllMovies.map((moviePosters, i) => (
-              <div id="yamovie-movie-item" key={movies[i].title}>
-                {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
-                <img
-                  src={moviePosters[0]}
-                  alt={movies[i].title}
-                  className="img-fluid"
-                  onClick={() => this.toggleModal(movies[i]._id)}
-                />
-              </div>
-            ))}
-          </div>
+        <SearchBar
+          onSubmit={this.handleSubmit}
+          onChange={this.handleChange}
+          genres={genres}
+          searchInputValue={searchInputValue}
+          handleSendGenre={this.handleSendGenre}
+          showGenreFilter={showGenreFilter}
+        />
+        <div
+          id="yamovie-movie-list"
+          className="container"
+          style={{
+            opacity: isModalVisible ? 0.08 : '',
+          }}
+        >
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadMoreMovies}
+            hasMore={true || false}
+            loader={<div className="loader" key={0}><img style={{ height: 200 }} src="./images/popcorn-loading.gif" alt="Loading ..."/></div>}
+          >
+            <div id="list-all-movies">
+              {imagesForAllMovies.map((moviePosters, i) => (
+                <div id="yamovie-movie-item" key={movies[i].title}>
+                  {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                  <img
+                    src={moviePosters[0]}
+                    alt={movies[i].title}
+                    className="img-fluid"
+                    onClick={() => this.toggleModal(movies[i]._id)}
+                  />
+                </div>
+              ))}
+            </div>
+          </InfiniteScroll>
         </div>
       </div>
     );
