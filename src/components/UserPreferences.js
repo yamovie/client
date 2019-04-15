@@ -92,7 +92,7 @@ class UserPreferences extends React.Component {
     
     if (pageIsLoading) {
       axios
-        .get('http://localhost:5000/preferences', { params: {userId} })
+        .get(`${process.env.REACT_APP_BASE_URL}preferences`, { params: {userId} })
         .then(response => {
           const updatedPreferences = {...preferences, ...response.data.preferences}
 
@@ -107,7 +107,7 @@ class UserPreferences extends React.Component {
     const userId = user._id
     
     if (prefUpdatesQueued) {
-      axios.patch("http://localhost:5000/preferences/update", { preferences, userId }, {headers: new Headers({ 'Content-Type': 'application/json' }) })
+      axios.patch(`${process.env.REACT_APP_BASE_URL}preferences/update`, { preferences, userId }, {headers: new Headers({ 'Content-Type': 'application/json' }) })
         .then(() => this.setState({ prefUpdatesQueued: false }))
     }
   }
