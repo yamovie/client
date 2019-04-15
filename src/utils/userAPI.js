@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = `${process.env.BASE_URL}users/`;
+const BASE_URL = `${process.env.REACT_APP_BASE_URL}users/`;
 /**
  * Axios call to database to signup user
  * @param {Object} user
@@ -8,7 +8,7 @@ const BASE_URL = `${process.env.BASE_URL}users/`;
  */
 function signup(user) {
   return axios.post(
-    `http://localhost:5000/users/signup`,
+    `${BASE_URL}signup`,
     { email: user.email, fullName: user.fullName, password: user.pw },
     { headers: new Headers({ 'Content-Type': 'application/json' }) },
   );

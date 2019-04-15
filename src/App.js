@@ -7,6 +7,8 @@ import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
 import UserDashboardPage from './pages/UserDashboardPage';
+
+require('dotenv').config();
 // import Watchlist from './components/Watchlist';
 
 class App extends Component {
