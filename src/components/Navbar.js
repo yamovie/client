@@ -59,7 +59,7 @@ class Navbar extends React.Component {
           ) : (
             <div className="bm-div">
               <NavLink className="bm-item" onClick={() => this.closeMenu()} to="/account"><FontAwesomeIcon icon="user" /> My Account</NavLink>
-              <NavLink className="bm-item" onClick={() => { handleLogout(); this.closeMenu();}} to="/"><FontAwesomeIcon icon="sign-in-alt" /> Logout</NavLink>
+              <NavLink className="bm-item" onClick={() => { handleLogout(); this.closeMenu()}} to="/"><FontAwesomeIcon icon="sign-in-alt" /> Logout</NavLink>
             </div>
           )}
         </Menu>
