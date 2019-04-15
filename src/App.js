@@ -66,7 +66,6 @@ class App extends Component {
           talkedToLloyd: true,
         });
         history.push('/recommendations');
-        console.log(response.data.results);
       })
       .catch(error => console.log(error));
   };
@@ -86,6 +85,10 @@ class App extends Component {
       .catch(error => {
         console.log(error);
       });
+  };
+
+  resetMovieResults = () => {
+    this.setState({ talkedToLloyd: false });
   };
 
   handleLogout = () => {
@@ -139,7 +142,11 @@ class App extends Component {
           />
           <Route component={NotFoundPage} />
         </Switch>
-        <LloydChat getMovieResults={this.getMovieResults} genreIds={genreIds} />
+        <LloydChat
+          getMovieResults={this.getMovieResults}
+          genreIds={genreIds}
+          resetMovieResults={this.resetMovieResults}
+        />
       </div>
     );
   }

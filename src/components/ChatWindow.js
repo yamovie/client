@@ -8,6 +8,7 @@ import '../css/ChatWindow.css';
 class ChatWindow extends React.Component {
   static propTypes = {
     getMovieResults: PropTypes.func.isRequired,
+    resetMovieResults: PropTypes.func.isRequired,
     genreIds: PropTypes.shape().isRequired,
   };
 
@@ -23,6 +24,7 @@ class ChatWindow extends React.Component {
         imdb: 0,
         rotten_tomatoes: 0,
       },
+      endChat: false,
     };
     this.delays = {
       initial: 250,
@@ -33,15 +35,36 @@ class ChatWindow extends React.Component {
   }
 
   componentDidMount() {
-    const { genreIds, getMovieResults } = this.props;
+    const { genreIds, getMovieResults, resetMovieResults } = this.props;
     this.greetingQuestion().then(async res => {
       if (res.value) {
+        resetMovieResults();
         await this.moodQuestion(genreIds);
         await this.ageQuestion();
+        if (this.state.endChat === true) {
+          this.resultsMessage(getMovieResults);
+          return;
+        }
         await this.eraQuestion();
+        if (this.state.endChat === true) {
+          this.resultsMessage(getMovieResults);
+          return;
+        }
         await this.animatedQuestion(genreIds);
+        if (this.state.endChat === true) {
+          this.resultsMessage(getMovieResults);
+          return;
+        }
         await this.foreignQuestion();
+        if (this.state.endChat === true) {
+          this.resultsMessage(getMovieResults);
+          return;
+        }
         await this.indieQuestion();
+        if (this.state.endChat === true) {
+          this.resultsMessage(getMovieResults);
+          return;
+        }
         await this.ratingsQuestion();
         this.resultsMessage(getMovieResults);
       } else {
@@ -88,8 +111,9 @@ class ChatWindow extends React.Component {
           { value: [genreIds.Comedy], text: 'Funny 😆' },
           { value: [genreIds.War, genreIds.Western], text: 'Sad 😭' },
           { value: [genreIds.Crime, genreIds.Mystery], text: 'Mysterious 🤔' },
-          { value: [genreIds.Drama, genreIds.Thriller], text: 'Dramatic 😮' },
-          { value: [genreIds.Horror, genreIds.Thriller], text: 'Scary 😱' },
+          { value: [genreIds.Drama], text: 'Dramatic 😮' },
+          { value: [genreIds.Thriller], text: 'Thrilling 😲' },
+          { value: [genreIds.Horror], text: 'Scary 😱' },
           {
             value: [genreIds.Action, genreIds.Adventure],
             text: 'Action Packed 🏃‍♀️💥',
@@ -134,20 +158,25 @@ class ChatWindow extends React.Component {
           { value: 'PG', text: '12 and Under' },
           { value: 'PG-13', text: '13 - 17' },
           { value: 'R', text: '18 +' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
       })
       .then(ageRes => {
-        this.setState(prevState => ({
-          dataObj: {
-            ...prevState.dataObj,
-            certification: ageRes.value,
-          },
-        }));
-        this.botui.message.bot({
-          content: 'Thanks!',
-          delay: this.delays.response,
-        });
+        if (ageRes.value === 'end') {
+          this.setState({ endChat: true });
+        } else {
+          this.setState(prevState => ({
+            dataObj: {
+              ...prevState.dataObj,
+              certification: ageRes.value,
+            },
+          }));
+          this.botui.message.bot({
+            content: 'Thanks!',
+            delay: this.delays.response,
+          });
+        }
       });
   };
 
@@ -166,11 +195,15 @@ class ChatWindow extends React.Component {
           { value: 'classic', text: 'Classic (before 1980)' },
           { value: 'in-between', text: 'In Between (1980-2010)' },
           { value: 'modern', text: 'Modern (after 2010)' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
       })
       .then(eraRes => {
         switch (eraRes.value) {
+          case 'end':
+            this.setState({ endChat: true });
+            break;
           case 'classic':
             this.setState(prevState => ({
               dataObj: {
@@ -222,10 +255,14 @@ class ChatWindow extends React.Component {
         action: [
           { value: true, text: 'Yes 👍' },
           { value: false, text: 'No 👎' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
       })
       .then(animRes => {
+        if (animRes.value === 'end') {
+          this.setState({ endChat: true });
+        }
         if (animRes.value === true) {
           const array = [...this.state.dataObj.genres];
           array.push(genreIds.Animation);
@@ -257,10 +294,14 @@ class ChatWindow extends React.Component {
         action: [
           { value: true, text: 'Yes 👍' },
           { value: false, text: 'No 👎' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
       })
       .then(forRes => {
+        if (forRes.value === 'end') {
+          this.setState({ endChat: true });
+        }
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
@@ -288,10 +329,14 @@ class ChatWindow extends React.Component {
         action: [
           { value: true, text: 'Yes 👍' },
           { value: false, text: 'No 👎' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
       })
       .then(indieRes => {
+        if (indieRes.value === 'end') {
+          this.setState({ endChat: true });
+        }
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
@@ -364,10 +409,14 @@ class ChatWindow extends React.Component {
           { value: 60, text: '60%' },
           { value: 75, text: '75%' },
           { value: 0, text: 'No Minimum' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.nextQ,
       })
       .then(rtRes => {
+        if (rtRes.value === 'end') {
+          this.setState({ endChat: true });
+        }
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
@@ -393,10 +442,14 @@ class ChatWindow extends React.Component {
           { value: 5, text: '5/10' },
           { value: 7, text: '7/10' },
           { value: 0, text: 'No Minimum' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.nextQ,
       })
       .then(imdbRes => {
+        if (imdbRes.value === 'end') {
+          this.setState({ endChat: true });
+        }
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,

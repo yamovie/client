@@ -3,7 +3,7 @@ import axios from 'axios';
 import { MovieCard, GenreList } from '.';
 import '../css/MovieList.css';
 
-const serverLink = 'https://yamovie-server.herokuapp.com/api';
+const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
 
 class MovieList extends Component {
   /**
@@ -13,8 +13,7 @@ class MovieList extends Component {
     super();
     this.state = {
       movies: [],
-      // filteredGenre: null,
-      showGenreFilter: true,
+      // showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
       hover: false,
@@ -55,7 +54,7 @@ class MovieList extends Component {
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
-    const { showGenreFilter } = this.state;
+    const { showGenreFilter, results } = this.props;
     if (showGenreFilter) {
       axios.all([this.getGenres(), this.getMovies()]).then(
         axios.spread((genreResp, movieResp) => {
@@ -65,8 +64,28 @@ class MovieList extends Component {
           });
         }),
       );
+    } else {
+      this.getGenres().then(genreResp =>
+        this.setState({
+          genres: genreResp.data,
+          movies: results,
+        }),
+      );
     }
   };
+
+  // ==================== Updates movies on repeated searches ===============
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.results !== state.results) {
+  //     return { movies: props.results };
+  //   } else return null;
+  // }
+
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (this.props.results !== prevProps.results) {
+  //     this.setState({ movies: this.getDerivedStateFromProps });
+  //   }
+  // };
 
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
@@ -81,9 +100,9 @@ class MovieList extends Component {
       this.setState({ isModalVisible: false });
     } else {
       this.getSingleMovie(id)
-        .then(response =>
-          this.setState({ isModalVisible: true, selectedMovie: response.data }),
-        )
+        .then(response => {
+          this.setState({ isModalVisible: true, selectedMovie: response.data });
+        })
         .catch(err => console.error(err));
     }
   };
@@ -121,12 +140,13 @@ class MovieList extends Component {
   render() {
     const {
       movies,
-      showGenreFilter,
+      // showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue,
       genres,
     } = this.state;
+    const { showGenreFilter } = this.props;
 
     const imagesForAllMovies = movies
       .map(movie => movie.images.posters)
@@ -147,33 +167,33 @@ class MovieList extends Component {
           />
         )}
         <div id="yamovie-movie-list" className="container">
-          <div id="mega-search-genres">
-            <form id="browse-search" onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                value={searchInputValue}
-                onChange={this.handleChange}
-                placeholder="Search Movies"
-              />
-            </form>
-            <button
-              type="button"
-              id="display-genre-button"
-              onClick={this.toggleHover}
-            >
-              Display Genres
-            </button>
-            {showGenreFilter ? (
+          {showGenreFilter ? (
+            <div id="mega-search-genres">
+              <form id="browse-search" onSubmit={this.handleSubmit}>
+                <input
+                  type="text"
+                  value={searchInputValue}
+                  onChange={this.handleChange}
+                  placeholder="Search Movies"
+                />
+              </form>
+              <button
+                type="button"
+                id="display-genre-button"
+                onClick={this.toggleHover}
+              >
+                Display Genres
+              </button>
               <GenreList
                 genres={genres}
                 style={hoverStyle}
                 toggleHover={this.toggleHover}
                 moviesByGenreId={this.handleSendGenre}
               />
-            ) : (
-              ' '
-            )}
-          </div>
+            </div>
+          ) : (
+            ''
+          )}
           <div id="list-all-movies">
             {imagesForAllMovies.map((moviePosters, i) => (
               <div id="yamovie-movie-item" key={movies[i].title}>
@@ -182,7 +202,7 @@ class MovieList extends Component {
                   src={moviePosters[0]}
                   alt={movies[i].title}
                   className="img-fluid"
-                  onClick={() => this.toggleModal(movies[i]._id)}
+                  onClick={() => this.toggleModal(movies[i].id)}
                 />
               </div>
             ))}
