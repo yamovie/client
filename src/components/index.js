@@ -8,3 +8,4 @@ export { default as MovieList } from './MovieList';
 export { default as Navbar } from './Navbar';
 export { default as OAuth } from './OAuth';
 export { default as Signup } from './Signup';
+export { default as SearchBar } from './SearchBar';

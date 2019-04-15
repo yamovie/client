@@ -476,8 +476,8 @@ class ChatWindow extends React.Component {
   render() {
     return (
       <div className="chat-window">
-        {/* eslint-disable-next-line no-return-assign */}
-        <Botui ref={cmp => (this.botui = cmp)} />
+        {/* eslint-disable-next-line no-return-assign */}        
+        <Botui ref={cmp => (this.botui = cmp)} />   
       </div>
     );
   }

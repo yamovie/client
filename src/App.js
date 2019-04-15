@@ -10,8 +10,9 @@ import {
   FindMoviePage,
   NotFoundPage,
 } from './pages';
-import { ChatWindow, Login, Signup, LloydChat, Navbar } from './components';
+import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
+import LloydChat from './components/LloydChat';
 import './css/main.css';
 
 class App extends Component {

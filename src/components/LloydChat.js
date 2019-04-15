@@ -51,13 +51,22 @@ class LloydChat extends Component {
           />
         </button>
         {isChatVisible && (
-          <ChatWindow
-            toggleChat={this.toggleChatWindow}
-            isChatVisible={isChatVisible}
-            getMovieResults={getMovieResults}
-            resetMovieResults={resetMovieResults}
-            genreIds={genreIds}
-          />
+          <div>
+            <ChatWindow
+              toggleChat={this.toggleChatWindow}
+              isChatVisible={isChatVisible}
+              getMovieResults={getMovieResults}
+              resetMovieResults={resetMovieResults}
+              genreIds={genreIds}
+            />
+            <button
+              type="button"
+              className="close-chat"
+              onClick={this.toggleChatWindow}
+            >
+              &times;
+            </button>
+          </div>
         )}
       </div>
     );
