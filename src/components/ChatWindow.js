@@ -9,6 +9,7 @@ class ChatWindow extends React.Component {
   static propTypes = {
     getMovieResults: PropTypes.func.isRequired,
     resetMovieResults: PropTypes.func.isRequired,
+    toggleChat: PropTypes.func.isRequired,
     genreIds: PropTypes.shape().isRequired,
   };
 
@@ -35,37 +36,40 @@ class ChatWindow extends React.Component {
   }
 
   componentDidMount() {
-    const { genreIds, getMovieResults, resetMovieResults } = this.props;
+    const { genreIds, getMovieResults } = this.props;
     this.greetingQuestion().then(async res => {
       if (res.value) {
-        resetMovieResults();
         await this.moodQuestion(genreIds);
         await this.ageQuestion();
         if (this.state.endChat === true) {
-          this.resultsMessage(getMovieResults);
+          this.endChatFunc();
           return;
         }
         await this.eraQuestion();
         if (this.state.endChat === true) {
-          this.resultsMessage(getMovieResults);
+          this.endChatFunc();
           return;
         }
         await this.animatedQuestion(genreIds);
         if (this.state.endChat === true) {
-          this.resultsMessage(getMovieResults);
+          this.endChatFunc();
           return;
         }
         await this.foreignQuestion();
         if (this.state.endChat === true) {
-          this.resultsMessage(getMovieResults);
+          this.endChatFunc();
           return;
         }
         await this.indieQuestion();
         if (this.state.endChat === true) {
-          this.resultsMessage(getMovieResults);
+          this.endChatFunc();
           return;
         }
         await this.ratingsQuestion();
+        if (this.state.endChat === true) {
+          this.endChatFunc();
+          return;
+        }
         this.resultsMessage(getMovieResults);
       } else {
         this.botui.message.bot({
@@ -74,6 +78,15 @@ class ChatWindow extends React.Component {
         });
       }
     });
+  }
+
+  async endChatFunc() {
+    const { getMovieResults, toggleChat, resetMovieResults } = this.props;
+    await resetMovieResults();
+    await this.resultsMessage(getMovieResults);
+    await setTimeout(function() {
+      toggleChat();
+    }, 2000);
   }
 
   /**
@@ -382,6 +395,7 @@ class ChatWindow extends React.Component {
           await this.imdbQuestion();
         }
         if (ratingsRes.value === 'dont-care') {
+          this.setState({ endChat: true });
           this.setState(prevState => ({
             dataObj: {
               ...prevState.dataObj,
@@ -470,14 +484,16 @@ class ChatWindow extends React.Component {
         content: 'Getting results now!',
         delay: this.delays.response,
       })
-      .then(getMovieResults(dataObj));
+      .then(() => {
+        getMovieResults(dataObj);
+      });
   };
 
   render() {
     return (
       <div className="chat-window">
-        {/* eslint-disable-next-line no-return-assign */}        
-        <Botui ref={cmp => (this.botui = cmp)} />   
+        {/* eslint-disable-next-line no-return-assign */}
+        <Botui ref={cmp => (this.botui = cmp)} />
       </div>
     );
   }

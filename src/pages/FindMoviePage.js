@@ -43,7 +43,7 @@ class FindMoviePage extends React.Component {
         )}
         {!talkedToLloyd ? (
           <h1>
-            Talk to our chatbot Lloyd to find movie recommendations!{' '}
+            Talk to our chatbot Lloyd to find YaMovie recommendations!{' '}
             <span role="img" aria-label="smile">
               😊
             </span>
@@ -61,7 +61,7 @@ class FindMoviePage extends React.Component {
             </h1>
             <br />
             <h3>
-              Ask him again with different criteria so he can find ya movie{' '}
+              Ask him again with different criteria so he can find YaMovie{' '}
               <span role="img" aria-label="movie">
                 🎦
               </span>
