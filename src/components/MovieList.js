@@ -3,7 +3,7 @@ import axios from 'axios';
 import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
-const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
+const serverLink = 'https://yamovie-server.herokuapp.com/api';
 
 class MovieList extends Component {
   /**

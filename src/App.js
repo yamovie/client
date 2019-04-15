@@ -58,7 +58,7 @@ class App extends Component {
     const { history } = this.props;
     axios
       .post(
-        'https://yamovie-server-staging.herokuapp.com/api/movies/recommend',
+        'https://yamovie-server.herokuapp.com/api/movies/recommend',
         dataObj,
       )
       .then(response => {
@@ -73,7 +73,7 @@ class App extends Component {
 
   getGenreData = () => {
     axios
-      .get('https://yamovie-server-staging.herokuapp.com/api/genres')
+      .get('https://yamovie-server.herokuapp.com/api/genres')
       .then(response => {
         const genreArray = response.data;
         const idObject = {};
