@@ -23,8 +23,21 @@ export default class SearchBar extends Component {
 
     this.state = {
       hover: false,
+      intervalId: 0,
     }
   }
+
+  // scrollStep= () => {
+  //   if (window.pageYOffset === 0) {
+  //     clearInterval(this.state.intervalId);
+  //   }
+  //   window.scroll(0, window.pageYOffset - this.props.scrollStepInPx);
+  // }
+  
+  // scrollToTop = () => {
+  //   const intervalId = setInterval(this.scrollStep.bind(this), this.props.delayInMs);
+  //   this.setState({ intervalId });
+  // }
 
   toggleHover = () => {
     const { hover } = this.state;
@@ -55,6 +68,7 @@ export default class SearchBar extends Component {
     return (
       <div id="mega-search-genres">
         <form id="browse-search" onSubmit={onSubmit}>
+          {/* <form id="browse-search" onSubmit={() => { onSubmit(); this.scrollToTop();}}> */}
           <input
             type="text"
             value={searchInputValue}
