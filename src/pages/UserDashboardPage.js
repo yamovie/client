@@ -19,7 +19,10 @@ class userDashboardPage extends Component {
           <AccountNav />
           
           <Route exact path={`${match.url}`} render={({ props }) =>  <UserPreferences {...props} user={user} />} />
-          <Route path={`${match.url}/:watchlist`} component={Watchlist} />
+          {/* 
+          TO DO: implement watchlist
+           */}
+          {/* <Route path={`${match.url}/:watchlist`} component={Watchlist} /> */}
         </div>
       </div>
 

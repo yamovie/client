@@ -87,7 +87,7 @@ class UserPreferences extends React.Component {
     if (!genres.length) {
       axios
         .get('https://yamovie-server.herokuapp.com/api/genres')
-        .then(response => this.setState({ genres: response.data }));
+        .then(response => this.setState({ genres: response.data, pageIsLoading: false }));
     }
     
     if (pageIsLoading) {

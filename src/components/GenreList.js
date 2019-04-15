@@ -1,10 +1,9 @@
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/GenreList.css';
 import axios from 'axios';
 
-class GenreList extends Component {
+class GenreList extends React.Component {
   static propTypes = {
     genres: PropTypes.arrayOf(PropTypes.object).isRequired,
     moviesByGenreKey: PropTypes.func.isRequired,
@@ -119,5 +118,17 @@ class GenreList extends Component {
     
   }
 }
+
+GenreList.propTypes = {
+  genres: PropTypes.arrayOf(PropTypes.object).isRequired,
+  moviesByGenreId: PropTypes.func.isRequired,
+  style: PropTypes.shape({
+    display: PropTypes.string,
+  }),
+};
+
+GenreList.defaultProps = {
+  style: 'style',
+};
 
 export default GenreList;

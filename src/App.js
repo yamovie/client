@@ -2,16 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import queryString from 'query-string';
-import HomePage from './pages/HomePage';
-import BrowsePage from './pages/BrowsePage';
-import AboutPage from './pages/AboutPage';
-import NotFoundPage from './pages/NotFoundPage';
-import ChatWindow from './components/ChatWindow';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
+import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
-import LloydChat from './components/LloydChat';
-import Navbar from './components/Navbar';
 import './css/main.css';
 import UserDashboardPage from './pages/UserDashboardPage';
 // import Watchlist from './components/Watchlist';
@@ -34,8 +27,6 @@ class App extends Component {
    */
   componentWillMount() {
     const { location, history } = this.props;
-    // console.log(history);
-    // console.log(location);
     const query = queryString.parse(location.search);
     if (query.token) {
       window.localStorage.setItem('token', query.token);
@@ -76,6 +67,7 @@ class App extends Component {
           <Route path="/browse" component={BrowsePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/chat" component={ChatWindow} />
+          <Route path="/recommendations" component={FindMoviePage} />
           <Route
             path="/login"
             render={props => <Login {...props} handleLogin={this.handleLogin} />}
@@ -87,7 +79,6 @@ class App extends Component {
           <Route path="/account" render={({ match, props }) => <UserDashboardPage {...props} match={match} user={user} />} />
           <Route component={NotFoundPage} />
         </Switch>
-        <LloydChat />
       </div>
     );
   }

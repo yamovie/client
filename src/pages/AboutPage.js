@@ -55,13 +55,6 @@ const AboutPage = () => (
         </div>
       </div>
     </div>
-    {/* <div className="lloyd-image">
-          <img src={`/images/Lloyd.png`} />
-        </div>
-        <div className="lloyd">
-          <h2>Lloyd</h2>
-          <p>Chatbot, AI Assistant, the Mastermind Behind YaMovie.</p>
-        </div> */}
     <div className="avatar-section">
       <h2 className="avatar-header">Meet The Team</h2>
       <div className="avatar-list">
@@ -80,8 +73,8 @@ const AboutPage = () => (
             <img src="/images/sam.png" alt="Sam Saks-Fithian" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Sam</h3>
-          <h5 className="avatar-role">Software Engineer</h5>
-          <p className="avatar-movie">Favorite Movie: Black Panther </p>
+          <h5 className="avatar-role">GitHub Manager / Software Engineer</h5>
+          <p className="avatar-movie">Favorite Movies: MCU</p>
           <p className="avatar-show">Favorite Show: The Good Place</p>
           <p className="avatar-genre"> Favorite Genre: Action Comedy</p>
         </div>
@@ -90,7 +83,7 @@ const AboutPage = () => (
             <img src="/images/kevin.png" alt="Kevin Baktiar" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Kevin</h3>
-          <h5 className="avatar-role">Software Engineer</h5>
+          <h5 className="avatar-role">Designer / Software Engineer</h5>
           <p className="avatar-movie">Favorite Movie: The Matrix</p>
           <p className="avatar-show">Favorite Show: New Girl</p>
           <p className="avatar-genre"> Favorite Genre: Sci-Fi</p>
@@ -100,7 +93,7 @@ const AboutPage = () => (
             <img src="/images/hans.png" alt="Hans Hanken" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Hans</h3>
-          <h5 className="avatar-role">Software Engineer</h5>
+          <h5 className="avatar-role">Flex / Software Engineer</h5>
           <p className="avatar-movie">Favorite Movies: The Lord of the Rings</p>
           <p className="avatar-show">Favorite Show: Brooklyn Nine Nine</p>
           <p className="avatar-genre"> Favorite Genre: Adventure</p>
@@ -110,7 +103,7 @@ const AboutPage = () => (
             <img src="/images/will.png" alt="Will Dale" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Will</h3>
-          <h5 className="avatar-role">Software Engineer</h5>
+          <h5 className="avatar-role">&lsquo;HR&rsquo; / Software Engineer</h5>
           <p className="avatar-movie">Favorite Movie: The Producers</p>
           <p className="avatar-show">Favorite Show: The Wire</p>
           <p className="avatar-genre"> Favorite Genre: Historical Drama</p>
@@ -124,7 +117,7 @@ const AboutPage = () => (
             />
           </div>
           <h3 className="avatar-name">Glen</h3>
-          <h5 className="avatar-role">Back-End / Software Engineer</h5>
+          <h5 className="avatar-role">Back-End Lead / Software Engineer</h5>
           <p className="avatar-movie">
             Favorite Movie: Spider-Man: Into the Spider-Verse
           </p>

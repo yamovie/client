@@ -1,18 +1,19 @@
 .account-wrapper {
   display: flex;
-  height: 100vh;
+  justify-content: space-between;
 }
 
 .account-page {
-  padding: 15px;
+  padding: 20px;
+  width: 85%;
 }
 
 .account-nav {
   display: flex;
   justify-content: center;
   background: var(--offwhite);
-  height: 100%;
-  padding: 0 50px;
+  padding: 0 25px;  
+  width: 15%;
 }
 
 .account-nav ul {

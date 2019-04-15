@@ -124,6 +124,7 @@
 
 .about-page .avatar-container {
   margin-top: 40px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,6 +151,8 @@
 
 .about-page .avatar-name {
   color: var(--offwhite);
+  text-shadow: 1px 1px 1px var(--darkgrey);
+  text-decoration: underline;
   text-align: center;
   margin: 14px 0px 0px 0px;
 }

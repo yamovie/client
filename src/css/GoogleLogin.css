@@ -1,0 +1,21 @@
+.google-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 300px;
+  margin: 25px auto;
+  border-radius: 15px;
+  text-decoration: none;
+}
+
+.svgIcon {
+  height: 30px;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 650px) {
+  .google-link {
+    width: 200px;
+  }
+}
