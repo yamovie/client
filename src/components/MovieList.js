@@ -13,7 +13,6 @@ class MovieList extends Component {
     super();
     this.state = {
       movies: [],
-      // showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
       searchInputValue: '',
@@ -72,19 +71,6 @@ class MovieList extends Component {
       );
     }
   };
-
-  // ==================== Updates movies on repeated searches ===============
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.results !== state.results) {
-  //     return { movies: props.results };
-  //   } else return null;
-  // }
-
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   if (this.props.results !== prevProps.results) {
-  //     this.setState({ movies: this.getDerivedStateFromProps });
-  //   }
-  // };
 
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
@@ -163,14 +149,18 @@ class MovieList extends Component {
             showGenreFilter={showGenreFilter}
           />
         )}
-        <SearchBar
-          onSubmit={this.handleSubmit}
-          onChange={this.handleChange}
-          genres={genres}
-          searchInputValue={searchInputValue}
-          handleSendGenre={this.handleSendGenre}
-          showGenreFilter={showGenreFilter}
-        />
+        {showGenreFilter ? (
+          <SearchBar
+            onSubmit={this.handleSubmit}
+            onChange={this.handleChange}
+            genres={genres}
+            searchInputValue={searchInputValue}
+            handleSendGenre={this.handleSendGenre}
+            showGenreFilter={showGenreFilter}
+          />
+        ) : (
+          ''
+        )}
         <div
           id="yamovie-movie-list"
           className="container"
