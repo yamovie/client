@@ -168,7 +168,6 @@ class MovieList extends Component {
   render() {
     const {
       movies,
-      // showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue,
@@ -211,20 +210,36 @@ class MovieList extends Component {
             opacity: isModalVisible ? 0.08 : '',
           }}
         >
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadMoreMovies}
-            hasMore={true || false}
-            loader={
-              <div className="loader" key={0}>
-                <img
-                  style={{ height: 200 }}
-                  src="./images/popcorn-loading.gif"
-                  alt="Loading ..."
-                />
+          {showGenreFilter ? (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadMoreMovies}
+              hasMore={true || false}
+              loader={
+                <div className="loader" key={0}>
+                  <img
+                    style={{ height: 200 }}
+                    src="./images/popcorn-loading.gif"
+                    alt="Loading ..."
+                  />
+                </div>
+              }
+            >
+              <div id="list-all-movies">
+                {imagesForAllMovies.map((moviePosters, i) => (
+                  <div id="yamovie-movie-item" key={movies[i].title}>
+                    {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                    <img
+                      src={moviePosters[0]}
+                      alt={movies[i].title}
+                      className="img-fluid"
+                      onClick={() => this.toggleModal(movies[i]._id)}
+                    />
+                  </div>
+                ))}
               </div>
-            }
-          >
+            </InfiniteScroll>
+          ) : (
             <div id="list-all-movies">
               {imagesForAllMovies.map((moviePosters, i) => (
                 <div id="yamovie-movie-item" key={movies[i].title}>
@@ -238,7 +253,7 @@ class MovieList extends Component {
                 </div>
               ))}
             </div>
-          </InfiniteScroll>
+          )}
         </div>
       </div>
     );
