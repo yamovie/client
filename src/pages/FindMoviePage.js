@@ -53,7 +53,7 @@ class FindMoviePage extends React.Component {
           ''
         )}
         {!talkedToLloyd ? (
-          <h1>
+          <h1 className="findMovieh1">
             Talk to our chatbot Lloyd to find YaMovie recommendations!
             <span role="img" aria-label="smile">
               😊
@@ -64,14 +64,14 @@ class FindMoviePage extends React.Component {
         )}
         {results.length === 0 ? (
           <div>
-            <h1>
+            <h1 className="findMovieh1">
               Lloyd could not find anything that matched your preferences.
               <span role="img" aria-label="sad">
                 😞
               </span>
             </h1>
             <br />
-            <h3>
+            <h3 className="findMovieh3">
               Ask him again with different criteria so he can find YaMovie
               <span role="img" aria-label="movie">
                 🎦

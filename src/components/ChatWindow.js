@@ -482,7 +482,7 @@ class ChatWindow extends React.Component {
       .bot({
         loading: true,
         content: 'Getting results now!',
-        delay: this.delays.response,
+        delay: 5000,
       })
       .then(() => {
         getMovieResults(dataObj);
