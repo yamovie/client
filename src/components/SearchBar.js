@@ -23,6 +23,7 @@ export default class SearchBar extends Component {
 
     this.state = {
       hover: false,
+      intervalId: 0,
     }
   }
 
