@@ -11,14 +11,19 @@ class GenreList extends React.Component {
     style: PropTypes.shape({
       display: PropTypes.string,
     }),
-    selectedGenres: [],
-
+    showCertifications: PropTypes.bool,
+    selectedGenres: PropTypes.arrayOf(PropTypes.string),
+    selectedCertifications: PropTypes.arrayOf(PropTypes.string),
+    handleFormChange: PropTypes.func
   };
 
   static defaultProps = {
     style: 'style',
     checkboxesVisible: false,
     selectedGenres: [],
+    selectedCertifications: [],
+    showCertifications: false,
+    handleFormChange: null,
   };
 
   constructor(props) {
@@ -29,7 +34,8 @@ class GenreList extends React.Component {
   }
 
   handlePreferencesChange(e, reset) {
-    this.props.handleFormChange(e, reset);
+    const { handleFormChange } = this.props;
+    handleFormChange(e, reset);
   }
 
   // =================== Unticks all checked genreboxes ==============
@@ -49,11 +55,10 @@ class GenreList extends React.Component {
       style,
       checkboxesVisible,
       showCertifications,
-      handlePreferencesChange,
       selectedGenres,
       selectedCertifications,
     } = this.props;
-    const certifications = ['PG', 'PG-13', 'R', 'G', 'NC-17'];
+    const certifications = ['G', 'PG', 'PG-13', 'R', 'NC-17' ];
 
     if (showCertifications) {
       return (
@@ -61,7 +66,7 @@ class GenreList extends React.Component {
           <form onSubmit={this.handleSelectionReset} id='certificationsForm'>
             <div id="list-genres">
               {certifications.map((certification, i) => (
-                <label className="single-genre checkmark-container" key={i}>
+                <label className="single-genre checkmark-container" key={i} htmlFor="certification">
                   <input type="checkbox" name="certification" defaultChecked={selectedCertifications.includes(certification)} value={certification} onChange={this.handlePreferencesChange} />
                   <span className="checkmark" />
                   <span className="single-genre">{certification}</span>
@@ -79,7 +84,7 @@ class GenreList extends React.Component {
           <form onSubmit={this.handleSelectionReset} id='genrePreferencesForm'>
             <div id="list-genres">
               {genres.map(genre => (
-                <label className="single-genre checkmark-container" key={genre._id}>
+                <label className="single-genre checkmark-container" key={genre._id} htmlFor="genre">
                   <input type="checkbox" name="genre" value={genre._id} defaultChecked={selectedGenres.includes(genre._id)} onChange={this.handlePreferencesChange} />
                   <span className="checkmark" />
                   <span className="single-genre">{genre.name}</span>
@@ -110,7 +115,6 @@ class GenreList extends React.Component {
           >
             {genre.name}
           </button>
-          
         ))}
       </div>
     );
@@ -118,17 +122,5 @@ class GenreList extends React.Component {
     
   }
 }
-
-GenreList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.object).isRequired,
-  moviesByGenreId: PropTypes.func.isRequired,
-  style: PropTypes.shape({
-    display: PropTypes.string,
-  }),
-};
-
-GenreList.defaultProps = {
-  style: 'style',
-};
 
 export default GenreList;

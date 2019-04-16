@@ -5,7 +5,7 @@ const AccountNav = () => (
   <aside className="account-nav">
     <ul>
       <li>
-        <NavLink to="/account/">Movie Preferences</NavLink>
+        <NavLink to="/account/">Preferences</NavLink>
       </li>
       {/* <li>
         <NavLink to="/account/watchlist">Watchlist</NavLink>
