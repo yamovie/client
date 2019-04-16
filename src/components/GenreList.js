@@ -30,11 +30,15 @@ class GenreList extends React.Component {
     const { activeButton } = this.state;
     return (
       <div id="list-genres" style={style}>
+<<<<<<< HEAD
         <button
           className="single-genre"
           type="button"
           onClick={() => moviesByGenreId('all')}
         >
+=======
+        <button className="single-genre" type="button" onClick={() => moviesByGenreId('all')}>
+>>>>>>> 080f7586533e6a3bded2d6568aeaee77c387899b
           All
         </button>
         {genres.map(genre => (
@@ -42,6 +46,7 @@ class GenreList extends React.Component {
             className="single-genre"
             type="button"
             key={genre.name}
+<<<<<<< HEAD
             style={
               activeButton === genre.name
                 ? { backgroundColor: '#88388c' }
@@ -51,6 +56,10 @@ class GenreList extends React.Component {
               moviesByGenreId(genre._id);
               this.handleActiveButton(genre.name);
             }}
+=======
+            style={activeButton === genre.name ? { backgroundColor: '#88388c' } : { backgroundColor: 'rgba(226, 217, 217, 0.0)'} }
+            onClick={() => { moviesByGenreId(genre._id); this.handleActiveButton(genre.name); } }
+>>>>>>> 080f7586533e6a3bded2d6568aeaee77c387899b
           >
             {genre.name}
           </button>
@@ -59,6 +68,10 @@ class GenreList extends React.Component {
     );
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 080f7586533e6a3bded2d6568aeaee77c387899b
 
 GenreList.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.object).isRequired,

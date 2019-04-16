@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import {
   HomePage,
@@ -31,6 +31,7 @@ class App extends Component {
       results: [{}],
       talkedToLloyd: false,
       user: null,
+      isAuthenticated: false,
     };
   }
 
@@ -53,7 +54,7 @@ class App extends Component {
     this.getGenreData();
     const user = userServices.getUser();
     if (user) {
-      this.setState({ user });
+      this.setState({ isAuthenticated: true, user });
     }
   }
 
@@ -97,7 +98,7 @@ class App extends Component {
 
   handleLogout = () => {
     userServices.logout();
-    this.setState({ user: null });
+    this.setState({ isAuthenticated: false, user: null });
   };
 
   handleLogin = () => {
@@ -109,8 +110,9 @@ class App extends Component {
   };
 
   render() {
-    const { user, genreIds, results, talkedToLloyd } = this.state;
+    const { user, genreIds, results, talkedToLloyd, isAuthenticated } = this.state;
     const { history } = this.props;
+    
     return (
       <div className="App">
         <Navbar user={user} handleLogout={this.handleLogout} />
@@ -146,7 +148,9 @@ class App extends Component {
               <Signup {...props} handleSignup={this.handleSignup} />
             )}
           />
-          <Route path="/account" render={({ match, props }) => <UserDashboardPage {...props} match={match} user={user} />} />
+          <Route path="/account" render={({ match, props }) => isAuthenticated ? (<UserDashboardPage {...props} match={match} user={user} />) : (
+            <Redirect to="/login"/>
+          )} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>
