@@ -1,10 +1,14 @@
 h1 {
   color: var(--offwhite);
   margin-top: 25%;
+  padding-right: 15%;
+  padding-left: 15%;
   text-align: center;
 }
 
 h3 {
   color: var(--offwhite);
+  padding-right: 15%;
+  padding-left: 15%;
   text-align: center;
 }
