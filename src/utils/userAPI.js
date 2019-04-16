@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://yamovie-server.herokuapp.com/users/';
+const BASE_URL = `${process.env.REACT_APP_BASE_URL}users/`;
 /**
  * Axios call to database to signup user
  * @param {Object} user

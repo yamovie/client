@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
 import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
+import UserDashboardPage from './pages/UserDashboardPage';
+
+require('dotenv').config();
+// import Watchlist from './components/Watchlist';
 
 class App extends Component {
   static propTypes = {
@@ -17,6 +21,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: null,
+      isAuthenticated: false,
     };
   }
 
@@ -38,13 +43,13 @@ class App extends Component {
   componentDidMount() {
     const user = userServices.getUser();
     if (user) {
-      this.setState({ user });
+      this.setState({ isAuthenticated: true, user });
     }
   }
 
   handleLogout = () => {
     userServices.logout();
-    this.setState({ user: null });
+    this.setState({ isAuthenticated: false, user: null });
   };
 
   handleLogin = () => {
@@ -56,7 +61,7 @@ class App extends Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { user, isAuthenticated } = this.state;
     return (
       <div className="App">
         <Navbar user={user} handleLogout={this.handleLogout} />
@@ -74,6 +79,9 @@ class App extends Component {
             path="/signup"
             render={props => <Signup {...props} handleSignup={this.handleSignup} />}
           />
+          <Route path="/account" render={({ match, props }) => isAuthenticated ? (<UserDashboardPage {...props} match={match} user={user} />) : (
+            <Redirect to="/login"/>
+          )} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>
