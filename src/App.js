@@ -128,7 +128,6 @@ class App extends Component {
               />
             )}
           />
-          <Route component={NotFoundPage} />
           <Route
             path="/login"
             render={props => (

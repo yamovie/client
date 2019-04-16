@@ -86,7 +86,7 @@ class ChatWindow extends React.Component {
     await this.resultsMessage(getMovieResults);
     await setTimeout(function() {
       toggleChat();
-    }, 2000);
+    }, 6000);
   }
 
   /**

@@ -1,12 +1,10 @@
-body {
-  color: var(--offwhite);
-}
-
 h1 {
+  color: var(--offwhite);
   margin-top: 25%;
   text-align: center;
 }
 
 h3 {
+  color: var(--offwhite);
   text-align: center;
 }
