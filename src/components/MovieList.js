@@ -19,6 +19,8 @@ class MovieList extends Component {
       selectedMovie: {},
       searchInputValue: '',
       genres: [],
+      currentGenreFilter: 'all',
+      currentSearchQuery: '',
       page: 1,
       hasNextPage: true,
     };
@@ -77,7 +79,10 @@ class MovieList extends Component {
   handleSendGenre = genreKey => {
     this.getMovies(genreKey).then(response =>
       this.setState({ movies: response.data.results }),
+    this.setState({ page: 1 }),
+    this.setState({ currentGenreFilter: genreKey }),
     );
+    window.scrollTo(0, 0);
   };
 
   // ==================== Toggle Modal Click ===============================
@@ -96,14 +101,14 @@ class MovieList extends Component {
 
   // ==================== Handles Search Bar Input Change ==================
   handleChange = event => {
-    this.setState({ searchInputValue: event.target.value });
+    this.setState({ searchInputValue: event.target.value});
   };
 
   // ==================== Handles Search Bar Input Submit ==================
   // TODO: Factor this out into API call utils
   handleSubmit = event => {
     const { searchInputValue } = this.state;
-    console.log({searchInputValue});
+    window.scrollTo(0, 0);
     event.preventDefault();
     axios
       .get('https://yamovie-server.herokuapp.com/api/movies/search', {
@@ -114,36 +119,31 @@ class MovieList extends Component {
       .then(response =>
         this.setState({
           movies: response.data.results,
+          page: 1,
           searchInputValue: '',
         }),
       );
   };
 
-  // =================== Handles Scroll activiation for more movies =========
-  // scrollHandler = () => {
-  //   window.onscroll = () => {
-  //     const list = document.documentElement;
-  //     const pageHeight = window.innerHeight + list.scrollTop;
-  //     const listHeight = list.offsetHeight;
-  //     const scrollOffsetHeight = 300;
-
-  //     if (pageHeight >= listHeight - scrollOffsetHeight) {
-  //       this.loadMoreMovies();
-  //     }
-  //   }
-  // }
-
   // ================== Function to load more movies on scroll ===============
   loadMoreMovies = async () => {
-    const { hasNextPage, page, movies, loading } = this.state;
+    const { hasNextPage, page, movies, loading, currentGenreFilter } = this.state;
     if (hasNextPage && !loading) {
-      const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
-      this.setState({
-        // movies: [...movies, ...res.data.results],
-        movies: movies.concat(res.data.results),
-        page: res.data.page + 1,
-        hasNextPage: res.data.hasNextPage,
-      });
+      if (currentGenreFilter === 'all') {
+        const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
+        this.setState({
+          movies: movies.concat(res.data.results),
+          page: res.data.page,
+          hasNextPage: res.data.hasNextPage,
+        });
+      } else {
+        const res = await axios.get(`${serverLink}/movies/genre/${currentGenreFilter}/?page=${page + 1}`);
+        this.setState({
+          movies: movies.concat(res.data.results),
+          page: res.data.page,
+          hasNextPage: res.data.hasNextPage,
+        });
+      }
     }
   };
 
