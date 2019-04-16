@@ -89,6 +89,7 @@
   text-align: center;
   margin: 0;
   display: flex;
+  color: var(--darkgrey);
 }
 
 #info-container {

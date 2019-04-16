@@ -14,7 +14,6 @@ class MovieList extends Component {
     super();
     this.state = {
       movies: [],
-      showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
       searchInputValue: '',
@@ -60,7 +59,7 @@ class MovieList extends Component {
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
-    const { showGenreFilter } = this.state;
+    const { showGenreFilter, results } = this.props;
     if (showGenreFilter) {
       axios.all([this.getGenres(), this.getMovies()]).then(
         axios.spread((genreResp, movieResp) => {
@@ -72,15 +71,22 @@ class MovieList extends Component {
           });
         }),
       );
+    } else {
+      this.getGenres().then(genreResp =>
+        this.setState({
+          genres: genreResp.data,
+          movies: results,
+        }),
+      );
     }
   };
 
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
-    this.getMovies(genreKey).then(response =>
-      this.setState({ movies: response.data.results }),
-    this.setState({ page: 1 }),
-    this.setState({ currentGenreFilter: genreKey }),
+    this.getMovies(genreKey).then(
+      response => this.setState({ movies: response.data.results }),
+      this.setState({ page: 1 }),
+      this.setState({ currentGenreFilter: genreKey }),
     );
     window.scrollTo(0, 0);
   };
@@ -92,16 +98,16 @@ class MovieList extends Component {
       this.setState({ isModalVisible: false });
     } else {
       this.getSingleMovie(id)
-        .then(response =>
-          this.setState({ isModalVisible: true, selectedMovie: response.data }),
-        )
+        .then(response => {
+          this.setState({ isModalVisible: true, selectedMovie: response.data });
+        })
         .catch(err => console.error(err));
     }
   };
 
   // ==================== Handles Search Bar Input Change ==================
   handleChange = event => {
-    this.setState({ searchInputValue: event.target.value});
+    this.setState({ searchInputValue: event.target.value });
   };
 
   // ==================== Handles Search Bar Input Submit ==================
@@ -127,7 +133,13 @@ class MovieList extends Component {
 
   // ================== Function to load more movies on scroll ===============
   loadMoreMovies = async () => {
-    const { hasNextPage, page, movies, loading, currentGenreFilter } = this.state;
+    const {
+      hasNextPage,
+      page,
+      movies,
+      loading,
+      currentGenreFilter,
+    } = this.state;
     if (hasNextPage && !loading) {
       if (currentGenreFilter === 'all') {
         const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
@@ -137,7 +149,9 @@ class MovieList extends Component {
           hasNextPage: res.data.hasNextPage,
         });
       } else {
-        const res = await axios.get(`${serverLink}/movies/genre/${currentGenreFilter}/?page=${page + 1}`);
+        const res = await axios.get(
+          `${serverLink}/movies/genre/${currentGenreFilter}/?page=${page + 1}`,
+        );
         this.setState({
           movies: movies.concat(res.data.results),
           page: res.data.page,
@@ -152,15 +166,14 @@ class MovieList extends Component {
    * the genre list, and to display a grid of MovieItems based on breakpoints.
    */
   render() {
-
     const {
       movies,
-      showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue,
       genres,
     } = this.state;
+    const { showGenreFilter } = this.props;
 
     const imagesForAllMovies = movies
       .map(movie => movie.images.posters)
@@ -178,14 +191,18 @@ class MovieList extends Component {
             showGenreFilter={showGenreFilter}
           />
         )}
-        <SearchBar
-          onSubmit={this.handleSubmit}
-          onChange={this.handleChange}
-          genres={genres}
-          searchInputValue={searchInputValue}
-          handleSendGenre={this.handleSendGenre}
-          showGenreFilter={showGenreFilter}
-        />
+        {showGenreFilter ? (
+          <SearchBar
+            onSubmit={this.handleSubmit}
+            onChange={this.handleChange}
+            genres={genres}
+            searchInputValue={searchInputValue}
+            handleSendGenre={this.handleSendGenre}
+            showGenreFilter={showGenreFilter}
+          />
+        ) : (
+          ''
+        )}
         <div
           id="yamovie-movie-list"
           className="container"
@@ -193,12 +210,36 @@ class MovieList extends Component {
             opacity: isModalVisible ? 0.08 : '',
           }}
         >
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadMoreMovies}
-            hasMore={true || false}
-            loader={<div className="loader" key={0}><img style={{ height: 200 }} src="./images/popcorn-loading.gif" alt="Loading ..."/></div>}
-          >
+          {showGenreFilter ? (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadMoreMovies}
+              hasMore={true || false}
+              loader={
+                <div className="loader" key={0}>
+                  <img
+                    style={{ height: 200 }}
+                    src="./images/popcorn-loading.gif"
+                    alt="Loading ..."
+                  />
+                </div>
+              }
+            >
+              <div id="list-all-movies">
+                {imagesForAllMovies.map((moviePosters, i) => (
+                  <div id="yamovie-movie-item" key={movies[i].title}>
+                    {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                    <img
+                      src={moviePosters[0]}
+                      alt={movies[i].title}
+                      className="img-fluid"
+                      onClick={() => this.toggleModal(movies[i]._id)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </InfiniteScroll>
+          ) : (
             <div id="list-all-movies">
               {imagesForAllMovies.map((moviePosters, i) => (
                 <div id="yamovie-movie-item" key={movies[i].title}>
@@ -212,7 +253,7 @@ class MovieList extends Component {
                 </div>
               ))}
             </div>
-          </InfiniteScroll>
+          )}
         </div>
       </div>
     );

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/GenreList.css';
-import axios from 'axios';
 
 // Renders the genre list to the MovieList page. ==================
 class GenreList extends React.Component {
@@ -38,7 +37,6 @@ class GenreList extends React.Component {
   }
 
   handleActiveButton = genreName => {
-    const { active } = this.state;
     if (genreName) {
       this.setState({
         activeButton: genreName,
@@ -115,7 +113,11 @@ class GenreList extends React.Component {
 
     return (
       <div id="list-genres" style={style}>
-        <button className="single-genre" type="button" onClick={() => moviesByGenreId('all')}>
+        <button
+          className="single-genre"
+          type="button"
+          onClick={() => moviesByGenreId('all')}
+        >
           All
         </button>
         {genres.map(genre => (
@@ -123,8 +125,15 @@ class GenreList extends React.Component {
             className="single-genre"
             type="button"
             key={genre.name}
-            style={activeButton === genre.name ? { backgroundColor: '#88388c' } : { backgroundColor: 'rgba(226, 217, 217, 0.0)'} }
-            onClick={() => { moviesByGenreId(genre._id); this.handleActiveButton(genre.name); } }
+            style={
+              activeButton === genre.name
+                ? { backgroundColor: '#88388c' }
+                : { backgroundColor: 'rgba(226, 217, 217, 0.0)' }
+            }
+            onClick={() => {
+              moviesByGenreId(genre._id);
+              this.handleActiveButton(genre.name);
+            }}
           >
             {genre.name}
           </button>
