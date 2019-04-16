@@ -82,6 +82,7 @@ class MovieList extends Component {
     this.setState({ page: 1 }),
     this.setState({ currentGenreFilter: genreKey }),
     );
+    window.scrollTo(0, 0);
   };
 
   // ==================== Toggle Modal Click ===============================
@@ -100,13 +101,14 @@ class MovieList extends Component {
 
   // ==================== Handles Search Bar Input Change ==================
   handleChange = event => {
-    this.setState({ searchInputValue: event.target.value, currentSearchQuery: event.target.value });
+    this.setState({ searchInputValue: event.target.value});
   };
 
   // ==================== Handles Search Bar Input Submit ==================
   // TODO: Factor this out into API call utils
   handleSubmit = event => {
     const { searchInputValue } = this.state;
+    window.scrollTo(0, 0);
     event.preventDefault();
     axios
       .get('https://yamovie-server.herokuapp.com/api/movies/search', {
