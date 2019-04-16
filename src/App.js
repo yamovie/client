@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import queryString from 'query-string';
 import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
-import { ChatWindow, Login, Signup, LloydChat, Navbar } from './components';
+import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
+import UserDashboardPage from './pages/UserDashboardPage';
+
+require('dotenv').config();
+// import Watchlist from './components/Watchlist';
 
 class App extends Component {
   static propTypes = {
@@ -74,9 +78,9 @@ class App extends Component {
             path="/signup"
             render={props => <Signup {...props} handleSignup={this.handleSignup} />}
           />
+          <Route path="/account" render={({ match, props }) => <UserDashboardPage {...props} match={match} user={user} />} />
           <Route component={NotFoundPage} />
         </Switch>
-        <LloydChat />
       </div>
     );
   }
