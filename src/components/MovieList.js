@@ -3,7 +3,8 @@ import axios from 'axios';
 import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
-const serverLink = 'https://yamovie-server.herokuapp.com/api';
+const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
+// const serverLink = 'http://localhost:5000/api';
 
 class MovieList extends Component {
   /**
@@ -73,16 +74,12 @@ class MovieList extends Component {
     );
   };
 
-  toggleModal = id => {
+  toggleModal = selectedMovie => {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
       this.setState({ isModalVisible: false });
     } else {
-      this.getSingleMovie(id)
-        .then(response =>
-          this.setState({ isModalVisible: true, selectedMovie: response.data }),
-        )
-        .catch(err => console.error(err));
+      this.setState({ isModalVisible: true, selectedMovie });
     }
   };
 
@@ -97,10 +94,10 @@ class MovieList extends Component {
   // TODO: Factor this out into API call utils
   handleSubmit = event => {
     const { searchInputValue } = this.state;
-    console.log({searchInputValue});
+    // console.log({ searchInputValue });
     event.preventDefault();
     axios
-      .get('https://yamovie-server.herokuapp.com/api/movies/search', {
+      .get(`${serverLink}/movies/search`, {
         params: {
           title: searchInputValue,
         },
@@ -118,7 +115,6 @@ class MovieList extends Component {
    * the genre list, and to display a grid of MovieItems based on breakpoints.
    */
   render() {
-
     const {
       movies,
       showGenreFilter,
@@ -128,9 +124,15 @@ class MovieList extends Component {
       genres,
     } = this.state;
 
-    const imagesForAllMovies = movies
-      .map(movie => movie.images.posters)
-      .map(poster => poster.map(p => p.poster_url));
+    let imagesForAllMovies = [];
+
+    if (movies[0] && movies[0].jw_url) {
+      imagesForAllMovies = movies.map(movie => movie.images.poster);
+    } else {
+      imagesForAllMovies = movies
+        .map(movie => movie.images.posters)
+        .map(poster => poster.map(p => p.poster_url));
+    }
 
     return (
       <div id="movie-page">
@@ -154,19 +156,19 @@ class MovieList extends Component {
         <div
           id="yamovie-movie-list"
           className="container"
-          style={{
-            opacity: isModalVisible ? 0.08 : '',
-          }}
+          // style={{
+          //   opacity: isModalVisible ? 0.08 : '',
+          // }}
         >
           <div id="list-all-movies">
-            {imagesForAllMovies.map((moviePosters, i) => (
+            {imagesForAllMovies.map((moviePoster, i) => (
               <div id="yamovie-movie-item" key={movies[i].title}>
                 {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
                 <img
-                  src={moviePosters[0]}
+                  src={moviePoster}
                   alt={movies[i].title}
                   className="img-fluid"
-                  onClick={() => this.toggleModal(movies[i]._id)}
+                  onClick={() => this.toggleModal(movies[i])}
                 />
               </div>
             ))}

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes, { object } from 'prop-types'
-import GenreList from "./GenreList";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import GenreList from './GenreList';
 
 import '../css/SearchBar.css';
 
@@ -9,21 +9,27 @@ export default class SearchBar extends Component {
     onSubmit: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     searchInputValue: PropTypes.string,
-    genres: PropTypes.shape(object).isRequired,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        short_name: PropTypes.string,
+        technical_name: PropTypes.string,
+        translation: PropTypes.string,
+      }),
+    ).isRequired,
     showGenreFilter: PropTypes.bool.isRequired,
     handleSendGenre: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     searchInputValue: '',
-  }
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
       hover: false,
-    }
+    };
   }
 
   toggleHover = () => {
@@ -40,7 +46,7 @@ export default class SearchBar extends Component {
       genres,
       searchInputValue,
       showGenreFilter,
-      handleSendGenre
+      handleSendGenre,
     } = this.props;
 
     // On hover function to display genre list through mega menu
@@ -63,7 +69,7 @@ export default class SearchBar extends Component {
           />
         </form>
         <button type="button" id="display-genre-button" onClick={this.toggleHover}>
-              Display Genres
+          Display Genres
         </button>
         {showGenreFilter ? (
           <GenreList
@@ -76,6 +82,6 @@ export default class SearchBar extends Component {
           ' '
         )}
       </div>
-    )
+    );
   }
 }

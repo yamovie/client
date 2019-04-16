@@ -5,17 +5,22 @@ import '../css/GenreList.css';
 // Renders the genre list to the MovieList page. ==================
 const GenreList = ({ moviesByGenreId, style, genres }) => (
   <div id="list-genres" style={style}>
-    <button className="single-genre" type="button" onClick={() => moviesByGenreId('all')}>
+    <button
+      key="all"
+      className="single-genre"
+      type="button"
+      onClick={() => moviesByGenreId('all')}
+    >
       All
     </button>
     {genres.map(genre => (
       <button
         className="single-genre"
         type="button"
-        key={genre.name}
+        key={genre.technical_name}
         onClick={() => moviesByGenreId(genre._id)}
       >
-        {genre.name}
+        {genre.translation}
       </button>
     ))}
   </div>
