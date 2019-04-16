@@ -104,6 +104,8 @@ class Navbar extends React.Component {
               </NavLink>
             </div>
           )}
+          <a onClick={() => this.closeMenu()} target="_blank" rel="noopener noreferrer" href="https://forms.gle/xJoQ54DaX4omm74Z7" ><FontAwesomeIcon icon="comments" /> Feedback</a>
+          <a href="mailto:yamovie.tp@gmail.com?Subject=YaMovie%20Contact" onClick={() => this.closeMenu()} target="_top"><FontAwesomeIcon icon="envelope" /> Send Mail</a>
         </Menu>
       </div>
     );

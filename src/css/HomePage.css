@@ -124,6 +124,11 @@
   padding: 2px;
 }
 
+@media only screen and (max-width: 600px) {
+  #info-container {
+    flex-wrap: wrap;
+  }
+}
 /* a {
   text-decoration: none;
   padding: 5px 10px;

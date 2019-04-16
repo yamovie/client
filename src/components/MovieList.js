@@ -179,6 +179,7 @@ class MovieList extends Component {
       .map(movie => movie.images.posters)
       .map(poster => poster.map(p => p.poster_url));
 
+
     return (
       <div id="movie-page">
         {isModalVisible && (
