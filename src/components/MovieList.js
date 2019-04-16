@@ -83,10 +83,10 @@ class MovieList extends Component {
 
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
-    this.getMovies(genreKey).then(response =>
-      this.setState({ movies: response.data.results }),
-    this.setState({ page: 1 }),
-    this.setState({ currentGenreFilter: genreKey }),
+    this.getMovies(genreKey).then(
+      response => this.setState({ movies: response.data.results }),
+      this.setState({ page: 1 }),
+      this.setState({ currentGenreFilter: genreKey }),
     );
     window.scrollTo(0, 0);
   };
@@ -107,7 +107,7 @@ class MovieList extends Component {
 
   // ==================== Handles Search Bar Input Change ==================
   handleChange = event => {
-    this.setState({ searchInputValue: event.target.value});
+    this.setState({ searchInputValue: event.target.value });
   };
 
   // ==================== Handles Search Bar Input Submit ==================
@@ -133,7 +133,13 @@ class MovieList extends Component {
 
   // ================== Function to load more movies on scroll ===============
   loadMoreMovies = async () => {
-    const { hasNextPage, page, movies, loading, currentGenreFilter } = this.state;
+    const {
+      hasNextPage,
+      page,
+      movies,
+      loading,
+      currentGenreFilter,
+    } = this.state;
     if (hasNextPage && !loading) {
       if (currentGenreFilter === 'all') {
         const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
@@ -143,7 +149,9 @@ class MovieList extends Component {
           hasNextPage: res.data.hasNextPage,
         });
       } else {
-        const res = await axios.get(`${serverLink}/movies/genre/${currentGenreFilter}/?page=${page + 1}`);
+        const res = await axios.get(
+          `${serverLink}/movies/genre/${currentGenreFilter}/?page=${page + 1}`,
+        );
         this.setState({
           movies: movies.concat(res.data.results),
           page: res.data.page,
@@ -206,7 +214,15 @@ class MovieList extends Component {
             pageStart={0}
             loadMore={this.loadMoreMovies}
             hasMore={true || false}
-            loader={<div className="loader" key={0}><img style={{ height: 200 }} src="./images/popcorn-loading.gif" alt="Loading ..."/></div>}
+            loader={
+              <div className="loader" key={0}>
+                <img
+                  style={{ height: 200 }}
+                  src="./images/popcorn-loading.gif"
+                  alt="Loading ..."
+                />
+              </div>
+            }
           >
             <div id="list-all-movies">
               {imagesForAllMovies.map((moviePosters, i) => (
