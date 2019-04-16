@@ -44,6 +44,7 @@ class App extends Component {
     if (query.token) {
       window.localStorage.setItem('token', query.token);
       history.push('/');
+      this.setState({ isAuthenticated: true });
     }
   }
 
