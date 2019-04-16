@@ -211,7 +211,7 @@ class UserPreferences extends React.Component {
         <form className="preferences-form">
           <div>
             <h1 className="account-title">Preferences</h1>
-            <h3 className="account-sub-title">Streaming subscriptions (Enable the once you have)</h3>
+            <h3 className="account-sub-title">Streaming subscriptions (Enable the ones you have)</h3>
             <div className="form-control">
               <ToggleSwitch labelName="Hulu" handleChange={this.handlePreferencesChange} selectedValue={hulu} name="hulu" />
             </div>
