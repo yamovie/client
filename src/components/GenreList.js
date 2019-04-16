@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import '../css/GenreList.css';
 import axios from 'axios';
 
+// Renders the genre list to the MovieList page. ==================
 class GenreList extends React.Component {
   static propTypes = {
     genres: PropTypes.arrayOf(PropTypes.object).isRequired,
-    moviesByGenreKey: PropTypes.func.isRequired,
+    moviesByGenreId: PropTypes.func.isRequired,
     checkboxesVisible: PropTypes.bool,
     style: PropTypes.shape({
       display: PropTypes.string,
@@ -28,9 +29,25 @@ class GenreList extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      activeButton: '',
+    }
 
     this.handleSelectionReset = this.handleSelectionReset.bind(this);
     this.handlePreferencesChange = this.handlePreferencesChange.bind(this);
+  }
+
+  handleActiveButton = genreName => {
+    const { active } = this.state;
+    if (genreName) {
+      this.setState({
+        activeButton: genreName,
+      });
+    } else {
+      this.setState({
+        activeButton: '',
+      });
+    }
   }
 
   handlePreferencesChange(e, reset) {
@@ -45,12 +62,10 @@ class GenreList extends React.Component {
     e.target.reset();
     this.handlePreferencesChange(e, true);
   }
-
-  // ================== Renders the genre list ==================
-
+  
   render() {
     const {
-      moviesByGenreKey,
+      moviesByGenreId,
       genres,
       style,
       checkboxesVisible,
@@ -58,6 +73,7 @@ class GenreList extends React.Component {
       selectedGenres,
       selectedCertifications,
     } = this.props;
+    const { activeButton } = this.state;
     const certifications = ['G', 'PG', 'PG-13', 'R', 'NC-17' ];
 
     if (showCertifications) {
@@ -66,7 +82,7 @@ class GenreList extends React.Component {
           <form onSubmit={this.handleSelectionReset} id='certificationsForm'>
             <div id="list-genres">
               {certifications.map((certification, i) => (
-                <label className="single-genre checkmark-container" key={i} htmlFor="certification">
+                <label className="single-genre checkmark-container" key={i}>
                   <input type="checkbox" name="certification" defaultChecked={selectedCertifications.includes(certification)} value={certification} onChange={this.handlePreferencesChange} />
                   <span className="checkmark" />
                   <span className="single-genre">{certification}</span>
@@ -84,7 +100,7 @@ class GenreList extends React.Component {
           <form onSubmit={this.handleSelectionReset} id='genrePreferencesForm'>
             <div id="list-genres">
               {genres.map(genre => (
-                <label className="single-genre checkmark-container" key={genre._id} htmlFor="genre">
+                <label className="single-genre checkmark-container" key={genre._id}>
                   <input type="checkbox" name="genre" value={genre._id} defaultChecked={selectedGenres.includes(genre._id)} onChange={this.handlePreferencesChange} />
                   <span className="checkmark" />
                   <span className="single-genre">{genre.name}</span>
@@ -99,11 +115,7 @@ class GenreList extends React.Component {
 
     return (
       <div id="list-genres" style={style}>
-        <button
-          className="single-genre"
-          type="button"
-          onClick={() => moviesByGenreKey('all')}
-        >
+        <button className="single-genre" type="button" onClick={() => moviesByGenreId('all')}>
           All
         </button>
         {genres.map(genre => (
@@ -111,15 +123,14 @@ class GenreList extends React.Component {
             className="single-genre"
             type="button"
             key={genre.name}
-            onClick={() => moviesByGenreKey(genre._id)}
+            style={activeButton === genre.name ? { backgroundColor: '#88388c' } : { backgroundColor: 'rgba(226, 217, 217, 0.0)'} }
+            onClick={() => { moviesByGenreId(genre._id); this.handleActiveButton(genre.name); } }
           >
             {genre.name}
           </button>
         ))}
       </div>
     );
-
-    
   }
 }
 
