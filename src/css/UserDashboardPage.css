@@ -136,6 +136,10 @@
   border: none;
   margin: 0;
   margin-top: 10px;
+  background-color: var(--purple);
+  border-radius: 15px;
+  color: white;
+  font-size: 20px;
 }
 
 

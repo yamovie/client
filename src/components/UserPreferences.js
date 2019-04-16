@@ -226,7 +226,7 @@ class UserPreferences extends React.Component {
               <YearDropdown name="maxYear" selectedMaxYear={release.maxYear} handlePreferencesChange={this.handlePreferencesChange} />
             </div>
             <div className="form-control">
-              <h3 className="account-sub-title">Filter movies by the genres you like (Leave blank for all genres)</h3>
+              <h3 className="account-sub-title">Filter movies by genres you like (Leave blank for all genres)</h3>
               <GenreList checkboxesVisible genres={genres} handleFormChange={this.handlePreferencesChange} selectedGenres={selectedGenres}  />
             </div>
             <div className="form-control">
