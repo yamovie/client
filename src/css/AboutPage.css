@@ -71,6 +71,7 @@
 .about-page .info p {
   letter-spacing: 1px;
   line-height: 1.5;
+  color: var(--darkgrey);
 }
 
 .about-page .info {
@@ -140,8 +141,8 @@
   border-radius: 100%;
   height: 160px;
   width: 160px;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin-right: 7px;
+  margin-left: 7px;
 }
 
 .about-page .avatar-image {

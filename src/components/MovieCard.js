@@ -119,7 +119,9 @@ class MovieCard extends Component {
       return <div>Loading...</div>;
     }
 
-    const directorList = credits.crew.filter(member => member.job === 'Director');
+    const directorList = credits.crew.filter(
+      member => member.job === 'Director',
+    );
     const directors =
       directorList.length <= 0
         ? ', No Director'
@@ -142,7 +144,11 @@ class MovieCard extends Component {
             &times;
           </button>
           <div className="heading">
-            {poster ? <img className="poster" alt={title} src={poster.poster_url} /> : ''}
+            {poster ? (
+              <img className="poster" alt={title} src={poster.poster_url} />
+            ) : (
+              ''
+            )}
             <h1>{title}</h1>
             <div id="line2">
               <h4>{`${release}${directors}`}</h4>
@@ -222,7 +228,10 @@ const RatingsView = ({ ratings }) => {
       {ratings.imdb ? (
         <li>
           <a href={ratings.imdb.url} target="_blank" rel="noopener noreferrer">
-            <img src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`} alt="IMDb" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`}
+              alt="IMDb"
+            />
             {ratings.imdb.rate}
           </a>
         </li>

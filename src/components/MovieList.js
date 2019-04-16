@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { MovieCard, GenreList } from '.';
+import InfiniteScroll from 'react-infinite-scroller';
+import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
 const serverLink = 'https://yamovie-server.herokuapp.com/api';
@@ -13,14 +14,17 @@ class MovieList extends Component {
     super();
     this.state = {
       movies: [],
-      // filteredGenre: null,
-      showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
-      hover: false,
       searchInputValue: '',
       genres: [],
+      currentGenreFilter: 'all',
+      currentSearchQuery: '',
+      page: 1,
+      hasNextPage: true,
     };
+
+    // window.addEventListener('scroll', event => this.scrollHandler(event));
   }
 
   // ===================== Extracts Get Requests ============================
@@ -55,14 +59,23 @@ class MovieList extends Component {
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
-    const { showGenreFilter } = this.state;
+    const { showGenreFilter, results } = this.props;
     if (showGenreFilter) {
       axios.all([this.getGenres(), this.getMovies()]).then(
         axios.spread((genreResp, movieResp) => {
           this.setState({
             genres: genreResp.data,
             movies: movieResp.data.results,
+            page: movieResp.data.page,
+            hasNextPage: movieResp.data.hasNextPage,
           });
+        }),
+      );
+    } else {
+      this.getGenres().then(genreResp =>
+        this.setState({
+          genres: genreResp.data,
+          movies: results,
         }),
       );
     }
@@ -70,48 +83,82 @@ class MovieList extends Component {
 
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
-    this.getMovies(genreKey).then(response =>
-      this.setState({ movies: response.data.results }),
+    this.getMovies(genreKey).then(
+      response => this.setState({ movies: response.data.results }),
+      this.setState({ page: 1 }),
+      this.setState({ currentGenreFilter: genreKey }),
     );
+    window.scrollTo(0, 0);
   };
 
+  // ==================== Toggle Modal Click ===============================
   toggleModal = id => {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
       this.setState({ isModalVisible: false });
     } else {
       this.getSingleMovie(id)
-        .then(response =>
-          this.setState({ isModalVisible: true, selectedMovie: response.data }),
-        )
+        .then(response => {
+          this.setState({ isModalVisible: true, selectedMovie: response.data });
+        })
         .catch(err => console.error(err));
     }
   };
 
-  toggleHover = () => {
-    this.setState(prevState => ({ hover: !prevState.hover }));
-  };
-
+  // ==================== Handles Search Bar Input Change ==================
   handleChange = event => {
     this.setState({ searchInputValue: event.target.value });
   };
 
+  // ==================== Handles Search Bar Input Submit ==================
   // TODO: Factor this out into API call utils
   handleSubmit = event => {
     const { searchInputValue } = this.state;
+    window.scrollTo(0, 0);
     event.preventDefault();
     axios
       .get('https://yamovie-server.herokuapp.com/api/movies/search', {
         params: {
-          query: searchInputValue,
+          title: searchInputValue,
         },
       })
       .then(response =>
         this.setState({
           movies: response.data.results,
+          page: 1,
           searchInputValue: '',
         }),
       );
+  };
+
+  // ================== Function to load more movies on scroll ===============
+  loadMoreMovies = async () => {
+    const {
+      hasNextPage,
+      page,
+      movies,
+      loading,
+      currentGenreFilter,
+    } = this.state;
+    if (hasNextPage && !loading) {
+      if (currentGenreFilter === 'all') {
+        const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
+        this.setState({
+          movies: movies.concat(res.data.results),
+          page: res.data.page,
+          hasNextPage: res.data.hasNextPage,
+        });
+      } else {
+        const res = await axios.get(
+          `${serverLink}/movies/genre/${currentGenreFilter}/?page=${page + 1}`,
+        );
+        this.setState({
+          movies: movies.concat(res.data.results),
+          page: res.data.page,
+          hasNextPage: res.data.hasNextPage,
+        });
+      }
+    }
   };
 
   /**
@@ -121,20 +168,17 @@ class MovieList extends Component {
   render() {
     const {
       movies,
-      showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue,
       genres,
     } = this.state;
+    const { showGenreFilter } = this.props;
 
     const imagesForAllMovies = movies
       .map(movie => movie.images.posters)
       .map(poster => poster.map(p => p.poster_url));
 
-    // On hover function to display genre list through mega menu
-    const { hover } = this.state;
-    const hoverStyle = hover ? { display: 'flex' } : { display: 'none' };
 
     return (
       <div id="movie-page">
@@ -144,45 +188,72 @@ class MovieList extends Component {
             isModalVisible={isModalVisible}
             movie={selectedMovie}
             genres={genres}
+            showGenreFilter={showGenreFilter}
           />
         )}
-        <div id="yamovie-movie-list" className="container">
-          <div id="mega-search-genres">
-            <form id="browse-search" onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                value={searchInputValue}
-                onChange={this.handleChange}
-                placeholder="Search Movies"
-              />
-            </form>
-            <button type="button" id="display-genre-button" onClick={this.toggleHover}>
-              Display Genres
-            </button>
-            {showGenreFilter ? (
-              <GenreList
-                genres={genres}
-                style={hoverStyle}
-                toggleHover={this.toggleHover}
-                moviesByGenreId={this.handleSendGenre}
-              />
-            ) : (
-              ' '
-            )}
-          </div>
-          <div id="list-all-movies">
-            {imagesForAllMovies.map((moviePosters, i) => (
-              <div id="yamovie-movie-item" key={movies[i].title}>
-                {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
-                <img
-                  src={moviePosters[0]}
-                  alt={movies[i].title}
-                  className="img-fluid"
-                  onClick={() => this.toggleModal(movies[i]._id)}
-                />
+        {showGenreFilter ? (
+          <SearchBar
+            onSubmit={this.handleSubmit}
+            onChange={this.handleChange}
+            genres={genres}
+            searchInputValue={searchInputValue}
+            handleSendGenre={this.handleSendGenre}
+            showGenreFilter={showGenreFilter}
+          />
+        ) : (
+          ''
+        )}
+        <div
+          id="yamovie-movie-list"
+          className="container"
+          style={{
+            opacity: isModalVisible ? 0.08 : '',
+          }}
+        >
+          {showGenreFilter ? (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadMoreMovies}
+              hasMore={true || false}
+              loader={
+                <div className="loader" key={0}>
+                  <img
+                    style={{ height: 200 }}
+                    src="./images/popcorn-loading.gif"
+                    alt="Loading ..."
+                  />
+                </div>
+              }
+            >
+              <div id="list-all-movies">
+                {imagesForAllMovies.map((moviePosters, i) => (
+                  <div id="yamovie-movie-item" key={movies[i].title}>
+                    {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                    <img
+                      src={moviePosters[0]}
+                      alt={movies[i].title}
+                      className="img-fluid"
+                      onClick={() => this.toggleModal(movies[i]._id)}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </InfiniteScroll>
+          ) : (
+            <div id="list-all-movies">
+              {imagesForAllMovies.map((moviePosters, i) => (
+                <div id="yamovie-movie-item" key={movies[i].title}>
+                  {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                  <img
+                    src={moviePosters[0]}
+                    alt={movies[i].title}
+                    className="img-fluid"
+                    onClick={() => this.toggleModal(movies[i]._id)}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     );
