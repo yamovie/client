@@ -198,13 +198,7 @@ class MovieList extends Component {
         ) : (
           ''
         )}
-        <div
-          id="yamovie-movie-list"
-          className="container"
-          // style={{
-          //   opacity: isModalVisible ? 0.08 : '',
-          // }}
-        >
+        <div id="yamovie-movie-list" className="container">
           {showGenreFilter ? (
             <InfiniteScroll
               pageStart={0}
@@ -225,7 +219,7 @@ class MovieList extends Component {
                   <div id="yamovie-movie-item" key={movies[i].title}>
                     {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
                     <img
-                      src={moviePosters[0]}
+                      src={moviePosters}
                       alt={movies[i].title}
                       className="img-fluid"
                       onClick={() => this.toggleModal(movies[i])}
@@ -240,10 +234,10 @@ class MovieList extends Component {
                 <div id="yamovie-movie-item" key={movies[i].title}>
                   {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
                   <img
-                    src={moviePosters[0]}
+                    src={moviePosters}
                     alt={movies[i].title}
                     className="img-fluid"
-                    onClick={() => this.toggleModal(movies[i]._id)}
+                    onClick={() => this.toggleModal(movies[i])}
                   />
                 </div>
               ))}

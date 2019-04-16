@@ -79,8 +79,8 @@ class GenreList extends React.Component {
         <div>
           <form onSubmit={this.handleSelectionReset} id="certificationsForm">
             <div id="list-genres">
-              {certifications.map((certification, i) => (
-                <label className="single-genre checkmark-container" key={i}>
+              {certifications.map(certification => (
+                <label className="single-genre checkmark-container" key={certification}>
                   <input
                     type="checkbox"
                     name="certification"
