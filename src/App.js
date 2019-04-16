@@ -12,7 +12,6 @@ import {
 } from './pages';
 import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
-import LloydChat from './components/LloydChat';
 import './css/main.css';
 
 class App extends Component {
@@ -125,6 +124,9 @@ class App extends Component {
                 results={results}
                 showGenreFilter={false}
                 talkedToLloyd={talkedToLloyd}
+                getMovieResults={this.getMovieResults}
+                genreIds={genreIds}
+                resetMovieResults={this.resetMovieResults}
               />
             )}
           />
@@ -142,11 +144,6 @@ class App extends Component {
           />
           <Route component={NotFoundPage} />
         </Switch>
-        <LloydChat
-          getMovieResults={this.getMovieResults}
-          genreIds={genreIds}
-          resetMovieResults={this.resetMovieResults}
-        />
       </div>
     );
   }
