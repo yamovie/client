@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
+import FeedbackToast from '../components/FeedbackToast';
 
 const background = {
   backgroundImage: "url('/images/landing-bg-v1.jpg')",
@@ -8,6 +9,7 @@ const background = {
 
 const HomePage = () => (
   <div className="landing-body">
+    {/* <FeedbackToast /> */}
     <section id="link-container" style={background}>
       <div id="landing-quote">
         <h3>We find your movie,</h3>

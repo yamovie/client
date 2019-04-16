@@ -1,10 +1,8 @@
 import React from 'react';
 import '../css/GoogleLogin.css';
 
-const AUTH_SERVER_LINK = 'https://yamovie-server.herokuapp.com/auth/google';
-
 const GoogleLogin = () => (
-  <a href={AUTH_SERVER_LINK} className="google-link">
+  <a href={`${process.env.REACT_APP_BASE_URL}auth/google`} className="google-link">
     <span className="svgIcon t-popup-svg">
       <svg className="svgIcon-use" width="25" height="30" viewBox="0 0 25 25">
         <g fill="none" fillRule="evenodd">

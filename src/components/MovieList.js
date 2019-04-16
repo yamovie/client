@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroller';
 import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
@@ -14,12 +15,17 @@ class MovieList extends Component {
     super();
     this.state = {
       movies: [],
-      showGenreFilter: true,
       isModalVisible: false,
       selectedMovie: {},
       searchInputValue: '',
       genres: [],
+      currentGenreFilter: 'all',
+      currentSearchQuery: '',
+      page: 1,
+      hasNextPage: true,
     };
+
+    // window.addEventListener('scroll', event => this.scrollHandler(event));
   }
 
   // ===================== Extracts Get Requests ============================
@@ -54,14 +60,23 @@ class MovieList extends Component {
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
-    const { showGenreFilter } = this.state;
+    const { showGenreFilter, results } = this.props;
     if (showGenreFilter) {
       axios.all([this.getGenres(), this.getMovies()]).then(
         axios.spread((genreResp, movieResp) => {
           this.setState({
             genres: genreResp.data,
             movies: movieResp.data.results,
+            page: movieResp.data.page,
+            hasNextPage: movieResp.data.hasNextPage,
           });
+        }),
+      );
+    } else {
+      this.getGenres().then(genreResp =>
+        this.setState({
+          genres: genreResp.data,
+          movies: results,
         }),
       );
     }
@@ -69,9 +84,12 @@ class MovieList extends Component {
 
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
-    this.getMovies(genreKey).then(response =>
-      this.setState({ movies: response.data.results }),
+    this.getMovies(genreKey).then(
+      response => this.setState({ movies: response.data.results }),
+      this.setState({ page: 1 }),
+      this.setState({ currentGenreFilter: genreKey }),
     );
+    window.scrollTo(0, 0);
   };
 
   toggleModal = selectedMovie => {
@@ -83,18 +101,16 @@ class MovieList extends Component {
     }
   };
 
-  toggleHover = () => {
-    this.setState(prevState => ({ hover: !prevState.hover }));
-  };
-
+  // ==================== Handles Search Bar Input Change ==================
   handleChange = event => {
     this.setState({ searchInputValue: event.target.value });
   };
 
+  // ==================== Handles Search Bar Input Submit ==================
   // TODO: Factor this out into API call utils
   handleSubmit = event => {
     const { searchInputValue } = this.state;
-    // console.log({ searchInputValue });
+    window.scrollTo(0, 0);
     event.preventDefault();
     axios
       .get(`${serverLink}/movies/search`, {
@@ -105,9 +121,34 @@ class MovieList extends Component {
       .then(response =>
         this.setState({
           movies: response.data.results,
+          page: 1,
           searchInputValue: '',
         }),
       );
+  };
+
+  // ================== Function to load more movies on scroll ===============
+  loadMoreMovies = async () => {
+    const { hasNextPage, page, movies, loading, currentGenreFilter } = this.state;
+    if (hasNextPage && !loading) {
+      if (currentGenreFilter === 'all') {
+        const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
+        this.setState({
+          movies: movies.concat(res.data.results),
+          page: res.data.page,
+          hasNextPage: res.data.hasNextPage,
+        });
+      } else {
+        const res = await axios.get(
+          `${serverLink}/movies/genre/${currentGenreFilter}/?page=${page + 1}`,
+        );
+        this.setState({
+          movies: movies.concat(res.data.results),
+          page: res.data.page,
+          hasNextPage: res.data.hasNextPage,
+        });
+      }
+    }
   };
 
   /**
@@ -117,12 +158,12 @@ class MovieList extends Component {
   render() {
     const {
       movies,
-      showGenreFilter,
       isModalVisible,
       selectedMovie,
       searchInputValue,
       genres,
     } = this.state;
+    const { showGenreFilter } = this.props;
 
     let imagesForAllMovies = [];
 
@@ -145,14 +186,18 @@ class MovieList extends Component {
             showGenreFilter={showGenreFilter}
           />
         )}
-        <SearchBar
-          onSubmit={this.handleSubmit}
-          onChange={this.handleChange}
-          genres={genres}
-          searchInputValue={searchInputValue}
-          handleSendGenre={this.handleSendGenre}
-          showGenreFilter={showGenreFilter}
-        />
+        {showGenreFilter ? (
+          <SearchBar
+            onSubmit={this.handleSubmit}
+            onChange={this.handleChange}
+            genres={genres}
+            searchInputValue={searchInputValue}
+            handleSendGenre={this.handleSendGenre}
+            showGenreFilter={showGenreFilter}
+          />
+        ) : (
+          ''
+        )}
         <div
           id="yamovie-movie-list"
           className="container"
@@ -160,19 +205,50 @@ class MovieList extends Component {
           //   opacity: isModalVisible ? 0.08 : '',
           // }}
         >
-          <div id="list-all-movies">
-            {imagesForAllMovies.map((moviePoster, i) => (
-              <div id="yamovie-movie-item" key={movies[i].title}>
-                {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
-                <img
-                  src={moviePoster}
-                  alt={movies[i].title}
-                  className="img-fluid"
-                  onClick={() => this.toggleModal(movies[i])}
-                />
+          {showGenreFilter ? (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadMoreMovies}
+              hasMore={true || false}
+              loader={
+                <div className="loader" key={0}>
+                  <img
+                    style={{ height: 200 }}
+                    src="./images/popcorn-loading.gif"
+                    alt="Loading ..."
+                  />
+                </div>
+              }
+            >
+              <div id="list-all-movies">
+                {imagesForAllMovies.map((moviePosters, i) => (
+                  <div id="yamovie-movie-item" key={movies[i].title}>
+                    {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                    <img
+                      src={moviePosters[0]}
+                      alt={movies[i].title}
+                      className="img-fluid"
+                      onClick={() => this.toggleModal(movies[i])}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </InfiniteScroll>
+          ) : (
+            <div id="list-all-movies">
+              {imagesForAllMovies.map((moviePosters, i) => (
+                <div id="yamovie-movie-item" key={movies[i].title}>
+                  {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
+                  <img
+                    src={moviePosters[0]}
+                    alt={movies[i].title}
+                    className="img-fluid"
+                    onClick={() => this.toggleModal(movies[i]._id)}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     );

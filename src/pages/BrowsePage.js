@@ -4,7 +4,7 @@ import '../css/BrowsePage.css';
 
 const BrowsePage = () => (
   <div>
-    <MovieList />
+    <MovieList showGenreFilter results={[{}]} />
   </div>
 );
 
