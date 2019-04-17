@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
+// const serverLink = 'https://yamovie-server.herokuapp.com/api';
 const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
 // const serverLink = 'http://localhost:5000/api';
 
@@ -23,6 +24,7 @@ class MovieList extends Component {
       currentSearchQuery: '',
       page: 1,
       hasNextPage: true,
+      loading: false,
     };
 
     // window.addEventListener('scroll', event => this.scrollHandler(event));
@@ -84,10 +86,18 @@ class MovieList extends Component {
 
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
-    this.getMovies(genreKey).then(
-      response => this.setState({ movies: response.data.results }),
-      this.setState({ page: 1 }),
-      this.setState({ currentGenreFilter: genreKey }),
+    this.getMovies(genreKey).then(response =>
+      // this.setState({ movies: response.data.results }),
+      // this.setState({ page: 1 }),
+      // this.setState({ currentGenreFilter: genreKey }),
+
+      this.setState({
+        movies: response.data.results,
+        currentGenreFilter: genreKey,
+        page: 2,
+        hasNextPage: true,
+        loading: false,
+      }),
     );
     window.scrollTo(0, 0);
   };
@@ -132,19 +142,19 @@ class MovieList extends Component {
     const { hasNextPage, page, movies, loading, currentGenreFilter } = this.state;
     if (hasNextPage && !loading) {
       if (currentGenreFilter === 'all') {
-        const res = await axios.get(`${serverLink}/movies/?page=${page + 1}`);
+        const res = await axios.get(`${serverLink}/movies/?page=${page}`);
         this.setState({
           movies: movies.concat(res.data.results),
-          page: res.data.page,
+          page: res.data.page + 1,
           hasNextPage: res.data.hasNextPage,
         });
       } else {
         const res = await axios.get(
-          `${serverLink}/movies/genre/${currentGenreFilter}/?page=${page + 1}`,
+          `${serverLink}/movies/genre/${currentGenreFilter}/?page=${page}`,
         );
         this.setState({
           movies: movies.concat(res.data.results),
-          page: res.data.page,
+          page: res.data.page + 1,
           hasNextPage: res.data.hasNextPage,
         });
       }
@@ -161,6 +171,7 @@ class MovieList extends Component {
       isModalVisible,
       selectedMovie,
       searchInputValue,
+      hasNextPage,
       genres,
     } = this.state;
     const { showGenreFilter } = this.props;
@@ -203,7 +214,7 @@ class MovieList extends Component {
             <InfiniteScroll
               pageStart={0}
               loadMore={this.loadMoreMovies}
-              hasMore={true || false}
+              hasMore={hasNextPage}
               loader={
                 <div className="loader" key={0}>
                   <img
