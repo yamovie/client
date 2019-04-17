@@ -14,7 +14,7 @@ class GenreList extends React.Component {
     showCertifications: PropTypes.bool,
     selectedGenres: PropTypes.arrayOf(PropTypes.string),
     selectedCertifications: PropTypes.arrayOf(PropTypes.string),
-    handleFormChange: PropTypes.func
+    handleFormChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -30,7 +30,7 @@ class GenreList extends React.Component {
     super(props);
     this.state = {
       activeButton: '',
-    }
+    };
 
     this.handleSelectionReset = this.handleSelectionReset.bind(this);
     this.handlePreferencesChange = this.handlePreferencesChange.bind(this);
@@ -46,7 +46,7 @@ class GenreList extends React.Component {
         activeButton: '',
       });
     }
-  }
+  };
 
   handlePreferencesChange(e, reset) {
     const { handleFormChange } = this.props;
@@ -60,7 +60,7 @@ class GenreList extends React.Component {
     e.target.reset();
     this.handlePreferencesChange(e, true);
   }
-  
+
   render() {
     const {
       moviesByGenreId,
@@ -72,22 +72,30 @@ class GenreList extends React.Component {
       selectedCertifications,
     } = this.props;
     const { activeButton } = this.state;
-    const certifications = ['G', 'PG', 'PG-13', 'R', 'NC-17' ];
+    const certifications = ['G', 'PG', 'PG-13', 'R', 'NC-17'];
 
     if (showCertifications) {
       return (
         <div>
-          <form onSubmit={this.handleSelectionReset} id='certificationsForm'>
+          <form onSubmit={this.handleSelectionReset} id="certificationsForm">
             <div id="list-genres">
-              {certifications.map((certification, i) => (
-                <label className="single-genre checkmark-container" key={i}>
-                  <input type="checkbox" name="certification" defaultChecked={selectedCertifications.includes(certification)} value={certification} onChange={this.handlePreferencesChange} />
+              {certifications.map(certification => (
+                <label className="single-genre checkmark-container" key={certification}>
+                  <input
+                    type="checkbox"
+                    name="certification"
+                    defaultChecked={selectedCertifications.includes(certification)}
+                    value={certification}
+                    onChange={this.handlePreferencesChange}
+                  />
                   <span className="checkmark" />
                   <span className="single-genre">{certification}</span>
                 </label>
               ))}
             </div>
-            <button className="reset-button" type="submit">reset</button>
+            <button className="reset-button" type="submit">
+              reset
+            </button>
           </form>
         </div>
       );
@@ -95,17 +103,25 @@ class GenreList extends React.Component {
     if (checkboxesVisible) {
       return (
         <div>
-          <form onSubmit={this.handleSelectionReset} id='genrePreferencesForm'>
+          <form onSubmit={this.handleSelectionReset} id="genrePreferencesForm">
             <div id="list-genres">
               {genres.map(genre => (
                 <label className="single-genre checkmark-container" key={genre._id}>
-                  <input type="checkbox" name="genre" value={genre._id} defaultChecked={selectedGenres.includes(genre._id)} onChange={this.handlePreferencesChange} />
+                  <input
+                    type="checkbox"
+                    name="genre"
+                    value={genre._id}
+                    defaultChecked={selectedGenres.includes(genre._id)}
+                    onChange={this.handlePreferencesChange}
+                  />
                   <span className="checkmark" />
                   <span className="single-genre">{genre.name}</span>
                 </label>
               ))}
             </div>
-            <button className="reset-button" type="submit">reset</button>
+            <button className="reset-button" type="submit">
+              reset
+            </button>
           </form>
         </div>
       );
@@ -116,6 +132,7 @@ class GenreList extends React.Component {
         <button
           className="single-genre"
           type="button"
+          key="all"
           onClick={() => moviesByGenreId('all')}
         >
           All
@@ -124,7 +141,7 @@ class GenreList extends React.Component {
           <button
             className="single-genre"
             type="button"
-            key={genre.name}
+            key={genre.technical_name}
             style={
               activeButton === genre.name
                 ? { backgroundColor: '#88388c' }
@@ -132,10 +149,10 @@ class GenreList extends React.Component {
             }
             onClick={() => {
               moviesByGenreId(genre._id);
-              this.handleActiveButton(genre.name);
+              this.handleActiveButton(genre.translation);
             }}
           >
-            {genre.name}
+            {genre.translation}
           </button>
         ))}
       </div>

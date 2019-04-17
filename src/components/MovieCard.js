@@ -4,7 +4,6 @@ import '../css/MovieCard.css';
 
 class MovieCard extends Component {
   static propTypes = {
-    genres: PropTypes.arrayOf(PropTypes.object).isRequired,
     movie: PropTypes.shape({
       genre_ids: PropTypes.array,
       overview: PropTypes.string,
@@ -21,8 +20,8 @@ class MovieCard extends Component {
         crew: PropTypes.arrayOf(PropTypes.object),
       }),
       images: PropTypes.shape({
-        backdrops: PropTypes.arrayOf(PropTypes.object),
-        posters: PropTypes.arrayOf(PropTypes.object),
+        backdrops: PropTypes.arrayOf(PropTypes.string),
+        poster: PropTypes.string,
       }),
     }).isRequired,
     toggleModal: PropTypes.func.isRequired,
@@ -41,6 +40,7 @@ class MovieCard extends Component {
         metacritic: {},
         rotten_tomatoes: {},
       },
+      offers: { buy: [], rent: [], stream: [] },
       release: 0,
       runtime: 0,
       title: '',
@@ -51,9 +51,14 @@ class MovieCard extends Component {
   }
 
   componentDidMount() {
-    const { movie, genres } = this.props;
+    const { movie, genreProps } = this.props;
     const {
+      jw_url,
+      jw_image_url,
+      certification,
+      certifications,
       genre_ids,
+      genres,
       overview,
       ratings,
       release_year,
@@ -61,30 +66,46 @@ class MovieCard extends Component {
       title,
       credits,
       images,
-      external_ids,
+      offers,
     } = movie;
 
-    const genresArray = [];
-    genre_ids.forEach(id => {
-      const genreName = genres.find(genre => genre._id === id).name;
-      if (genreName) {
-        genresArray.push(genreName);
-      }
-    });
+    let modRatings = ratings;
+    let genresArray = [];
+    let cert = '';
 
-    // prettier-ignore
-    const modRatings = ratings
-      ? {
-        imdb: {
-          ...ratings.internet_movie_database,
-          url: `http://www.imdb.com/title/${external_ids.imdb_id}`,
-        },
-        metacritic: ratings.metacritic,
-        rotten_tomatoes: ratings.rotten_tomatoes,
+    if (jw_url) {
+      // data handling stuff for jw data
+      genresArray = genres.map(genre => genre.translation);
+      cert = certification;
+    } else {
+      // data handling stuff for tmdb data
+      if (genreProps) {
+        genre_ids.forEach(id => {
+          const genreName = genreProps.find(genre => genre._id === id).name;
+          if (genreName) {
+            genresArray.push(genreName);
+          }
+        });
       }
-      : {};
+      if (ratings) {
+        modRatings = {
+          imdb: { ...ratings.internet_movie_database, url: `http://www.imdb.com/` },
+          metacritic: ratings.metacritic,
+          rotten_tomatoes: {
+            ...ratings.rotten_tomatoes,
+            url: 'http://www.rottentomatoes.com',
+          },
+        };
+      }
+      if (certifications) {
+        [cert] = certifications;
+      }
+    }
 
     this.setState({
+      jw_url: jw_url || '',
+      jw_image_url: jw_image_url || '',
+      certification: cert,
       genres: genresArray,
       release: release_year || 'No Year',
       title,
@@ -92,6 +113,7 @@ class MovieCard extends Component {
       credits,
       images,
       overview,
+      offers,
       ratings: modRatings,
       loading: false,
     });
@@ -103,6 +125,9 @@ class MovieCard extends Component {
    */
   render() {
     const {
+      jw_url,
+      jw_image_url,
+      certification,
       loading,
       genres,
       release,
@@ -112,6 +137,7 @@ class MovieCard extends Component {
       images,
       overview,
       ratings,
+      offers,
     } = this.state;
     const { toggleModal } = this.props;
 
@@ -119,37 +145,44 @@ class MovieCard extends Component {
       return <div>Loading...</div>;
     }
 
-    const directorList = credits.crew.filter(
-      member => member.job === 'Director',
-    );
+    let directorList = [];
+    let backdropLink = '';
+    let posterLink = '';
+    const backdropNum = Math.floor(Math.random() * images.backdrops.length);
+
+    if (jw_url !== '') {
+      // data from JW
+      backdropLink = images.backdrops[backdropNum];
+      posterLink = images.poster;
+      directorList = credits.crew.filter(member => member.role === 'Director');
+    } else {
+      // data from tmdb
+      directorList = credits.crew.filter(member => member.job === 'Director');
+      backdropLink = images.backdrops[backdropNum].backdrop_url;
+      const posterNum = Math.floor(Math.random() * images.posters.length);
+      posterLink = images.posters[posterNum].poster_url;
+    }
     const directors =
       directorList.length <= 0
         ? ', No Director'
         : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
 
-    const backdropNum = Math.floor(Math.random() * images.backdrops.length);
-    const backdrop = images.backdrops[backdropNum];
-
-    const posterNum = Math.floor(Math.random() * images.posters.length);
-    const poster = images.posters[posterNum];
-
     return (
       <div className="movie-card">
         <div className="backdrop">
           {/* <div className="overlay" /> */}
-          {backdrop ? <img src={backdrop.backdrop_url} alt="" /> : ''}
+          {backdropLink ? <img src={backdropLink} alt="" /> : ''}
         </div>
         <div className="info">
           <button type="button" className="close-modal" onClick={toggleModal()}>
             &times;
           </button>
           <div className="heading">
-            {poster ? (
-              <img className="poster" alt={title} src={poster.poster_url} />
-            ) : (
-              ''
-            )}
-            <h1>{title}</h1>
+            {posterLink ? <img className="poster" alt={title} src={posterLink} /> : ''}
+            <div id="line1">
+              <h1>{title}</h1>
+              <span className="certification">{certification}</span>
+            </div>
             <div id="line2">
               <h4>{`${release}${directors}`}</h4>
               <RatingsView ratings={ratings} />
@@ -160,7 +193,7 @@ class MovieCard extends Component {
           <div className="description">
             <p>{overview || 'No plot summary available'}</p>
           </div>
-          <StreamsView title={title} />
+          <StreamsView offers={offers} jw_image_url={jw_image_url} />
         </div>
       </div>
     );
@@ -176,27 +209,78 @@ export default MovieCard;
 // ============================================================
 // Stream Links
 
-// TODO: remove this when this section is working again
-// eslint-disable-next-line react/prop-types
-const StreamsView = ({ title }) => (
-  // const streamOptions = streams;
-  // const streamKeys = Object.keys(streamOptions);
-  <div id="streams">
-    <h3>{`Watch Links for '${title}' Coming Soon!`}</h3>
-    {/* <ul>
-      {streamKeys.map(streamName => (
-        <li>
-          <a href={streamOptions[streamName]} target="_blank" rel="noopener noreferrer">
-            <img
-              src=`/images/icon-${streamName}.png`
-              alt={`${streamName.charAt(0).toUpperCase()}${streamName.slice(1)}`}
-            />
-          </a>
-        </li>
-      ))}
-    </ul> */}
-  </div>
-);
+const StreamsView = ({ offers, jw_image_url }) => {
+  if (!offers) {
+    return (
+      <div id="streams">
+        <h3>Watch Links for this title Coming Soon!</h3>
+      </div>
+    );
+  }
+
+  /*
+  stream: [
+    {
+      provider: { clear_name: string, icon_url: string },
+      hd: { price: number, url: string }
+      sd: { price: number, url: string }
+      fourk: { price: number, url: string }
+    }
+  ]
+  */
+  // https://images.justwatch.com/icon/430993/s100/
+  // icon_url: /icon/430993/{profile}
+
+  return (
+    <div id="streams">
+      {offers.stream.length > 0 ? (
+        offers.stream.map(strmSrc => {
+          const sizedIcon = strmSrc.provider.icon_url.replace('{profile}', 's100');
+          const imgLink = `${jw_image_url}${sizedIcon}`;
+
+          let streamLink = '';
+          if (strmSrc.hd) {
+            streamLink = strmSrc.hd.url;
+          } else if (strmSrc.sd) {
+            streamLink = strmSrc.sd.url;
+          } else if (strmSrc.fourk) {
+            streamLink = strmSrc.fourk.url;
+          }
+
+          return (
+            <span className="offer" key={strmSrc.provider.clear_name}>
+              <a href={streamLink} target="_blank" rel="noopener noreferrer">
+                <img src={imgLink} alt={strmSrc.provider.clear_name} />
+              </a>
+            </span>
+          );
+        })
+      ) : (
+        <h3>No free streams currently available for this title</h3>
+      )}
+    </div>
+  );
+};
+
+StreamsView.propTypes = {
+  jw_image_url: PropTypes.string.isRequired,
+  offers: PropTypes.shape({
+    buy: PropTypes.arrayOf(
+      PropTypes.shape({
+        provider_id: PropTypes.number,
+        hd: PropTypes.object,
+        sd: PropTypes.object,
+        fourk: PropTypes.object,
+      }),
+    ),
+    rent: PropTypes.arrayOf(PropTypes.object),
+    stream: PropTypes.arrayOf(PropTypes.object),
+  }),
+};
+
+StreamsView.defaultProps = {
+  offers: null,
+};
 
 // ============================================================
 // Ratings
@@ -204,35 +288,31 @@ const RatingsView = ({ ratings }) => {
   if (!ratings) {
     return <div id="ratings" />;
   }
+  const rtData = ratings.rotten_tomatoes;
+  const imdbData = ratings.internet_movie_database || ratings.imdb;
+
   return (
     <div id="ratings">
-      {ratings.rotten_tomatoes ? (
+      {rtData ? (
         <li>
-          <a
-            href="http://www.rottentomatoes.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={rtData.url} target="_blank" rel="noopener noreferrer">
             <img
-              src={`${process.env.PUBLIC_URL}/images/icon-rottentomatoes-${
-                ratings.rotten_tomatoes.value >= 60 ? 'fresh' : 'rotten'
+              src={`/images/icon-rottentomatoes-${
+                rtData.value >= 60 ? 'fresh' : 'rotten'
               }.png`}
               alt="Rotten Tomatoes"
             />
-            {`${ratings.rotten_tomatoes.rate}`}
+            {`${rtData.rate}`}
           </a>
         </li>
       ) : (
         ''
       )}
-      {ratings.imdb ? (
+      {imdbData ? (
         <li>
-          <a href={ratings.imdb.url} target="_blank" rel="noopener noreferrer">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/icon-IMDb.png`}
-              alt="IMDb"
-            />
-            {ratings.imdb.rate}
+          <a href={imdbData.url} target="_blank" rel="noopener noreferrer">
+            <img src="/images/icon-IMDb.png" alt="IMDb" />
+            {imdbData.rate}
           </a>
         </li>
       ) : (
@@ -248,7 +328,7 @@ const RatingsView = ({ ratings }) => {
 
 RatingsView.propTypes = {
   ratings: PropTypes.shape({
-    internet_movie_database: PropTypes.object,
+    imdb: PropTypes.object,
     metacritic: PropTypes.object,
     rotten_tomatoes: PropTypes.object,
   }).isRequired,

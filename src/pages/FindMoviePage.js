@@ -44,11 +44,7 @@ class FindMoviePage extends React.Component {
     return (
       <div>
         {talkedToLloyd && results.length > 0 ? (
-          <MovieList
-            results={results}
-            showGenreFilter={false}
-            history={history}
-          />
+          <MovieList results={results} showGenreFilter={false} history={history} />
         ) : (
           ''
         )}
@@ -76,7 +72,7 @@ class FindMoviePage extends React.Component {
               <span role="img" aria-label="movie">
                 🎦
               </span>
-              !
+              or come back later because our database is always expanding!
             </h3>
           </div>
         ) : (
