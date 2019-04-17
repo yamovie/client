@@ -181,9 +181,7 @@ class MovieList extends Component {
     if (movies[0] && movies[0].jw_url) {
       imagesForAllMovies = movies.map(movie => movie.images.poster);
     } else {
-      imagesForAllMovies = movies
-        .map(movie => movie.images.posters)
-        .map(poster => poster.map(p => p.poster_url));
+      imagesForAllMovies = movies.map(movie => movie.images.posters[0].poster_url);
     }
 
     return (
@@ -241,11 +239,11 @@ class MovieList extends Component {
             </InfiniteScroll>
           ) : (
             <div id="list-all-movies">
-              {imagesForAllMovies.map((moviePosters, i) => (
+              {imagesForAllMovies.map((moviePoster, i) => (
                 <div id="yamovie-movie-item" key={movies[i].title}>
                   {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
                   <img
-                    src={moviePosters}
+                    src={moviePoster}
                     alt={movies[i].title}
                     className="img-fluid"
                     onClick={() => this.toggleModal(movies[i])}

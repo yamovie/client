@@ -145,12 +145,7 @@ class MovieCard extends Component {
       return <div>Loading...</div>;
     }
 
-    const directorList = credits.crew.filter(member => member.role === 'Director');
-    const directors =
-      directorList.length <= 0
-        ? ', No Director'
-        : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
-
+    let directorList = [];
     let backdropLink = '';
     let posterLink = '';
     const backdropNum = Math.floor(Math.random() * images.backdrops.length);
@@ -159,12 +154,18 @@ class MovieCard extends Component {
       // data from JW
       backdropLink = images.backdrops[backdropNum];
       posterLink = images.poster;
+      directorList = credits.crew.filter(member => member.role === 'Director');
     } else {
       // data from tmdb
+      directorList = credits.crew.filter(member => member.job === 'Director');
       backdropLink = images.backdrops[backdropNum].backdrop_url;
       const posterNum = Math.floor(Math.random() * images.posters.length);
       posterLink = images.posters[posterNum].poster_url;
     }
+    const directors =
+      directorList.length <= 0
+        ? ', No Director'
+        : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
 
     return (
       <div className="movie-card">
