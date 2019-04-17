@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import GenreList from './GenreList';
 
 import '../css/SearchBar.css';
@@ -9,7 +9,13 @@ export default class SearchBar extends Component {
     onSubmit: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     searchInputValue: PropTypes.string,
-    genres: PropTypes.arrayOf(object).isRequired,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        short_name: PropTypes.string,
+        technical_name: PropTypes.string,
+        translation: PropTypes.string,
+      }),
+    ).isRequired,
     showGenreFilter: PropTypes.bool.isRequired,
     handleSendGenre: PropTypes.func.isRequired,
   };
@@ -63,11 +69,7 @@ export default class SearchBar extends Component {
             placeholder="Search Movies"
           />
         </form>
-        <button
-          type="button"
-          id="display-genre-button"
-          onClick={this.toggleHover}
-        >
+        <button type="button" id="display-genre-button" onClick={this.toggleHover}>
           Display Genres
         </button>
         {showGenreFilter ? (

@@ -3,17 +3,13 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
-import {
-  HomePage,
-  BrowsePage,
-  AboutPage,
-  FindMoviePage,
-  NotFoundPage,
-} from './pages';
+import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
 import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
 import UserDashboardPage from './pages/UserDashboardPage';
+
+const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
 
 require('dotenv').config();
 // import Watchlist from './components/Watchlist';
@@ -62,10 +58,9 @@ class App extends Component {
   getMovieResults = dataObj => {
     const { history } = this.props;
     axios
-      .post(
-        'https://yamovie-server.herokuapp.com/api/movies/recommend',
-        dataObj,
-      )
+      .post(`${serverLink}/movies/recommend`, dataObj, {
+        headers: { 'Content-Type': 'application/json' },
+      })
       .then(response => {
         this.setState({
           results: response.data.results,
@@ -78,15 +73,20 @@ class App extends Component {
 
   getGenreData = () => {
     axios
-      .get('https://yamovie-server.herokuapp.com/api/genres')
+      .get(`${serverLink}/genres`)
       .then(response => {
-        const genreArray = response.data;
-        const idObject = {};
-        for (let i = 0; i < genreArray.length; i++) {
-          const str = genreArray[i].name.replace(/\s+/g, '');
-          idObject[str] = genreArray[i]._id;
-        }
-        this.setState({ genreIds: idObject });
+        // const genreArray = response.data;
+        // const idObject = {};
+        // for (let i = 0; i < genreArray.length; i++) {
+        //   const str = genreArray[i].name.replace(/\s+/g, '');
+        //   idObject[str] = genreArray[i]._id;
+        // }
+
+        const genreIds = response.data.reduce((acc, curr) => {
+          acc[curr.translation] = curr._id;
+          return acc;
+        }, {});
+        this.setState({ genreIds });
       })
       .catch(error => {
         console.log(error);
@@ -139,19 +139,22 @@ class App extends Component {
           />
           <Route
             path="/login"
-            render={props => (
-              <Login {...props} handleLogin={this.handleLogin} />
-            )}
+            render={props => <Login {...props} handleLogin={this.handleLogin} />}
           />
           <Route
             path="/signup"
-            render={props => (
-              <Signup {...props} handleSignup={this.handleSignup} />
-            )}
+            render={props => <Signup {...props} handleSignup={this.handleSignup} />}
           />
-          <Route path="/account" render={({ match, props }) => isAuthenticated ? (<UserDashboardPage {...props} match={match} user={user} />) : (
-            <Redirect to="/login"/>
-          )} />
+          <Route
+            path="/account"
+            render={({ match, props }) =>
+              isAuthenticated ? (
+                <UserDashboardPage {...props} match={match} user={user} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
           <Route component={NotFoundPage} />
         </Switch>
       </div>
