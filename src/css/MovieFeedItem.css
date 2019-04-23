@@ -1,0 +1,90 @@
+@import './style-variables.css';
+
+.movie-feed-item {
+  border: 1px solid var(--red);
+  border-radius: 20px;
+  margin: 20px;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  /* padding: 3vh 0px; */
+  font-family: var(--fontfamily);
+  color: var(--midgrey);
+  background: linear-gradient(to right, var(--offwhite) 60%, transparent 100%);
+  /* background-color: rgba(35, 38, 46, 0.6); */
+}
+
+.movie-feed-item .backdrop {
+  border-radius: 20px;
+  height: 100%;
+  width: 50%;
+  z-index: -1;
+  overflow: hidden;
+  background-color: var(--purple);
+}
+
+.movie-feed-item .backdrop img {
+  width: 100%;
+  z-index: -2;
+  border-radius: 20px;
+}
+
+.movie-feed-item .info {
+  height: 100%;
+  width: 65%;
+  padding: 25px;
+  line-height: 1.4;
+}
+
+.movie-feed-item .info .poster {
+  height: 100%;
+  float: left;
+  padding-right: 25px;
+}
+
+.movie-feed-item .info .title {
+  color: var(--darkgrey);
+}
+
+.movie-feed-item .info .titleLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.movie-feed-item .info .certification {
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.movie-feed-item .info .directors {
+}
+
+.movie-feed-item .info .numbers {
+}
+
+.movie-feed-item .info .genres {
+  color: var(--lightgrey);
+}
+
+.movie-feed-item .info .ratings {
+}
+
+.movie-feed-item .ratings img {
+  height: 1em;
+  margin: 1px 4px 1px 1px;
+  vertical-align: text-top;
+}
+
+.movie-feed-item .ratings span {
+  height: 1em;
+  padding: 5px 10px 5px 0px;
+  vertical-align: middle;
+}
+
+.movie-feed-item .info .streams {
+}
