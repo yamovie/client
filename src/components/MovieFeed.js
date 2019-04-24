@@ -18,7 +18,7 @@ export default class MovieFeed extends Component {
   render() {
     const { movies } = this.state;
     return (
-      <div style={{ marginTop: '80px' }}>
+      <div className="movie-feed">
         {movies.map(movie => (
           <MovieFeedItem movie={movie} key={movie.title} />
         ))}

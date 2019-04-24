@@ -970,7 +970,13 @@ const data = [
         __v: 0,
       },
     ],
-    videos: [],
+    videos: [
+      {
+        type: 'trailer',
+        name: 'Bumblebee (2018) - Official Teaser Trailer - Paramount Pictures',
+        url: 'https://www.youtube.com/embed/fAIX12F6958',
+      },
+    ],
     jw_url: 'https://www.justwatch.com/us/movie/spider-man-into-the-spider-verse',
     jw_image_url: 'https://images.justwatch.com',
     certification: 'PG',
@@ -5874,7 +5880,278 @@ const data = [
           },
         },
       ],
-      stream: [],
+      stream: [
+        {
+          _id: '5cb76119ab269cb7642923a5',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b78',
+            domains: [],
+            technical_name: 'fandangonow',
+            short_name: 'fdg',
+            clear_name: 'FandangoNOW',
+            priority: 5,
+            display_priority: 18,
+            icon_url: '/icon/3148110/{profile}',
+            external_ids: {
+              jw_id: 105,
+            },
+            __v: 0,
+          },
+          fourk: {
+            price: 9.99,
+            url:
+              'https://www.fandangonow.com/details/movie/MMV6BA7FFA56130FFB2FAF147C1920F08F1D',
+          },
+          hd: {
+            price: 9.99,
+            url:
+              'https://www.fandangonow.com/details/movie/MMV6BA7FFA56130FFB2FAF147C1920F08F1D',
+          },
+          sd: {
+            price: 9.99,
+            url:
+              'https://www.fandangonow.com/details/movie/MMV6BA7FFA56130FFB2FAF147C1920F08F1D',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb7642923a4',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b83',
+            domains: [],
+            technical_name: 'playstation',
+            short_name: 'pls',
+            clear_name: 'PlayStation',
+            priority: 5,
+            display_priority: 29,
+            icon_url: '/icon/446737/{profile}',
+            external_ids: {
+              jw_id: 18,
+            },
+            __v: 0,
+          },
+          hd: {
+            price: 14.99,
+            url:
+              'https://store.playstation.com/#!/en-us/cid=UV0014-NPVB46561_CN-0000000000389628',
+          },
+          sd: {
+            price: 14.99,
+            url:
+              'https://store.playstation.com/#!/en-us/cid=UV0014-NPVB46561_CN-0000000000389628',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb7642923a3',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b79',
+            domains: [],
+            technical_name: 'vudu',
+            short_name: 'vdu',
+            clear_name: 'Vudu',
+            priority: 9,
+            display_priority: 19,
+            icon_url: '/icon/430998/{profile}',
+            external_ids: {
+              jw_id: 7,
+            },
+            __v: 0,
+          },
+          sd: {
+            price: 9.99,
+            url: 'http://www.vudu.com/movies/content/921152',
+          },
+          fourk: {
+            price: 9.99,
+            url: 'http://www.vudu.com/movies/content/921152',
+          },
+          hd: {
+            price: 9.99,
+            url: 'http://www.vudu.com/movies/content/921152',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb7642923a2',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b70',
+            domains: [],
+            technical_name: 'itunes',
+            short_name: 'itu',
+            clear_name: 'Apple iTunes',
+            priority: 5,
+            display_priority: 10,
+            icon_url: '/icon/430995/{profile}',
+            external_ids: {
+              jw_id: 2,
+            },
+            __v: 0,
+          },
+          hd: {
+            price: 9.99,
+            url:
+              'https://itunes.apple.com/us/movie/mortal-engines/id1445351607?uo=4&at=1000l3V2',
+          },
+          sd: {
+            price: 9.99,
+            url:
+              'https://itunes.apple.com/us/movie/mortal-engines/id1445351607?uo=4&at=1000l3V2',
+          },
+          fourk: {
+            price: 9.99,
+            url: 'https://itunes.apple.com/us/movie/mortal-engines/id1445351607',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb7642923a1',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b84',
+            domains: [],
+            technical_name: 'microsoft',
+            short_name: 'msf',
+            clear_name: 'Microsoft Store',
+            priority: 5,
+            display_priority: 30,
+            icon_url: '/icon/820542/{profile}',
+            external_ids: {
+              jw_id: 68,
+            },
+            __v: 0,
+          },
+          fourk: {
+            price: 9.99,
+            url: 'https://www.microsoft.com/en-us/p/mortal-engines/8d6kgwxn3pt2?ct=movie',
+          },
+          hd: {
+            price: 9.99,
+            url: 'https://www.microsoft.com/en-us/p/mortal-engines/8d6kgwxn3pt2?ct=movie',
+          },
+          sd: {
+            price: 9.99,
+            url: 'https://www.microsoft.com/en-us/p/mortal-engines/8d6kgwxn3pt2?ct=movie',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb7642923a0',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b6f',
+            domains: [],
+            technical_name: 'play',
+            short_name: 'ply',
+            clear_name: 'Google Play Movies',
+            priority: 4,
+            display_priority: 9,
+            icon_url: '/icon/430996/{profile}',
+            external_ids: {
+              jw_id: 3,
+            },
+            __v: 0,
+          },
+          hd: {
+            price: 14.99,
+            url:
+              'https://play.google.com/store/movies/details/Mortal_Engines?gl=US&hl=en&id=Q3eTKKTxmD4',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb76429239f',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b6d',
+            domains: [],
+            technical_name: 'youtube',
+            short_name: 'yot',
+            clear_name: 'YouTube',
+            priority: 5,
+            display_priority: 7,
+            icon_url: '/icon/59562423/{profile}',
+            external_ids: {
+              jw_id: 192,
+            },
+            __v: 0,
+          },
+          hd: {
+            price: 14.99,
+            url: 'https://www.youtube.com/watch?v=Q3eTKKTxmD4',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb7642923d0',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b6b',
+            domains: [],
+            technical_name: 'amazon',
+            short_name: 'amz',
+            clear_name: 'Amazon Video',
+            priority: 4,
+            display_priority: 5,
+            icon_url: '/icon/430993/{profile}',
+            external_ids: {
+              jw_id: 10,
+            },
+            __v: 0,
+          },
+          hd: {
+            price: 19.99,
+            url:
+              'https://www.amazon.com/gp/product/B07F1BK3BJ?camp=1789&creativeASIN=B07F1BK3BJ&ie=UTF8&linkCode=xm2&tag=justwatch09-20',
+          },
+          sd: {
+            price: 14.99,
+            url:
+              'https://www.amazon.com/gp/product/B07F1BK3BJ?camp=1789&creativeASIN=B07F1BK3BJ&ie=UTF8&linkCode=xm2&tag=justwatch09-20',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb7642923ce',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b6f',
+            domains: [],
+            technical_name: 'play',
+            short_name: 'ply',
+            clear_name: 'Google Play Movies',
+            priority: 4,
+            display_priority: 9,
+            icon_url: '/icon/430996/{profile}',
+            external_ids: {
+              jw_id: 3,
+            },
+            __v: 0,
+          },
+          hd: {
+            price: 18.99,
+            url:
+              'https://play.google.com/store/movies/details/Ant_Man_and_the_Wasp?gl=US&hl=en&id=RQn-Pqvnzc8',
+          },
+          sd: {
+            price: 13.99,
+            url:
+              'https://play.google.com/store/movies/details/Ant_Man_and_the_Wasp?gl=US&hl=en&id=RQn-Pqvnzc8',
+          },
+        },
+        {
+          _id: '5cb76119ab269cb7642923cd',
+          provider: {
+            _id: '5cb614ffc7c2d91d1b0c9b6d',
+            domains: [],
+            technical_name: 'youtube',
+            short_name: 'yot',
+            clear_name: 'YouTube',
+            priority: 5,
+            display_priority: 7,
+            icon_url: '/icon/59562423/{profile}',
+            external_ids: {
+              jw_id: 192,
+            },
+            __v: 0,
+          },
+          hd: {
+            price: 18.99,
+            url: 'https://www.youtube.com/watch?v=RQn-Pqvnzc8',
+          },
+          sd: {
+            price: 13.99,
+            url: 'https://www.youtube.com/watch?v=RQn-Pqvnzc8',
+          },
+        },
+      ],
     },
     __v: 0,
     id: '5cb76119ab269cb76429239d',
@@ -7082,7 +7359,13 @@ const data = [
         __v: 0,
       },
     ],
-    videos: [],
+    videos: [
+      {
+        type: 'trailer',
+        name: 'Bumblebee (2018) - Official Teaser Trailer - Paramount Pictures',
+        url: 'https://www.youtube.com/embed/fAIX12F6958',
+      },
+    ],
     jw_url: 'https://www.justwatch.com/us/movie/thor-ragnarok',
     jw_image_url: 'https://images.justwatch.com',
     certification: 'PG-13',
