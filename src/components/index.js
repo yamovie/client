@@ -5,6 +5,7 @@ export { default as LloydChat } from './LloydChat';
 export { default as Login } from './Login';
 export { default as MovieCard } from './MovieCard';
 export { default as MovieList } from './MovieList';
+export { default as MovieFeed } from './MovieFeed';
 export { default as Navbar } from './Navbar';
 export { default as OAuth } from './OAuth';
 export { default as Signup } from './Signup';

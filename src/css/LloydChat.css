@@ -1,9 +1,6 @@
 #lloyd-outline {
-  z-index: 20;
-  /* width: 400px; */
-  position: fixed;
-  right: 60px;
-  bottom: 60px;
+  width: 100vw;
+  position: relative;
 }
 
 #chatbot-btn {
@@ -36,45 +33,40 @@
   outline: none;
 }
 
-.close-chat {
+#close-chat {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 1.3rem;
-  background-color: var(--purple);
-  color: var(--offwhite);
-  border-radius: 20px;
-  border-color: var(--red);
-  width: 30px;
-  height: 30px;
+  top: 13px;
+  right: 235px;
+  width: 50px;
+  height: 50px;
 }
 
-.botui-container {
+/* .botui-container {
   float: right;
-}
+} */
 
-@media only screen and (max-width: 525px) {
+/* @media only screen and (max-width: 525px) {
   .botui-container {
     width: 300px;
   }
-}
+} */
 
-@media only screen and (max-height: 640px) {
+/* @media only screen and (max-height: 640px) {
   #lloyd-outline {
     height: 300px;
     right: 65px;
     bottom: 65px;
   }
-}
+} */
 
-@media only screen and (max-width: 525px) {
+/* @media only screen and (max-width: 525px) {
   .botui-container {
     width: 300px;
   }
-}
+} */
 
-@media only screen and (max-height: 640px) {
+/* @media only screen and (max-height: 640px) {
   .botui-container {
     height: 300px;
   }
-}
+} */

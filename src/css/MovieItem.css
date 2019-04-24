@@ -1,0 +1,316 @@
+.card-container {
+  background: linear-gradient(to left, var(--darkgrey) 1%, transparent 100%);
+  width: 100%;
+  height: 200px;
+  border-radius: 5px 0% 0% 0%;
+  cursor: pointer;
+  transition: height 500ms 0ms, opacity 500ms 500ms;
+}
+
+.parent {
+  width: 70%;
+  
+}
+
+.card-button {
+  width: 100%;
+  border-radius: 5px 0% 0% 0%;
+  outline: none;
+  border: none;
+  transform: rotate(0deg);
+  transition: all .2s ease-in;
+}
+
+.card-button:hover {
+  transform: scale(1.01) rotate(0deg);
+}
+
+.movieitem-info {
+  display: flex;
+  flex-direction: row;
+  /* justify-items: center; */
+
+}
+
+.movieitem-poster {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 120px;
+  height: 180px;
+}
+
+.movieitem-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  color: var(--darkgrey);
+  font-size: 12px;
+}
+
+.movieitem-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 3%;
+  margin-right: auto;
+}
+
+.cert-runtime {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.movieitem-card {
+  color: var(--darkgrey);
+  width: 100%;
+  height: 50vh;
+  border-radius: 0% 0% 2% 2%;
+  transition: all .3s ease-in-out;
+}
+
+/* Backdrop */ 
+
+.backdrop {
+  position: absolute;
+  overflow: hidden;
+  background-color: var(--purple);
+}
+
+.backdrop img {
+  width: 100%;
+  position: absolute;
+}
+
+/* Movie Drop Down Description */
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0% 0% 2% 2%;
+  background: linear-gradient(to top, var(--offwhite) 30%, transparent 100%);
+  height: 50vh;
+  overflow: hidden;
+  text-align: center;
+}
+
+.description p {
+  margin-bottom: 0;
+}
+
+.description-content {
+ 
+}
+
+/* #streams {
+  display: table-cell;
+  table-layout: auto;
+  vertical-align: middle;
+} */
+
+/* Movie  */
+
+.certification {
+  width: 50px;
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Movie Runtime */
+
+.runtime {
+  width: 70px;
+  display: inline-block;
+  /* margin-top: 15px; */
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+}
+
+/* Movie Genres */
+
+.genres {
+  display: inline-block;
+  text-align: left;
+  color: var(--darkgrey);
+  font-size: 20px;
+}
+
+/* Movie Ratings */
+
+#ratings {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 2.8vh;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+#ratings li {
+  list-style: none;
+  margin-right: 15px;
+}
+
+#ratings li img {
+  height: 1.5vw;
+  margin-right: 4px;
+}
+
+#ratings li a {
+  text-decoration: none;
+  color: var(--darkgrey);
+  font-size: 1.5vw;
+  display: flex;
+}
+
+/* Link Streams */
+
+#streams {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  margin: 5px 25px;
+}
+
+#streams h3 {
+  margin: 0;
+  font-size: 2.5vh;
+}
+
+#streams .offer {
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 3px;
+  height: 70%;
+  align-items: center;
+}
+
+#streams .offer img {
+  border-radius: 5px;
+  height: 100%;
+}
+
+/* Movie Trailer */
+
+.trailer-container {
+  display: flex;
+  justify-content: center;
+  padding: 3vh 0px;
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  font-family: var(--fontfamily);
+  color: var(--midgrey);
+  background-color: rgba(17, 18, 20, 0.9);
+}
+
+.movie-trailer {
+  position: relative;
+  top: 25%;
+  right: 15%;
+  height: 400px;
+  width: 800px;
+  transition: all .3s ease-in-out; 
+}
+
+.trailer-button {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: blue;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.close-trailer-button {
+  height: 25px;
+  width: 60px;
+  position: absolute;
+  bottom: 10%;
+  left: 35%;
+  outline: none;
+  border: none;
+  background-color: var(--purple);
+  color: white;
+  font-size: 20px;
+}
+
+/* Animated Open/Close Button */
+
+.menu-toggle {
+  cursor: pointer;
+  position: absolute;
+  z-index: 1000;
+  top: 25%;
+  right: 1%;
+  margin: 20px;
+  padding: 0px;
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  color: rgba(0, 0, 0, .5);
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, .8);
+  transform: rotate(0deg);
+  transition: all .2s ease-in;
+  border: 0 none;
+}
+
+.menu-toggle:hover {
+  cursor: pointer;
+  transform: scale(1.1) rotate(0deg);
+  -webkit-box-shadow: 10px 2px 8px -8px rgba(179, 164, 139, .6);
+}
+
+.menu-toggle:focus {
+  cursor: pointer;
+  outline: 0 none;
+}
+
+.close-button {
+  cursor: pointer;
+  transform: rotate(45deg);
+  background-color: var(--red);
+  -webkit-box-shadow: 10px 2px 8px -8px rgba(179, 164, 139, .6);
+}
+
+.close-button:hover {
+  transform: scale(1.1) rotate(45deg);
+}
+
+/* Animated Dropdown */
+
+.dropdown-enter {
+  opacity: 0.01;
+}
+
+.dropdown-enter.dropdown-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.dropdown-leave {
+  opacity: 1;
+}
+
+.edropdown-leave.dropdown-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

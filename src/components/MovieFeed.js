@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 import { MovieCard, SearchBar } from '.';
-import '../css/MovieList.css';
+import MovieItem from "./MovieItem";
+import '../css/MovieFeed.css'
 
-// const serverLink = 'https://yamovie-server.herokuapp.com/api';
 const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
-// const serverLink = 'http://localhost:5000/api';
 
-class MovieList extends Component {
+export default class MovieFeed extends Component {
   /**
    * Creates a movie list object and connects to the API
    */
@@ -21,7 +21,6 @@ class MovieList extends Component {
       searchInputValue: '',
       genres: [],
       currentGenreFilter: 'all',
-      currentSearchQuery: '',
       page: 1,
       hasNextPage: true,
       loading: false,
@@ -184,6 +183,7 @@ class MovieList extends Component {
       imagesForAllMovies = movies.map(movie => movie.images.posters[0].poster_url);
     }
 
+
     return (
       <div id="movie-page">
         {isModalVisible && (
@@ -195,67 +195,21 @@ class MovieList extends Component {
             showGenreFilter={showGenreFilter}
           />
         )}
-        {showGenreFilter ? (
-          <SearchBar
-            onSubmit={this.handleSubmit}
-            onChange={this.handleChange}
-            genres={genres}
-            searchInputValue={searchInputValue}
-            handleSendGenre={this.handleSendGenre}
-            showGenreFilter={showGenreFilter}
-          />
-        ) : (
-          ''
-        )}
-        <div id="yamovie-movie-list" className="container">
-          {showGenreFilter ? (
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={this.loadMoreMovies}
-              hasMore={hasNextPage}
-              loader={
-                <div className="loader" key={0}>
-                  <img
-                    style={{ height: 200 }}
-                    src="./images/popcorn-loading.gif"
-                    alt="Loading ..."
-                  />
-                </div>
-              }
-            >
-              <div id="list-all-movies">
-                {imagesForAllMovies.map((moviePosters, i) => (
-                  <div id="yamovie-movie-item" key={movies[i].title}>
-                    {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
-                    <img
-                      src={moviePosters}
-                      alt={movies[i].title}
-                      className="img-fluid"
-                      onClick={() => this.toggleModal(movies[i])}
-                    />
-                  </div>
-                ))}
-              </div>
-            </InfiniteScroll>
-          ) : (
-            <div id="list-all-movies">
-              {imagesForAllMovies.map((moviePoster, i) => (
-                <div id="yamovie-movie-item" key={movies[i].title}>
-                  {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
-                  <img
-                    src={moviePoster}
-                    alt={movies[i].title}
-                    className="img-fluid"
-                    onClick={() => this.toggleModal(movies[i])}
-                  />
-                </div>
-              ))}
+        <div id="all-movies">
+          {imagesForAllMovies.map((moviePoster, i) => (
+            <div id="movie-item" key={movies[i].title}>
+              <MovieItem
+                movie={movies[i]}
+                poster={moviePoster}
+                genres={genres}
+                showGenreFilter={showGenreFilter}
+                onClick={() => this.toggleModal(movies[i])}
+              />
             </div>
-          )}
+          ))}
         </div>
       </div>
     );
   }
-}
 
-export default MovieList;
+}
