@@ -19,7 +19,13 @@ class LloydChat extends Component {
   }
 
   toggleChatWindow = () => {
-    this.setState(prevState => ({ isChatVisible: !prevState.isChatVisible }));
+    const { isChatVisible } = this.state;
+    if (isChatVisible) {
+      this.setState({ isChatVisible: false});
+    } else {
+      this.setState({ isChatVisible: true });
+      window.scrollTo(0, 0);
+    }
   };
 
   componentDidMount = () => {
@@ -59,13 +65,17 @@ class LloydChat extends Component {
               resetMovieResults={resetMovieResults}
               genreIds={genreIds}
             />
-            <button
+            {/* <button
               type="button"
-              className="close-chat"
+              // className="close-chat"
               onClick={this.toggleChatWindow}
             >
-              &times;
-            </button>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/popcorn-close.png`}
+                alt="Talk to Lloyd!"
+                id="close-chat"
+              />
+            </button> */}
           </div>
         )}
       </div>
