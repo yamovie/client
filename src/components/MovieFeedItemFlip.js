@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../css/MovieFeedItem.css';
+import '../css/MovieFeedItemFlip.css';
 
 export default class MovieFeedItem extends Component {
   static propTypes = {

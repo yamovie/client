@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MovieFeedItem from './MovieFeedItem';
+import MovieFeedItem from './MovieFeedItemFlip';
 import data from '../SeedMovies';
 
 export default class MovieFeed extends Component {
