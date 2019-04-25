@@ -65,7 +65,7 @@ class LloydChat extends Component {
               resetMovieResults={resetMovieResults}
               genreIds={genreIds}
             />
-            <button
+            {/* <button
               type="button"
               // className="close-chat"
               onClick={this.toggleChatWindow}
@@ -75,7 +75,7 @@ class LloydChat extends Component {
                 alt="Talk to Lloyd!"
                 id="close-chat"
               />
-            </button>
+            </button> */}
           </div>
         )}
       </div>

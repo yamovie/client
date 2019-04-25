@@ -14,11 +14,53 @@
 }
 
 .botui-message-content {
+  width: 300px;
   display: block;
   text-align: left;
   background-color: var(--purple);
   color: white;
 }
+
+/* .botui-message {
+  display: flex;
+  flex-direction: row;
+  justify-self: auto;
+}
+
+.botui-message:before {
+  background-color: var(--purple);
+  background-image: url('/images/lloyd-white.png');
+  background-size: cover;
+  /* display: inline; */
+  /* margin-right: 10px;
+  margin-top: 3px;
+  width: 30px;
+  height: 30px;
+  content: '';
+  align-content: center;
+  border-radius: 100%; */
+/* } */
+
+/* .botui-message .human {
+  position: relative;
+  left: 600px;
+}  */
+ 
+/* .human:after {
+  background-color: var(--offwhite);
+  background-image: url('/images/lloyd-white.png');
+  background-size: cover;
+  /* display: inline; */
+  /* margin-right: 10px;
+  margin-top: 3px;
+  width: 30px;
+  height: 30px;
+  content: '';
+  align-content: center;
+  border-radius: 100%; */
+/* }  */
+
+
 
 .botui-actions-buttons-button {
   background-color: var(--darkgrey);

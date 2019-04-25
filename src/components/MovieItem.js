@@ -53,7 +53,7 @@ class MovieItem extends React.Component {
   }
 
   componentDidMount() {
-    const { movie, genreProps } = this.props;
+    const { movie, genreProps, loading } = this.props;
     const {
       jw_url,
       jw_image_url,
@@ -70,6 +70,8 @@ class MovieItem extends React.Component {
       images,
       offers,
     } = movie;
+
+    this.setState({ loading: false });
 
     let modRatings = ratings;
     let genresArray = [];
@@ -160,7 +162,6 @@ class MovieItem extends React.Component {
       trailerVisible,
     } = this.state;
     const { movie, poster } = this.props;
-    console.log(movie)
 
     if (loading) {
       return <div>Loading...</div>;
@@ -195,14 +196,21 @@ class MovieItem extends React.Component {
 
     const Button = ({ open, toggle }) => {
       return (
-        <button
-          type="button"
-          className={open
-            ? "menu-toggle close-button"
-            : "menu-toggle "}
-          onClick={toggle}
-        > <i className="fa fa-plus" />
-        </button>
+        <ReactCSSTransitionGroup
+          transitionName="button"
+          transitionAppear
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          <button
+            type="button"
+            className={open
+              ? "menu-toggle close-button"
+              : "menu-toggle "}
+            onClick={toggle}
+          > <i className="fa fa-plus" />
+          </button>
+        </ReactCSSTransitionGroup>
       );
 
     };
@@ -218,8 +226,8 @@ class MovieItem extends React.Component {
                   <h1>{`${movie.title} (${release})`}</h1>
                 </div>
                 <div className="cert-runtime">
-                  <span className="certification">{certification}</span>
-                  {runtime ? <span className="runtime">{runtime} min</span> : ''}
+                  <span className="item-certification">{certification}</span>
+                  {runtime ? <span className="item-runtime">{runtime} min</span> : ''}
                 </div>
                 <p className="genres">{genres.join(', ')}</p>
                 <RatingsView ratings={ratings} />
@@ -234,7 +242,9 @@ class MovieItem extends React.Component {
         {cardVisible &&
         <ReactCSSTransitionGroup
           transitionName="dropdown"
-          transitionEnterTimeout={500}
+          transitionAppear
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={600}
           transitionLeaveTimeout={300}>
           <div className="movieitem-card" style={cardStyles}>
             {/* <div className="backdrop">

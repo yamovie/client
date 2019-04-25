@@ -114,10 +114,11 @@
   vertical-align: middle;
 } */
 
-/* Movie  */
+/* Movie Certifications ====================  */
 
-.certification {
+.item-certification {
   width: 50px;
+  margin-right: 5px;
   padding: 4px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -125,9 +126,9 @@
   font-weight: bold;
 }
 
-/* Movie Runtime */
+/* Movie Runtime ========================== */
 
-.runtime {
+.item-runtime {
   width: 70px;
   display: inline-block;
   /* margin-top: 15px; */
@@ -137,7 +138,7 @@
   font-size: 12px;
 }
 
-/* Movie Genres */
+/* Movie Genres ============================ */
 
 .genres {
   display: inline-block;
@@ -146,12 +147,12 @@
   font-size: 20px;
 }
 
-/* Movie Ratings */
+/* Movie Ratings =========================== */
 
 #ratings {
   display: flex;
   justify-content: flex-start;
-  font-size: 2.8vh;
+  font-size: 15px;
   overflow: hidden;
   margin-top: 8px;
 }
@@ -169,11 +170,11 @@
 #ratings li a {
   text-decoration: none;
   color: var(--darkgrey);
-  font-size: 1.5vw;
+  font-size: 15px;
   display: flex;
 }
 
-/* Link Streams */
+/* Link Streams =========================== */
 
 #streams {
   display: flex;
@@ -202,7 +203,7 @@
   height: 100%;
 }
 
-/* Movie Trailer */
+/* Movie Trailer ============================ */
 
 .trailer-container {
   display: flex;
@@ -251,7 +252,7 @@
   font-size: 20px;
 }
 
-/* Animated Open/Close Button */
+/* Animated Open/Close Button =============== */
 
 .menu-toggle {
   cursor: pointer;
@@ -264,10 +265,10 @@
   height: 40px;
   width: 40px;
   font-size: 20px;
-  color: rgba(0, 0, 0, .5);
+  color: rgba(35, 38, 46, .8);
   font-weight: bold;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, .8);
+  background-color: var(--offwhite);
   transform: rotate(0deg);
   transition: all .2s ease-in;
   border: 0 none;
@@ -276,7 +277,6 @@
 .menu-toggle:hover {
   cursor: pointer;
   transform: scale(1.1) rotate(0deg);
-  -webkit-box-shadow: 10px 2px 8px -8px rgba(179, 164, 139, .6);
 }
 
 .menu-toggle:focus {
@@ -288,14 +288,22 @@
   cursor: pointer;
   transform: rotate(45deg);
   background-color: var(--red);
-  -webkit-box-shadow: 10px 2px 8px -8px rgba(179, 164, 139, .6);
 }
 
 .close-button:hover {
   transform: scale(1.1) rotate(45deg);
 }
 
-/* Animated Dropdown */
+/* Animated Dropdown ====================== */
+
+.dropdown-appear {
+  opacity: 0.01;
+}
+
+.dropdown-appear.dropdown-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
 
 .dropdown-enter {
   opacity: 0.01;
@@ -303,14 +311,45 @@
 
 .dropdown-enter.dropdown-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: opacity 600ms ease-in;
 }
 
 .dropdown-leave {
   opacity: 1;
 }
 
-.edropdown-leave.dropdown-leave-active {
+.dropdown-leave.dropdown-leave-active {
   opacity: 0.01;
+  transition: opacity 300ms ease-out;
+}
+
+/* Animated Button ====================== */
+
+.button-appear {
+  opacity: 0.01;
+}
+
+.button-appear.button-appear-active {
+  opacity: 1;
+  transition: opacity .3s ease-in;
+}
+
+.button-enter {
+  opacity: 0.01;
+}
+
+.button-enter.button-enter-active {
+  opacity: 1;
+  transform: rotate(45deg);
+  transition: opacity 500ms ease-in;
+}
+
+.button-leave {
+  opacity: 1;
+}
+
+.button-leave.button-leave-active {
+  opacity: 0.01;
+  transform: rotate(0deg);
   transition: opacity 300ms ease-in;
 }

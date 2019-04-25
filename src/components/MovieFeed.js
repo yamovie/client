@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios';
-import InfiniteScroll from 'react-infinite-scroller';
-import { MovieCard, SearchBar } from '.';
 import MovieItem from "./MovieItem";
 import '../css/MovieFeed.css'
 
@@ -16,17 +14,9 @@ export default class MovieFeed extends Component {
     super();
     this.state = {
       movies: [],
-      isModalVisible: false,
-      selectedMovie: {},
-      searchInputValue: '',
       genres: [],
-      currentGenreFilter: 'all',
-      page: 1,
-      hasNextPage: true,
       loading: false,
     };
-
-    // window.addEventListener('scroll', event => this.scrollHandler(event));
   }
 
   // ===================== Extracts Get Requests ============================
@@ -68,8 +58,6 @@ export default class MovieFeed extends Component {
           this.setState({
             genres: genreResp.data,
             movies: movieResp.data.results,
-            page: movieResp.data.page,
-            hasNextPage: movieResp.data.hasNextPage,
           });
         }),
       );
@@ -86,10 +74,6 @@ export default class MovieFeed extends Component {
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
     this.getMovies(genreKey).then(response =>
-    // this.setState({ movies: response.data.results }),
-    // this.setState({ page: 1 }),
-    // this.setState({ currentGenreFilter: genreKey }),
-
       this.setState({
         movies: response.data.results,
         currentGenreFilter: genreKey,
@@ -101,65 +85,6 @@ export default class MovieFeed extends Component {
     window.scrollTo(0, 0);
   };
 
-  toggleModal = selectedMovie => {
-    const { isModalVisible } = this.state;
-    if (isModalVisible) {
-      this.setState({ isModalVisible: false });
-    } else {
-      this.setState({ isModalVisible: true, selectedMovie });
-    }
-  };
-
-  // ==================== Handles Search Bar Input Change ==================
-  handleChange = event => {
-    this.setState({ searchInputValue: event.target.value });
-  };
-
-  // ==================== Handles Search Bar Input Submit ==================
-  // TODO: Factor this out into API call utils
-  handleSubmit = event => {
-    const { searchInputValue } = this.state;
-    window.scrollTo(0, 0);
-    event.preventDefault();
-    axios
-      .get(`${serverLink}/movies/search`, {
-        params: {
-          title: searchInputValue,
-        },
-      })
-      .then(response =>
-        this.setState({
-          movies: response.data.results,
-          page: 1,
-          searchInputValue: '',
-        }),
-      );
-  };
-
-  // ================== Function to load more movies on scroll ===============
-  loadMoreMovies = async () => {
-    const { hasNextPage, page, movies, loading, currentGenreFilter } = this.state;
-    if (hasNextPage && !loading) {
-      if (currentGenreFilter === 'all') {
-        const res = await axios.get(`${serverLink}/movies/?page=${page}`);
-        this.setState({
-          movies: movies.concat(res.data.results),
-          page: res.data.page + 1,
-          hasNextPage: res.data.hasNextPage,
-        });
-      } else {
-        const res = await axios.get(
-          `${serverLink}/movies/genre/${currentGenreFilter}/?page=${page}`,
-        );
-        this.setState({
-          movies: movies.concat(res.data.results),
-          page: res.data.page + 1,
-          hasNextPage: res.data.hasNextPage,
-        });
-      }
-    }
-  };
-
   /**
    * Renders the movie list in HTML on the page. Uses flexboxes to display
    * the genre list, and to display a grid of MovieItems based on breakpoints.
@@ -167,13 +92,9 @@ export default class MovieFeed extends Component {
   render() {
     const {
       movies,
-      isModalVisible,
-      selectedMovie,
-      searchInputValue,
-      hasNextPage,
       genres,
+      loading,
     } = this.state;
-    const { showGenreFilter } = this.props;
 
     let imagesForAllMovies = [];
 
@@ -186,23 +107,22 @@ export default class MovieFeed extends Component {
 
     return (
       <div id="movie-page">
-        {isModalVisible && (
-          <MovieCard
-            toggleModal={() => this.toggleModal}
-            isModalVisible={isModalVisible}
-            movie={selectedMovie}
-            genres={genres}
-            showGenreFilter={showGenreFilter}
-          />
-        )}
         <div id="all-movies">
+          {loading &&
+          <div className="loader" key={0}>
+            <img
+              style={{ height: 200 }}
+              src="./images/popcorn-loading.gif"
+              alt="Loading ..."
+            />
+          </div>}
           {imagesForAllMovies.map((moviePoster, i) => (
             <div id="movie-item" key={movies[i].title}>
               <MovieItem
+                loading={loading}
                 movie={movies[i]}
                 poster={moviePoster}
                 genres={genres}
-                showGenreFilter={showGenreFilter}
                 onClick={() => this.toggleModal(movies[i])}
               />
             </div>

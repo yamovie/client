@@ -143,7 +143,7 @@ class GenreList extends React.Component {
             type="button"
             key={genre.technical_name}
             style={
-              activeButton === genre.name
+              activeButton === genre.translation
                 ? { backgroundColor: '#88388c' }
                 : { backgroundColor: 'rgba(226, 217, 217, 0.0)' }
             }
