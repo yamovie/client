@@ -6099,58 +6099,6 @@ const data = [
               'https://www.amazon.com/gp/product/B07F1BK3BJ?camp=1789&creativeASIN=B07F1BK3BJ&ie=UTF8&linkCode=xm2&tag=justwatch09-20',
           },
         },
-        {
-          _id: '5cb76119ab269cb7642923ce',
-          provider: {
-            _id: '5cb614ffc7c2d91d1b0c9b6f',
-            domains: [],
-            technical_name: 'play',
-            short_name: 'ply',
-            clear_name: 'Google Play Movies',
-            priority: 4,
-            display_priority: 9,
-            icon_url: '/icon/430996/{profile}',
-            external_ids: {
-              jw_id: 3,
-            },
-            __v: 0,
-          },
-          hd: {
-            price: 18.99,
-            url:
-              'https://play.google.com/store/movies/details/Ant_Man_and_the_Wasp?gl=US&hl=en&id=RQn-Pqvnzc8',
-          },
-          sd: {
-            price: 13.99,
-            url:
-              'https://play.google.com/store/movies/details/Ant_Man_and_the_Wasp?gl=US&hl=en&id=RQn-Pqvnzc8',
-          },
-        },
-        {
-          _id: '5cb76119ab269cb7642923cd',
-          provider: {
-            _id: '5cb614ffc7c2d91d1b0c9b6d',
-            domains: [],
-            technical_name: 'youtube',
-            short_name: 'yot',
-            clear_name: 'YouTube',
-            priority: 5,
-            display_priority: 7,
-            icon_url: '/icon/59562423/{profile}',
-            external_ids: {
-              jw_id: 192,
-            },
-            __v: 0,
-          },
-          hd: {
-            price: 18.99,
-            url: 'https://www.youtube.com/watch?v=RQn-Pqvnzc8',
-          },
-          sd: {
-            price: 13.99,
-            url: 'https://www.youtube.com/watch?v=RQn-Pqvnzc8',
-          },
-        },
       ],
     },
     __v: 0,
