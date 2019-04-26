@@ -1,0 +1,256 @@
+@import './style-variables.css';
+
+/* ======================================================= */
+/* General */
+/* ======================================================= */
+
+.movie-feed {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movie-feed-item:hover {
+  /* transform: scale(1.01); */
+  box-shadow: 0px 0px 5px 3px var(--purple);
+}
+
+.movie-feed-item {
+  /* variables */
+  --text-width: 100%;
+  --bg-gradient: linear-gradient(
+    to right,
+    var(--offwhite) 40%,
+    rgba(245, 248, 232, 0.7) 70%,
+    transparent 100%
+  );
+  --top-size: 250px;
+  --bottom-size: 35vh;
+  --expand-transition: all 0.4s ease-in-out;
+  --bg-shift: 25vw;
+  --bg-shift-expanded: 15vw;
+
+  /* actual styles */
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  border-radius: 10px;
+  margin: 7.5px;
+  width: 75vw;
+  line-height: 1.4;
+  font-family: var(--fontfamily);
+  color: var(--midgrey);
+  transition: var(--expand-transition);
+  /* transition-property: background-image; */
+}
+
+.movie-feed-item .top-container {
+  background: var(--bg-gradient);
+  width: var(--text-width);
+  height: var(--top-size);
+  padding: 10px;
+}
+
+.movie-feed-item .bottom-container {
+  background: var(--bg-gradient);
+  width: var(--text-width);
+  height: var(--bottom-size);
+  padding: 10px;
+  padding-top: 0px;
+  transition: var(--expand-transition);
+}
+
+/* ======================================================= */
+/* Expand Indicator */
+
+.movie-feed-item .expand-indicator {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  top: 90px;
+  right: 0px;
+  margin: 20px;
+  height: 40px;
+  width: 40px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 50%;
+  border: none;
+  color: var(--midgrey);
+  background-color: var(--offwhite);
+  transition: var(--expand-transition);
+}
+
+.movie-feed-item .expand-indicator:focus {
+  outline: none;
+  /* border: 2px solid var(--popcornyellow); */
+  border: 2px solid var(--purple);
+}
+
+.movie-feed-item .expand-indicator:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.movie-feed-item .expand-indicator.close {
+  transform: rotate(180deg);
+  background-color: var(--red);
+}
+
+.movie-feed-item .expand-indicator.close:hover {
+  transform: scale(1.1) rotate(180deg);
+}
+
+/* ======================================================= */
+/* Top/Main Section Elements */
+/* ======================================================= */
+
+.movie-feed-item .info {
+  height: 100%;
+  width: 90%;
+}
+
+.movie-feed-item .poster {
+  height: 100%;
+  width: auto;
+  float: left;
+  padding-right: 10px;
+}
+
+.movie-feed-item .trailer-icon {
+  position: absolute;
+  top: 65px;
+  left: 40px;
+  margin: 20px;
+  font-size: 3em;
+  color: var(--lightgrey);
+  opacity: 0.7;
+  transition: all 0.3s ease-in-out;
+}
+
+.movie-feed-item .trailer-icon:hover,
+.movie-feed-item .trailer-icon:focus {
+  /* font-size: 3.2em; */
+  outline: none;
+  color: var(--offwhite);
+  opacity: 0.9;
+}
+
+.movie-feed-item .trailer-icon:hover {
+  cursor: pointer;
+}
+
+.movie-feed-item .title {
+  /* display: flex; */
+  align-items: center;
+  color: var(--darkgrey);
+  height: 18%;
+}
+
+.movie-feed-item .title .year {
+  /* font-size: 0.6em; */
+  font-weight: 500;
+  /* margin: 0px 5px; */
+}
+
+.movie-feed-item .cert-runtime-ratings {
+  height: 20%;
+  display: flex;
+  align-items: center;
+  padding: 5px 0px;
+}
+
+.movie-feed-item .certification,
+.movie-feed-item .runtime {
+  padding: 5px;
+  /* height: 100%; */
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--lightgrey);
+  font-size: 0.9rem;
+  font-weight: bold;
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+.movie-feed-item .genres {
+  padding: 5px 0px;
+  height: 30%;
+  /* display: flex; */
+  /* color: var(--lightgrey); */
+}
+
+/* ======================================================= */
+/* Ratings */
+
+.movie-feed-item .ratings {
+  height: 100%;
+  display: flex;
+  margin: 0px 5px;
+}
+
+.movie-feed-item .ratings a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-right: 4px;
+  text-decoration: none;
+  color: var(--midgrey);
+}
+
+.movie-feed-item .ratings img {
+  height: 60%;
+  margin-right: 3px;
+}
+
+/* ======================================================= */
+/* Streams */
+
+.movie-feed-item .streams {
+  height: 30%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movie-feed-item .streams .offer {
+  /* border: 2px solid var(--purple); */
+  border-radius: 5px;
+  overflow: hidden;
+  height: 55%;
+  margin-right: 10px;
+}
+
+.movie-feed-item .streams .offer img {
+  height: 100%;
+}
+
+/* ======================================================= */
+/* Bottom/Expanded Section Elements */
+/* ======================================================= */
+
+.movie-feed-item .trailer-button {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: blue;
+  font-size: 1em;
+  height: 15%;
+  /* display: none; */
+}
+
+.movie-feed-item .directors {
+  width: 75%;
+  height: 15%;
+  font-size: 0.9em;
+}
+
+.movie-feed-item .plot {
+  overflow: hidden;
+  width: 75%;
+  height: 70%;
+  font-size: medium;
+}

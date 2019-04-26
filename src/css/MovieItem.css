@@ -1,4 +1,4 @@
-.card-container {
+.parent .card-container {
   background: linear-gradient(to left, var(--darkgrey) 1%, transparent 100%);
   width: 100%;
   height: 200px;
@@ -9,30 +9,28 @@
 
 .parent {
   width: 70%;
-  
 }
 
-.card-button {
+.parent .card-button {
   width: 100%;
   border-radius: 5px 0% 0% 0%;
   outline: none;
   border: none;
   transform: rotate(0deg);
-  transition: all .2s ease-in;
+  transition: all 0.2s ease-in;
 }
 
-.card-button:hover {
+.parent .card-button:hover {
   transform: scale(1.01) rotate(0deg);
 }
 
-.movieitem-info {
+.parent .movieitem-info {
   display: flex;
   flex-direction: row;
   /* justify-items: center; */
-
 }
 
-.movieitem-poster {
+.parent .movieitem-poster {
   position: relative;
   top: 10px;
   left: 10px;
@@ -40,7 +38,7 @@
   height: 180px;
 }
 
-.movieitem-title {
+.parent .movieitem-title {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -48,7 +46,7 @@
   font-size: 12px;
 }
 
-.movieitem-stats {
+.parent .movieitem-stats {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,7 +54,7 @@
   margin-right: auto;
 }
 
-.cert-runtime {
+.parent .cert-runtime {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -65,30 +63,30 @@
   margin-bottom: 8px;
 }
 
-.movieitem-card {
+.parent .movieitem-card {
   color: var(--darkgrey);
   width: 100%;
   height: 50vh;
   border-radius: 0% 0% 2% 2%;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Backdrop */ 
+/* Backdrop */
 
-.backdrop {
+.parent .backdrop {
   position: absolute;
   overflow: hidden;
   background-color: var(--purple);
 }
 
-.backdrop img {
+.parent .backdrop img {
   width: 100%;
   position: absolute;
 }
 
 /* Movie Drop Down Description */
 
-.description {
+.parent .description {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -100,12 +98,11 @@
   text-align: center;
 }
 
-.description p {
+.parent .description p {
   margin-bottom: 0;
 }
 
-.description-content {
- 
+.parent .description-content {
 }
 
 /* #streams {
@@ -116,7 +113,7 @@
 
 /* Movie Certifications ====================  */
 
-.item-certification {
+.parent .item-certification {
   width: 50px;
   margin-right: 5px;
   padding: 4px;
@@ -128,7 +125,7 @@
 
 /* Movie Runtime ========================== */
 
-.item-runtime {
+.parent .item-runtime {
   width: 70px;
   display: inline-block;
   /* margin-top: 15px; */
@@ -140,7 +137,7 @@
 
 /* Movie Genres ============================ */
 
-.genres {
+.parent .genres {
   display: inline-block;
   text-align: left;
   color: var(--darkgrey);
@@ -205,7 +202,7 @@
 
 /* Movie Trailer ============================ */
 
-.trailer-container {
+.parent .trailer-container {
   display: flex;
   justify-content: center;
   padding: 3vh 0px;
@@ -220,16 +217,16 @@
   background-color: rgba(17, 18, 20, 0.9);
 }
 
-.movie-trailer {
+.parent .movie-trailer {
   position: relative;
   top: 25%;
   right: 15%;
   height: 400px;
   width: 800px;
-  transition: all .3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
 }
 
-.trailer-button {
+.parent .trailer-button {
   background: none;
   outline: none;
   border: none;
@@ -239,7 +236,7 @@
   margin-bottom: 20px;
 }
 
-.close-trailer-button {
+.parent .close-trailer-button {
   height: 25px;
   width: 60px;
   position: absolute;
@@ -254,7 +251,7 @@
 
 /* Animated Open/Close Button =============== */
 
-.menu-toggle {
+.parent .menu-toggle {
   cursor: pointer;
   position: absolute;
   z-index: 1000;
@@ -265,90 +262,90 @@
   height: 40px;
   width: 40px;
   font-size: 20px;
-  color: rgba(35, 38, 46, .8);
+  color: rgba(35, 38, 46, 0.8);
   font-weight: bold;
   border-radius: 50%;
   background-color: var(--offwhite);
   transform: rotate(0deg);
-  transition: all .2s ease-in;
+  transition: all 0.2s ease-in;
   border: 0 none;
 }
 
-.menu-toggle:hover {
+.parent .menu-toggle:hover {
   cursor: pointer;
   transform: scale(1.1) rotate(0deg);
 }
 
-.menu-toggle:focus {
+.parent .menu-toggle:focus {
   cursor: pointer;
   outline: 0 none;
 }
 
-.close-button {
+.parent .close-button {
   cursor: pointer;
   transform: rotate(45deg);
   background-color: var(--red);
 }
 
-.close-button:hover {
+.parent .close-button:hover {
   transform: scale(1.1) rotate(45deg);
 }
 
 /* Animated Dropdown ====================== */
 
-.dropdown-appear {
+.parent .dropdown-appear {
   opacity: 0.01;
 }
 
-.dropdown-appear.dropdown-appear-active {
+.parent .dropdown-appear.dropdown-appear-active {
   opacity: 1;
-  transition: opacity .5s ease-in;
+  transition: opacity 0.5s ease-in;
 }
 
-.dropdown-enter {
+.parent .dropdown-enter {
   opacity: 0.01;
 }
 
-.dropdown-enter.dropdown-enter-active {
+.parent .dropdown-enter.dropdown-enter-active {
   opacity: 1;
   transition: opacity 600ms ease-in;
 }
 
-.dropdown-leave {
+.parent .dropdown-leave {
   opacity: 1;
 }
 
-.dropdown-leave.dropdown-leave-active {
+.parent .dropdown-leave.dropdown-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-out;
 }
 
 /* Animated Button ====================== */
 
-.button-appear {
+.parent .button-appear {
   opacity: 0.01;
 }
 
-.button-appear.button-appear-active {
+.parent .button-appear.button-appear-active {
   opacity: 1;
-  transition: opacity .3s ease-in;
+  transition: opacity 0.3s ease-in;
 }
 
-.button-enter {
+.parent .button-enter {
   opacity: 0.01;
 }
 
-.button-enter.button-enter-active {
+.parent .button-enter.button-enter-active {
   opacity: 1;
   transform: rotate(45deg);
   transition: opacity 500ms ease-in;
 }
 
-.button-leave {
+.parent .button-leave {
   opacity: 1;
 }
 
-.button-leave.button-leave-active {
+.parent .button-leave.button-leave-active {
   opacity: 0.01;
   transform: rotate(0deg);
   transition: opacity 300ms ease-in;

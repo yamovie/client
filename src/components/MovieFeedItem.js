@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../css/MovieFeedItemFlip.css';
+// import TrailerModal from './TrailerModal';
+import { FontAwesomeIcon } from '../utils/fontAwesome';
+import '../css/MovieFeedItem.css';
 
-export default class MovieFeedItemFlip extends Component {
+export default class MovieFeedItem extends Component {
   static propTypes = {
     movie: PropTypes.shape({
       genres: PropTypes.arrayOf(PropTypes.object),
@@ -25,22 +27,44 @@ export default class MovieFeedItemFlip extends Component {
       }),
       videos: PropTypes.arrayOf(PropTypes.object),
     }).isRequired,
+    toggleTrailer: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      isFlipped: false,
+      isExpanded: false,
+      backdropNum: 0,
+      // trailerVisible: false,
     };
+    this.randBD = true;
   }
 
-  toggleFlipped = () => {
-    this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
+  componentDidMount() {
+    this.randomizeBackdrop();
+  }
+
+  randomizeBackdrop = () => {
+    if (this.randBD) {
+      const { movie } = this.props;
+      const { images } = movie;
+      const backdropNum = Math.floor(Math.random() * images.backdrops.length);
+      this.setState({ backdropNum });
+    }
   };
 
+  toggleExpanded = () => {
+    this.randomizeBackdrop();
+    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
+  };
+
+  // toggleTrailer = () => {
+  //   this.setState(prevState => ({ trailerVisible: !prevState.trailerVisible }));
+  // };
+
   render() {
-    const { movie } = this.props;
+    const { movie, toggleTrailer } = this.props;
     const {
       // jw_url,
       jw_image_url,
@@ -56,63 +80,86 @@ export default class MovieFeedItemFlip extends Component {
       offers,
       videos,
     } = movie;
-    const { isFlipped } = this.state;
+    const { isExpanded, backdropNum } = this.state;
 
     const genresArray = genres.map(genre => genre.translation);
     const directorList = credits.crew
       .filter(member => member.role === 'Director')
       .map(member => member.name);
-
-    const titleLine = (
-      <h2 className="title">
-        {title}
-        <span className="year"> ({release_year})</span>
-        <span className="certification">{certification}</span>
-      </h2>
-    );
+    const backdropLink = images.backdrops[backdropNum];
 
     const ratingsLine = (
       <div className="ratings">
-        <span>
+        <a href={ratings.rotten_tomatoes.url} target="_blank" rel="noopener noreferrer">
           <img src="/images/icon-rottentomatoes-fresh.png" alt="Rotten Tomatoes" />
           {`${ratings.rotten_tomatoes.rate}`}
-        </span>
-        <span>
+        </a>
+        <a href={ratings.imdb.url} target="_blank" rel="noopener noreferrer">
           <img src="/images/icon-IMDb.png" alt="IMDb" />
           {ratings.imdb.rate}
-        </span>
+        </a>
       </div>
     );
 
     return (
       <div
-        className={`movie-feed-item ${isFlipped ? 'flip' : ''}`}
-        onClick={this.toggleFlipped}
-        onKeyPress={this.toggleFlipped}
-        role="button"
-        tabIndex={0}
+        className="movie-feed-item"
+        style={{
+          backgroundImage: `url(${backdropLink})`,
+          backgroundPositionX: isExpanded
+            ? 'var(--bg-shift-expanded)'
+            : 'var(--bg-shift)',
+        }}
       >
-        <div className="item-front">
+        {/* {trailerVisible ? (
+          <TrailerModal trailerList={videos} toggleTrailer={this.toggleTrailer} />
+        ) : (
+          ''
+        )} */}
+        <button
+          type="button"
+          className={`expand-indicator ${isExpanded ? 'close' : ''}`}
+          onClick={this.toggleExpanded}
+        >
+          <FontAwesomeIcon icon="angle-down" />
+        </button>
+        <span
+          className="trailer-icon"
+          role="button"
+          tabIndex={0}
+          onClick={() => toggleTrailer(videos)}
+        >
+          <FontAwesomeIcon icon="play-circle" />
+        </span>
+        <div className="top-container">
+          <img className="poster" alt={title} src={images.poster} />
           <div className="info">
-            <img className="poster" alt={title} src={images.poster} />
-            {titleLine}
-            {/* <p className="directors">{directorList.join(', ')}</p> */}
-            <span className="numbers">{`${release_year}, ${runtime} min`}</span>
-            {/* ratingsLine */}
+            <h2 className="title">
+              {title}
+              <span className="year"> ({release_year})</span>
+            </h2>
+            <div className="cert-runtime-ratings">
+              <span className="certification">{certification}</span>
+              <span className="runtime">{runtime} min</span>
+              {ratingsLine}
+            </div>
             <p className="genres">{genresArray.join(', ')}</p>
-            {/* <div className="streams">[Streams go here]</div> */}
             <StreamsView offers={offers} jw_image_url={jw_image_url} />
           </div>
-          <div className="backdrop">
-            {images.backdrops ? <img src={images.backdrops[0]} alt="" /> : ''}
-          </div>
         </div>
-        <div className="item-back">
-          <iframe src={videos[0].url} title={videos[0].title} className="trailer" />
-          {titleLine}
-          <h4 className="directors">{directorList.join(', ')}</h4>
-          {ratingsLine}
-          <p className="plot">{overview}</p>
+        <div
+          className="bottom-container"
+          style={isExpanded ? {} : { height: '0', padding: '0px 10px' }}
+        >
+          <button
+            type="button"
+            className="trailer-button"
+            onClick={() => toggleTrailer(videos)}
+          >
+            Watch Trailer
+          </button>
+          <h4 className="directors">Director(s): {directorList.join(', ')}</h4>
+          <p className="plot">{overview || 'No plot summary available'}</p>
         </div>
       </div>
     );
@@ -123,6 +170,8 @@ export default class MovieFeedItemFlip extends Component {
 // Stream Links
 
 const StreamsView = ({ offers, jw_image_url }) => {
+  // TODO: if more than 8 stream options, make offer height style smaller (currently 55%)
+
   if (!offers) {
     return (
       <div className="streams">

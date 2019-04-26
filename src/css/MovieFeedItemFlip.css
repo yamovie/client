@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.movie-feed-item {
+.movie-feed-item-flip {
   position: relative;
   border: 1px solid var(--red);
   border-radius: 20px;
@@ -27,16 +27,16 @@
   /* perspective: 1000px; */
 }
 
-.movie-feed-item.flip {
+.movie-feed-item-flip.flip {
   /* transform: rotateX(180deg); */
   animation: rotate 0.5s linear both;
 }
 
-.movie-feed-item:hover {
+.movie-feed-item-flip:hover {
   cursor: pointer;
 }
 
-.movie-feed-item:focus {
+.movie-feed-item-flip:focus {
   outline: none;
   /* transition: 0s; */
   box-shadow: 0px 0px 4px 5px var(--red);
@@ -63,8 +63,8 @@
   }
 }
 
-.movie-feed-item .item-front,
-.movie-feed-item .item-back {
+.movie-feed-item-flip .item-front,
+.movie-feed-item-flip .item-back {
   border-radius: inherit;
   height: 100%;
   width: 100%;
@@ -75,12 +75,12 @@
   overflow: hidden;
 }
 
-.movie-feed-item .item-front {
+.movie-feed-item-flip .item-front {
   transform: rotateX(0deg);
   --info-width: 65%;
 }
 
-.movie-feed-item .item-back {
+.movie-feed-item-flip .item-back {
   /* background-color: var(--popcornyellow); */
   background: linear-gradient(
     to bottom,
@@ -99,7 +99,7 @@
 /* ======================================================= */
 /* Backdrop */
 
-.movie-feed-item .backdrop {
+.movie-feed-item-flip .backdrop {
   position: absolute;
   border-radius: inherit;
   height: 100%;
@@ -110,7 +110,7 @@
   background-color: var(--purple);
 }
 
-.movie-feed-item .backdrop img {
+.movie-feed-item-flip .backdrop img {
   width: 100%;
   z-index: -2;
   border-radius: inherit;
@@ -121,7 +121,7 @@
 /* ======================================================= */
 /* Info Section */
 
-.movie-feed-item .info {
+.movie-feed-item-flip .info {
   position: absolute;
   left: 0;
   height: 100%;
@@ -134,26 +134,26 @@
   );
 }
 
-.movie-feed-item .info .poster {
+.movie-feed-item-flip .info .poster {
   height: 100%;
   width: auto;
   float: left;
   padding-right: 25px;
 }
 
-.movie-feed-item .item-front .title {
+.movie-feed-item-flip .item-front .title {
   width: var(--info-width);
 }
 
-.movie-feed-item .info .directors {
+.movie-feed-item-flip .info .directors {
   width: var(--info-width);
 }
 
-.movie-feed-item .info .numbers {
+.movie-feed-item-flip .info .numbers {
   width: var(--info-width);
 }
 
-.movie-feed-item .info .genres {
+.movie-feed-item-flip .info .genres {
   color: var(--lightgrey);
   width: var(--info-width);
 }
@@ -161,17 +161,17 @@
 /* ======================================================= */
 /* Ratings */
 
-.movie-feed-item .info .ratings {
+.movie-feed-item-flip .info .ratings {
   width: var(--info-width);
 }
 
-.movie-feed-item .ratings img {
+.movie-feed-item-flip .ratings img {
   height: 1em;
   margin: 1px 4px 1px 1px;
   vertical-align: text-top;
 }
 
-.movie-feed-item .ratings span {
+.movie-feed-item-flip .ratings span {
   height: 1em;
   padding: 5px 10px 5px 0px;
   vertical-align: middle;
@@ -180,14 +180,14 @@
 /* ======================================================= */
 /* Streams */
 
-.movie-feed-item .info .streams {
+.movie-feed-item-flip .info .streams {
   display: flex;
   flex-wrap: wrap;
   width: var(--info-width);
   /* align-items: center; */
 }
 
-.movie-feed-item .streams .offer {
+.movie-feed-item-flip .streams .offer {
   overflow: hidden;
   border-radius: 5px;
   border: 2px solid var(--purple);
@@ -195,7 +195,7 @@
   align-items: center;
 }
 
-.movie-feed-item .streams .offer img {
+.movie-feed-item-flip .streams .offer img {
   height: 50px;
 }
 
@@ -209,18 +209,18 @@
 /* Shared Elements */
 /* ======================================================= */
 
-.movie-feed-item .title {
+.movie-feed-item-flip .title {
   color: var(--darkgrey);
   line-height: 1.2;
 }
 
-.movie-feed-item .title .year {
+.movie-feed-item-flip .title .year {
   font-size: 0.8em;
   font-weight: 500;
   /* color: var(--midgrey); */
 }
 
-.movie-feed-item .certification {
+.movie-feed-item-flip .certification {
   padding: 4px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -236,11 +236,11 @@
 /* Back Side Elements */
 /* ======================================================= */
 
-.movie-feed-item .item-back .plot {
+.movie-feed-item-flip .item-back .plot {
   font-size: calc(0.3em + 0.9vw);
 }
 
-.movie-feed-item .item-back .trailer {
+.movie-feed-item-flip .item-back .trailer {
   width: 40%;
   float: right;
   vertical-align: middle;

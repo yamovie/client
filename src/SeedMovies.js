@@ -973,8 +973,8 @@ const data = [
     videos: [
       {
         type: 'trailer',
-        name: 'Bumblebee (2018) - Official Teaser Trailer - Paramount Pictures',
-        url: 'https://www.youtube.com/embed/fAIX12F6958',
+        name: 'SPIDER-MAN: INTO THE SPIDER-VERSE - Official Trailer (HD)',
+        url: 'https://www.youtube.com/embed/g4Hbz2jLxvQ',
       },
     ],
     jw_url: 'https://www.justwatch.com/us/movie/spider-man-into-the-spider-verse',
