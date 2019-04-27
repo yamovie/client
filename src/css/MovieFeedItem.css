@@ -18,7 +18,7 @@
 
 .movie-feed-item {
   /* variables */
-  --text-width: 100%;
+  --text-width: 85%;
   --bg-gradient: linear-gradient(
     to right,
     var(--offwhite) 40%,
@@ -47,14 +47,14 @@
 
 .movie-feed-item .top-container {
   background: var(--bg-gradient);
-  width: var(--text-width);
+  width: 100%;
   height: var(--top-size);
   padding: 10px;
 }
 
 .movie-feed-item .bottom-container {
   background: var(--bg-gradient);
-  width: var(--text-width);
+  width: 100%;
   height: var(--bottom-size);
   padding: 10px;
   padding-top: 0px;
@@ -110,7 +110,7 @@
 
 .movie-feed-item .info {
   height: 100%;
-  width: 90%;
+  width: calc(var(--text-width) + 5%);
 }
 
 .movie-feed-item .poster {
@@ -148,6 +148,9 @@
   align-items: center;
   color: var(--darkgrey);
   height: 18%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .movie-feed-item .title .year {
@@ -158,9 +161,13 @@
 
 .movie-feed-item .cert-runtime-ratings {
   height: 20%;
+  padding: 5px 0px;
   display: flex;
   align-items: center;
-  padding: 5px 0px;
+  flex-wrap: wrap;
+  overflow: auto;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
 }
 
 .movie-feed-item .certification,
@@ -179,6 +186,7 @@
 .movie-feed-item .genres {
   padding: 5px 0px;
   height: 30%;
+  overflow: auto;
   /* display: flex; */
   /* color: var(--lightgrey); */
 }
@@ -239,18 +247,23 @@
   color: blue;
   font-size: 1em;
   height: 15%;
-  /* display: none; */
+  display: none;
 }
 
 .movie-feed-item .directors {
-  width: 75%;
+  width: var(--text-width);
   height: 15%;
   font-size: 0.9em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .movie-feed-item .plot {
-  overflow: hidden;
-  width: 75%;
-  height: 70%;
-  font-size: medium;
+  overflow: auto;
+  width: var(--text-width);
+  height: 85%;
+  font-size: large;
 }
+
+/* TODO: style plot scroll? */

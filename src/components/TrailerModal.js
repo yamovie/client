@@ -21,7 +21,7 @@ const TrailerModal = ({ trailerList, toggleTrailer }) => {
 };
 
 TrailerModal.propTypes = {
-  trailerList: PropTypes.shape(PropTypes.array).isRequired,
+  trailerList: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleTrailer: PropTypes.func.isRequired,
 };
 
