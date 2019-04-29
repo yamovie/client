@@ -16,7 +16,7 @@ class FindMoviePage extends React.Component {
       results: [{}],
       talkedToLloyd: false,
       mountChat: false,
-      isExpanded: false,
+      isExpanded: true,
     };
   }
 
