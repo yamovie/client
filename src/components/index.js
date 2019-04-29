@@ -1,7 +1,6 @@
 export { default as ChatWindow } from './ChatWindow';
 export { default as GenreList } from './GenreList';
 export { default as GoogleLogin } from './GoogleLogin';
-export { default as LloydChat } from './LloydChat';
 export { default as Login } from './Login';
 export { default as MovieCard } from './MovieCard';
 export { default as MovieList } from './MovieList';

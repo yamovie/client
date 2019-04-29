@@ -1,3 +1,78 @@
+.top-chat-container {
+  display: flex;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  height: 75px;
+  background-color: var(--offwhite);
+  border-radius: 10px;
+  position: relative;
+  background-image: linear-gradient(to right, var(--offwhite) 0%, var(--purple) 30%);
+}
+
+/* ======================================================= */
+/* Expand Indicator */
+
+.top-chat-container .expand-indicator {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  top: 0px;
+  right: 0px;
+  margin: 20px;
+  height: 40px;
+  width: 40px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 50%;
+  border: none;
+  color: var(--midgrey);
+  background-color: var(--darkgrey);
+  transition: var(--expand-transition);
+}
+
+.top-chat-container .expand-indicator:focus {
+  outline: none;
+  /* border: 2px solid var(--popcornyellow); */
+  border: 2px solid var(--purple);
+}
+
+.top-chat-container .expand-indicator:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.top-chat-container .expand-indicator.close {
+  transform: rotate(180deg);
+  background-color: var(--red);
+}
+
+.top-chat-container .expand-indicator.close:hover {
+  transform: scale(1.1) rotate(180deg);
+}
+
+.top-chat-container .angle-icon {
+  color: var(--offwhite);
+}
+
+.bottom-chat-container {
+  
+}
+
+.lloyd-icon {
+  height: 60px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.lloyd-title {
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
 .findMovieh1 {
   color: var(--offwhite);
   font-family: var(--fontfamily);

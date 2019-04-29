@@ -82,15 +82,7 @@ class ChatWindow extends React.Component {
     });
   }
 
-  async endChatFunc() {
-    const { getMovieResults, toggleChat, resetMovieResults } = this.props;
-    await resetMovieResults();
-    await this.resultsMessage(getMovieResults);
-    await setTimeout(function() {
-      toggleChat();
-    }, 6000);
-  }
-
+  
   /**
    * Shows the initial greeting message, the question for if the user wants recs,
    * and then the answer option buttons
@@ -490,6 +482,16 @@ class ChatWindow extends React.Component {
         getMovieResults(dataObj);
       });
   };
+
+  async endChatFunc() {
+    const { getMovieResults, toggleChat, resetMovieResults } = this.props;
+    await resetMovieResults();
+    await this.resultsMessage(getMovieResults);
+    await setTimeout(function() {
+      toggleChat();
+    }, 6000);
+  }
+
 
   render() {
     return (

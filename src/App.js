@@ -48,54 +48,55 @@ class App extends Component {
    * get user data from database
    */
   componentDidMount() {
-    this.getGenreData();
     const user = userServices.getUser();
     if (user) {
       this.setState({ isAuthenticated: true, user });
     }
   }
 
-  getMovieResults = dataObj => {
-    const { history } = this.props;
-    axios
-      .post(`${serverLink}/movies/recommend`, dataObj, {
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then(response => {
-        this.setState({
-          results: response.data.results,
-          talkedToLloyd: true,
-        });
-        history.push('/recommendations');
-      })
-      .catch(error => console.log(error));
-  };
+  // getMovieResults = dataObj => {
+  //   const { history } = this.props;
+  //   // console.log("Get Movie Results");
+  //   // console.log(dataObj);
+  //   axios
+  //     .post(`${serverLink}/movies/recommend`, dataObj, {
+  //       headers: { 'Content-Type': 'application/json' },
+  //     })
+  //     .then(response => {
+  //       this.setState({
+  //         results: response.data.results,
+  //         talkedToLloyd: true,
+  //       });
+  //       history.push('/recommendations');
+  //     })
+  //     .catch(error => console.log(error));
+  // };
 
-  getGenreData = () => {
-    axios
-      .get(`${serverLink}/genres`)
-      .then(response => {
-        // const genreArray = response.data;
-        // const idObject = {};
-        // for (let i = 0; i < genreArray.length; i++) {
-        //   const str = genreArray[i].name.replace(/\s+/g, '');
-        //   idObject[str] = genreArray[i]._id;
-        // }
+  // getGenreData = () => {
+  //   axios
+  //     .get(`${serverLink}/genres`)
+  //     .then(response => {
+  //       // const genreArray = response.data;
+  //       // const idObject = {};
+  //       // for (let i = 0; i < genreArray.length; i++) {
+  //       //   const str = genreArray[i].name.replace(/\s+/g, '');
+  //       //   idObject[str] = genreArray[i]._id;
+  //       // }
 
-        const genreIds = response.data.reduce((acc, curr) => {
-          acc[curr.translation] = curr._id;
-          return acc;
-        }, {});
-        this.setState({ genreIds });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+  //       const genreIds = response.data.reduce((acc, curr) => {
+  //         acc[curr.translation] = curr._id;
+  //         return acc;
+  //       }, {});
+  //       this.setState({ genreIds });
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
 
-  resetMovieResults = () => {
-    this.setState({ talkedToLloyd: false });
-  };
+  // resetMovieResults = () => {
+  //   this.setState({ talkedToLloyd: false });
+  // };
 
   handleLogout = () => {
     userServices.logout();
@@ -121,7 +122,6 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />
           <Route path="/about" component={AboutPage} />
-          <Route path="/chat" component={ChatWindow} />
           <Route
             path="/recommendations"
             render={props => (
@@ -130,10 +130,10 @@ class App extends Component {
                 history={history}
                 results={results}
                 showGenreFilter={false}
-                talkedToLloyd={talkedToLloyd}
-                getMovieResults={this.getMovieResults}
-                genreIds={genreIds}
-                resetMovieResults={this.resetMovieResults}
+                // talkedToLloyd={talkedToLloyd}
+                // getMovieResults={this.getMovieResults}
+                // genreIds={genreIds}
+                // resetMovieResults={this.resetMovieResults}
               />
             )}
           />
