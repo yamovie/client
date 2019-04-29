@@ -103,11 +103,11 @@ class App extends Component {
   };
 
   handleLogin = () => {
-    this.setState({ user: userServices.getUser() });
+    this.setState({ isAuthenticated: true, user: userServices.getUser() });
   };
 
   handleSignup = () => {
-    this.setState({ user: userServices.getUser() });
+    this.setState({ isAuthenticated: true, user: userServices.getUser() });
   };
 
   render() {
