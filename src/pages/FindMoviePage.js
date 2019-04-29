@@ -23,7 +23,8 @@ class FindMoviePage extends React.Component {
   static getDerivedStateFromProps(props, state) {
     if (props.results !== state.results) {
       return { results: props.results };
-    } return null;
+    }
+    return null;
   }
 
   componentDidUpdate = prevProps => {
@@ -41,9 +42,11 @@ class FindMoviePage extends React.Component {
       results,
       history,
     } = this.props;
+
     return (
       <div>
-        <LloydChat
+        <MovieFeed />
+        {/* <LloydChat
           getMovieResults={getMovieResults}
           genreIds={genreIds}
           resetMovieResults={resetMovieResults}
@@ -52,7 +55,7 @@ class FindMoviePage extends React.Component {
           <MovieFeed results={results} showGenreFilter={false} history={history} />
         ) : (
           ''
-        )}
+        )} */}
         {!talkedToLloyd ? (
           <h1 className="findMovieh1">
             {/* Talk to our chatbot Lloyd to find YaMovie recommendations!
@@ -70,8 +73,8 @@ class FindMoviePage extends React.Component {
             </h1>
             <br />
             <h3 className="findMovieh3">
-              Ask him again with different criteria so he can find YaMovie
-              or come back later because our database is always expanding!
+              Ask him again with different criteria so he can find YaMovie or come back
+              later because our database is always expanding!
             </h3>
           </div>
         ) : (
