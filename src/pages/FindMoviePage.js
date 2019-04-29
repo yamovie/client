@@ -1,16 +1,18 @@
 import React from 'react';
-import Proptypes from 'prop-types';
-import MovieFeed from '../components/MovieFeed';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import { MovieFeed, ChatWindow } from '../components';
 import '../css/FindMoviePage.css';
-import { LloydChat } from '../components';
+
+const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
 
 class FindMoviePage extends React.Component {
   static propTypes = {
-    getMovieResults: Proptypes.func.isRequired,
-    resetMovieResults: Proptypes.func.isRequired,
-    genreIds: Proptypes.shape().isRequired,
-    results: Proptypes.arrayOf(Proptypes.object).isRequired,
-    talkedToLloyd: Proptypes.bool.isRequired,
+    getMovieResults: PropTypes.func.isRequired,
+    resetMovieResults: PropTypes.func.isRequired,
+    genreIds: PropTypes.shape().isRequired,
+    results: PropTypes.arrayOf(PropTypes.object).isRequired,
+    talkedToLloyd: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -19,6 +21,14 @@ class FindMoviePage extends React.Component {
       results: [{}],
     };
   }
+
+  componentDidMount = () => {
+    axios.get(`${serverLink}/movies/`).then(movieResp =>
+      this.setState({
+        movies: movieResp.data.results,
+      }),
+    );
+  };
 
   static getDerivedStateFromProps(props, state) {
     if (props.results !== state.results) {
@@ -43,9 +53,11 @@ class FindMoviePage extends React.Component {
       history,
     } = this.props;
 
+    const { movies } = this.state;
+
     return (
       <div>
-        <MovieFeed />
+        <MovieFeed movies={movies} />
         {/* <LloydChat
           getMovieResults={getMovieResults}
           genreIds={genreIds}

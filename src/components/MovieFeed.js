@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { MovieFeedItem, TrailerModal } from '.';
-import data from '../SeedMovies';
+// import data from '../SeedMovies';
 
 export default class MovieFeed extends Component {
+  static propTypes = {
+    movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: [],
       selectedTrailerList: [],
       trailerVisible: false,
     };
-  }
-
-  componentDidMount() {
-    this.setState({ movies: data });
   }
 
   toggleTrailer = selectedTrailerList => {
@@ -24,14 +24,12 @@ export default class MovieFeed extends Component {
     } else {
       this.setState({ trailerVisible: true, selectedTrailerList });
     }
-    // this.setState(prevState => ({
-    //   trailerVisible: !prevState.trailerVisible,
-    //   selectedTrailerList,
-    // }));
   };
 
   render() {
-    const { movies, selectedTrailerList } = this.state;
+    let { movies } = this.props;
+    movies = movies || [];
+    const { selectedTrailerList } = this.state;
     return (
       <div className="movie-feed">
         <TrailerModal
