@@ -1,7 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faHome, faSearch, faColumns, faAddressCard, faSignInAlt, faUserPlus, faComments, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHome, faSearch, faColumns, faAddressCard, faSignInAlt, faUserPlus, faComments, faEnvelope, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-library.add(faUser, faHome, faSearch, faColumns, faAddressCard, faSignInAlt, faUserPlus, faComments, faEnvelope);
+library.add(faUser, faHome, faSearch, faColumns, faAddressCard, faSignInAlt, faUserPlus, faComments, faEnvelope, faStar);
 
 export { FontAwesomeIcon };
