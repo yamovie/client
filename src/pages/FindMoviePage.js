@@ -1,5 +1,4 @@
 import React from 'react';
-import Proptypes from 'prop-types';
 import axios from 'axios'
 import MovieFeed from '../components/MovieFeed';
 import '../css/FindMoviePage.css';
@@ -21,9 +20,7 @@ class FindMoviePage extends React.Component {
   }
 
   getMovieResults = dataObj => {
-    const { history } = this.props;
-    // console.log("Get Movie Results");
-    // console.log(dataObj);
+    // const { history } = this.props;
     axios
       .post(`${serverLink}/movies/recommend`, dataObj, {
         headers: { 'Content-Type': 'application/json' },
@@ -33,22 +30,15 @@ class FindMoviePage extends React.Component {
           results: response.data.results,
           talkedToLloyd: true,
         });
-        history.push('/recommendations');
+        // history.push('/recommendations');
       })
-      .catch(error => console.log(error));
+      .catch(error => console.error(error));
   };
 
   getGenreData = () => {
     axios
       .get(`${serverLink}/genres`)
       .then(response => {
-        // const genreArray = response.data;
-        // const idObject = {};
-        // for (let i = 0; i < genreArray.length; i++) {
-        //   const str = genreArray[i].name.replace(/\s+/g, '');
-        //   idObject[str] = genreArray[i]._id;
-        // }
-
         const genreIds = response.data.reduce((acc, curr) => {
           acc[curr.translation] = curr._id;
           return acc;
@@ -59,27 +49,15 @@ class FindMoviePage extends React.Component {
         });
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   };
   
-
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.results !== state.results) {
-  //     return { results: props.results };
-  //   }
-  //   return null;
-  // }
 
   resetMovieResults = () => {
     this.setState({ talkedToLloyd: false });
   };
 
-  // componentDidUpdate = prevProps => {
-  //   if (this.props.results !== prevProps.results) {
-  //     this.setState({ results: this.getDerivedStateFromProps });
-  //   }
-  // };
 
   componentDidMount = () => {
     this.getGenreData();
@@ -97,10 +75,6 @@ class FindMoviePage extends React.Component {
       mountChat,
       isExpanded,
     } = this.state;
-
-    const {
-      history,
-    } = this.props;
 
     return (
       <div>
@@ -129,7 +103,7 @@ class FindMoviePage extends React.Component {
             /> : ''}
         </div>
         {talkedToLloyd && results.length > 0 ? (
-          <MovieFeed results={results} showGenreFilter={false} history={history} />
+          <MovieFeed movies={results} />
         ) : (
           ''
         )}
