@@ -48,132 +48,6 @@
   }
 }
 
-#navbar-links {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 10px;
-  margin: 0;
-}
-
-#navbar-links a,
-#navbar-links a:visited {
-  text-decoration: none;
-  color: var(--offwhite);
-}
-
-#navbar-links li {
-  padding: 0 15px;
-  height: 45px;
-  line-height: 45px;
-  list-style-type: none;
-  position: relative;
-  display: inline-block;
-  margin: 5px 10px;
-  outline: none;
-  color: var(--offwhite);
-  text-decoration: none;
-  letter-spacing: 1px;
-  font-weight: 400;
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-  font-size: 0.75em;
-}
-
-@media only screen and (max-width: 800px) {
-  #navbar-links li {
-    height: 20px;
-    font-size: .5em;
-    line-height: 25px;
-    padding: 0 7px;
-  }
-}
-
-#navbar-links li::before {
-  top: 0;
-  left: 0;
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  transform: rotate(90deg);
-  -webkit-transform-origin: 0 0;
-  -moz-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-
-#navbar-links li::after {
-  right: 0;
-  bottom: 0;
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  transform: rotate(90deg);
-  -webkit-transform-origin: 100% 0;
-  -moz-transform-origin: 100% 0;
-  transform-origin: 100% 0;
-}
-
-#navbar-links li::before,
-#navbar-links li::after {
-  position: absolute;
-  width: 45px;
-  height: 1px;
-  background: var(--offwhite);
-  content: '';
-  opacity: 0.2;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-  pointer-events: none;
-}
-
-@media only screen and (max-width: 800px) {
-
-  #navbar-links li::before,
-  #navbar-links li::after {
-    width: 25px;
-  }
-}
-
-.navbar *,
-.navbar *:after,
-.navbar *::before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-#navbar-links li:hover::before,
-#navbar-links li:hover::after,
-#navbar-links li:focus::before,
-#navbar-links li:focus::after {
-  opacity: 1;
-}
-
-#navbar-links li:hover::before,
-#navbar-links li:focus::before {
-  left: 50%;
-  -webkit-transform: rotate(0deg) translateX(-50%);
-  -moz-transform: rotate(0deg) translateX(-50%);
-  transform: rotate(0deg) translateX(-50%);
-}
-
-#navbar-links li:hover::after,
-#navbar-links li:focus::after {
-  right: 50%;
-  -webkit-transform: rotate(0deg) translateX(50%);
-  -moz-transform: rotate(0deg) translateX(50%);
-  transform: rotate(0deg) translateX(50%);
-}
-
-#navbar-links li a.active {
-  /* TODO: Make this work so that it looks like when it's hovered when on that page */
-  /* color: var(--red); */
-  right: 50%;
-  -webkit-transform: rotate(0deg) translateX(50%);
-  -moz-transform: rotate(0deg) translateX(50%);
-  transform: rotate(0deg) translateX(50%);
-}
-
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
   .nav-links li:not(:first-child) {display: none;}
@@ -241,9 +115,9 @@
   .nav-item:before,
   .nav-item:after {
     position: absolute;
-    width: 2px;
-    height: 75%;
-    transform: translateY(25%);
+    width: 1px;
+    height: 100%;
+    /* transform: translateY(100%); */
     background: #fff;
     content: '';
     opacity: 0.2;
@@ -261,7 +135,7 @@
     left: 0;
     background: var(--offwhite);
     content: "";
-    opacity: .2;
+    opacity: .1;
   }
 
   .nav-item:after {
@@ -272,11 +146,12 @@
     right: 0;
     background: var(--offwhite);
     content: "";
-    opacity: .2;
+    opacity: .1;
   }
 
   .nav-item:hover::before {
     left: 50%;
+    opacity: 1;
     height: 100%;
     transform: rotate(90deg) translateY(50%);
     transform-origin: 0 100%;
@@ -284,74 +159,11 @@
   .nav-item:hover::after {
     /* right: 50%; */
     height: 100%;
+    opacity: 1;
     right: 50%;
     transform: rotate(-90deg) translateY(-50%);
     transform-origin: 0 0;
   }
-
-
-  /* Effect 14: border switch */
-
-
-/* .nav-item::before,
-.nav-item::after {
-	position: absolute;
-	width: 45px;
-	height: 2px;
-	background: #fff;
-	content: '';
-	opacity: 0.2;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	transition: all 0.3s;
-	pointer-events: none;
-}
-
-.nav-item::before {
-	top: 0;
-	left: 0;
-	-webkit-transform: rotate(90deg);
-	-moz-transform: rotate(90deg);
-	transform: rotate(90deg);
-	-webkit-transform-origin: 0 0;
-	-moz-transform-origin: 0 0;
-	transform-origin: 0 0;
-}
-
-.nav-item::after {
-	right: 0;
-  bottom: 0;
-  margin: auto;
-	-webkit-transform: rotate(90deg);
-	-moz-transform: rotate(90deg);
-	transform: rotate(90deg);
-	-webkit-transform-origin: 100% 0;
-	-moz-transform-origin: 100% 0;
-	transform-origin: 100% 0;
-}
-
-.nav-item:hover::before,
-.nav-item:hover::after,
-.nav-item:focus::before,
-.nav-item:focus::after {
-	opacity: 1;
-}
-
-.nav-item:hover::before,
-.nav-item:focus::before {
-	left: 50%;
-	-webkit-transform: rotate(0deg) translateX(-50%);
-	-moz-transform: rotate(0deg) translateX(-50%);
-	transform: rotate(0deg) translateX(-50%);
-}
-
-.nav-item:hover::after,
-.nav-item :focus::after {
-	right: 50%;
-	-webkit-transform: rotate(0deg) translateX(50%);
-	-moz-transform: rotate(0deg) translateX(50%);
-	transform: rotate(0deg) translateX(50%);
-} */
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
