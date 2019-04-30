@@ -7,6 +7,7 @@ class FeedbackToast extends Component {
 
     this.state = {
       render: false,
+      hasShown: false,
     };
   }
 
@@ -17,15 +18,19 @@ class FeedbackToast extends Component {
   }
 
   showAlert = () => {
-    Swal.fire({
-      title: '<strong> What do you think of our site? </strong>',
-      type: 'question',
-      showCloseButton: true,
-      showConfirmButton: true,
-      confirmButtonText:
-        '<a href="https://forms.gle/xJoQ54DaX4omm74Z7" style="text-decoration:none; color: white" target="blank">Give Feedback!</a>',
-      confirmButtonAriaLabel: 'Give Feedback!',
-    });
+    const { hasShown } = this.state;
+    if (!hasShown) {
+      this.setState({ hasShown: true });
+      Swal.fire({
+        title: '<strong> What do you think of our site? </strong>',
+        type: 'question',
+        showCloseButton: true,
+        showConfirmButton: true,
+        confirmButtonText:
+          '<a href="https://forms.gle/xJoQ54DaX4omm74Z7" style="text-decoration:none; color: white" target="blank">Give Feedback!</a>',
+        confirmButtonAriaLabel: 'Give Feedback!',
+      });
+    }
   };
 
   render() {
