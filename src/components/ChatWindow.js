@@ -18,12 +18,13 @@ class ChatWindow extends React.Component {
     this.state = {
       dataObj: {
         certification: 'R',
-        minYear: 0,
-        maxYear: 3000,
+        min_year: 0,
+        max_year: 3000,
         foreign: true,
-        indie: true,
+        indie: false,
         imdb: 0,
         rotten_tomatoes: 0,
+        genres: [''],
       },
       endChat: false,
     };
@@ -37,6 +38,7 @@ class ChatWindow extends React.Component {
 
   componentDidMount() {
     const { genreIds, getMovieResults } = this.props;
+    console.log(genreIds);
     this.greetingQuestion().then(async res => {
       if (res.value) {
         await this.moodQuestion(genreIds);
@@ -122,26 +124,29 @@ class ChatWindow extends React.Component {
       .button({
         action: [
           { value: [genreIds.Comedy], text: 'Funny 😆' },
-          { value: [genreIds.War, genreIds.Western], text: 'Sad 😭' },
-          { value: [genreIds.Crime, genreIds.Mystery], text: 'Mysterious 🤔' },
-          { value: [genreIds.Drama], text: 'Dramatic 😮' },
-          { value: [genreIds.Thriller], text: 'Thrilling 😲' },
+          { value: [genreIds['War & Military'], genreIds.Western], text: 'Sad 😭' },
+          {
+            value: [genreIds.Crime, genreIds['Mystery & Thriller']],
+            text: 'Mysterious 🤔',
+          },
+          { value: [genreIds.Drama, genreIds['War & Military']], text: 'Dramatic 😮' },
+          { value: [genreIds.Thriller, genreIds.Crime], text: 'Thrilling 😲' },
           { value: [genreIds.Horror], text: 'Scary 😱' },
           {
-            value: [genreIds.Action, genreIds.Adventure],
-            text: 'Action Packed 🏃‍♀️💥',
+            value: [genreIds['Action & Adventure'], genreIds['Sport & Fitness']],
+            text: 'Action Packed 🏃‍💥',
           },
           { value: [genreIds.Romance], text: 'Romantic 😍' },
           {
-            value: [genreIds.Fantasy, genreIds.ScienceFiction],
-            text: 'Fantastical 👽🧝‍♀️',
+            value: [genreIds.Fantasy, genreIds['Science-Fiction']],
+            text: 'Fantastical 👽🧝‍',
           },
           {
             value: [genreIds.History, genreIds.Documentary],
             text: 'Informative 🌍',
           },
-          { value: [genreIds.Family], text: 'Heartwarming 👨‍👩‍👧‍👦' },
-          { value: [genreIds.Musical], text: 'Musical 🎶' },
+          { value: [genreIds['Kids & Family']], text: 'Heartwarming 👨‍👩‍👧‍👦' },
+          { value: [genreIds['Music & Musical']], text: 'Musical 🎶' },
         ],
         delay: this.delays.nextQ,
       })
@@ -221,8 +226,8 @@ class ChatWindow extends React.Component {
             this.setState(prevState => ({
               dataObj: {
                 ...prevState.dataObj,
-                minYear: 0,
-                maxYear: 1980,
+                min_year: 0,
+                max_year: 1980,
               },
             }));
             break;
@@ -230,8 +235,8 @@ class ChatWindow extends React.Component {
             this.setState(prevState => ({
               dataObj: {
                 ...prevState.dataObj,
-                minYear: 1980,
-                maxYear: 2010,
+                min_year: 1980,
+                max_year: 2010,
               },
             }));
             break;
@@ -239,8 +244,8 @@ class ChatWindow extends React.Component {
             this.setState(prevState => ({
               dataObj: {
                 ...prevState.dataObj,
-                minYear: 2010,
-                maxYear: 3000,
+                min_year: 2010,
+                max_year: 3000,
               },
             }));
             break;
@@ -385,10 +390,7 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(async ratingsRes => {
-        if (
-          ratingsRes.value === 'both' ||
-          ratingsRes.value === 'rotten-tomatoes'
-        ) {
+        if (ratingsRes.value === 'both' || ratingsRes.value === 'rotten-tomatoes') {
           await this.rtQuestion();
         }
         if (ratingsRes.value === 'both' || ratingsRes.value === 'imdb') {

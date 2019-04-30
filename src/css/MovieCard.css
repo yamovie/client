@@ -8,7 +8,7 @@
 .movie-card {
   display: flex;
   justify-content: center;
-  padding: 6vh 0px;
+  padding: 3vh 0px;
   z-index: 10;
   position: fixed;
   width: 100%;
@@ -81,11 +81,27 @@
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
 }
 
+.movie-card #line1 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .movie-card .heading h1 {
   color: var(--darkgrey);
   font-weight: 500;
   margin: 0;
   font-size: 3vw;
+}
+
+.movie-card #line1 .certification {
+  margin-left: 10px;
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 1.2vw;
+  font-weight: bold;
+  text-shadow: 0.25px 0.25px 0.25px var(--red);
 }
 
 .movie-card .heading h4 {
@@ -165,6 +181,7 @@
 
 .movie-card #streams {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   height: 12%;
@@ -176,29 +193,18 @@
   font-size: 2.5vh;
 }
 
-.movie-card #streams ul {
-  margin: 0;
-  margin-left: 10px;
-  padding: 0;
-  display: flex;
+.movie-card #streams .offer {
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 3px;
+  height: 70%;
   align-items: center;
-  list-style: none;
+}
+
+.movie-card #streams .offer img {
+  border: 2px solid var(--purple);
+  border-radius: 5px;
   height: 100%;
-}
-
-.movie-card #streams li {
-  margin: 3px 10px;
-}
-
-.movie-card #streams li a {
-  align-items: baseline;
-  display: flex;
-  height: 100%;
-}
-
-.movie-card #streams li img {
-  height: 18px;
-  /* width: 18px; */
 }
 
 /* ======================================================= */
@@ -242,3 +248,10 @@
 }
 
 /* ======================================================= */
+
+/* Small devices (landscape phones, 576px and up) */
+/* @media (min-width: 576px) {
+  .movie-card {
+    color: var(--offwhite);
+  }
+} */

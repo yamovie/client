@@ -210,8 +210,8 @@ class UserPreferences extends React.Component {
       <div className="account-page">
         <form className="preferences-form">
           <div>
-            <h1 className="account-title">Movie preferences</h1>
-            <h3 className="account-sub-title">Streaming Subscriptions (enable the once you have)</h3>
+            <h1 className="account-title">Preferences</h1>
+            <h3 className="account-sub-title">Streaming subscriptions (Enable the ones you have)</h3>
             <div className="form-control">
               <ToggleSwitch labelName="Hulu" handleChange={this.handlePreferencesChange} selectedValue={hulu} name="hulu" />
             </div>
@@ -219,14 +219,14 @@ class UserPreferences extends React.Component {
               <ToggleSwitch labelName="Netflix" handleChange={this.handlePreferencesChange} selectedValue={netflix} name="netflix" />
             </div>
             <div>
-              <h3 className="account-sub-title">Release Year</h3>
+              <h3 className="account-sub-title">Release year</h3>
               <span className="white">From </span>
               <YearDropdown name="minYear" selectedMinYear={release.minYear} handlePreferencesChange={this.handlePreferencesChange} />
               <span className="white">To </span>
               <YearDropdown name="maxYear" selectedMaxYear={release.maxYear} handlePreferencesChange={this.handlePreferencesChange} />
             </div>
             <div className="form-control">
-              <h3 className="account-sub-title">Filter movies by the genres you like (Leave blank for all genres)</h3>
+              <h3 className="account-sub-title">Filter movies by genres you like (Leave blank for all genres)</h3>
               <GenreList checkboxesVisible genres={genres} handleFormChange={this.handlePreferencesChange} selectedGenres={selectedGenres}  />
             </div>
             <div className="form-control">
@@ -235,7 +235,7 @@ class UserPreferences extends React.Component {
             </div>
       
             <section className="ratings">
-              <h3 className="account-sub-title">Choose a minimum rating score (leave for any ratings)</h3>
+              <h3 className="account-sub-title">Choose a minimum rating score (Leave for any ratings)</h3>
               <div className="form-control">
                 <label className="form-label top-label" htmlFor="rt-slider">Rotten Tomatoes</label>
                 <input type="range" min="0" max="100" defaultValue={rottenRating} onChange={this.handlePreferencesChange} id="rt-slider" />
