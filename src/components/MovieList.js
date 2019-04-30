@@ -4,9 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { MovieCard, SearchBar } from '.';
 import '../css/MovieList.css';
 
-// const serverLink = 'https://yamovie-server.herokuapp.com/api';
-const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
-// const serverLink = 'http://localhost:5000/api';
+const { REACT_APP_SVR_API } = process.env;
 
 class MovieList extends Component {
   /**
@@ -40,9 +38,9 @@ class MovieList extends Component {
    */
   getMovies = (genreId = 'all') => {
     if (genreId !== 'all') {
-      return axios.get(`${serverLink}/movies/genre/${genreId}`);
+      return axios.get(`${REACT_APP_SVR_API}/movies/genre/${genreId}`);
     }
-    return axios.get(`${serverLink}/movies/`);
+    return axios.get(`${REACT_APP_SVR_API}/movies/`);
   };
 
   /**
@@ -50,13 +48,13 @@ class MovieList extends Component {
    * @param {String} [id]
    * @returns An Axios promise with the movie data
    */
-  getSingleMovie = id => axios.get(`${serverLink}/movies/${id}`);
+  getSingleMovie = id => axios.get(`${REACT_APP_SVR_API}/movies/${id}`);
 
   /**
    * Gets the list of all genre objects
    * @returns An Axios promise with the genre data
    */
-  getGenres = () => axios.get(`${serverLink}/genres/`);
+  getGenres = () => axios.get(`${REACT_APP_SVR_API}/genres/`);
 
   // =================== Grabs Movie Data on Render =========================
   // Sets the complete movie collection to state.
@@ -87,9 +85,9 @@ class MovieList extends Component {
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
     this.getMovies(genreKey).then(response =>
-      // this.setState({ movies: response.data.results }),
-      // this.setState({ page: 1 }),
-      // this.setState({ currentGenreFilter: genreKey }),
+    // this.setState({ movies: response.data.results }),
+    // this.setState({ page: 1 }),
+    // this.setState({ currentGenreFilter: genreKey }),
 
       this.setState({
         movies: response.data.results,
@@ -123,7 +121,7 @@ class MovieList extends Component {
     window.scrollTo(0, 0);
     event.preventDefault();
     axios
-      .get(`${serverLink}/movies/search`, {
+      .get(`${REACT_APP_SVR_API}/movies/search`, {
         params: {
           title: searchInputValue,
         },
@@ -139,10 +137,18 @@ class MovieList extends Component {
 
   // ================== Function to load more movies on scroll ===============
   loadMoreMovies = async () => {
-    const { hasNextPage, page, movies, loading, currentGenreFilter } = this.state;
+    const {
+      hasNextPage,
+      page,
+      movies,
+      loading,
+      currentGenreFilter,
+    } = this.state;
     if (hasNextPage && !loading) {
       if (currentGenreFilter === 'all') {
-        const res = await axios.get(`${serverLink}/movies/?page=${page}`);
+        const res = await axios.get(
+          `${REACT_APP_SVR_API}/movies/?page=${page}`,
+        );
         this.setState({
           movies: movies.concat(res.data.results),
           page: res.data.page + 1,
@@ -150,7 +156,7 @@ class MovieList extends Component {
         });
       } else {
         const res = await axios.get(
-          `${serverLink}/movies/genre/${currentGenreFilter}/?page=${page}`,
+          `${REACT_APP_SVR_API}/movies/genre/${currentGenreFilter}/?page=${page}`,
         );
         this.setState({
           movies: movies.concat(res.data.results),
@@ -181,7 +187,9 @@ class MovieList extends Component {
     if (movies[0] && movies[0].jw_url) {
       imagesForAllMovies = movies.map(movie => movie.images.poster);
     } else {
-      imagesForAllMovies = movies.map(movie => movie.images.posters[0].poster_url);
+      imagesForAllMovies = movies.map(
+        movie => movie.images.posters[0].poster_url,
+      );
     }
 
     return (

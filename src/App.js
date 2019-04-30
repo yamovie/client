@@ -3,15 +3,22 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
-import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
+import {
+  HomePage,
+  BrowsePage,
+  AboutPage,
+  FindMoviePage,
+  NotFoundPage,
+} from './pages';
 import { ChatWindow, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
 import UserDashboardPage from './pages/UserDashboardPage';
 
-const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
-
 require('dotenv').config();
+
+const { REACT_APP_SVR_API } = process.env;
+
 // import Watchlist from './components/Watchlist';
 
 class App extends Component {
@@ -58,7 +65,7 @@ class App extends Component {
   getMovieResults = dataObj => {
     const { history } = this.props;
     axios
-      .post(`${serverLink}/movies/recommend`, dataObj, {
+      .post(`${REACT_APP_SVR_API}/movies/recommend`, dataObj, {
         headers: { 'Content-Type': 'application/json' },
       })
       .then(response => {
@@ -73,7 +80,7 @@ class App extends Component {
 
   getGenreData = () => {
     axios
-      .get(`${serverLink}/genres`)
+      .get(`${REACT_APP_SVR_API}/genres`)
       .then(response => {
         // const genreArray = response.data;
         // const idObject = {};
@@ -111,7 +118,13 @@ class App extends Component {
   };
 
   render() {
-    const { user, genreIds, results, talkedToLloyd, isAuthenticated } = this.state;
+    const {
+      user,
+      genreIds,
+      results,
+      talkedToLloyd,
+      isAuthenticated,
+    } = this.state;
     const { history } = this.props;
 
     return (
@@ -139,11 +152,15 @@ class App extends Component {
           />
           <Route
             path="/login"
-            render={props => <Login {...props} handleLogin={this.handleLogin} />}
+            render={props => (
+              <Login {...props} handleLogin={this.handleLogin} />
+            )}
           />
           <Route
             path="/signup"
-            render={props => <Signup {...props} handleSignup={this.handleSignup} />}
+            render={props => (
+              <Signup {...props} handleSignup={this.handleSignup} />
+            )}
           />
           <Route
             path="/account"
