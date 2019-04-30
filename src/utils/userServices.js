@@ -30,10 +30,22 @@ async function signup(user) {
   const { token } = response.data;
   tokenServices.setToken(token);
 }
+/**
+ * Find user and send UserId and movieId
+ * @param {string} movieId 
+ */
+async function addToUserWatchlist(movieId) {
+  const user = await getUser();
+  // if user exists
+  if (user) {
+    userAPI.addToWatchlist(user._id, movieId);
+  }
+}
 
 export default {
   getUser,
   logout,
   login,
   signup,
+  addToUserWatchlist
 };

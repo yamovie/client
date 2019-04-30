@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '../utils/fontAwesome';
+import userServices from '../utils/userServices';
 import '../css/MovieCard.css';
 
 class MovieCard extends Component {
@@ -119,6 +121,11 @@ class MovieCard extends Component {
     });
   }
 
+  handleAddToWatchlist = movieId => {
+    //TODO: remove if already on watchlist and styling
+    userServices.addToUserWatchlist(movieId);
+  }
+
   /**
    * Renders the movie card in HTML on the page. Uses CSS grid to display information
    * in three segments: trailer, descriptive info, and stream links.
@@ -194,6 +201,13 @@ class MovieCard extends Component {
             <p>{overview || 'No plot summary available'}</p>
           </div>
           <StreamsView offers={offers} jw_image_url={jw_image_url} />
+          <div
+            className="watchlist"
+            type="button"
+            onClick={() => this.handleAddToWatchlist(this.props.movie._id)}  
+          >
+          <FontAwesomeIcon icon='star' />
+          </div>
         </div>
       </div>
     );

@@ -113,7 +113,6 @@ class App extends Component {
   render() {
     const { user, genreIds, results, talkedToLloyd, isAuthenticated } = this.state;
     const { history } = this.props;
-
     return (
       <div className="App">
         <Navbar user={user} handleLogout={this.handleLogout} />
