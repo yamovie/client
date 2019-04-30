@@ -93,8 +93,7 @@ class FindMoviePage extends React.Component {
             <h1 className="lloyd-title">Lloyd Chat</h1>
          
           </div>
-          <div className="bottom-chat-container"
-          >
+          <div className="bottom-chat-container" style={ isExpanded ? {} : { height: '0px'}}>
             { mountChat && isExpanded ?
               <ChatWindow
                 toggleChat={this.toggleExpanded}
