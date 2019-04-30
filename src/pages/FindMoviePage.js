@@ -1,83 +1,105 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
-import { MovieFeed, ChatWindow } from '../components';
+import MovieFeed from '../components/MovieFeed';
 import '../css/FindMoviePage.css';
+import { ChatWindow } from '../components';
+import { FontAwesomeIcon } from '../utils/fontAwesome';
 
 const serverLink = 'https://yamovie-server-staging.herokuapp.com/api';
 
 class FindMoviePage extends React.Component {
-  static propTypes = {
-    getMovieResults: PropTypes.func.isRequired,
-    resetMovieResults: PropTypes.func.isRequired,
-    genreIds: PropTypes.shape().isRequired,
-    results: PropTypes.arrayOf(PropTypes.object).isRequired,
-    talkedToLloyd: PropTypes.bool.isRequired,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
+      genreIds: {},
       results: [{}],
+      talkedToLloyd: false,
+      mountChat: false,
+      isExpanded: true,
     };
   }
 
-  componentDidMount = () => {
-    axios.get(`${serverLink}/movies/`).then(movieResp =>
-      this.setState({
-        movies: movieResp.data.results,
-      }),
-    );
+  getMovieResults = dataObj => {
+    // const { history } = this.props;
+    axios
+      .post(`${serverLink}/movies/recommend`, dataObj, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => {
+        this.setState({
+          results: response.data.results,
+          talkedToLloyd: true,
+        });
+        // history.push('/recommendations');
+      })
+      .catch(error => console.error(error));
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.results !== state.results) {
-      return { results: props.results };
-    }
-    return null;
-  }
+  getGenreData = () => {
+    axios
+      .get(`${serverLink}/genres`)
+      .then(response => {
+        const genreIds = response.data.reduce((acc, curr) => {
+          acc[curr.translation] = curr._id;
+          return acc;
+        }, {});
+        this.setState({
+          genreIds,
+          mountChat: true,
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
-  componentDidUpdate = prevProps => {
-    if (this.props.results !== prevProps.results) {
-      this.setState({ results: this.getDerivedStateFromProps });
-    }
+  resetMovieResults = () => {
+    this.setState({ talkedToLloyd: false });
+  };
+
+  componentDidMount = () => {
+    this.getGenreData();
+  };
+
+  toggleExpanded = () => {
+    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
   };
 
   render() {
-    const {
-      getMovieResults,
-      resetMovieResults,
-      genreIds,
-      talkedToLloyd,
-      results,
-      history,
-    } = this.props;
-
-    const { movies } = this.state;
+    const { talkedToLloyd, genreIds, results, mountChat, isExpanded } = this.state;
 
     return (
       <div>
-        <MovieFeed movies={movies} />
-        {/* <LloydChat
-          getMovieResults={getMovieResults}
-          genreIds={genreIds}
-          resetMovieResults={resetMovieResults}
-        />
-        {talkedToLloyd && results.length > 0 ? (
-          <MovieFeed results={results} showGenreFilter={false} history={history} />
-        ) : (
-          ''
-        )} */}
-        {!talkedToLloyd ? (
-          <h1 className="findMovieh1">
-            {/* Talk to our chatbot Lloyd to find YaMovie recommendations!
-            <span role="img" aria-label="smile">
-              😊
-            </span> */}
-          </h1>
-        ) : (
-          ''
-        )}
+        <div className="full-container">
+          <button
+            type="button"
+            className={`expand-indicator ${isExpanded ? 'close' : ''}`}
+            onClick={this.toggleExpanded}
+          >
+            <FontAwesomeIcon icon="angle-down" />
+          </button>
+          <div className="top-chat-container" style={isExpanded ? { height: '0' } : {}}>
+            <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd" />
+            <h1 className="lloyd-title">Lloyd Chat</h1>
+          </div>
+          <div
+            className="bottom-chat-container"
+            style={isExpanded ? {} : { height: '0px' }}
+          >
+            {mountChat && isExpanded ? (
+              <ChatWindow
+                toggleChat={this.toggleExpanded}
+                getMovieResults={this.getMovieResults}
+                resetMovieResults={this.resetMovieResults}
+                genreIds={genreIds}
+              />
+            ) : (
+              ''
+            )}
+          </div>
+        </div>
+        {talkedToLloyd && results.length > 0 ? <MovieFeed movies={results} /> : ''}
+        {!talkedToLloyd ? '' : ''} {/* Why is this here...? */}
         {results.length === 0 ? (
           <div>
             <h1 className="findMovieh1">
