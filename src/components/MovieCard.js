@@ -122,6 +122,7 @@ class MovieCard extends Component {
   }
 
   handleAddToWatchlist = movieId => {
+    //TODO: remove if already on watchlist and styling
     userServices.addToUserWatchlist(movieId);
   }
 
