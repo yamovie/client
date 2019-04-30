@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
 import { ChatWindow, Login, Signup, Navbar } from './components';
+import FeedbackToast from './components/FeedbackToast';
 import userServices from './utils/userServices';
 import './css/main.css';
 import UserDashboardPage from './pages/UserDashboardPage';
@@ -116,6 +117,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar user={user} handleLogout={this.handleLogout} />
+        <FeedbackToast />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />
