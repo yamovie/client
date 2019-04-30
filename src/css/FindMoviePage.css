@@ -9,19 +9,27 @@
   border-radius: 10px;
   position: relative;
   background-image: linear-gradient(to right, var(--offwhite) 0%, var(--purple) 30%);
+  overflow: hidden;
+}
+
+.bottom-chat-container {
+  position: relative;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ======================================================= */
 /* Expand Indicator */
 
-.top-chat-container .expand-indicator {
+.expand-indicator {
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
-  top: 0px;
-  right: 0px;
+  top: 80px;
+  right: 215px;
   margin: 20px;
   height: 40px;
   width: 40px;
@@ -29,38 +37,34 @@
   font-weight: bold;
   border-radius: 50%;
   border: none;
-  color: var(--midgrey);
+  color: var(--offwhite);
   background-color: var(--darkgrey);
   transition: var(--expand-transition);
 }
 
-.top-chat-container .expand-indicator:focus {
+.expand-indicator:focus {
   outline: none;
-  /* border: 2px solid var(--popcornyellow); */
   border: 2px solid var(--purple);
 }
 
-.top-chat-container .expand-indicator:hover {
+.expand-indicator:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.top-chat-container .expand-indicator.close {
+.expand-indicator.close {
   transform: rotate(180deg);
-  background-color: var(--red);
+  background-color: var(--purple);
 }
 
-.top-chat-container .expand-indicator.close:hover {
+.expand-indicator.close:hover {
   transform: scale(1.1) rotate(180deg);
 }
 
-.top-chat-container .angle-icon {
+.angle-icon {
   color: var(--offwhite);
 }
-
-.bottom-chat-container {
-  
-}
+ /* Lloyd Icon */
 
 .lloyd-icon {
   height: 60px;

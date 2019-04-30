@@ -18,6 +18,10 @@
   margin-right: auto;
 }
 
+.botui-messages-container {
+  width: 900px;
+}
+
 .botui-message-content {
   width: 300px;
   display: block;

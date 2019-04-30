@@ -78,19 +78,19 @@ class FindMoviePage extends React.Component {
 
     return (
       <div>
+        <button
+          type="button"
+          className={`expand-indicator ${isExpanded ? 'close' : ''}`}
+          onClick={this.toggleExpanded}
+        >
+          <FontAwesomeIcon icon="angle-down" />
+        </button>
         <div className="top-chat-container"
           style={isExpanded ? { height: '0'} : {}}
         >
           <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd"/>
           <h1 className="lloyd-title">Lloyd Chat</h1>
-          <button
-            type="button"
-            className="expand-indicator"
-            onClick={this.toggleExpanded}
-            style={isExpanded ? { display: 'none'} : {}}
-          >
-            <FontAwesomeIcon className="angle-icon" icon="angle-down" />
-          </button>
+         
         </div>
         <div className="bottom-chat-container"
         >
