@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Swal from 'sweetalert2';
 
-import '../css/FeedbackToast.css'
-
-  // static propTypes = {
-  //   prop: PropTypes
-  // }
 class FeedbackToast extends Component {
 constructor(props) {
   super(props);
