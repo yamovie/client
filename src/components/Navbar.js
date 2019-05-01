@@ -114,58 +114,22 @@ class Navbar extends React.Component {
           <NavLink to="/recommendations" className='nav-item'>Find Yamovie</NavLink>
           <NavLink to="/browse" className='nav-item'>Browse</NavLink>
           <NavLink to="/about" className='nav-item'>About</NavLink>
-          <NavLink to="/login" className='nav-item'>Login</NavLink>
-          <NavLink to="/signup" className='nav-item'>Sign up</NavLink>
+          {!user ?
+            <>
+              <NavLink to="/signup" className='nav-item'>Sign up</NavLink>
+              <NavLink to="/login" className='nav-item'>Log in</NavLink>
+            </>
+            :
+            <>
+              <NavLink to="/account" className='nav-item'>My account</NavLink>
+              <NavLink to="/" onClick={() => handleLogout()} className='nav-item'>Log out</NavLink>
+            </>
+          }
         </div>
 
       </div>
     );
   }
-
-  // render() {
-  //   const { user, handleLogout } = this.props;
-  //   return (
-  //     <div className="navbar">
-  //       <NavLink to="/">
-  //         <img src="/images/logo-v3-white-whitepopcorn.png" alt="YaMovie" id="main-logo" />
-  //       </NavLink>
-  //       <ul id="navbar-links">
-  //         <li>
-  //           <NavLink to="/chat">Find YaMovie</NavLink>
-  //         </li>
-  //         <li>
-  //           <NavLink to="/browse">Browse</NavLink>
-  //         </li>
-  //         <li>
-  //           <NavLink to="/about">About</NavLink>
-  //         </li>
-  //         {!user ? (
-  //           <div>
-  //             <li>
-  //               <NavLink to="/login">Login</NavLink>
-  //             </li>
-  //             <li>
-  //               <NavLink to="/signup">Signup</NavLink>
-  //             </li>
-  //           </div>
-  //         ) : (
-  //           <div>
-  //             <li>
-  //               <NavLink to="/account">
-  //                 <FontAwesomeIcon icon="user" />
-  //               </NavLink>
-  //             </li>
-  //             <li>
-  //               <NavLink onClick={handleLogout} to="/">
-  //             Logout
-  //               </NavLink>
-  //             </li>
-  //           </div>
-  //         )}
-  //       </ul>
-  //     </div>
-  //   );
-  // }
 }
 
 export default Navbar;
