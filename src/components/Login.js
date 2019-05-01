@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from '.';
 import userServices from '../utils/userServices';
+import Swal from 'sweetalert2';
 import '../css/Login.css';
 
 class Login extends Component {
@@ -18,7 +19,6 @@ class Login extends Component {
     this.state = {
       email: '',
       pw: '',
-      message: '',
     };
   }
 
@@ -35,9 +35,24 @@ class Login extends Component {
       .login(this.state)
       .then(() => {
         handleLogin();
+        Swal.fire({
+          position: 'top-end',
+          type: 'success',
+          text: 'Successful Login',
+          showConfirmButton: false,
+          timer: 1000,
+        });
         history.push('/');
       })
-      .catch(err => this.setState({ message: `${err}: Invalid Credentials!` }));
+      .catch(err => 
+        Swal.fire({
+          position: 'top-end',
+          type: 'error',
+          text: err,
+          showConfirmButton: false,
+          timer: 1000,
+        })
+      );
   };
 
   render() {
@@ -84,7 +99,6 @@ class Login extends Component {
               </div>
             </form>
           </div>
-          {message && <span>{message}</span>}
           <GoogleLogin />
         </div>
       </div>
