@@ -113,7 +113,7 @@ class Navbar extends React.Component {
           </Menu>
         </div>
         <div className="desktop-nav">
-          <NavLink to="/recommendations" className='nav-item'>Find Yamovie</NavLink>
+          <NavLink to="/recommendations" className='nav-item'>Find YaMovie</NavLink>
           <NavLink to="/browse" className='nav-item'>Browse</NavLink>
           <NavLink to="/about" className='nav-item'>About</NavLink>
           {!user ?
