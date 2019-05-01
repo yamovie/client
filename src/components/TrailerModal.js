@@ -12,8 +12,10 @@ const TrailerModal = ({ trailerList, toggleTrailer }) => {
       <iframe
         className="movie-trailer"
         title="trailer"
-        src={trailerList[0].url}
+        src={`${trailerList[0].url}?autoplay=1`}
         frameBorder="0"
+        allow="autoplay"
+        allowFullScreen
       />
       {/* <button className="close-trailer-button" type="button" onClick={toggleTrailer}>Close</button> */}
     </div>

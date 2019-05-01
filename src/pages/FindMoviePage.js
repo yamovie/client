@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import MovieFeed from '../components/MovieFeed';
 import '../css/FindMoviePage.css';
 import { ChatWindow } from '../components';
@@ -52,29 +52,21 @@ class FindMoviePage extends React.Component {
         console.error(error);
       });
   };
-  
 
   resetMovieResults = () => {
     this.setState({ talkedToLloyd: false });
   };
 
-
   componentDidMount = () => {
     this.getGenreData();
-  }
+  };
 
   toggleExpanded = () => {
     this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
   };
 
   render() {
-    const {
-      talkedToLloyd,
-      genreIds,
-      results,
-      mountChat,
-      isExpanded,
-    } = this.state;
+    const { talkedToLloyd, genreIds, results, mountChat, isExpanded } = this.state;
 
     return (
       <div>
@@ -86,33 +78,28 @@ class FindMoviePage extends React.Component {
           >
             <FontAwesomeIcon icon="angle-down" />
           </button>
-          <div className="top-chat-container"
-            style={isExpanded ? { height: '0'} : {}}
-          >
-            <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd"/>
+          <div className="top-chat-container" style={isExpanded ? { height: '0' } : {}}>
+            <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd" />
             <h1 className="lloyd-title">Lloyd Chat</h1>
-         
           </div>
-          <div className="bottom-chat-container" style={ isExpanded ? {} : { height: '0px'}}>
-            { mountChat && isExpanded ?
+          <div
+            className="bottom-chat-container"
+            style={isExpanded ? {} : { height: '0px' }}
+          >
+            {mountChat && isExpanded ? (
               <ChatWindow
                 toggleChat={this.toggleExpanded}
                 getMovieResults={this.getMovieResults}
                 resetMovieResults={this.resetMovieResults}
                 genreIds={genreIds}
-              /> : ''}
+              />
+            ) : (
+              ''
+            )}
           </div>
         </div>
-        {talkedToLloyd && results.length > 0 ? (
-          <MovieFeed movies={results} />
-        ) : (
-          ''
-        )}
-        {!talkedToLloyd ? (
-          ''
-        ) : (
-          ''
-        )}
+        {talkedToLloyd && results.length > 0 ? <MovieFeed movies={results} /> : ''}
+        {!talkedToLloyd ? '' : ''} {/* Why is this here...? */}
         {results.length === 0 ? (
           <div>
             <h1 className="findMovieh1">
