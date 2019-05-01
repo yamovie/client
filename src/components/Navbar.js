@@ -43,13 +43,15 @@ class Navbar extends React.Component {
     const { user, handleLogout } = this.props;
     return (
       <div className="topnav">
-        <NavLink to="/">
-          <img
-            src="/images/logo-v3-white-whitepopcorn.png"
-            alt="YaMovie"
-            id="main-logo"
-          />
-        </NavLink>
+        <div className="logo-container">
+          <NavLink to="/">
+            <img
+              src="/images/logo-v3-white-whitepopcorn.png"
+              alt="YaMovie"
+              id="main-logo"
+            />
+          </NavLink>
+        </div>
         <div className="mobile-nav">
           <Menu
             right
