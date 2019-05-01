@@ -53,6 +53,7 @@ class MovieCard extends Component {
   }
 
   componentDidMount() {
+    // TODO: clean up this code to fully transition from TMDB data to JW data
     const { movie, genreProps } = this.props;
     const {
       jw_url,
@@ -124,7 +125,7 @@ class MovieCard extends Component {
   handleAddToWatchlist = movieId => {
     //TODO: remove if already on watchlist and styling
     userServices.addToUserWatchlist(movieId);
-  }
+  };
 
   /**
    * Renders the movie card in HTML on the page. Uses CSS grid to display information
@@ -146,7 +147,7 @@ class MovieCard extends Component {
       ratings,
       offers,
     } = this.state;
-    const { toggleModal } = this.props;
+    const { toggleModal, movie } = this.props;
 
     if (loading) {
       return <div>Loading...</div>;
@@ -201,12 +202,15 @@ class MovieCard extends Component {
             <p>{overview || 'No plot summary available'}</p>
           </div>
           <StreamsView offers={offers} jw_image_url={jw_image_url} />
+          {/* TODO: make sure this is only rendered if person is logged in */}
+          {/* TODO: make sure the style reflects if this is already on watchlist */}
           <div
             className="watchlist"
-            type="button"
-            onClick={() => this.handleAddToWatchlist(this.props.movie._id)}  
+            role="button"
+            tabIndex={0}
+            onClick={() => this.handleAddToWatchlist(movie._id)}
           >
-          <FontAwesomeIcon icon='star' />
+            <FontAwesomeIcon icon="star" />
           </div>
         </div>
       </div>
