@@ -1,8 +1,90 @@
+.top-chat-container {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: var(--offwhite);
+  border-radius: 10px;
+  background-image: linear-gradient(to right, var(--offwhite) 0%, var(--purple) 30%);
+  overflow: hidden;
+  transition: var(--chat-expand-transition);
+}
+
+.bottom-chat-container {
+  width: 100%;
+  height: 80vh;
+  transition: var(--chat-expand-transition);
+}
+
+.full-container {
+  --chat-expand-transition: height 0.3s ease-in-out;
+  margin: auto;
+  padding-top: 22px;
+  width: 75vw;
+  position: relative;
+}
+
+/* ======================================================= */
+/* Expand Indicator */
+
+.full-container .expand-indicator {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  top: 30px;
+  right: 0px;
+  margin-right: 20px;
+  height: 40px;
+  width: 40px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 50%;
+  border: none;
+  color: var(--offwhite);
+  background-color: var(--darkgrey);
+  transition: var(--expand-transition);
+}
+
+.full-container .expand-indicator:focus {
+  outline: none;
+  border: 2px solid var(--purple);
+}
+
+.full-container .expand-indicator:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.full-container .expand-indicator.close {
+  transform: rotate(180deg);
+  background-color: var(--purple);
+}
+
+.full-container .expand-indicator.close:hover {
+  transform: scale(1.1) rotate(180deg);
+}
+
+.angle-icon {
+  color: var(--offwhite);
+}
+ /* Lloyd Icon */
+
+.lloyd-icon {
+  height: 40px;
+  margin: 5px;
+}
+
+.lloyd-title {
+  margin-left: 10px;
+  font-size: 30px;
+}
+
 .findMovieh1 {
   color: var(--offwhite);
   font-family: var(--fontfamily);
   font-weight: normal;
-  margin-top: 25%;
+  margin-top: 5%;
   padding-right: 15%;
   padding-left: 15%;
   text-align: center;

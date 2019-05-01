@@ -87,9 +87,9 @@ class MovieList extends Component {
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
     this.getMovies(genreKey).then(response =>
-      // this.setState({ movies: response.data.results }),
-      // this.setState({ page: 1 }),
-      // this.setState({ currentGenreFilter: genreKey }),
+    // this.setState({ movies: response.data.results }),
+    // this.setState({ page: 1 }),
+    // this.setState({ currentGenreFilter: genreKey }),
 
       this.setState({
         movies: response.data.results,

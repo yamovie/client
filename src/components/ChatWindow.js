@@ -82,15 +82,7 @@ class ChatWindow extends React.Component {
     });
   }
 
-  async endChatFunc() {
-    const { getMovieResults, toggleChat, resetMovieResults } = this.props;
-    await resetMovieResults();
-    await this.resultsMessage(getMovieResults);
-    await setTimeout(function() {
-      toggleChat();
-    }, 6000);
-  }
-
+  
   /**
    * Shows the initial greeting message, the question for if the user wants recs,
    * and then the answer option buttons
@@ -219,38 +211,38 @@ class ChatWindow extends React.Component {
       })
       .then(eraRes => {
         switch (eraRes.value) {
-          case 'end':
-            this.setState({ endChat: true });
-            break;
-          case 'classic':
-            this.setState(prevState => ({
-              dataObj: {
-                ...prevState.dataObj,
-                min_year: 0,
-                max_year: 1980,
-              },
-            }));
-            break;
-          case 'in-between':
-            this.setState(prevState => ({
-              dataObj: {
-                ...prevState.dataObj,
-                min_year: 1980,
-                max_year: 2010,
-              },
-            }));
-            break;
-          case 'modern':
-            this.setState(prevState => ({
-              dataObj: {
-                ...prevState.dataObj,
-                min_year: 2010,
-                max_year: 3000,
-              },
-            }));
-            break;
-          default:
-            console.log('error');
+        case 'end':
+          this.setState({ endChat: true });
+          break;
+        case 'classic':
+          this.setState(prevState => ({
+            dataObj: {
+              ...prevState.dataObj,
+              min_year: 0,
+              max_year: 1980,
+            },
+          }));
+          break;
+        case 'in-between':
+          this.setState(prevState => ({
+            dataObj: {
+              ...prevState.dataObj,
+              min_year: 1980,
+              max_year: 2010,
+            },
+          }));
+          break;
+        case 'modern':
+          this.setState(prevState => ({
+            dataObj: {
+              ...prevState.dataObj,
+              min_year: 2010,
+              max_year: 3000,
+            },
+          }));
+          break;
+        default:
+          console.log('error');
         }
         this.botui.message.bot({
           content: 'Me too!',
@@ -490,6 +482,16 @@ class ChatWindow extends React.Component {
         getMovieResults(dataObj);
       });
   };
+
+  async endChatFunc() {
+    const { getMovieResults, toggleChat, resetMovieResults } = this.props;
+    await resetMovieResults();
+    await this.resultsMessage(getMovieResults);
+    await setTimeout(function() {
+      toggleChat();
+    }, 6000);
+  }
+
 
   render() {
     return (
