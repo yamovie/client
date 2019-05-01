@@ -29,7 +29,7 @@ function login(creds) {
 
 function addToWatchlist(userId, movieId) {
   // add to user watchlist
-  return axios.post(`${BASE_URL}`, {userId, movieId},
+  return axios.post(`${BASE_URL}watchlist`, { userId, movieId},
   { headers: new Headers({ 'Content-Type': 'application/json' }) },
   );
 }
