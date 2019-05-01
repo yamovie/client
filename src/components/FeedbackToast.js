@@ -1,49 +1,45 @@
-import React, { Component } from 'react'
-import Alert from 'react-bootstrap/Alert'
-import Button from 'react-bootstrap/Button'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import Swal from 'sweetalert2';
 
-import '../css/FeedbackToast.css'
-
-export default class FeedbackToast extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
-
+class FeedbackToast extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { show: true };
+    this.state = {
+      render: false,
+      hasShown: false,
+    };
   }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ render: true });
+    }, 180000);
+  }
+
+  showAlert = () => {
+    const { hasShown } = this.state;
+    if (!hasShown) {
+      this.setState({ hasShown: true });
+      Swal.fire({
+        title: '<strong> What do you think of our site? </strong>',
+        type: 'question',
+        showCloseButton: true,
+        showConfirmButton: true,
+        confirmButtonText:
+          '<a href="https://forms.gle/xJoQ54DaX4omm74Z7" style="text-decoration:none; color: white" target="blank">Give Feedback!</a>',
+        confirmButtonAriaLabel: 'Give Feedback!',
+      });
+    }
+  };
 
   render() {
-    const { show } = this.state;
-    const handleHide = () => this.setState({ show: false });
-    const handleShow = () => this.setState({ show: true });
-    return (
-      <div className="toast-alert">
-        {/* <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossOrigin="anonymous"
-        /> */}
-        <Alert show={show} variant="success">
-          <Alert.Heading>Hello!</Alert.Heading>
-          <p>
-          What do you think of our site?
-          Visit our menu to be able to leave feedback!
-          </p>
-          <hr />
-          <div className="d-flex justify-content-end">
-            <Button onClick={handleHide} variant="outline-success">
-            Close me!
-            </Button>
-          </div>
-        </Alert>
-
-        {!show && <Button onClick={handleShow}>Show Alert</Button>}
-      </div>
-    );
+    const { render } = this.state;
+    //   const { show } = this.state;
+    //   const handleHide = () => this.setState({ show: false });
+    //   const handleShow = () => this.setState({ show: true });
+    return render && <div className="toast-alert">{this.showAlert()}</div>;
   }
 }
+
+export default FeedbackToast;

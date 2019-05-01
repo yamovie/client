@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
-import { HomePage, BrowsePage, AboutPage, FindMoviePage, NotFoundPage } from './pages';
-import { Login, Signup, Navbar } from './components';
+import {
+  HomePage,
+  BrowsePage,
+  AboutPage,
+  FindMoviePage,
+  NotFoundPage,
+  UserDashboardPage,
+} from './pages';
+import { FeedbackToast, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
-import UserDashboardPage from './pages/UserDashboardPage';
 
 require('dotenv').config();
 // import Watchlist from './components/Watchlist';
@@ -54,11 +60,11 @@ class App extends Component {
   };
 
   handleLogin = () => {
-    this.setState({ user: userServices.getUser() });
+    this.setState({ isAuthenticated: true, user: userServices.getUser() });
   };
 
   handleSignup = () => {
-    this.setState({ user: userServices.getUser() });
+    this.setState({ isAuthenticated: true, user: userServices.getUser() });
   };
 
   render() {
@@ -67,6 +73,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar user={user} handleLogout={this.handleLogout} />
+        <FeedbackToast />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />

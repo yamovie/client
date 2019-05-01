@@ -9,10 +9,9 @@ import {
   faUserPlus,
   faComments,
   faEnvelope,
-  faPlus,
-  faChevronDown,
   faAngleDown,
   faPlayCircle,
+  faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -26,10 +25,9 @@ library.add(
   faUserPlus,
   faComments,
   faEnvelope,
-  faPlus,
-  faChevronDown,
   faAngleDown,
   faPlayCircle,
+  faStar,
 );
 
 export { FontAwesomeIcon };

@@ -1,6 +1,4 @@
-/* .toast-alert {
-  position: fixed;
-  top: 10%;
-  left: 2%;
-  width: 300px;
-} */
+.toast-alert a, .toast-alert a:visited, .toast-alert a:hover {
+  color: var(--offwhite);
+}
+
