@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '../utils/fontAwesome';
 import userServices from '../utils/userServices';
 import '../css/MovieCard.css';
+import tokenServices from '../utils/tokenServices';
 
 class MovieCard extends Component {
   static propTypes = {
@@ -174,7 +175,7 @@ class MovieCard extends Component {
       directorList.length <= 0
         ? ', No Director'
         : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
-
+    const user = tokenServices.getUserFromToken();
     return (
       <div className="movie-card">
         <div className="backdrop">
@@ -202,8 +203,8 @@ class MovieCard extends Component {
             <p>{overview || 'No plot summary available'}</p>
           </div>
           <StreamsView offers={offers} jw_image_url={jw_image_url} />
-          {/* TODO: make sure this is only rendered if person is logged in */}
           {/* TODO: make sure the style reflects if this is already on watchlist */}
+          { user && 
           <div
             className="watchlist"
             role="button"
@@ -212,6 +213,7 @@ class MovieCard extends Component {
           >
             <FontAwesomeIcon icon="star" />
           </div>
+          }
         </div>
       </div>
     );
