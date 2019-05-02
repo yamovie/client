@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = `${process.env.REACT_APP_BASE_URL}users/`;
+const BASE_URL = `${process.env.REACT_APP_BASE_URL}/users/`;
 /**
  * Axios call to database to signup user
  * @param {Object} user
@@ -27,7 +27,15 @@ function login(creds) {
   );
 }
 
+function addToWatchlist(userId, movieId) {
+  // add to user watchlist
+  return axios.post(`${BASE_URL}watchlist`, { userId, movieId},
+  { headers: new Headers({ 'Content-Type': 'application/json' }) },
+  );
+}
+
 export default {
   signup,
   login,
+  addToWatchlist,
 };

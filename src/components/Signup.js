@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import userServices from '../utils/userServices';
 import { GoogleLogin } from '.';
+import Swal from 'sweetalert2';
 import '../css/Signup.css';
 
 class Signup extends Component {
@@ -19,7 +20,6 @@ class Signup extends Component {
       fullName: '',
       pw: '',
       pwConfirm: '',
-      message: '',
     };
   }
 
@@ -40,9 +40,24 @@ class Signup extends Component {
       .signup(this.state)
       .then(() => {
         handleSignup();
+        Swal.fire({
+          position: 'top-end',
+          type: 'success',
+          text: 'Successful signup',
+          showConfirmButton: false,
+          timer: 1000,
+        });
         history.push('/');
       })
-      .catch(err => this.setState({ message: `${err}: Invalid Credentials!` }));
+      .catch(err => 
+        Swal.fire({
+          position: 'top-end',
+          type: 'error',
+          text: err,
+          showConfirmButton: false,
+          timer: 1000,
+        })
+      )
   };
 
   isFormInvalid() {
@@ -51,7 +66,7 @@ class Signup extends Component {
   }
 
   render() {
-    const { email, fullName, pw, pwConfirm, message } = this.state;
+    const { email, fullName, pw, pwConfirm } = this.state;
     return (
       <div className="signup-page">
         <div className="signup">
@@ -108,7 +123,6 @@ class Signup extends Component {
               </div>
             </form>
           </div>
-          {message && <span>{message}</span>}
           <GoogleLogin />
         </div>
       </div>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
@@ -9,11 +8,11 @@ import {
   AboutPage,
   FindMoviePage,
   NotFoundPage,
+  UserDashboardPage,
 } from './pages';
-import { ChatWindow, Login, Signup, Navbar } from './components';
+import { FeedbackToast, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
-import UserDashboardPage from './pages/UserDashboardPage';
 
 require('dotenv').config();
 
@@ -30,9 +29,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      genreIds: {},
-      results: [{}],
-      talkedToLloyd: false,
       user: null,
       isAuthenticated: false,
     };
@@ -55,13 +51,13 @@ class App extends Component {
    * get user data from database
    */
   componentDidMount() {
-    this.getGenreData();
     const user = userServices.getUser();
     if (user) {
       this.setState({ isAuthenticated: true, user });
     }
   }
 
+<<<<<<< HEAD
   getMovieResults = dataObj => {
     const { history } = this.props;
     axios
@@ -104,6 +100,8 @@ class App extends Component {
     this.setState({ talkedToLloyd: false });
   };
 
+=======
+>>>>>>> 7204fc125e466a8e78d684dac9d692e6c7233b8d
   handleLogout = () => {
     userServices.logout();
     this.setState({ isAuthenticated: false, user: null });
@@ -118,6 +116,7 @@ class App extends Component {
   };
 
   render() {
+<<<<<<< HEAD
     const {
       user,
       genreIds,
@@ -126,30 +125,19 @@ class App extends Component {
       isAuthenticated,
     } = this.state;
     const { history } = this.props;
+=======
+    const { user, isAuthenticated } = this.state;
+>>>>>>> 7204fc125e466a8e78d684dac9d692e6c7233b8d
 
     return (
       <div className="App">
         <Navbar user={user} handleLogout={this.handleLogout} />
+        <FeedbackToast />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />
           <Route path="/about" component={AboutPage} />
-          <Route path="/chat" component={ChatWindow} />
-          <Route
-            path="/recommendations"
-            render={props => (
-              <FindMoviePage
-                {...props}
-                history={history}
-                results={results}
-                showGenreFilter={false}
-                talkedToLloyd={talkedToLloyd}
-                getMovieResults={this.getMovieResults}
-                genreIds={genreIds}
-                resetMovieResults={this.resetMovieResults}
-              />
-            )}
-          />
+          <Route path="/recommendations" component={FindMoviePage} />
           <Route
             path="/login"
             render={props => (
