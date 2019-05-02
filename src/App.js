@@ -15,6 +15,7 @@ import userServices from './utils/userServices';
 import './css/main.css';
 
 require('dotenv').config();
+
 // import Watchlist from './components/Watchlist';
 
 class App extends Component {
@@ -81,11 +82,15 @@ class App extends Component {
           <Route path="/recommendations" component={FindMoviePage} />
           <Route
             path="/login"
-            render={props => <Login {...props} handleLogin={this.handleLogin} />}
+            render={props => (
+              <Login {...props} handleLogin={this.handleLogin} />
+            )}
           />
           <Route
             path="/signup"
-            render={props => <Signup {...props} handleSignup={this.handleSignup} />}
+            render={props => (
+              <Signup {...props} handleSignup={this.handleSignup} />
+            )}
           />
           <Route
             path="/account"
