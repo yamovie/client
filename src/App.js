@@ -57,51 +57,6 @@ class App extends Component {
     }
   }
 
-<<<<<<< HEAD
-  getMovieResults = dataObj => {
-    const { history } = this.props;
-    axios
-      .post(`${REACT_APP_SVR_API}/movies/recommend`, dataObj, {
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then(response => {
-        this.setState({
-          results: response.data.results,
-          talkedToLloyd: true,
-        });
-        history.push('/recommendations');
-      })
-      .catch(error => console.log(error));
-  };
-
-  getGenreData = () => {
-    axios
-      .get(`${REACT_APP_SVR_API}/genres`)
-      .then(response => {
-        // const genreArray = response.data;
-        // const idObject = {};
-        // for (let i = 0; i < genreArray.length; i++) {
-        //   const str = genreArray[i].name.replace(/\s+/g, '');
-        //   idObject[str] = genreArray[i]._id;
-        // }
-
-        const genreIds = response.data.reduce((acc, curr) => {
-          acc[curr.translation] = curr._id;
-          return acc;
-        }, {});
-        this.setState({ genreIds });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  resetMovieResults = () => {
-    this.setState({ talkedToLloyd: false });
-  };
-
-=======
->>>>>>> 7204fc125e466a8e78d684dac9d692e6c7233b8d
   handleLogout = () => {
     userServices.logout();
     this.setState({ isAuthenticated: false, user: null });
@@ -116,18 +71,7 @@ class App extends Component {
   };
 
   render() {
-<<<<<<< HEAD
-    const {
-      user,
-      genreIds,
-      results,
-      talkedToLloyd,
-      isAuthenticated,
-    } = this.state;
-    const { history } = this.props;
-=======
     const { user, isAuthenticated } = this.state;
->>>>>>> 7204fc125e466a8e78d684dac9d692e6c7233b8d
 
     return (
       <div className="App">
