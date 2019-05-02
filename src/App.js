@@ -16,8 +16,6 @@ import './css/main.css';
 
 require('dotenv').config();
 
-const { REACT_APP_SVR_API } = process.env;
-
 // import Watchlist from './components/Watchlist';
 
 class App extends Component {

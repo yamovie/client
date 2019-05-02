@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = `${process.env.REACT_APP_BASE_URL}/users/`;
+const { REACT_APP_SVR_USERS } = process.env;
+
 /**
  * Axios call to database to signup user
  * @param {Object} user
@@ -8,7 +9,7 @@ const BASE_URL = `${process.env.REACT_APP_BASE_URL}/users/`;
  */
 function signup(user) {
   return axios.post(
-    `${BASE_URL}signup`,
+    `${REACT_APP_SVR_USERS}/signup`,
     { email: user.email, fullName: user.fullName, password: user.pw },
     { headers: new Headers({ 'Content-Type': 'application/json' }) },
   );
@@ -21,7 +22,7 @@ function signup(user) {
  */
 function login(creds) {
   return axios.post(
-    `${BASE_URL}login`,
+    `${REACT_APP_SVR_USERS}/login`,
     { email: creds.email, pw: creds.pw },
     { headers: new Headers({ 'Content-Type': 'application/json' }) },
   );
@@ -29,7 +30,7 @@ function login(creds) {
 
 function addToWatchlist(userId, movieId) {
   // add to user watchlist
-  return axios.post(`${BASE_URL}watchlist`, { userId, movieId},
+  return axios.post(`${REACT_APP_SVR_USERS}/watchlist`, { userId, movieId},
   { headers: new Headers({ 'Content-Type': 'application/json' }) },
   );
 }

@@ -2,10 +2,6 @@
 import React from 'react';
 import '../css/Watchlist.css';
 
-const WatchListMovies = () => {
-
-};
-
 class Watchlist extends React.Component {
   constructor(props) {
     super(props);

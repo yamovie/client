@@ -77,14 +77,14 @@ class Navbar extends React.Component {
                   onClick={() => this.closeMenu()}
                   to="/login"
                 >
-                  <FontAwesomeIcon icon="sign-in-alt" /> Login
+                  <FontAwesomeIcon icon="sign-in-alt" /> Log In
                 </NavLink>
                 <NavLink
                   className="bm-item"
                   onClick={() => this.closeMenu()}
                   to="/signup"
                 >
-                  <FontAwesomeIcon icon="user-plus" /> Signup
+                  <FontAwesomeIcon icon="user-plus" /> Sign Up
                 </NavLink>
               </div>
             ) : (
@@ -94,7 +94,7 @@ class Navbar extends React.Component {
                   onClick={() => this.closeMenu()}
                   to="/account"
                 >
-                  <FontAwesomeIcon icon="user" /> My Account
+                  <FontAwesomeIcon icon="user" /> Account
                 </NavLink>
                 <NavLink
                   className="bm-item"
@@ -104,7 +104,7 @@ class Navbar extends React.Component {
                   }}
                   to="/"
                 >
-                  <FontAwesomeIcon icon="sign-in-alt" /> Logout
+                  <FontAwesomeIcon icon="sign-in-alt" /> Log Out
                 </NavLink>
               </div>
             )}
@@ -118,13 +118,13 @@ class Navbar extends React.Component {
           <NavLink to="/about" className='nav-item'>About</NavLink>
           {!user ?
             <>
-              <NavLink to="/signup" className='nav-item'>Sign up</NavLink>
-              <NavLink to="/login" className='nav-item'>Log in</NavLink>
+              <NavLink to="/signup" className='nav-item'>Sign Up</NavLink>
+              <NavLink to="/login" className='nav-item'>Log In</NavLink>
             </>
             :
             <>
-              <NavLink to="/account" className='nav-item'>My account</NavLink>
-              <NavLink to="/" onClick={() => handleLogout()} className='nav-item'>Log out</NavLink>
+              <NavLink to="/account" className='nav-item'>Account</NavLink>
+              <NavLink to="/" onClick={() => handleLogout()} className='nav-item'>Log Out</NavLink>
             </>
           }
         </div>
