@@ -4,6 +4,14 @@
   status = 200
 
 [context.deploy-preview.environment]
+  TOML_ENV_VAR = "From netlify.toml"
   REACT_APP_SVR_API = "https://yamovie-server-staging.herokuapp.com/api"
   REACT_APP_SVR_AUTH = "https://yamovie-server-staging.herokuapp.com/auth"
   REACT_APP_SVR_USERS = "https://yamovie-server-staging.herokuapp.com/users"
+
+[context.branch-deploy.environment]
+  TOML_ENV_VAR = "From netlify.toml"
+  REACT_APP_SVR_API = "https://yamovie-server-staging.herokuapp.com/api"
+  REACT_APP_SVR_AUTH = "https://yamovie-server-staging.herokuapp.com/auth"
+  REACT_APP_SVR_USERS = "https://yamovie-server-staging.herokuapp.com/users"
+
