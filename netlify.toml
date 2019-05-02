@@ -4,9 +4,9 @@
   status = 200
 
 [context.production.environment]
-  REACT_APP_SVR_API = "https://yamovie-server-staging.herokuapp.com/api"
-  REACT_APP_SVR_AUTH = "https://yamovie-server-staging.herokuapp.com/auth"
-  REACT_APP_SVR_USERS = "https://yamovie-server-staging.herokuapp.com/users"
+  REACT_APP_SVR_API = "https://yamovie-server.herokuapp.com/api"
+  REACT_APP_SVR_AUTH = "https://yamovie-server.herokuapp.com/auth"
+  REACT_APP_SVR_USERS = "https://yamovie-server.herokuapp.com/users"
 
 [context.branch-deploy.environment]
   REACT_APP_SVR_API = "https://yamovie-server-staging.herokuapp.com/api"
