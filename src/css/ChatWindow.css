@@ -16,7 +16,6 @@
   width: 100%;
 }
 
-
 .botui-messages-container {
   width: 100%;
 }
@@ -31,13 +30,4 @@
 
 .botui-actions-buttons-button {
   background-color: var(--darkgrey);
-}
-
-::-webkit-scrollbar-track {
-  background: var(--darkgrey);
-  border-radius:
-}
-
-::-webkit-scrollbar-thumb {
-  background: white;
 }

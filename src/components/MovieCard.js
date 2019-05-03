@@ -204,16 +204,16 @@ class MovieCard extends Component {
           </div>
           <StreamsView offers={offers} jw_image_url={jw_image_url} />
           {/* TODO: make sure the style reflects if this is already on watchlist */}
-          { user && 
-          <div
-            className="watchlist"
-            role="button"
-            tabIndex={0}
-            onClick={() => this.handleAddToWatchlist(movie._id)}
-          >
-            <FontAwesomeIcon icon="star" />
-          </div>
-          }
+          {user && (
+            <div
+              className="watchlist"
+              role="button"
+              tabIndex={0}
+              onClick={() => this.handleAddToWatchlist(movie._id)}
+            >
+              <FontAwesomeIcon icon="star" />
+            </div>
+          )}
         </div>
       </div>
     );

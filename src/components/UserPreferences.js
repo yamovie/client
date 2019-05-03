@@ -99,9 +99,7 @@ class UserPreferences extends React.Component {
     if (!genres.length) {
       axios
         .get(`${REACT_APP_SVR_API}/genres`)
-        .then(response =>
-          this.setState({ genres: response.data, pageIsLoading: false }),
-        );
+        .then(response => this.setState({ genres: response.data, pageIsLoading: false }));
     }
 
     if (pageIsLoading) {
@@ -259,7 +257,7 @@ class UserPreferences extends React.Component {
                 handlePreferencesChange={this.handlePreferencesChange}
               />
             </div>
-            <div className="form-control">
+            {/* <div className="form-control">
               <h3 className="account-sub-title">
                 Filter movies by genres you like (Leave blank for all genres)
               </h3>
@@ -280,7 +278,7 @@ class UserPreferences extends React.Component {
                 handleFormChange={this.handlePreferencesChange}
                 selectedCertifications={certifications}
               />
-            </div>
+            </div> */}
 
             <section className="ratings">
               <h3 className="account-sub-title">
