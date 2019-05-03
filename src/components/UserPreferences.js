@@ -5,7 +5,7 @@ import GenreList from './GenreList';
 import ToggleSwitch from './ToggleSwitch';
 import { getUserFromToken } from '../utils/tokenServices';
 
-const { REACT_APP_SVR_API } = process.env;
+const { REACT_APP_SVR_API, REACT_APP_SVR_PREFS } = process.env;
 
 const YearDropdown = ({
   name,
@@ -106,7 +106,7 @@ class UserPreferences extends React.Component {
 
     if (pageIsLoading) {
       axios
-        .get(`${REACT_APP_SVR_API}/preferences`, {
+        .get(`${REACT_APP_SVR_PREFS}`, {
           params: { userId },
         })
         .then(response => {
@@ -131,7 +131,7 @@ class UserPreferences extends React.Component {
     if (prefUpdatesQueued) {
       axios
         .patch(
-          `${REACT_APP_SVR_API}/preferences/update`,
+          `${REACT_APP_SVR_PREFS}/update`,
           { preferences, userId },
           { headers: new Headers({ 'Content-Type': 'application/json' }) },
         )
