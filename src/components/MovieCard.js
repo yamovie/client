@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '../utils/fontAwesome';
+import userServices from '../utils/userServices';
 import '../css/MovieCard.css';
+import tokenServices from '../utils/tokenServices';
 
 class MovieCard extends Component {
   static propTypes = {
@@ -51,6 +54,7 @@ class MovieCard extends Component {
   }
 
   componentDidMount() {
+    // TODO: clean up this code to fully transition from TMDB data to JW data
     const { movie, genreProps } = this.props;
     const {
       jw_url,
@@ -119,6 +123,11 @@ class MovieCard extends Component {
     });
   }
 
+  handleAddToWatchlist = movieId => {
+    //TODO: remove if already on watchlist and styling
+    userServices.addToUserWatchlist(movieId);
+  };
+
   /**
    * Renders the movie card in HTML on the page. Uses CSS grid to display information
    * in three segments: trailer, descriptive info, and stream links.
@@ -139,7 +148,7 @@ class MovieCard extends Component {
       ratings,
       offers,
     } = this.state;
-    const { toggleModal } = this.props;
+    const { toggleModal, movie } = this.props;
 
     if (loading) {
       return <div>Loading...</div>;
@@ -166,7 +175,7 @@ class MovieCard extends Component {
       directorList.length <= 0
         ? ', No Director'
         : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
-
+    const user = tokenServices.getUserFromToken();
     return (
       <div className="movie-card">
         <div className="backdrop">
@@ -194,6 +203,17 @@ class MovieCard extends Component {
             <p>{overview || 'No plot summary available'}</p>
           </div>
           <StreamsView offers={offers} jw_image_url={jw_image_url} />
+          {/* TODO: make sure the style reflects if this is already on watchlist */}
+          {user && (
+            <div
+              className="watchlist"
+              role="button"
+              tabIndex={0}
+              onClick={() => this.handleAddToWatchlist(movie._id)}
+            >
+              <FontAwesomeIcon icon="star" />
+            </div>
+          )}
         </div>
       </div>
     );

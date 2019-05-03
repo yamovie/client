@@ -1,27 +1,33 @@
-.botui-message-content {
-  display: block;
-  text-align: left;
-}
-
 .chat-window {
-  z-index: 999;
-  margin: auto;
-  width: 400px;
+  height: 100%;
+  width: 100%;
 }
 
 .botui-container {
-  background-color: var(--darkgrey);
-  opacity: .98;
+  display: block;
+  opacity: 0.9;
   border-radius: 10px;
-  /* border: 2px solid var(--purple); */
+  background-color: var(--offwhite);
   box-shadow: 0px 0px 10px 1px var(--purple);
 }
 
-::-webkit-scrollbar-track {
-  background: var(--darkgrey);
-  border-radius:
+.botui-app-container {
+  height: 100%;
+  width: 100%;
 }
 
-::-webkit-scrollbar-thumb {
-  background: white;
+.botui-messages-container {
+  width: 100%;
+}
+
+.botui-message-content {
+  width: 300px;
+  display: block;
+  text-align: left;
+  background-color: var(--purple);
+  color: white;
+}
+
+.botui-actions-buttons-button {
+  background-color: var(--darkgrey);
 }

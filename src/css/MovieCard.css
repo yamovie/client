@@ -155,7 +155,7 @@
   display: flex;
   justify-content: space-evenly;
   margin-left: 15px;
-  font-size: 2.8vh;
+  font-size: 1.8vh;
   overflow: hidden;
 }
 
@@ -229,7 +229,24 @@
   border-color: var(--red);
 }
 
+
 /* ======================================================= */
+/* Watchlist Button*/
+.watchlist {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border: none;
+    margin: 0;
+    text-decoration: none;
+    background-color: none;
+    color: var(--purple)
+}
+
+.watchlist:hover {
+  color: var(--red)
+}
+
 /* ======================================================= */
 
 /* Small devices (landscape phones, 576px and up) */

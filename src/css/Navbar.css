@@ -1,5 +1,7 @@
-.navbar {
+.topnav {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: var(--purple);
   position: fixed;
   top: 0;
@@ -9,96 +11,27 @@
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-.navbar img {
-  display: flex;
-  height: 3em;
-  padding-left: 10px;
-  padding-top: 5px;
+.desktop-nav {
+  display: none;
 }
 
-@media only screen and (max-width: 600px) {
-  .navbar img {
-    height: 2em;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .navbar img {
-    height: 1.5em;
-    padding-left: 2px;
-  }
-}
-
-#navbar-links {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 10px;
-  margin: 0;
-}
-
-#navbar-links a,
-#navbar-links a:visited {
-  text-decoration: none;
-  color: var(--offwhite);
-}
-
-#navbar-links li {
-  padding: 0 15px;
-  height: 45px;
-  line-height: 45px;
-  list-style-type: none;
+.nav-item {
   position: relative;
-  display: inline-block;
-  margin: 5px 10px;
-  outline: none;
   color: var(--offwhite);
   text-decoration: none;
-  letter-spacing: 1px;
-  font-weight: 400;
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-  font-size: 0.75em;
+  margin-left: 20px;
+  font-family: var(--fontfamily);
+  padding: 10px;
+  font-size: 18px;
 }
 
-@media only screen and (max-width: 800px) {
-  #navbar-links li {
-    height: 20px;
-    font-size: .5em;
-    line-height: 25px;
-    padding: 0 7px;
-  }
-}
-
-#navbar-links li::before {
-  top: 0;
-  left: 0;
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  transform: rotate(90deg);
-  -webkit-transform-origin: 0 0;
-  -moz-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-
-#navbar-links li::after {
-  right: 0;
-  bottom: 0;
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  transform: rotate(90deg);
-  -webkit-transform-origin: 100% 0;
-  -moz-transform-origin: 100% 0;
-  transform-origin: 100% 0;
-}
-
-#navbar-links li::before,
-#navbar-links li::after {
+.nav-item:before,
+.nav-item:after {
   position: absolute;
-  width: 45px;
-  height: 1px;
-  background: var(--offwhite);
+  width: 1px;
+  height: 100%;
+  /* transform: translateY(100%); */
+  background: #fff;
   content: '';
   opacity: 0.2;
   -webkit-transition: all 0.3s;
@@ -107,74 +40,78 @@
   pointer-events: none;
 }
 
-@media only screen and (max-width: 800px) {
-
-  #navbar-links li::before,
-  #navbar-links li::after {
-    width: 25px;
-  }
+.nav-item:before {
+  transition: .3s ease;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--offwhite);
+  content: "";
+  opacity: .1;
 }
 
-.navbar *,
-.navbar *:after,
-.navbar *::before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+.nav-item:after {
+  transition: .3s ease;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  background: var(--offwhite);
+  content: "";
+  opacity: .1;
 }
 
-#navbar-links li:hover::before,
-#navbar-links li:hover::after,
-#navbar-links li:focus::before,
-#navbar-links li:focus::after {
-  opacity: 1;
-}
-
-#navbar-links li:hover::before,
-#navbar-links li:focus::before {
+.nav-item:hover::before {
   left: 50%;
-  -webkit-transform: rotate(0deg) translateX(-50%);
-  -moz-transform: rotate(0deg) translateX(-50%);
-  transform: rotate(0deg) translateX(-50%);
+  opacity: 1;
+  height: 100%;
+  transform: rotate(90deg) translateY(50%);
+  transform-origin: 0 100%;
 }
-
-#navbar-links li:hover::after,
-#navbar-links li:focus::after {
+.nav-item:hover::after {
+  /* right: 50%; */
+  height: 100%;
+  opacity: 1;
   right: 50%;
-  -webkit-transform: rotate(0deg) translateX(50%);
-  -moz-transform: rotate(0deg) translateX(50%);
-  transform: rotate(0deg) translateX(50%);
+  transform: rotate(-90deg) translateY(-50%);
+  transform-origin: 0 0;
 }
 
-#navbar-links li a.active {
-  /* TODO: Make this work so that it looks like when it's hovered when on that page */
-  /* color: var(--red); */
-  right: 50%;
-  -webkit-transform: rotate(0deg) translateX(50%);
-  -moz-transform: rotate(0deg) translateX(50%);
-  transform: rotate(0deg) translateX(50%);
+#main-logo {
+  height: 3em;
+  padding-left: 10px;
+  padding-top: 5px;
 }
 
-/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
-@media screen and (max-width: 600px) {
-  .nav-links li:not(:first-child) {display: none;}
-  .nav-links li.icon {
-    float: right;
-    display: block;
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets portrait, 768px and up)  */
+@media (min-width: 768px) {
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .topnav {
+    padding-right: 10px;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  .desktop-nav {
+    display: flex;
   }
 }
 
-/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
-@media only screen and (max-width: 600px) {
-  .nav-links.responsive {position: relative;}
-  .nav-links.responsive a.icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .nav-links.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }
+
+

@@ -2,13 +2,9 @@
 import React, { Component } from 'react';
 import '../css/main.css';
 import '../css/UserDashboardPage.css';
-import axios from 'axios';
 import { Route } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import GenreList from '../components/GenreList';
 import AccountNav from '../components/AccountNav';
 import UserPreferences from '../components/UserPreferences';
-import Watchlist from '../components/Watchlist';
 
 class userDashboardPage extends Component {
   render() {

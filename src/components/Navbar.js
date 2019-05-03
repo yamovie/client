@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '../utils/fontAwesome';
 import '../css/BurgerMenu.css';
+import '../css/Navbar.css';
 
 /**
  * JSX used to render the navbar on the page. Uses flexboxes to display information and links.
@@ -42,119 +43,95 @@ class Navbar extends React.Component {
     const { user, handleLogout } = this.props;
     return (
       <div className="topnav">
-        <NavLink to="/">
-          <img
-            src="/images/logo-v3-white-whitepopcorn.png"
-            alt="YaMovie"
-            id="main-logo"
-          />
-        </NavLink>
-        <Menu
-          right
-          isOpen={menuOpen}
-          onStateChange={state => this.handleStateChange(state)}
-        >
-          <NavLink onClick={() => this.closeMenu()} to="/">
-            <FontAwesomeIcon icon="home" /> Home
+        <div className="logo-container">
+          <NavLink to="/">
+            <img
+              src="/images/logo-v3-white-whitepopcorn.png"
+              alt="YaMovie"
+              id="main-logo"
+            />
           </NavLink>
-          <NavLink onClick={() => this.closeMenu()} to="/recommendations">
-            <FontAwesomeIcon icon="search" /> Find YaMovie
-          </NavLink>
-          <NavLink onClick={() => this.closeMenu()} to="/browse">
-            <FontAwesomeIcon icon="columns" /> Browse
-          </NavLink>
-          <NavLink onClick={() => this.closeMenu()} to="/about">
-            <FontAwesomeIcon icon="address-card" /> About
-          </NavLink>
-          {!user ? (
-            <div className="bm-div">
-              <NavLink
-                className="bm-item"
-                onClick={() => this.closeMenu()}
-                to="/login"
-              >
-                <FontAwesomeIcon icon="sign-in-alt" /> Login
-              </NavLink>
-              <NavLink
-                className="bm-item"
-                onClick={() => this.closeMenu()}
-                to="/signup"
-              >
-                <FontAwesomeIcon icon="user-plus" /> Signup
-              </NavLink>
-            </div>
-          ) : (
-            <div className="bm-div">
-              <NavLink
-                className="bm-item"
-                onClick={() => this.closeMenu()}
-                to="/account"
-              >
-                <FontAwesomeIcon icon="user" /> My Account
-              </NavLink>
-              <NavLink
-                className="bm-item"
-                onClick={() => {
-                  handleLogout();
-                  this.closeMenu();
-                }}
-                to="/"
-              >
-                <FontAwesomeIcon icon="sign-in-alt" /> Logout
-              </NavLink>
-            </div>
-          )}
-          <a onClick={() => this.closeMenu()} target="_blank" rel="noopener noreferrer" href="https://forms.gle/xJoQ54DaX4omm74Z7" ><FontAwesomeIcon icon="comments" /> Feedback</a>
-          <a href="mailto:yamovie.tp@gmail.com?Subject=YaMovie%20Contact" onClick={() => this.closeMenu()} target="_top"><FontAwesomeIcon icon="envelope" /> Send Mail</a>
-        </Menu>
+        </div>
+        <div className="mobile-nav">
+          <Menu
+            right
+            isOpen={menuOpen}
+            onStateChange={state => this.handleStateChange(state)}
+          >
+            <NavLink onClick={() => this.closeMenu()} to="/">
+              <FontAwesomeIcon icon="home" /> Home
+            </NavLink>
+            <NavLink onClick={() => this.closeMenu()} to="/recommendations">
+              <FontAwesomeIcon icon="search" /> Find YaMovie
+            </NavLink>
+            <NavLink onClick={() => this.closeMenu()} to="/browse">
+              <FontAwesomeIcon icon="columns" /> Browse
+            </NavLink>
+            <NavLink onClick={() => this.closeMenu()} to="/about">
+              <FontAwesomeIcon icon="address-card" /> About
+            </NavLink>
+            {!user ? (
+              <div className="bm-div">
+                <NavLink
+                  className="bm-item"
+                  onClick={() => this.closeMenu()}
+                  to="/login"
+                >
+                  <FontAwesomeIcon icon="sign-in-alt" /> Log In
+                </NavLink>
+                <NavLink
+                  className="bm-item"
+                  onClick={() => this.closeMenu()}
+                  to="/signup"
+                >
+                  <FontAwesomeIcon icon="user-plus" /> Sign Up
+                </NavLink>
+              </div>
+            ) : (
+              <div className="bm-div">
+                <NavLink
+                  className="bm-item"
+                  onClick={() => this.closeMenu()}
+                  to="/account"
+                >
+                  <FontAwesomeIcon icon="user" /> Account
+                </NavLink>
+                <NavLink
+                  className="bm-item"
+                  onClick={() => {
+                    handleLogout();
+                    this.closeMenu();
+                  }}
+                  to="/"
+                >
+                  <FontAwesomeIcon icon="sign-in-alt" /> Log Out
+                </NavLink>
+              </div>
+            )}
+            <a onClick={() => this.closeMenu()} target="_blank" rel="noopener noreferrer" href="https://forms.gle/xJoQ54DaX4omm74Z7" ><FontAwesomeIcon icon="comments" /> Feedback</a>
+            <a href="mailto:yamovie.tp@gmail.com?Subject=YaMovie%20Contact" onClick={() => this.closeMenu()} target="_top"><FontAwesomeIcon icon="envelope" /> Send Mail</a>
+          </Menu>
+        </div>
+        <div className="desktop-nav">
+          <NavLink to="/recommendations" className='nav-item'>Find YaMovie</NavLink>
+          <NavLink to="/browse" className='nav-item'>Browse</NavLink>
+          <NavLink to="/about" className='nav-item'>About</NavLink>
+          {!user ?
+            <>
+              <NavLink to="/signup" className='nav-item'>Sign Up</NavLink>
+              <NavLink to="/login" className='nav-item'>Log In</NavLink>
+            </>
+            :
+            <>
+              <NavLink to="/account" className='nav-item'>Account</NavLink>
+              <NavLink to="/" onClick={() => handleLogout()} className='nav-item'>Log Out</NavLink>
+            </>
+          }
+        </div>
+
       </div>
     );
   }
-
-  // render() {
-  //   const { user, handleLogout } = this.props;
-  //   return (
-  //     <div className="navbar">
-  //       <NavLink to="/">
-  //         <img src="/images/logo-v3-white-whitepopcorn.png" alt="YaMovie" id="main-logo" />
-  //       </NavLink>
-  //       <ul id="navbar-links">
-  //         <li>
-  //           <NavLink to="/chat">Find YaMovie</NavLink>
-  //         </li>
-  //         <li>
-  //           <NavLink to="/browse">Browse</NavLink>
-  //         </li>
-  //         <li>
-  //           <NavLink to="/about">About</NavLink>
-  //         </li>
-  //         {!user ? (
-  //           <div>
-  //             <li>
-  //               <NavLink to="/login">Login</NavLink>
-  //             </li>
-  //             <li>
-  //               <NavLink to="/signup">Signup</NavLink>
-  //             </li>
-  //           </div>
-  //         ) : (
-  //           <div>
-  //             <li>
-  //               <NavLink to="/account">
-  //                 <FontAwesomeIcon icon="user" />
-  //               </NavLink>
-  //             </li>
-  //             <li>
-  //               <NavLink onClick={handleLogout} to="/">
-  //             Logout
-  //               </NavLink>
-  //             </li>
-  //           </div>
-  //         )}
-  //       </ul>
-  //     </div>
-  //   );
-  // }
 }
 
 export default Navbar;
