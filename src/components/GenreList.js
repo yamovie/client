@@ -80,11 +80,16 @@ class GenreList extends React.Component {
           <form onSubmit={this.handleSelectionReset} id="certificationsForm">
             <div id="list-genres">
               {certifications.map(certification => (
-                <label className="single-genre checkmark-container" key={certification}>
+                <label
+                  className="single-genre checkmark-container"
+                  key={certification}
+                >
                   <input
                     type="checkbox"
                     name="certification"
-                    defaultChecked={selectedCertifications.includes(certification)}
+                    defaultChecked={selectedCertifications.includes(
+                      certification,
+                    )}
                     value={certification}
                     onChange={this.handlePreferencesChange}
                   />
@@ -106,7 +111,10 @@ class GenreList extends React.Component {
           <form onSubmit={this.handleSelectionReset} id="genrePreferencesForm">
             <div id="list-genres">
               {genres.map(genre => (
-                <label className="single-genre checkmark-container" key={genre._id}>
+                <label
+                  className="single-genre checkmark-container"
+                  key={genre._id}
+                >
                   <input
                     type="checkbox"
                     name="genre"
@@ -115,7 +123,7 @@ class GenreList extends React.Component {
                     onChange={this.handlePreferencesChange}
                   />
                   <span className="checkmark" />
-                  <span className="single-genre">{genre.name}</span>
+                  <span className="single-genre">{genre.translation}</span>
                 </label>
               ))}
             </div>
