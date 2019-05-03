@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/GoogleLogin.css';
 
 const GoogleLogin = () => (
-  <a href={`${process.env.REACT_APP_BASE_URL}auth/google`} className="google-link">
+  <a href={`${process.env.REACT_APP_SVR_AUTH}/google`} className="google-link">
     <span className="svgIcon t-popup-svg">
       <svg className="svgIcon-use" width="25" height="30" viewBox="0 0 25 25">
         <g fill="none" fillRule="evenodd">

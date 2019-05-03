@@ -4,7 +4,7 @@
   height: 60px;
   background-color: var(--offwhite);
   border-radius: 10px;
-  background-image: linear-gradient(to right, var(--offwhite) 0%, var(--purple) 30%);
+  background-image: linear-gradient(to right, var(--offwhite) 0%, var(--purple) 50%);
   overflow: hidden;
   transition: var(--chat-expand-transition);
 }
@@ -68,7 +68,7 @@
 .angle-icon {
   color: var(--offwhite);
 }
- /* Lloyd Icon */
+/* Lloyd Icon */
 
 .lloyd-icon {
   height: 40px;

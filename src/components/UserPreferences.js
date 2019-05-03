@@ -5,7 +5,7 @@ import GenreList from './GenreList';
 import ToggleSwitch from './ToggleSwitch';
 import { getUserFromToken } from '../utils/tokenServices';
 
-const { REACT_APP_SVR_API } = process.env;
+const { REACT_APP_SVR_API, REACT_APP_SVR_PREFS } = process.env;
 
 const YearDropdown = ({
   name,
@@ -99,14 +99,12 @@ class UserPreferences extends React.Component {
     if (!genres.length) {
       axios
         .get(`${REACT_APP_SVR_API}/genres`)
-        .then(response =>
-          this.setState({ genres: response.data, pageIsLoading: false }),
-        );
+        .then(response => this.setState({ genres: response.data, pageIsLoading: false }));
     }
 
     if (pageIsLoading) {
       axios
-        .get(`${REACT_APP_SVR_API}/preferences`, {
+        .get(`${REACT_APP_SVR_PREFS}`, {
           params: { userId },
         })
         .then(response => {
@@ -131,7 +129,7 @@ class UserPreferences extends React.Component {
     if (prefUpdatesQueued) {
       axios
         .patch(
-          `${REACT_APP_SVR_API}/preferences/update`,
+          `${REACT_APP_SVR_PREFS}/update`,
           { preferences, userId },
           { headers: new Headers({ 'Content-Type': 'application/json' }) },
         )
@@ -259,7 +257,7 @@ class UserPreferences extends React.Component {
                 handlePreferencesChange={this.handlePreferencesChange}
               />
             </div>
-            <div className="form-control">
+            {/* <div className="form-control">
               <h3 className="account-sub-title">
                 Filter movies by genres you like (Leave blank for all genres)
               </h3>
@@ -280,7 +278,7 @@ class UserPreferences extends React.Component {
                 handleFormChange={this.handlePreferencesChange}
                 selectedCertifications={certifications}
               />
-            </div>
+            </div> */}
 
             <section className="ratings">
               <h3 className="account-sub-title">
