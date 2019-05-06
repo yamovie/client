@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 import { MovieCard, SearchBar } from '.';
+import { moviesAPI } from '../utils';
 import '../css/MovieList.css';
-
-const { REACT_APP_SVR_API } = process.env;
 
 class MovieList extends Component {
   /**
@@ -28,52 +26,24 @@ class MovieList extends Component {
     // window.addEventListener('scroll', event => this.scrollHandler(event));
   }
 
-  // ===================== Extracts Get Requests ============================
-  // Makes each get request a function so they can be used with axios.all()
-
-  /**
-   * Gets all the movies, optionally filtered by genreId
-   * @param {String} [genreId]
-   * @returns An Axios promise with the movie data
-   */
-  getMovies = (genreId = 'all') => {
-    if (genreId !== 'all') {
-      return axios.get(`${REACT_APP_SVR_API}/movies/genre/${genreId}`);
-    }
-    return axios.get(`${REACT_APP_SVR_API}/movies/`);
-  };
-
-  /**
-   * Gets the data for a movie
-   * @param {String} [id]
-   * @returns An Axios promise with the movie data
-   */
-  getSingleMovie = id => axios.get(`${REACT_APP_SVR_API}/movies/${id}`);
-
-  /**
-   * Gets the list of all genre objects
-   * @returns An Axios promise with the genre data
-   */
-  getGenres = () => axios.get(`${REACT_APP_SVR_API}/genres/`);
-
   // =================== Grabs Movie Data on Render =========================
   // Sets the complete movie collection to state.
 
   componentDidMount = () => {
     const { showGenreFilter, results } = this.props;
     if (showGenreFilter) {
-      axios.all([this.getGenres(), this.getMovies()]).then(
-        axios.spread((genreResp, movieResp) => {
+      moviesAPI.getGenres().then(genreResp => {
+        moviesAPI.getMovies().then(movieResp => {
           this.setState({
             genres: genreResp.data,
             movies: movieResp.data.results,
             page: movieResp.data.page,
             hasNextPage: movieResp.data.hasNextPage,
           });
-        }),
-      );
+        });
+      });
     } else {
-      this.getGenres().then(genreResp =>
+      moviesAPI.getGenres().then(genreResp =>
         this.setState({
           genres: genreResp.data,
           movies: results,
@@ -84,15 +54,11 @@ class MovieList extends Component {
 
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
-    this.getMovies(genreKey).then(response =>
-    // this.setState({ movies: response.data.results }),
-    // this.setState({ page: 1 }),
-    // this.setState({ currentGenreFilter: genreKey }),
-
+    moviesAPI.getMovies(genreKey).then(response =>
       this.setState({
         movies: response.data.results,
         currentGenreFilter: genreKey,
-        page: 2,
+        page: 2, // TODO: figure out why this is setting it explicitly to page 2??
         hasNextPage: true,
         loading: false,
       }),
@@ -115,55 +81,31 @@ class MovieList extends Component {
   };
 
   // ==================== Handles Search Bar Input Submit ==================
-  // TODO: Factor this out into API call utils
+
   handleSubmit = event => {
     const { searchInputValue } = this.state;
     window.scrollTo(0, 0);
     event.preventDefault();
-    axios
-      .get(`${REACT_APP_SVR_API}/movies/search`, {
-        params: {
-          title: searchInputValue,
-        },
-      })
-      .then(response =>
-        this.setState({
-          movies: response.data.results,
-          page: 1,
-          searchInputValue: '',
-        }),
-      );
+    moviesAPI.getSearchResults(searchInputValue).then(response =>
+      this.setState({
+        movies: response.data.results,
+        page: 1,
+        searchInputValue: '',
+      }),
+    );
   };
 
   // ================== Function to load more movies on scroll ===============
-  loadMoreMovies = async () => {
-    const {
-      hasNextPage,
-      page,
-      movies,
-      loading,
-      currentGenreFilter,
-    } = this.state;
+  loadMoreMovies = () => {
+    const { hasNextPage, page, movies, loading, currentGenreFilter } = this.state;
     if (hasNextPage && !loading) {
-      if (currentGenreFilter === 'all') {
-        const res = await axios.get(
-          `${REACT_APP_SVR_API}/movies/?page=${page}`,
-        );
+      moviesAPI.loadNextPage(page, currentGenreFilter).then(res => {
         this.setState({
           movies: movies.concat(res.data.results),
           page: res.data.page + 1,
           hasNextPage: res.data.hasNextPage,
         });
-      } else {
-        const res = await axios.get(
-          `${REACT_APP_SVR_API}/movies/genre/${currentGenreFilter}/?page=${page}`,
-        );
-        this.setState({
-          movies: movies.concat(res.data.results),
-          page: res.data.page + 1,
-          hasNextPage: res.data.hasNextPage,
-        });
-      }
+      });
     }
   };
 
@@ -187,9 +129,7 @@ class MovieList extends Component {
     if (movies[0] && movies[0].jw_url) {
       imagesForAllMovies = movies.map(movie => movie.images.poster);
     } else {
-      imagesForAllMovies = movies.map(
-        movie => movie.images.posters[0].poster_url,
-      );
+      imagesForAllMovies = movies.map(movie => movie.images.posters[0].poster_url);
     }
 
     return (

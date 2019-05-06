@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import userServices from '../utils/userServices';
 import { GoogleLogin } from '.';
-import Swal from 'sweetalert2';
 import '../css/Signup.css';
 
 class Signup extends Component {
@@ -49,15 +49,15 @@ class Signup extends Component {
         });
         history.push('/');
       })
-      .catch(err => 
+      .catch(err =>
         Swal.fire({
           position: 'top-end',
           type: 'error',
           text: err,
           showConfirmButton: false,
           timer: 1000,
-        })
-      )
+        }),
+      );
   };
 
   isFormInvalid() {
