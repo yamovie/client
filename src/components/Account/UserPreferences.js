@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import GenreList from '../MovieDisplays/GenreList';
 import ToggleSwitch from './ToggleSwitch';
 import { getUserFromToken } from '../../utils/tokenServices';
 
@@ -26,23 +25,23 @@ const YearDropdown = ({
       <select name={name} onChange={handlePreferencesChange}>
         {selectedMinYear
           ? listOfYears.reverse().map(year =>
-            selectedMinYear === year ? (
-              <option value={year} selected>
-                {year}
-              </option>
-            ) : (
-              <option value={year}>{year}</option>
-            ),
-          )
+              selectedMinYear === year ? (
+                <option value={year} selected>
+                  {year}
+                </option>
+              ) : (
+                <option value={year}>{year}</option>
+              ),
+            )
           : listOfYears.map(year =>
-            selectedMaxYear === year ? (
-              <option value={year} selected>
-                {year}
-              </option>
-            ) : (
-              <option value={year}>{year}</option>
-            ),
-          )}
+              selectedMaxYear === year ? (
+                <option value={year} selected>
+                  {year}
+                </option>
+              ) : (
+                <option value={year}>{year}</option>
+              ),
+            )}
       </select>
     </>
   );
@@ -99,7 +98,9 @@ class UserPreferences extends React.Component {
     if (!genres.length) {
       axios
         .get(`${REACT_APP_SVR_API}/genres`)
-        .then(response => this.setState({ genres: response.data, pageIsLoading: false }));
+        .then(response =>
+          this.setState({ genres: response.data, pageIsLoading: false }),
+        );
     }
 
     if (pageIsLoading) {
@@ -201,16 +202,15 @@ class UserPreferences extends React.Component {
   render() {
     const {
       preferences: {
-        certifications,
         streamingServices: { hulu, netflix },
         ratings: {
           imdb: { minRating: imdbRating },
           rottenTomatoes: { minRating: rottenRating },
         },
         release,
-        genres: selectedGenres,
+        // genres: selectedGenres,
       },
-      genres,
+      // genres,
       pageIsLoading,
     } = this.state;
 

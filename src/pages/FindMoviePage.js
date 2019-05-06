@@ -16,6 +16,7 @@ class FindMoviePage extends React.Component {
       talkedToLloyd: false,
       mountChat: false,
       isExpanded: true,
+      safeToCloseChat: false,
     };
   }
 
@@ -65,6 +66,14 @@ class FindMoviePage extends React.Component {
     this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
   };
 
+  enableChatClose = () => {
+    this.setState({ safeToCloseChat: true });
+  };
+
+  disableChatClose = () => {
+    this.setState({ safeToCloseChat: false });
+  };
+
   render() {
     const {
       talkedToLloyd,
@@ -72,6 +81,7 @@ class FindMoviePage extends React.Component {
       results,
       mountChat,
       isExpanded,
+      safeToCloseChat,
     } = this.state;
 
     return (
@@ -80,7 +90,7 @@ class FindMoviePage extends React.Component {
           <button
             type="button"
             className={`expand-indicator ${isExpanded ? 'close' : ''}`}
-            onClick={this.toggleExpanded}
+            onClick={safeToCloseChat ? this.toggleExpanded : undefined}
           >
             <FontAwesomeIcon icon="angle-down" />
           </button>
@@ -100,6 +110,8 @@ class FindMoviePage extends React.Component {
                 toggleChat={this.toggleExpanded}
                 getMovieResults={this.getMovieResults}
                 resetMovieResults={this.resetMovieResults}
+                enableChatClose={this.enableChatClose}
+                disableChatClose={this.disableChatClose}
                 genreIds={genreIds}
               />
             ) : (

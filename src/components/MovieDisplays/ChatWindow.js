@@ -7,6 +7,8 @@ class ChatWindow extends React.Component {
   static propTypes = {
     getMovieResults: PropTypes.func.isRequired,
     resetMovieResults: PropTypes.func.isRequired,
+    enableChatClose: PropTypes.func.isRequired,
+    disableChatClose: PropTypes.func.isRequired,
     toggleChat: PropTypes.func.isRequired,
     genreIds: PropTypes.shape().isRequired,
   };
@@ -35,16 +37,24 @@ class ChatWindow extends React.Component {
   }
 
   async componentDidMount() {
-    const { genreIds } = this.props;
+    const { genreIds, enableChatClose, disableChatClose } = this.props;
+    await disableChatClose();
     await this.greetingQuestion();
-    await this.moodQuestion(genreIds);
-    await this.ageQuestion();
-    await this.eraQuestion();
-    await this.animatedQuestion(genreIds);
-    await this.foreignQuestion();
-    await this.indieQuestion();
-    await this.ratingsQuestion();
-    this.endChatFunc();
+    await this.moodQuestion(genreIds, enableChatClose);
+    await disableChatClose();
+    await this.ageQuestion(enableChatClose);
+    await disableChatClose();
+    await this.eraQuestion(enableChatClose);
+    await disableChatClose();
+    await this.animatedQuestion(genreIds, enableChatClose);
+    await disableChatClose();
+    await this.foreignQuestion(enableChatClose);
+    await disableChatClose();
+    await this.indieQuestion(enableChatClose);
+    await disableChatClose();
+    await this.ratingsQuestion(enableChatClose);
+    await disableChatClose();
+    await this.endChatFunc(enableChatClose, disableChatClose);
   }
 
   /**
@@ -86,7 +96,7 @@ class ChatWindow extends React.Component {
    * Asks about the user's mood, displays button response options, then sets the state
    * and displays a response message when they have selected an option
    */
-  moodQuestion = async genreIds => {
+  moodQuestion = async (genreIds, enableChatClose) => {
     if (this.skipQuestion()) {
       return;
     }
@@ -95,6 +105,7 @@ class ChatWindow extends React.Component {
       content: 'What kind of movie are you in the mood for?',
       delay: this.delays.response,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         action: [
@@ -149,21 +160,25 @@ class ChatWindow extends React.Component {
    * Asks about the user's age, displays button response options, then sets the state
    * and displays a response message when they have selected an option
    */
-  ageQuestion = async () => {
+  ageQuestion = async enableChatClose => {
     if (this.skipQuestion()) {
       return;
     }
 
     this.botui.message.bot({
-      content: 'What is your age range?',
+      content: 'What rated content should I be looking for?',
       delay: this.delays.nextQ,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         action: [
-          { value: 'PG', text: '12 and Under' },
-          { value: 'PG-13', text: '13 - 17' },
-          { value: 'R', text: '18 +' },
+          { value: 'PG', text: 'Family friendly 👼 (G & PG only)' },
+          {
+            value: 'PG-13',
+            text: 'Some mature content is fine 👨‍🎤 (includes PG-13)',
+          },
+          { value: 'R', text: 'All content is fine 🧑 (includes R)' },
           { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
@@ -190,7 +205,7 @@ class ChatWindow extends React.Component {
    * Asks about the user's movie era preference, displays button response options, then
    * sets the state and displays a response message when they have selected an option
    */
-  eraQuestion = async () => {
+  eraQuestion = async enableChatClose => {
     if (this.skipQuestion()) {
       return;
     }
@@ -199,12 +214,14 @@ class ChatWindow extends React.Component {
       content: 'Do you want to watch a classic or modern movie?',
       delay: this.delays.nextQ,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         action: [
           { value: 'classic', text: 'Classic (before 1980)' },
           { value: 'in-between', text: 'In Between (1980-2010)' },
           { value: 'modern', text: 'Modern (after 2010)' },
+          { value: 'no-preference', text: 'No preference' },
           { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
@@ -241,6 +258,8 @@ class ChatWindow extends React.Component {
               },
             }));
             break;
+          case 'no-preference':
+            break;
           default:
             console.error('error');
         }
@@ -255,21 +274,22 @@ class ChatWindow extends React.Component {
    * Asks about the user's animation preference, displays button response options, then
    * sets the state and displays a response message when they have selected an option
    */
-  animatedQuestion = async genreIds => {
+  animatedQuestion = async (genreIds, enableChatClose) => {
     if (this.skipQuestion()) {
       return;
     }
 
     this.botui.message.bot({
-      content: 'Do you like animated films?',
+      content: 'Do you want me to include animated movies in your results?',
       delay: this.delays.nextQ,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         // TODO: Make this answer have more options that are more clear
         action: [
-          { value: true, text: 'Yes 👍' },
-          { value: false, text: 'No 👎' },
+          { value: true, text: 'Yes, I love animated movies! 👍' },
+          { value: false, text: 'No, do not recommend them to me 👎' },
           { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
@@ -299,7 +319,7 @@ class ChatWindow extends React.Component {
    * Asks about the user's foreign film preference, displays button response options, then
    * sets the state and displays a response message when they have selected an option
    */
-  foreignQuestion = async () => {
+  foreignQuestion = async enableChatClose => {
     if (this.skipQuestion()) {
       return;
     }
@@ -308,12 +328,13 @@ class ChatWindow extends React.Component {
       content: 'How about foreign films?',
       delay: this.delays.nextQ,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         // TODO: Make this answer have more options that are more clear
         action: [
-          { value: true, text: 'Yes 👍' },
-          { value: false, text: 'No 👎' },
+          { value: true, text: 'Yes, include them with my results  👍' },
+          { value: false, text: 'No, exclude them from my results 👎' },
           { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
@@ -339,7 +360,7 @@ class ChatWindow extends React.Component {
    * Asks about the user's indie preference, displays button response options, then
    * sets the state and displays a response message when they have selected an option
    */
-  indieQuestion = async () => {
+  indieQuestion = async enableChatClose => {
     if (this.skipQuestion()) {
       return;
     }
@@ -348,12 +369,13 @@ class ChatWindow extends React.Component {
       content: 'Do you like independent films?',
       delay: this.delays.nextQ,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         // TODO: Make this answer have more options that are more clear
         action: [
-          { value: true, text: 'Yes 👍' },
-          { value: false, text: 'No 👎' },
+          { value: true, text: 'Yes, you can add them to my results 👍' },
+          { value: false, text: 'No, exclude them please 👎' },
           { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
@@ -381,7 +403,7 @@ class ChatWindow extends React.Component {
    * follows up based on their response. Calls the sub-functions to get actual rating info
    * for each Rotten Tomatoes and IMDB ratings.
    */
-  ratingsQuestion = async () => {
+  ratingsQuestion = async enableChatClose => {
     if (this.skipQuestion()) {
       return;
     }
@@ -390,6 +412,7 @@ class ChatWindow extends React.Component {
       content: 'What ratings do you care about?',
       delay: this.delays.nextQ,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         action: [
@@ -428,11 +451,12 @@ class ChatWindow extends React.Component {
    * Asks about the user's RT threshold preference, displays button response options, then
    * sets the state and displays a response message when they have selected an option
    */
-  rtQuestion = async () => {
+  rtQuestion = async enableChatClose => {
     this.botui.message.bot({
       content: 'Minimum Rotten Tomatoes rating?',
       delay: this.delays.response,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         action: [
@@ -461,11 +485,12 @@ class ChatWindow extends React.Component {
    * Asks about the user's IMDB threshold preference, displays button response options, then
    * sets the state and displays a response message when they have selected an option
    */
-  imdbQuestion = async () => {
+  imdbQuestion = async enableChatClose => {
     this.botui.message.bot({
       content: 'Minimum IMDB rating?',
       delay: this.delays.response,
     });
+    enableChatClose();
     await this.botui.action
       .button({
         action: [
@@ -509,12 +534,14 @@ class ChatWindow extends React.Component {
       });
   };
 
-  async endChatFunc() {
+  async endChatFunc(enableChatClose, disableChatClose) {
     const { getMovieResults, toggleChat, resetMovieResults } = this.props;
+    await disableChatClose();
     await resetMovieResults();
     await this.resultsMessage(getMovieResults);
     await setTimeout(() => {
       toggleChat();
+      enableChatClose();
     }, 6000);
   }
 
