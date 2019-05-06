@@ -1,5 +1,6 @@
 import tokenServices from './tokenServices';
 import userAPI from './userAPI';
+import Swal from 'sweetalert2';
 
 function getUser() {
   return tokenServices.getUserFromToken();
@@ -38,9 +39,19 @@ async function addToUserWatchlist(movieId) {
   const user = await getUser();
   // if user exists
   if (user) {
-    userAPI.addToWatchlist(user._id, movieId);
+    userAPI.addToWatchlist(user._id, movieId)
+    .then(res => 
+      Swal.fire({
+        position: 'top-end',
+        type: 'success',
+        text: 'Added to Watchlist',
+        showConfirmButton: false,
+        timer: 1000,
+      })
+    );
   }
 }
+  
 
 export default {
   getUser,

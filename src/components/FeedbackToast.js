@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
 import Swal from 'sweetalert2';
 
 class FeedbackToast extends Component {
-constructor(props) {
-  super(props);
+  constructor(props) {
+    super(props);
 
-  this.state = {
-    render: false,
+    this.state = {
+      render: false,
+      hasShown: false,
+    };
   }
-}
 
 componentDidMount() {
   setTimeout(() => {
@@ -32,15 +32,8 @@ showAlert = () => {
     //   const { show } = this.state;
     //   const handleHide = () => this.setState({ show: false });
     //   const handleShow = () => this.setState({ show: true });
-    return(
-      render && 
-      <div className="toast-alert">
-        { this.showAlert()
-        }
-      </div>
-    )
-  } 
+    return render && <div className="toast-alert">{this.showAlert()}</div>;
+  }
 }
-      
-export default FeedbackToast;
 
+export default FeedbackToast;

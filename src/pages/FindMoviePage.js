@@ -1,88 +1,132 @@
 import React from 'react';
-import Proptypes from 'prop-types';
-import MovieList from '../components/MovieList';
+import axios from 'axios';
+import MovieFeed from '../components/MovieFeed';
 import '../css/FindMoviePage.css';
-import { LloydChat } from '../components';
+import { ChatWindow } from '../components';
+import { FontAwesomeIcon } from '../utils/fontAwesome';
+
+const { REACT_APP_SVR_API } = process.env;
 
 class FindMoviePage extends React.Component {
-  static propTypes = {
-    getMovieResults: Proptypes.func.isRequired,
-    resetMovieResults: Proptypes.func.isRequired,
-    genreIds: Proptypes.shape().isRequired,
-    results: Proptypes.arrayOf(Proptypes.object).isRequired,
-    talkedToLloyd: Proptypes.bool.isRequired,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
+      genreIds: {},
       results: [{}],
+      talkedToLloyd: false,
+      mountChat: false,
+      isExpanded: true,
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.results !== state.results) {
-      return { results: props.results };
-    } else return null;
-  }
+  getMovieResults = dataObj => {
+    // const { history } = this.props;
+    axios
+      .post(`${REACT_APP_SVR_API}/movies/recommend`, dataObj, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => {
+        this.setState({
+          results: response.data.results,
+          talkedToLloyd: true,
+        });
+        // history.push('/recommendations');
+      })
+      .catch(error => console.error(error));
+  };
 
-  componentDidUpdate = prevProps => {
-    if (this.props.results !== prevProps.results) {
-      this.setState({ results: this.getDerivedStateFromProps });
-    }
+  getGenreData = () => {
+    axios
+      .get(`${REACT_APP_SVR_API}/genres`)
+      .then(response => {
+        const genreIds = response.data.reduce((acc, curr) => {
+          acc[curr.translation] = curr._id;
+          return acc;
+        }, {});
+        this.setState({
+          genreIds,
+          mountChat: true,
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  resetMovieResults = () => {
+    this.setState({ talkedToLloyd: false });
+  };
+
+  componentDidMount = () => {
+    this.getGenreData();
+  };
+
+  toggleExpanded = () => {
+    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
   };
 
   render() {
     const {
-      getMovieResults,
-      resetMovieResults,
-      genreIds,
       talkedToLloyd,
+      genreIds,
       results,
-      history,
-    } = this.props;
+      mountChat,
+      isExpanded,
+    } = this.state;
+
     return (
       <div>
+        <div className="full-container">
+          <button
+            type="button"
+            className={`expand-indicator ${isExpanded ? 'close' : ''}`}
+            onClick={this.toggleExpanded}
+          >
+            <FontAwesomeIcon icon="angle-down" />
+          </button>
+          <div
+            className="top-chat-container"
+            style={isExpanded ? { height: '0' } : {}}
+          >
+            <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd" />
+            <h1 className="lloyd-title">Lloyd Chat</h1>
+          </div>
+          <div
+            className="bottom-chat-container"
+            style={isExpanded ? {} : { height: '0px' }}
+          >
+            {mountChat && isExpanded ? (
+              <ChatWindow
+                toggleChat={this.toggleExpanded}
+                getMovieResults={this.getMovieResults}
+                resetMovieResults={this.resetMovieResults}
+                genreIds={genreIds}
+              />
+            ) : (
+              ''
+            )}
+          </div>
+        </div>
         {talkedToLloyd && results.length > 0 ? (
-          <MovieList results={results} showGenreFilter={false} history={history} />
+          <MovieFeed movies={results} />
         ) : (
           ''
         )}
-        {!talkedToLloyd ? (
-          <h1 className="findMovieh1">
-            Talk to our chatbot Lloyd to find YaMovie recommendations!
-            <span role="img" aria-label="smile">
-              😊
-            </span>
-          </h1>
-        ) : (
-          ''
-        )}
+        {!talkedToLloyd ? '' : ''} {/* Why is this here...? */}
         {results.length === 0 ? (
           <div>
             <h1 className="findMovieh1">
               Lloyd could not find anything that matched your preferences.
-              <span role="img" aria-label="sad">
-                😞
-              </span>
             </h1>
             <br />
             <h3 className="findMovieh3">
-              Ask him again with different criteria so he can find YaMovie
-              <span role="img" aria-label="movie">
-                🎦
-              </span>
-              or come back later because our database is always expanding!
+              Ask him again with different criteria so he can find YaMovie or
+              come back later because our database is always expanding!
             </h3>
           </div>
         ) : (
           ''
         )}
-        <LloydChat
-          getMovieResults={getMovieResults}
-          genreIds={genreIds}
-          resetMovieResults={resetMovieResults}
-        />
       </div>
     );
   }
