@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import MovieFeed from '../components/MovieFeed';
+import MovieFeed from '../components/MovieDisplays/MovieFeed';
 import '../css/FindMoviePage.css';
 import { ChatWindow } from '../components';
 import { FontAwesomeIcon } from '../utils/fontAwesome';

@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import GenreList from './GenreList';
+import GenreList from '../MovieDisplays/GenreList';
 import ToggleSwitch from './ToggleSwitch';
-import { getUserFromToken } from '../utils/tokenServices';
+import { getUserFromToken } from '../../utils/tokenServices';
 
 const { REACT_APP_SVR_API, REACT_APP_SVR_PREFS } = process.env;
 

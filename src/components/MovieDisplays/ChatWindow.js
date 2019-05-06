@@ -1,7 +1,7 @@
 import React from 'react';
 import Botui from 'botui-react';
 import PropTypes from 'prop-types';
-import '../css/ChatWindow.css';
+import '../../css/ChatWindow.css';
 
 class ChatWindow extends React.Component {
   static propTypes = {
@@ -48,31 +48,36 @@ class ChatWindow extends React.Component {
   }
 
   /**
-   * Checks whether the chat is ended and if the BotUi still exists and 
+   * Checks whether the chat is ended and if the BotUi still exists and
    * other things to determine if a question should be skipped.
    * @returns {boolean} True if question should be skipped, false otherwise
    */
   skipQuestion = () => {
     const { endChat } = this.state;
-    if (endChat) { return true; }
+    if (endChat) {
+      return true;
+    }
     // if (!this.botui) { return true; }
     return false;
-  }
-  
+  };
+
   /**
    * Shows the initial greeting message, the question for if the user wants recs,
    * and then the answer option buttons
    * @returns {Promise} When fulfilled, promise will contain true or false if they want recs
    */
   greetingQuestion = async () => {
-    if(this.skipQuestion()) { return; }
+    if (this.skipQuestion()) {
+      return;
+    }
 
     this.botui.message.bot({
       content: 'Hello! 👋 My name is Lloyd! 😁',
       delay: this.delays.initial,
     });
     await this.botui.message.bot({
-      content: 'I\'m going to ask you a few questions so I can help you find a movie! 🎬',
+      content:
+        "I'm going to ask you a few questions so I can help you find a movie! 🎬",
       delay: this.delays.nextQ,
     });
   };
@@ -82,7 +87,9 @@ class ChatWindow extends React.Component {
    * and displays a response message when they have selected an option
    */
   moodQuestion = async genreIds => {
-    if (this.skipQuestion()) { return; }
+    if (this.skipQuestion()) {
+      return;
+    }
 
     this.botui.message.bot({
       content: 'What kind of movie are you in the mood for?',
@@ -92,16 +99,25 @@ class ChatWindow extends React.Component {
       .button({
         action: [
           { value: [genreIds.Comedy], text: 'Funny 😆' },
-          { value: [genreIds['War & Military'], genreIds.Western], text: 'Sad 😭' },
+          {
+            value: [genreIds['War & Military'], genreIds.Western],
+            text: 'Sad 😭',
+          },
           {
             value: [genreIds.Crime, genreIds['Mystery & Thriller']],
             text: 'Mysterious 🤔',
           },
-          { value: [genreIds.Drama, genreIds['War & Military']], text: 'Dramatic 😮' },
+          {
+            value: [genreIds.Drama, genreIds['War & Military']],
+            text: 'Dramatic 😮',
+          },
           { value: [genreIds.Thriller, genreIds.Crime], text: 'Thrilling 😲' },
           { value: [genreIds.Horror], text: 'Scary 😱' },
           {
-            value: [genreIds['Action & Adventure'], genreIds['Sport & Fitness']],
+            value: [
+              genreIds['Action & Adventure'],
+              genreIds['Sport & Fitness'],
+            ],
             text: 'Action Packed 🏃‍💥',
           },
           { value: [genreIds.Romance], text: 'Romantic 😍' },
@@ -134,7 +150,9 @@ class ChatWindow extends React.Component {
    * and displays a response message when they have selected an option
    */
   ageQuestion = async () => {
-    if (this.skipQuestion()) { return; }
+    if (this.skipQuestion()) {
+      return;
+    }
 
     this.botui.message.bot({
       content: 'What is your age range?',
@@ -173,8 +191,10 @@ class ChatWindow extends React.Component {
    * sets the state and displays a response message when they have selected an option
    */
   eraQuestion = async () => {
-    if (this.skipQuestion()) { return; }
-    
+    if (this.skipQuestion()) {
+      return;
+    }
+
     this.botui.message.bot({
       content: 'Do you want to watch a classic or modern movie?',
       delay: this.delays.nextQ,
@@ -191,38 +211,38 @@ class ChatWindow extends React.Component {
       })
       .then(eraRes => {
         switch (eraRes.value) {
-        case 'end':
-          this.setState({ endChat: true });
-          break;
-        case 'classic':
-          this.setState(prevState => ({
-            dataObj: {
-              ...prevState.dataObj,
-              min_year: 0,
-              max_year: 1980,
-            },
-          }));
-          break;
-        case 'in-between':
-          this.setState(prevState => ({
-            dataObj: {
-              ...prevState.dataObj,
-              min_year: 1980,
-              max_year: 2010,
-            },
-          }));
-          break;
-        case 'modern':
-          this.setState(prevState => ({
-            dataObj: {
-              ...prevState.dataObj,
-              min_year: 2010,
-              max_year: 3000,
-            },
-          }));
-          break;
-        default:
-          console.error('error');
+          case 'end':
+            this.setState({ endChat: true });
+            break;
+          case 'classic':
+            this.setState(prevState => ({
+              dataObj: {
+                ...prevState.dataObj,
+                min_year: 0,
+                max_year: 1980,
+              },
+            }));
+            break;
+          case 'in-between':
+            this.setState(prevState => ({
+              dataObj: {
+                ...prevState.dataObj,
+                min_year: 1980,
+                max_year: 2010,
+              },
+            }));
+            break;
+          case 'modern':
+            this.setState(prevState => ({
+              dataObj: {
+                ...prevState.dataObj,
+                min_year: 2010,
+                max_year: 3000,
+              },
+            }));
+            break;
+          default:
+            console.error('error');
         }
         this.botui.message.bot({
           content: 'Me too!',
@@ -236,8 +256,10 @@ class ChatWindow extends React.Component {
    * sets the state and displays a response message when they have selected an option
    */
   animatedQuestion = async genreIds => {
-    if (this.skipQuestion()) { return; }
-    
+    if (this.skipQuestion()) {
+      return;
+    }
+
     this.botui.message.bot({
       content: 'Do you like animated films?',
       delay: this.delays.nextQ,
@@ -278,8 +300,10 @@ class ChatWindow extends React.Component {
    * sets the state and displays a response message when they have selected an option
    */
   foreignQuestion = async () => {
-    if (this.skipQuestion()) { return; }
-    
+    if (this.skipQuestion()) {
+      return;
+    }
+
     this.botui.message.bot({
       content: 'How about foreign films?',
       delay: this.delays.nextQ,
@@ -316,8 +340,10 @@ class ChatWindow extends React.Component {
    * sets the state and displays a response message when they have selected an option
    */
   indieQuestion = async () => {
-    if (this.skipQuestion()) { return; }
-    
+    if (this.skipQuestion()) {
+      return;
+    }
+
     this.botui.message.bot({
       content: 'Do you like independent films?',
       delay: this.delays.nextQ,
@@ -356,8 +382,10 @@ class ChatWindow extends React.Component {
    * for each Rotten Tomatoes and IMDB ratings.
    */
   ratingsQuestion = async () => {
-    if (this.skipQuestion()) { return; }
-    
+    if (this.skipQuestion()) {
+      return;
+    }
+
     this.botui.message.bot({
       content: 'What ratings do you care about?',
       delay: this.delays.nextQ,
@@ -373,7 +401,10 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(async ratingsRes => {
-        if (ratingsRes.value === 'both' || ratingsRes.value === 'rotten-tomatoes') {
+        if (
+          ratingsRes.value === 'both' ||
+          ratingsRes.value === 'rotten-tomatoes'
+        ) {
           await this.rtQuestion();
         }
         if (ratingsRes.value === 'both' || ratingsRes.value === 'imdb') {
@@ -462,7 +493,9 @@ class ChatWindow extends React.Component {
    * Displays the loading message that its getting results
    */
   resultsMessage = getMovieResults => {
-    if (!this.botui) { return; }
+    if (!this.botui) {
+      return;
+    }
 
     const { dataObj } = this.state;
     this.botui.message
@@ -484,7 +517,6 @@ class ChatWindow extends React.Component {
       toggleChat();
     }, 6000);
   }
-
 
   render() {
     return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MovieFeedItem, TrailerModal } from '.';
+import { MovieFeedItem, TrailerModal } from '..';
 // import data from '../SeedMovies';
 
 export default class MovieFeed extends Component {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GenreList from './GenreList';
 
-import '../css/SearchBar.css';
+import '../../css/SearchBar.css';
 
 export default class SearchBar extends Component {
   static propTypes = {
@@ -69,7 +69,11 @@ export default class SearchBar extends Component {
             placeholder="Search Movies"
           />
         </form>
-        <button type="button" id="display-genre-button" onClick={this.toggleHover}>
+        <button
+          type="button"
+          id="display-genre-button"
+          onClick={this.toggleHover}
+        >
           Display Genres
         </button>
         {showGenreFilter ? (

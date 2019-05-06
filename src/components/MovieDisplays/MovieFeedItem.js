@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '../utils/fontAwesome';
-import '../css/MovieFeedItem.css';
+import { FontAwesomeIcon } from '../../utils/fontAwesome';
+import '../../css/MovieFeedItem.css';
 
 export default class MovieFeedItem extends Component {
   static propTypes = {
@@ -130,12 +130,18 @@ export default class MovieFeedItem extends Component {
               <span className="year"> ({release_year || 'No Year'})</span>
             </h2>
             <div className="cert-runtime-ratings">
-              <span className="certification">{certification || 'No Data'}</span>
-              <span className="runtime">{runtime ? `${runtime} min` : 'No Data'}</span>
+              <span className="certification">
+                {certification || 'No Data'}
+              </span>
+              <span className="runtime">
+                {runtime ? `${runtime} min` : 'No Data'}
+              </span>
               <RatingsView ratings={ratings} />
             </div>
             <p className="genres">
-              {genresArray.length > 0 ? genresArray.join(', ') : 'No Genre Data'}
+              {genresArray.length > 0
+                ? genresArray.join(', ')
+                : 'No Genre Data'}
             </p>
             <StreamsView offers={offers} jw_image_url={jw_image_url} />
           </div>
@@ -153,7 +159,9 @@ export default class MovieFeedItem extends Component {
           </button> */}
           <h4 className="directors">
             Director(s):{' '}
-            {directorList.length > 0 ? directorList.join(', ') : 'No Director Data'}
+            {directorList.length > 0
+              ? directorList.join(', ')
+              : 'No Director Data'}
           </h4>
           <p className="plot">{overview || 'No plot summary available'}</p>
         </div>
@@ -180,7 +188,10 @@ const StreamsView = ({ offers, jw_image_url }) => {
     <div className="streams">
       {offers.stream.length > 0 ? (
         offers.stream.map(strmSrc => {
-          const sizedIcon = strmSrc.provider.icon_url.replace('{profile}', 's100');
+          const sizedIcon = strmSrc.provider.icon_url.replace(
+            '{profile}',
+            's100',
+          );
           const imgLink = `${jw_image_url}${sizedIcon}`;
 
           let streamLink = '';

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/GoogleLogin.css';
+import '../../css/GoogleLogin.css';
 
 const GoogleLogin = () => (
   <a href={`${process.env.REACT_APP_SVR_AUTH}/google`} className="google-link">

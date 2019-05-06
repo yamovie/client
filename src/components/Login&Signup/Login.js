@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import userServices from '../utils/userServices';
-import { GoogleLogin } from '.';
+import GoogleLogin from './GoogleLogin';
+import userServices from '../../utils/userServices';
 import Swal from 'sweetalert2';
-import '../css/Signup.css';
+import '../../css/Login.css';
 
-class Signup extends Component {
+class Login extends Component {
   static propTypes = {
+    handleLogin: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func,
     }).isRequired,
@@ -17,9 +18,7 @@ class Signup extends Component {
     super(props);
     this.state = {
       email: '',
-      fullName: '',
       pw: '',
-      pwConfirm: '',
     };
   }
 
@@ -29,95 +28,72 @@ class Signup extends Component {
     });
   };
 
-  /**
-   * submit user information to signup
-   * if successful redirect to homepage
-   */
   handleSubmit = e => {
-    const { handleSignup, history } = this.props;
+    const { handleLogin, history } = this.props;
     e.preventDefault();
     userServices
-      .signup(this.state)
+      .login(this.state)
       .then(() => {
-        handleSignup();
+        handleLogin();
         Swal.fire({
           position: 'top-end',
           type: 'success',
-          text: 'Successful signup',
+          text: 'Successful Login',
           showConfirmButton: false,
           timer: 1000,
         });
         history.push('/');
       })
-      .catch(err => 
+      .catch(err =>
         Swal.fire({
           position: 'top-end',
           type: 'error',
           text: err,
           showConfirmButton: false,
           timer: 1000,
-        })
-      )
+        }),
+      );
   };
 
-  isFormInvalid() {
-    const { email, fullName, pw, pwConfirm } = this.state;
-    return !(fullName && email && pw === pwConfirm);
-  }
-
   render() {
-    const { email, fullName, pw, pwConfirm } = this.state;
+    const { email, pw, message } = this.state;
     return (
-      <div className="signup-page">
-        <div className="signup">
+      <div className="login-page">
+        <div className="login">
           <div className="form-container">
             <form onSubmit={this.handleSubmit}>
               <img
                 className="popcorn-logo"
                 src="/images/popcornKernal.png"
-                alt="Broken"
+                alt="YaMovie Popcorn"
               />
-              <header>Signup with YaMovie!</header>
+              <header>Log In To YaMovie!</header>
               <div className="input-container">
                 <input
-                  className="signup-input"
+                  className="login-input"
                   type="email"
                   placeholder="Email"
                   value={email}
                   onChange={e => this.handleChange('email', e)}
                 />
                 <input
-                  className="signup-input"
-                  type="name"
-                  placeholder="First and Last Name"
-                  value={fullName}
-                  onChange={e => this.handleChange('fullName', e)}
-                />
-                <input
-                  className="signup-input"
+                  className="login-input"
                   type="password"
                   placeholder="Password"
                   value={pw}
                   onChange={e => this.handleChange('pw', e)}
                 />
-                <input
-                  className="signup-input"
-                  type="password"
-                  placeholder="Password Confirmation"
-                  value={pwConfirm}
-                  onChange={e => this.handleChange('pwConfirm', e)}
-                />
               </div>
               <div className="button-container">
                 <button
-                  className="signup-submit"
+                  className="login-submit"
                   type="button"
                   onClick={this.handleSubmit}
                 >
                   {' '}
-                  Signup{' '}
+                  Log In{' '}
                 </button>
-                <Link className="signup-cancel" to="/">
+                <Link className="login-cancel" to="/">
                   Cancel
                 </Link>
               </div>
@@ -130,8 +106,4 @@ class Signup extends Component {
   }
 }
 
-Signup.propTypes = {
-  handleSignup: PropTypes.func.isRequired,
-};
-
-export default Signup;
+export default Login;

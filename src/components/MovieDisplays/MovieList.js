@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
-import { MovieCard, SearchBar } from '.';
-import '../css/MovieList.css';
+import { MovieCard, SearchBar } from '..';
+import '../../css/MovieList.css';
 
 const { REACT_APP_SVR_API } = process.env;
 
@@ -85,9 +85,9 @@ class MovieList extends Component {
   // ==================== Handles Filter Click ===============================
   handleSendGenre = genreKey => {
     this.getMovies(genreKey).then(response =>
-    // this.setState({ movies: response.data.results }),
-    // this.setState({ page: 1 }),
-    // this.setState({ currentGenreFilter: genreKey }),
+      // this.setState({ movies: response.data.results }),
+      // this.setState({ page: 1 }),
+      // this.setState({ currentGenreFilter: genreKey }),
 
       this.setState({
         movies: response.data.results,

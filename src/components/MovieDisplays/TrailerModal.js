@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../css/TrailerModal.css';
+import '../../css/TrailerModal.css';
 
 const TrailerModal = ({ trailerList, toggleTrailer }) => {
   if (!trailerList || trailerList.length < 1) {
@@ -8,7 +8,12 @@ const TrailerModal = ({ trailerList, toggleTrailer }) => {
   }
 
   return (
-    <div className="trailer-container" role="button" tabIndex={0} onClick={toggleTrailer}>
+    <div
+      className="trailer-container"
+      role="button"
+      tabIndex={0}
+      onClick={toggleTrailer}
+    >
       <iframe
         className="movie-trailer"
         title="trailer"

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '../utils/fontAwesome';
-import userServices from '../utils/userServices';
-import '../css/MovieCard.css';
-import tokenServices from '../utils/tokenServices';
+import { FontAwesomeIcon } from '../../utils/fontAwesome';
+import userServices from '../../utils/userServices';
+import '../../css/MovieCard.css';
+import tokenServices from '../../utils/tokenServices';
 
 class MovieCard extends Component {
   static propTypes = {
@@ -93,7 +93,10 @@ class MovieCard extends Component {
       }
       if (ratings) {
         modRatings = {
-          imdb: { ...ratings.internet_movie_database, url: `http://www.imdb.com/` },
+          imdb: {
+            ...ratings.internet_movie_database,
+            url: `http://www.imdb.com/`,
+          },
           metacritic: ratings.metacritic,
           rotten_tomatoes: {
             ...ratings.rotten_tomatoes,
@@ -187,7 +190,11 @@ class MovieCard extends Component {
             &times;
           </button>
           <div className="heading">
-            {posterLink ? <img className="poster" alt={title} src={posterLink} /> : ''}
+            {posterLink ? (
+              <img className="poster" alt={title} src={posterLink} />
+            ) : (
+              ''
+            )}
             <div id="line1">
               <h1>{title}</h1>
               <span className="certification">{certification}</span>
@@ -255,7 +262,10 @@ const StreamsView = ({ offers, jw_image_url }) => {
     <div id="streams">
       {offers.stream.length > 0 ? (
         offers.stream.map(strmSrc => {
-          const sizedIcon = strmSrc.provider.icon_url.replace('{profile}', 's100');
+          const sizedIcon = strmSrc.provider.icon_url.replace(
+            '{profile}',
+            's100',
+          );
           const imgLink = `${jw_image_url}${sizedIcon}`;
 
           let streamLink = '';
