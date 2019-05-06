@@ -11,21 +11,30 @@ class FeedbackToast extends Component {
     };
   }
 
-componentDidMount() {
-  setTimeout(() => {
-    this.setState({ render: true });
-  }, 180000);
-}
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ render: true });
+    }, 180000);
+  }
 
-showAlert = () => {
-  Swal.fire({
-    title: '<strong> What do you think of our site? </strong>',
-    type: 'question',
-    showCloseButton: true,
-    html: '<a href="https://forms.gle/xJoQ54DaX4omm74Z7" target="blank">Give Feedback!</a>' ,
-    showConfirmButton: false,
-  })
-}
+  showAlert = () => {
+    const { hasShown } = this.state;
+    if (!hasShown) {
+      this.setState({ hasShown: true });
+      Swal.fire({
+        title: '<strong> What do you think of our site? </strong>',
+        type: 'question',
+        showCloseButton: true,
+        showConfirmButton: true,
+        confirmButtonText: 'Give Feedback!',
+        confirmButtonAriaLabel: 'Give Feedback!',
+      }).then(results => {
+        if (results.value) {
+          window.open('https://forms.gle/xJoQ54DaX4omm74Z7', '_blank');
+        }
+      });
+    }
+  };
 
   render() {
     const { render } = this.state;
