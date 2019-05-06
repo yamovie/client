@@ -22,9 +22,8 @@ showAlert = () => {
     title: '<strong> What do you think of our site? </strong>',
     type: 'question',
     showCloseButton: true,
-    showConfirmButton: true,
-    confirmButtonText: '<a href="https://forms.gle/xJoQ54DaX4omm74Z7" style="text-decoration:none; color: white" target="blank">Give Feedback!</a>',
-    confirmButtonAriaLabel: 'Give Feedback!',
+    html: '<a href="https://forms.gle/xJoQ54DaX4omm74Z7" target="blank">Give Feedback!</a>' ,
+    showConfirmButton: false,
   })
 }
 
