@@ -12,9 +12,9 @@ constructor(props) {
 }
 
 componentDidMount() {
-  setTimeout(function() { 
-      this.setState({render: true}) 
-  }.bind(this), 180000)
+  setTimeout(() => {
+    this.setState({ render: true });
+  }, 180000);
 }
 
 showAlert = () => {
