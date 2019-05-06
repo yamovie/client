@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GenreList from './GenreList';
+import UserCheckboxList from './UserCheckboxList';
 import ToggleSwitch from './ToggleSwitch';
 import { moviesAPI, tokenServices, userAPI } from '../utils';
 
@@ -248,7 +248,7 @@ class UserPreferences extends React.Component {
               <h3 className="account-sub-title">
                 Filter movies by genres you like (Leave blank for all genres)
               </h3>
-              <GenreList
+              <UserCheckboxList
                 checkboxesVisible
                 genres={genres}
                 handleFormChange={this.handlePreferencesChange}
@@ -259,7 +259,7 @@ class UserPreferences extends React.Component {
               <h3 className="account-sub-title">
                 Filter movies by age/mpaa ratings (Leave blank for all ratings)
               </h3>
-              <GenreList
+              <UserCheckboxList
                 checkboxesVisible
                 showCertifications
                 handleFormChange={this.handlePreferencesChange}

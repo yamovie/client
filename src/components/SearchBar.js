@@ -6,82 +6,62 @@ import '../css/SearchBar.css';
 
 export default class SearchBar extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    searchInputValue: PropTypes.string,
-    genres: PropTypes.arrayOf(
-      PropTypes.shape({
-        short_name: PropTypes.string,
-        technical_name: PropTypes.string,
-        translation: PropTypes.string,
-      }),
-    ).isRequired,
-    showGenreFilter: PropTypes.bool.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
     handleSendGenre: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    searchInputValue: '',
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      hover: false,
-      intervalId: 0,
+      showGenres: false,
+      searchInputValue: '',
     };
   }
 
-  toggleHover = () => {
-    const { hover } = this.state;
-    this.setState({
-      hover: !hover,
-    });
+  // ===============================================================
+  // Handlers
+
+  handleSearchSubmit = event => {
+    event.preventDefault();
+    const { handleSubmit } = this.props;
+    const { searchInputValue } = this.state;
+    handleSubmit(searchInputValue);
+    this.setState({ searchInputValue: '' });
   };
 
-  render() {
-    const {
-      onSubmit,
-      onChange,
-      genres,
-      searchInputValue,
-      showGenreFilter,
-      handleSendGenre,
-    } = this.props;
+  handleChange = event => {
+    this.setState({ searchInputValue: event.target.value });
+  };
 
-    // On hover function to display genre list through mega menu
-    let hoverStyle;
-    const { hover } = this.state;
-    if (hover) {
-      hoverStyle = { display: 'flex' };
-    } else {
-      hoverStyle = { display: 'none' };
-    }
+  toggleShowGenres = () => {
+    this.setState(prevState => ({ showGenres: !prevState.showGenres }));
+  };
+
+  // ===============================================================
+  // Render
+
+  render() {
+    const { handleSendGenre } = this.props;
+    const { showGenres, searchInputValue } = this.state;
 
     return (
       <div id="mega-search-genres">
-        <form id="browse-search" onSubmit={onSubmit}>
+        <form id="browse-search" onSubmit={this.handleSearchSubmit}>
           <input
             type="text"
             value={searchInputValue}
-            onChange={onChange}
+            onChange={this.handleChange}
             placeholder="Search Movies"
           />
         </form>
-        <button type="button" id="display-genre-button" onClick={this.toggleHover}>
+        <button type="button" id="display-genre-button" onClick={this.toggleShowGenres}>
           Display Genres
         </button>
-        {showGenreFilter ? (
-          <GenreList
-            genres={genres}
-            style={hoverStyle}
-            toggleHover={this.toggleHover}
-            moviesByGenreId={handleSendGenre}
-          />
-        ) : (
-          ' '
-        )}
+        <GenreList
+          handleSendGenre={handleSendGenre}
+          style={{ display: showGenres ? 'flex' : 'none' }}
+        />
       </div>
     );
   }

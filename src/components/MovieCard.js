@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '../utils/fontAwesome';
-import userServices from '../utils/userServices';
+import { FontAwesomeIcon, userServices, tokenServices } from '../utils';
 import '../css/MovieCard.css';
-import tokenServices from '../utils/tokenServices';
 
 class MovieCard extends Component {
   static propTypes = {
     movie: PropTypes.shape({
-      genre_ids: PropTypes.array,
+      genres: PropTypes.arrayOf(PropTypes.object),
       overview: PropTypes.string,
       ratings: PropTypes.shape({
         internet_movie_database: PropTypes.object,
@@ -183,7 +181,7 @@ class MovieCard extends Component {
           {backdropLink ? <img src={backdropLink} alt="" /> : ''}
         </div>
         <div className="info">
-          <button type="button" className="close-modal" onClick={toggleModal()}>
+          <button type="button" className="close-modal" onClick={toggleModal}>
             &times;
           </button>
           <div className="heading">
