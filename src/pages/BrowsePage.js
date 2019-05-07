@@ -15,6 +15,7 @@ export default class BrowsePage extends Component {
       nextPageNum: 1,
       hasNextPage: true,
       currentGenreFilter: 'all',
+      currentSearchQuery: '',
     };
   }
 
@@ -37,8 +38,10 @@ export default class BrowsePage extends Component {
     moviesAPI.getSearchResults(searchInputValue).then(response =>
       this.setState({
         movies: response.data.results,
-        nextPageNum: 1,
+        nextPageNum: 2,
+        hasNextPage: response.data.hasNextPage,
         loading: false,
+        currentSearchQuery: searchInputValue,
       }),
     );
   };
@@ -58,16 +61,26 @@ export default class BrowsePage extends Component {
   };
 
   handleLoadMoreMovies = () => {
-    const { hasNextPage, nextPageNum, movies, loading, currentGenreFilter } = this.state;
+    const {
+      hasNextPage,
+      nextPageNum,
+      movies,
+      loading,
+      currentGenreFilter,
+      currentSearchQuery,
+    } = this.state;
     if (hasNextPage && !loading) {
-      moviesAPI.loadNextPage(nextPageNum, currentGenreFilter).then(res => {
-        this.setState({
-          movies: movies.concat(res.data.results),
-          nextPageNum: res.data.page + 1,
-          hasNextPage: res.data.hasNextPage,
-          loading: false,
+      console.log('loading more movies');
+      moviesAPI
+        .loadNextPage(nextPageNum, currentGenreFilter, currentSearchQuery)
+        .then(res => {
+          this.setState({
+            movies: movies.concat(res.data.results),
+            nextPageNum: res.data.page + 1,
+            hasNextPage: res.data.hasNextPage,
+            loading: false,
+          });
         });
-      });
     }
   };
 

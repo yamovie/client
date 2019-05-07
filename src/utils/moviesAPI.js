@@ -2,6 +2,11 @@ import axios from 'axios';
 
 const { REACT_APP_SVR_API } = process.env;
 
+/**
+ *
+ * @param {Object} dataObj an object containing all of the recommendation filter options
+ * @returns An Axios promise with the recommendation data
+ */
 function getRecs(dataObj) {
   return axios.post(`${REACT_APP_SVR_API}/movies/recommend`, dataObj, {
     headers: { 'Content-Type': 'application/json' },
@@ -37,19 +42,11 @@ function getMovies(genreId = 'all') {
   return axios.get(`${REACT_APP_SVR_API}/movies/`);
 }
 
-// function getGenresAndMovies() {
-//   axios.all([this.getGenres(), this.getMovies()]).then(
-//     axios.spread((genreResp, movieResp) => {
-//       this.setState({
-//         genres: genreResp.data,
-//         movies: movieResp.data.results,
-//         page: movieResp.data.page,
-//         hasNextPage: movieResp.data.hasNextPage,
-//       });
-//     }),
-//   );
-// }
-
+/**
+ *
+ * @param {String} searchInputValue
+ * @returns an axios promise with the search results
+ */
 function getSearchResults(searchInputValue) {
   return axios.get(`${REACT_APP_SVR_API}/movies/search`, {
     params: {
@@ -58,13 +55,26 @@ function getSearchResults(searchInputValue) {
   });
 }
 
-function loadNextPage(page, currentGenreFilter = 'all') {
-  if (currentGenreFilter === 'all') {
-    return axios.get(`${REACT_APP_SVR_API}/movies/?page=${page}`);
+/**
+ *
+ * @param {number} page
+ * @param {String} currentGenreFilter the ObjectId for the genre to be filtered by
+ * @returns an axios promise with the data for the next page
+ */
+function loadNextPage(page, currentGenreFilter = 'all', currentSearchQuery = '') {
+  // if there is a genre filter
+  if (currentGenreFilter !== 'all') {
+    return axios.get(
+      `${REACT_APP_SVR_API}/movies/genre/${currentGenreFilter}/?page=${page}`,
+    );
   }
-  return axios.get(
-    `${REACT_APP_SVR_API}/movies/genre/${currentGenreFilter}/?page=${page}`,
-  );
+  // if there is a search query
+  if (currentSearchQuery !== '') {
+    return axios.get(`${REACT_APP_SVR_API}/movies/search`, {
+      params: { title: currentSearchQuery, page },
+    });
+  }
+  return axios.get(`${REACT_APP_SVR_API}/movies/?page=${page}`);
 }
 
 export default {
@@ -72,7 +82,6 @@ export default {
   getGenres,
   getSingleMovie,
   getMovies,
-  // getGenresAndMovies,
   getSearchResults,
   loadNextPage,
 };
