@@ -140,6 +140,7 @@ class Signup extends Component {
                   onChange={e => this.handleChange('pwConfirm', e)}
                 />
               </div>
+              <p className="pw-requirements"> * password must be at least 6 characters</p>
               <div className="button-container">
                 <button
                   className="signup-submit"

@@ -86,7 +86,10 @@
   text-decoration: none;
 }
 
-
+.pw-requirements {
+  font-size: 10px;
+  color: var(--lightgrey)
+}
 
 @media only screen and (max-width: 650px) {
   .signup {
