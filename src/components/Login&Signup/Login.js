@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import GoogleLogin from './GoogleLogin';
 import userServices from '../../utils/userServices';
 import Swal from 'sweetalert2';
-import '../../css/Login.css';
+import '../../css/login&Signup/login.css';
 
 class Login extends Component {
   static propTypes = {

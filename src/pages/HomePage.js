@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/HomePage.css';
+import '../css/cssPages/HomePage.css';
 
 const background = {
   backgroundImage: "url('/images/landing-bg-v1.jpg')",
@@ -21,8 +21,8 @@ const HomePage = () => (
     <article id="overview">
       <img src="/images/logo-v3.png" alt="YaMovie!" />
       <span id="movie-summary">
-        Our technology intelligently takes your unique personality, viewing habits, and
-        diverse interests to curate the right movies for you!
+        Our technology intelligently takes your unique personality, viewing
+        habits, and diverse interests to curate the right movies for you!
       </span>
     </article>
 
@@ -31,8 +31,8 @@ const HomePage = () => (
         <img src="/images/browsing-white.png" alt="Browse" />
         <h2>Browse</h2>
         <p>
-          Go through our collection of thousands of movies with up-to-date information,
-          including critic ratings and links to streaming sources.
+          Go through our collection of thousands of movies with up-to-date
+          information, including critic ratings and links to streaming sources.
         </p>
       </div>
       <div className="info-card">
@@ -47,8 +47,9 @@ const HomePage = () => (
         <img src="/images/account-white.png" alt="Benefits" />
         <h2>Account Benefits</h2>
         <p>
-          By signing up with YaMovie, we can save what you enjoy so it will be easier for
-          you and more accurate for us to curate movies for you in the future!
+          By signing up with YaMovie, we can save what you enjoy so it will be
+          easier for you and more accurate for us to curate movies for you in
+          the future!
         </p>
       </div>
     </section>

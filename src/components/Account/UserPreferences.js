@@ -1,6 +1,6 @@
-import React from 'react';
-import axios from 'axios';
-import PropTypes from 'prop-types';
+import React from './node_modules/react';
+import axios from './node_modules/axios';
+import PropTypes from './node_modules/prop-types';
 import GenreList from '../MovieDisplays/GenreList';
 import ToggleSwitch from './ToggleSwitch';
 import { getUserFromToken } from '../../utils/tokenServices';

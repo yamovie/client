@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
-import React from 'react';
-import '../../css/Watchlist.css';
+import React from './node_modules/react';
+import '../../css/movieDisplays/watchlist.css';
 
 class Watchlist extends React.Component {
   constructor(props) {

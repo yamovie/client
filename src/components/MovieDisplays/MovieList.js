@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 import { MovieCard, SearchBar } from '..';
-import '../../css/MovieList.css';
+import '../../css/movieDisplays/MovieList.css';
 
 const { REACT_APP_SVR_API } = process.env;
 
