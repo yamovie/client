@@ -1,4 +1,5 @@
 export { default as AccountNav } from './AccountNav';
+export { default as BrowseFilters } from './BrowseFilters';
 export { default as BrowseMovieList } from './BrowseMovieList';
 export { default as ChatWindow } from './ChatWindow';
 export { default as FeedbackToast } from './FeedbackToast';
@@ -10,7 +11,6 @@ export { default as MovieFeed } from './MovieFeed';
 export { default as MovieFeedItem } from './MovieFeedItem';
 export { default as Navbar } from './Navbar';
 export { default as OAuth } from './OAuth';
-export { default as SearchBar } from './SearchBar';
 export { default as Signup } from './Signup';
 export { default as TrailerModal } from './TrailerModal';
 export { default as UserCheckboxList } from './UserCheckboxList';

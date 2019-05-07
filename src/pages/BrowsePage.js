@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowseMovieList, SearchBar, MovieCard } from '../components';
+import { BrowseMovieList, BrowseFilters, MovieCard } from '../components';
 import { moviesAPI } from '../utils';
 import '../css/BrowsePage.css';
 
@@ -36,16 +36,20 @@ export default class BrowsePage extends Component {
    * Handles SearchBar submission, making an API call and changing the displayed movies
    * @param {string} searchInputValue the value searched for
    */
-  handleSubmit = searchInputValue => {
+  handleSearchSubmit = searchInputValue => {
     window.scrollTo(0, 0);
-    this.setState({ movies: [], loading: true });
+    this.setState({
+      movies: [],
+      loading: true,
+      currentSearchQuery: searchInputValue,
+      currentGenreFilter: 'all',
+    });
     moviesAPI.getSearchResults(searchInputValue).then(response =>
       this.setState({
         movies: response.data.results,
         nextPageNum: 2,
         hasNextPage: response.data.hasNextPage,
         loading: false,
-        currentSearchQuery: searchInputValue,
       }),
     );
   };
@@ -56,11 +60,10 @@ export default class BrowsePage extends Component {
    */
   handleSendGenre = genreKey => {
     window.scrollTo(0, 0);
-    this.setState({ movies: [], loading: true });
+    this.setState({ movies: [], loading: true, currentGenreFilter: genreKey });
     moviesAPI.getMovies(genreKey).then(response =>
       this.setState({
         movies: response.data.results,
-        currentGenreFilter: genreKey,
         nextPageNum: 2,
         hasNextPage: true,
         loading: false,
@@ -112,13 +115,20 @@ export default class BrowsePage extends Component {
   // Render
 
   render() {
-    const { movies, isModalVisible, selectedMovie, hasNextPage } = this.state;
+    const {
+      movies,
+      isModalVisible,
+      selectedMovie,
+      hasNextPage,
+      currentGenreFilter,
+    } = this.state;
 
     return (
       <div className="browse-page">
-        <SearchBar
-          handleSubmit={this.handleSubmit}
+        <BrowseFilters
+          handleSearchSubmit={this.handleSearchSubmit}
           handleSendGenre={this.handleSendGenre}
+          currentGenreFilter={currentGenreFilter}
         />
         {isModalVisible && (
           <MovieCard movie={selectedMovie} toggleModal={this.toggleModal} />

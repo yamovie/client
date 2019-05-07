@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GenreList from './GenreList';
 
-import '../css/SearchBar.css';
+import '../css/BrowseFilters.css';
 
-export default class SearchBar extends Component {
+export default class BrowseFilters extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
+    handleSearchSubmit: PropTypes.func.isRequired,
     handleSendGenre: PropTypes.func.isRequired,
+    currentGenreFilter: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -29,9 +30,9 @@ export default class SearchBar extends Component {
    */
   handleSearchSubmit = event => {
     event.preventDefault();
-    const { handleSubmit } = this.props;
+    const { handleSearchSubmit } = this.props;
     const { searchInputValue } = this.state;
-    handleSubmit(searchInputValue);
+    handleSearchSubmit(searchInputValue);
     this.setState({ searchInputValue: '' });
   };
 
@@ -54,7 +55,7 @@ export default class SearchBar extends Component {
   // Render
 
   render() {
-    const { handleSendGenre } = this.props;
+    const { handleSendGenre, currentGenreFilter } = this.props;
     const { showGenres, searchInputValue } = this.state;
 
     return (
@@ -72,6 +73,7 @@ export default class SearchBar extends Component {
         </button>
         <GenreList
           handleSendGenre={handleSendGenre}
+          activeGenre={currentGenreFilter}
           style={{ display: showGenres ? 'flex' : 'none' }}
         />
       </div>

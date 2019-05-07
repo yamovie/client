@@ -8,6 +8,7 @@ export default class GenreList extends React.Component {
   static propTypes = {
     style: PropTypes.shape({ display: PropTypes.string }),
     handleSendGenre: PropTypes.func.isRequired,
+    activeGenre: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -18,7 +19,6 @@ export default class GenreList extends React.Component {
     super(props);
     this.state = {
       genres: [],
-      activeButton: 'all',
     };
   }
 
@@ -32,22 +32,9 @@ export default class GenreList extends React.Component {
 
   // ===============================================================
 
-  /**
-   * Handles a click on a genre filter button. Sets the clicked button to active, and
-   * calls the BrowsePage function to filter the movies based on the selected genre.
-   * @param {Object} [genre] The genre info object. Defaults to one with translation: 'all'
-   */
-  handleGenreClick = (genre = { translation: 'all' }) => {
-    this.setState({ activeButton: genre.translation });
-    const { handleSendGenre } = this.props;
-    handleSendGenre(genre._id);
-  };
-
-  // ===============================================================
-
   render() {
-    const { style } = this.props;
-    const { activeButton, genres } = this.state;
+    const { style, activeGenre, handleSendGenre } = this.props;
+    const { genres } = this.state;
 
     const activeColor = { backgroundColor: '#88388c' };
     const inactiveColor = { backgroundColor: 'rgba(226, 217, 217, 0.0)' };
@@ -58,8 +45,8 @@ export default class GenreList extends React.Component {
           className="single-genre"
           type="button"
           key="all"
-          style={activeButton === 'all' ? activeColor : inactiveColor}
-          onClick={() => this.handleGenreClick()}
+          style={activeGenre === 'all' ? activeColor : inactiveColor}
+          onClick={() => handleSendGenre('all')}
         >
           All
         </button>
@@ -68,8 +55,8 @@ export default class GenreList extends React.Component {
             className="single-genre"
             type="button"
             key={genre.technical_name}
-            style={activeButton === genre.translation ? activeColor : inactiveColor}
-            onClick={() => this.handleGenreClick(genre)}
+            style={activeGenre === genre._id ? activeColor : inactiveColor}
+            onClick={() => handleSendGenre(genre._id)}
           >
             {genre.translation}
           </button>
