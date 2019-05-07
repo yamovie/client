@@ -8,7 +8,7 @@
 .movie-card {
   display: flex;
   justify-content: center;
-  padding: 3vh 0px;
+  padding: 35px 0px;
   z-index: 10;
   position: fixed;
   width: 100%;
@@ -29,6 +29,8 @@
   z-index: -1;
   overflow: hidden;
   background-color: var(--purple);
+  background-position-x: 15vw;
+  background-size: cover;
 }
 
 .movie-card .backdrop img {
@@ -46,6 +48,8 @@
   position: absolute;
 }
 
+
+
 /* ======================================================= */
 /* ======================================================= */
 /* Info section */
@@ -62,13 +66,20 @@
   justify-content: space-between;
 }
 
+/* iPhoneX screen width */
+@media only screen and (max-width: 375px) {
+  .movie-card .info {
+    
+  }
+}
+
 /* ======================================================= */
 /* Info Heading */
 
 .movie-card .info .heading {
   position: relative;
-  padding: 10px;
-  height: 40%;
+  padding: 25px;
+  height: 45%;
   overflow: hidden;
 }
 
@@ -80,11 +91,17 @@
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
 }
 
+@media only screen and (max-width: 600px) {
+  .movie-card .heading .poster {
+    display: none;
+  }
+}
+
 .movie-card .heading h1 {
   color: var(--darkgrey);
   font-weight: 500;
   margin: 0;
-  font-size: 3vw;
+  font-size: calc(12px + 2vw);
 }
 
 .movie-card .heading h4 {
@@ -100,7 +117,8 @@
 }
 
 .movie-card #line1 p {
-  margin-left: 5px;
+  margin-left: 10px;
+  font-size: calc(12px + 1vw);
 }
 
 
@@ -118,7 +136,7 @@
   padding: 4px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  font-size: 1.7vw;
+  font-size: calc(12px + .8vw);
   font-weight: bold;
 }
 
@@ -127,7 +145,7 @@
   height: 30%;
   display: inline-block;
   color: var(--lightgrey);
-  font-size: 2vw;
+  font-size: calc(12px + .5vw);
 }
 
 .movie-card .heading .runtime {
@@ -136,15 +154,15 @@
   padding: 5px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  font-size: 1.7vw;
+  font-size: calc(12px + .8vw);
 }
 
 /* ======================================================= */
 /* Info Description */
 
 .movie-card .directors {
-  height: 15%;
-  font-size: 0.9em;
+  height: 10%;
+  font-size: calc(12px + .5vw);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -153,16 +171,26 @@
 
 .movie-card .description {
   color: var(--darkgrey);
-  padding: 0 10px 10px;
+  /* padding: 0 10px 10px; */
+  padding: 25px;
   overflow: hidden;
-  height: 60%;
+  height: 55%;
   color: var(--midgrey);
 }
 
 .movie-card .description p {
   margin: 0;
-  font-size: 1.8vw;
+  font-size: calc(12px + 1vw);
+  overflow: auto;
+  height: 100%;
   width: 70%;
+}
+
+/* iPhoneX screen width */
+@media only screen and (max-width: 375px) {
+  .movie-card .description p {
+    width: 100%;
+  }
 }
 
 /* ======================================================= */
@@ -171,7 +199,6 @@
 .movie-card #ratings {
   display: flex;
   justify-content: space-evenly;
-  font-size: 1.8vh;
   overflow: hidden;
 }
 
@@ -188,7 +215,7 @@
 .movie-card #ratings li a {
   text-decoration: none;
   color: var(--darkgrey);
-  font-size: 2.5vh;
+  font-size: calc(12px + .8vw);
   display: flex;
 }
 
@@ -213,6 +240,10 @@
   height: 100%;
 }
 
+.movie-card .streams h3 {
+  font-size: calc(12px + 1.2vw);
+}
+
 /* ======================================================= */
 /* Close Button */
 
@@ -222,6 +253,9 @@
   right: 0px;
   z-index: 1;
   border-radius: 20px;
+  border: solid;
+  border-color: var(--offwhite);
+  border-width: 1.0px;
   width: 40px;
   height: 40px;
   transition: all .3s ease-in-out;
@@ -237,13 +271,25 @@
 }
 
 .movie-card button {
-  font-size: 1.3rem;
+  font-size: calc(12px + .8vw);
   margin: 10px;
   background-color: var(--darkgrey);
   color: var(--offwhite);
   border-radius: 5px;
   border: none;
   transform: rotate(45deg);
+}
+
+/* iPad screen width */
+@media only screen and (max-width: 768px) {
+  .movie-card .close-modal {
+    width: 30px;
+    height: 30px;
+  }
+
+  .movie-card button {
+    
+  }
 }
 
 /* ======================================================= */

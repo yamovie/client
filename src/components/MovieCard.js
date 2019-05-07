@@ -177,7 +177,9 @@ class MovieCard extends Component {
       // data from JW
       backdropLink = images.backdrops[backdropNum];
       posterLink = images.poster;
-      directorList = credits.crew.filter(member => member.role === 'Director');
+      directorList = credits.crew
+        .filter(member => member.role === 'Director')
+        .map(member => member.name);
     } else {
       // data from tmdb
       directorList = credits.crew.filter(member => member.job === 'Director');
@@ -185,12 +187,6 @@ class MovieCard extends Component {
       const posterNum = Math.floor(Math.random() * images.posters.length);
       posterLink = images.posters[posterNum].poster_url;
     }
-
-    //  Gets the list of directors
-    const directors =
-      directorList.length <= 0
-        ? ', No Director'
-        : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
 
     //  Grabs the token thats assigned to the user
     const user = tokenServices.getUserFromToken();
@@ -252,7 +248,10 @@ class MovieCard extends Component {
             <StreamsView offers={offers} jw_image_url={jw_image_url} />
           </div>
           <div className="description">
-            <h4 className="directors">{`Director(s): ${directors}`}</h4>
+            <h4 className="directors">
+            Director(s):{' '}
+              {directorList.length > 0 ? directorList.join(', ') : 'No Director Data'}
+            </h4>
             <p>{overview || 'No plot summary available'}</p>
           </div>
         </div>
