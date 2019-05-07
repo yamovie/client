@@ -3,7 +3,7 @@ import axios from 'axios';
 const { REACT_APP_SVR_API } = process.env;
 
 /**
- *
+ * Gets the list of recommended movies based on the input filter options data
  * @param {Object} dataObj an object containing all of the recommendation filter options
  * @returns An Axios promise with the recommendation data
  */
@@ -43,8 +43,8 @@ function getMovies(genreId = 'all') {
 }
 
 /**
- *
- * @param {String} searchInputValue
+ * Gets the movie results filtered by the input search text
+ * @param {String} searchInputValue the thing to search by
  * @returns an axios promise with the search results
  */
 function getSearchResults(searchInputValue) {
@@ -56,9 +56,11 @@ function getSearchResults(searchInputValue) {
 }
 
 /**
- *
+ * Gets the next page of movies, taking into account whether the movies are filtered
+ * by a search or by a genre
  * @param {number} page
- * @param {String} currentGenreFilter the ObjectId for the genre to be filtered by
+ * @param {String} currentGenreFilter the ObjectId for the genre the movies are filtered by
+ * @param {String} currentSearchQuery the query if the movies are currently filtered by search
  * @returns an axios promise with the data for the next page
  */
 function loadNextPage(page, currentGenreFilter = 'all', currentSearchQuery = '') {
@@ -74,6 +76,7 @@ function loadNextPage(page, currentGenreFilter = 'all', currentSearchQuery = '')
       params: { title: currentSearchQuery, page },
     });
   }
+  // otherwise, just normal movies
   return axios.get(`${REACT_APP_SVR_API}/movies/?page=${page}`);
 }
 

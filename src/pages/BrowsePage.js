@@ -32,6 +32,10 @@ export default class BrowsePage extends Component {
   // ===============================================================
   // Handlers
 
+  /**
+   * Handles SearchBar submission, making an API call and changing the displayed movies
+   * @param {string} searchInputValue the value searched for
+   */
   handleSubmit = searchInputValue => {
     window.scrollTo(0, 0);
     this.setState({ movies: [], loading: true });
@@ -46,6 +50,10 @@ export default class BrowsePage extends Component {
     );
   };
 
+  /**
+   * Handles Genre filter submission, making an API call and changing the displayed movies
+   * @param {string} genreKey the ObjectId of the genre to be filtered by
+   */
   handleSendGenre = genreKey => {
     window.scrollTo(0, 0);
     this.setState({ movies: [], loading: true });
@@ -60,6 +68,10 @@ export default class BrowsePage extends Component {
     );
   };
 
+  /**
+   * Loads the next page of results. Takes into account whether the current displayed
+   * movies are filtered by genre or a search query.
+   */
   handleLoadMoreMovies = () => {
     const {
       hasNextPage,
@@ -83,6 +95,10 @@ export default class BrowsePage extends Component {
     }
   };
 
+  /**
+   * Toggles the MovieCard modal on or off.
+   * @param {Object} selectedMovie the object containing the data for the movie to be displayed
+   */
   toggleModal = selectedMovie => {
     const { isModalVisible } = this.state;
     if (isModalVisible) {

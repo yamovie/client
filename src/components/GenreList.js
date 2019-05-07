@@ -32,6 +32,11 @@ export default class GenreList extends React.Component {
 
   // ===============================================================
 
+  /**
+   * Handles a click on a genre filter button. Sets the clicked button to active, and
+   * calls the BrowsePage function to filter the movies based on the selected genre.
+   * @param {Object} [genre] The genre info object. Defaults to one with translation: 'all'
+   */
   handleGenreClick = (genre = { translation: 'all' }) => {
     this.setState({ activeButton: genre.translation });
     const { handleSendGenre } = this.props;

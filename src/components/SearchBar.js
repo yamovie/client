@@ -22,6 +22,11 @@ export default class SearchBar extends Component {
   // ===============================================================
   // Handlers
 
+  /**
+   * Handles submission of a search query. Prevents page refresh, calls the BrowsePage
+   * submit function with the current search text, and then clears the text field.
+   * @param {Event} event the form submit event
+   */
   handleSearchSubmit = event => {
     event.preventDefault();
     const { handleSubmit } = this.props;
@@ -30,10 +35,17 @@ export default class SearchBar extends Component {
     this.setState({ searchInputValue: '' });
   };
 
+  /**
+   * Handles the change of the input text
+   * @param {Event} event the form change event
+   */
   handleChange = event => {
     this.setState({ searchInputValue: event.target.value });
   };
 
+  /**
+   * Toggles whether the genre selector is visible or not
+   */
   toggleShowGenres = () => {
     this.setState(prevState => ({ showGenres: !prevState.showGenres }));
   };
