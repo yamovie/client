@@ -70,7 +70,6 @@ export default class BrowsePage extends Component {
       currentSearchQuery,
     } = this.state;
     if (hasNextPage && !loading) {
-      console.log('loading more movies');
       moviesAPI
         .loadNextPage(nextPageNum, currentGenreFilter, currentSearchQuery)
         .then(res => {
