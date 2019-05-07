@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UserCheckboxList from './UserCheckboxList';
+import OldNonsense from './OldNonsenseUserCheckboxList';
 import ToggleSwitch from './ToggleSwitch';
 import { moviesAPI, tokenServices, userAPI } from '../utils';
 
@@ -205,6 +206,9 @@ class UserPreferences extends React.Component {
       return <></>;
     }
 
+    const genreList = genres.map(genre => genre.translation);
+    const certificationOptions = ['G', 'PG', 'PG-13', 'R', 'NC-17'];
+
     return (
       <div className="account-page">
         <form className="preferences-form">
@@ -248,23 +252,19 @@ class UserPreferences extends React.Component {
               <h3 className="account-sub-title">
                 Filter movies by genres you like (Leave blank for all genres)
               </h3>
-              <UserCheckboxList
+              {/* <OldNonsense
                 checkboxesVisible
                 genres={genres}
                 handleFormChange={this.handlePreferencesChange}
                 selectedGenres={selectedGenres}
-              />
+              /> */}
+              <UserCheckboxList options={genreList} />
             </div>
             <div className="form-control">
               <h3 className="account-sub-title">
                 Filter movies by age/mpaa ratings (Leave blank for all ratings)
               </h3>
-              <UserCheckboxList
-                checkboxesVisible
-                showCertifications
-                handleFormChange={this.handlePreferencesChange}
-                selectedCertifications={certifications}
-              />
+              <UserCheckboxList options={certificationOptions} />
             </div>
 
             <section className="ratings">

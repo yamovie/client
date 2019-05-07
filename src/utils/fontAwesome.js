@@ -12,6 +12,7 @@ import {
   faAngleDown,
   faPlayCircle,
   faStar,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -28,6 +29,7 @@ library.add(
   faAngleDown,
   faPlayCircle,
   faStar,
+  faCheck,
 );
 
 export { FontAwesomeIcon };
