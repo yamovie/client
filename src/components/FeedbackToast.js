@@ -22,12 +22,14 @@ class FeedbackToast extends Component {
     if (!hasShown) {
       this.setState({ hasShown: true });
       Swal.fire({
+        position: 'bottom-end',
         title: '<strong> What do you think of our site? </strong>',
         type: 'question',
         showCloseButton: true,
         showConfirmButton: true,
         confirmButtonText: 'Give Feedback!',
         confirmButtonAriaLabel: 'Give Feedback!',
+        width: 450,
       }).then(results => {
         if (results.value) {
           window.open('https://forms.gle/xJoQ54DaX4omm74Z7', '_blank');
