@@ -1,11 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import MovieFeed from '../components/MovieFeed';
 import '../css/FindMoviePage.css';
 import { ChatWindow } from '../components';
-import { FontAwesomeIcon } from '../utils/fontAwesome';
-
-const { REACT_APP_SVR_API } = process.env;
+import { FontAwesomeIcon, moviesAPI } from '../utils';
 
 class FindMoviePage extends React.Component {
   constructor(props) {
@@ -20,24 +17,20 @@ class FindMoviePage extends React.Component {
   }
 
   getMovieResults = dataObj => {
-    // const { history } = this.props;
-    axios
-      .post(`${REACT_APP_SVR_API}/movies/recommend`, dataObj, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+    moviesAPI
+      .getRecs(dataObj)
       .then(response => {
         this.setState({
           results: response.data.results,
           talkedToLloyd: true,
         });
-        // history.push('/recommendations');
       })
       .catch(error => console.error(error));
   };
 
   getGenreData = () => {
-    axios
-      .get(`${REACT_APP_SVR_API}/genres`)
+    moviesAPI
+      .getGenres()
       .then(response => {
         const genreIds = response.data.reduce((acc, curr) => {
           acc[curr.translation] = curr._id;
@@ -66,13 +59,7 @@ class FindMoviePage extends React.Component {
   };
 
   render() {
-    const {
-      talkedToLloyd,
-      genreIds,
-      results,
-      mountChat,
-      isExpanded,
-    } = this.state;
+    const { talkedToLloyd, genreIds, results, mountChat, isExpanded } = this.state;
 
     return (
       <div>
@@ -84,10 +71,7 @@ class FindMoviePage extends React.Component {
           >
             <FontAwesomeIcon icon="angle-down" />
           </button>
-          <div
-            className="top-chat-container"
-            style={isExpanded ? { height: '0' } : {}}
-          >
+          <div className="top-chat-container" style={isExpanded ? { height: '0' } : {}}>
             <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd" />
             <h1 className="lloyd-title">Lloyd Chat</h1>
           </div>
@@ -107,11 +91,7 @@ class FindMoviePage extends React.Component {
             )}
           </div>
         </div>
-        {talkedToLloyd && results.length > 0 ? (
-          <MovieFeed movies={results} />
-        ) : (
-          ''
-        )}
+        {talkedToLloyd && results.length > 0 ? <MovieFeed movies={results} /> : ''}
         {!talkedToLloyd ? '' : ''} {/* Why is this here...? */}
         {results.length === 0 ? (
           <div>
@@ -120,8 +100,8 @@ class FindMoviePage extends React.Component {
             </h1>
             <br />
             <h3 className="findMovieh3">
-              Ask him again with different criteria so he can find YaMovie or
-              come back later because our database is always expanding!
+              Ask him again with different criteria so he can find YaMovie or come back
+              later because our database is always expanding!
             </h3>
           </div>
         ) : (
