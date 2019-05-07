@@ -26,9 +26,12 @@ class FeedbackToast extends Component {
         type: 'question',
         showCloseButton: true,
         showConfirmButton: true,
-        confirmButtonText:
-          '<a href="https://forms.gle/xJoQ54DaX4omm74Z7" style="text-decoration:none; color: white" target="blank">Give Feedback!</a>',
+        confirmButtonText: 'Give Feedback!',
         confirmButtonAriaLabel: 'Give Feedback!',
+      }).then(results => {
+        if (results.value) {
+          window.open('https://forms.gle/xJoQ54DaX4omm74Z7', '_blank');
+        }
       });
     }
   };
