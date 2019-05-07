@@ -14,6 +14,18 @@ function getRecs(dataObj) {
 }
 
 /**
+ * Gets the list of all provider objects
+ * @param {String} [type] the type of provider (i.e. stream, rent, buy, free)
+ * @returns An Axios promise with the provider data
+ */
+function getProviders(type = '') {
+  if (type !== '') {
+    return axios.get(`${REACT_APP_SVR_API}/providers/${type}`);
+  }
+  return axios.get(`${REACT_APP_SVR_API}/providers`);
+}
+
+/**
  * Gets the list of all genre objects
  * @returns An Axios promise with the genre data
  */
@@ -82,6 +94,7 @@ function loadNextPage(page, currentGenreFilter = 'all', currentSearchQuery = '')
 
 export default {
   getRecs,
+  getProviders,
   getGenres,
   getSingleMovie,
   getMovies,

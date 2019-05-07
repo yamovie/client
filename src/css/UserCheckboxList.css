@@ -4,9 +4,10 @@
   --edge-curve: 10px;
 
   border-radius: var(--edge-curve);
-  background-color: rgba(226, 217, 217, 0.3);
+  background-color: var(--midgrey);
   color: var(--offwhite);
   font-size: 1.1rem;
+  margin: 10px;
 }
 
 /* ======================================================= */

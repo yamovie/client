@@ -1,0 +1,6 @@
+@import './style-variables.css';
+
+.account-pane {
+  color: var(--offwhite);
+  padding: 15px;
+}

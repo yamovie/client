@@ -14,4 +14,5 @@ export { default as OAuth } from './OAuth';
 export { default as Signup } from './Signup';
 export { default as TrailerModal } from './TrailerModal';
 export { default as UserCheckboxList } from './UserCheckboxList';
+export { default as UserPreferences } from './UserPreferences';
 export { default as Watchlist } from './Watchlist';
