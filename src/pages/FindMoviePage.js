@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import MovieFeed from '../components/MovieDisplays/MovieFeed';
-import '../css/FindMoviePage.css';
+import '../css/cssPages/FindMoviePage.css';
 import { ChatWindow } from '../components';
 import { FontAwesomeIcon } from '../utils/fontAwesome';
 
@@ -98,7 +98,11 @@ class FindMoviePage extends React.Component {
             className="top-chat-container"
             style={isExpanded ? { height: '0' } : {}}
           >
-            <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd" />
+            <img
+              className="lloyd-icon"
+              src="/images/lloyd/lloyd-black.png"
+              alt="Lloyd"
+            />
             <h1 className="lloyd-title">Lloyd Chat</h1>
           </div>
           <div

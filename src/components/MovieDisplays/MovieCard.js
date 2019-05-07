@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '../../utils/fontAwesome';
 import userServices from '../../utils/userServices';
-import '../../css/MovieCard.css';
+import '../../css/movieDisplays/MovieCard.css';
 import tokenServices from '../../utils/tokenServices';
 
 class MovieCard extends Component {
@@ -327,7 +327,7 @@ const RatingsView = ({ ratings }) => {
         <li>
           <a href={rtData.url} target="_blank" rel="noopener noreferrer">
             <img
-              src={`/images/icon-rottentomatoes-${
+              src={`/images/movieCard/icon-rottentomatoes-${
                 rtData.value >= 60 ? 'fresh' : 'rotten'
               }.png`}
               alt="Rotten Tomatoes"
@@ -341,7 +341,7 @@ const RatingsView = ({ ratings }) => {
       {imdbData ? (
         <li>
           <a href={imdbData.url} target="_blank" rel="noopener noreferrer">
-            <img src="/images/icon-IMDb.png" alt="IMDb" />
+            <img src="/images/movieCard/icon-IMDb.png" alt="IMDb" />
             {imdbData.rate}
           </a>
         </li>

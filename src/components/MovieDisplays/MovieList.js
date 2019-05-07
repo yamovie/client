@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 import { MovieCard, SearchBar } from '..';
-import '../../css/MovieList.css';
+import '../../css/movieDisplays/MovieList.css';
 
 const { REACT_APP_SVR_API } = process.env;
 
@@ -225,7 +225,7 @@ class MovieList extends Component {
                 <div className="loader" key={0}>
                   <img
                     style={{ height: 200 }}
-                    src="./images/popcorn-loading.gif"
+                    src="./images/popcornLoader/popcorn-loading.gif"
                     alt="Loading ..."
                   />
                 </div>

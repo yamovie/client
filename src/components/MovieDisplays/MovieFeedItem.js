@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '../../utils/fontAwesome';
-import '../../css/MovieFeedItem.css';
+import '../../css/movieDisplays/MovieFeedItem.css';
 
 export default class MovieFeedItem extends Component {
   static propTypes = {
@@ -121,7 +121,9 @@ export default class MovieFeedItem extends Component {
             <img
               className="poster"
               alt={title}
-              src={images.poster || './images/placeholder-poster.png'}
+              src={
+                images.poster || './images/placeholders/placeholder-poster.png'
+              }
             />
           </div>
           <div className="info">
@@ -253,7 +255,7 @@ const RatingsView = ({ ratings }) => {
       {rtData ? (
         <a href={rtData.url} target="_blank" rel="noopener noreferrer">
           <img
-            src={`/images/icon-rottentomatoes-${
+            src={`/images/movieCard/icon-rottentomatoes-${
               rtData.value >= 60 ? 'fresh' : 'rotten'
             }.png`}
             alt="Rotten Tomatoes"
@@ -265,7 +267,7 @@ const RatingsView = ({ ratings }) => {
       )}
       {imdbData ? (
         <a href={imdbData.url} target="_blank" rel="noopener noreferrer">
-          <img src="/images/icon-IMDb.png" alt="IMDb" />
+          <img src="/images/movieCard/icon-IMDb.png" alt="IMDb" />
           {imdbData.rate}
         </a>
       ) : (

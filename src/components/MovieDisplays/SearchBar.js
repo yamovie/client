@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GenreList from './GenreList';
 
-import '../../css/SearchBar.css';
+import '../../css/movieDisplays/SearchBar.css';
 
 export default class SearchBar extends Component {
   static propTypes = {

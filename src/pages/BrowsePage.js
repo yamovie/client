@@ -1,6 +1,6 @@
 import React from 'react';
 import { MovieList } from '../components';
-import '../css/BrowsePage.css';
+import '../css/cssPages/BrowsePage.css';
 
 const BrowsePage = () => (
   <div>

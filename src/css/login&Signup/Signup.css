@@ -1,5 +1,5 @@
 .signup-page {
-  background-image: url('/images/signup-bg-v1.jpg');
+  background-image: url('/images/backgrounds/signup-bg-v1.jpg');
   height: 100vh;
   max-width: 100%;
   background-size: cover;
@@ -85,8 +85,6 @@
   text-align: center;
   text-decoration: none;
 }
-
-
 
 @media only screen and (max-width: 650px) {
   .signup {

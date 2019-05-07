@@ -1,4 +1,4 @@
-@import './style-variables.css';
+@import '../style-variables.css';
 
 :root {
   --modalheight: 82vh;
@@ -229,22 +229,21 @@
   border-color: var(--red);
 }
 
-
 /* ======================================================= */
 /* Watchlist Button*/
 .watchlist {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    border: none;
-    margin: 0;
-    text-decoration: none;
-    background-color: none;
-    color: var(--purple)
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  border: none;
+  margin: 0;
+  text-decoration: none;
+  background-color: none;
+  color: var(--purple);
 }
 
 .watchlist:hover {
-  color: var(--red)
+  color: var(--red);
 }
 
 /* ======================================================= */

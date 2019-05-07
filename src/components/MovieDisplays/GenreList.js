@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../css/GenreList.css';
+import '../../css/movieDisplays/GenreList.css';
 
 // Renders the genre list to the MovieList page. ==================
 class GenreList extends React.Component {

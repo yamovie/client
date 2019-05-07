@@ -20,7 +20,7 @@
 
 #browse-search input {
   background-color: var(--offwhite);
-  background-image: url('/images/magnifier.png');
+  background-image: url('/images/sharedPics/magnifier.png');
   background-position: 5px 5px;
   background-size: 15px 15px;
   background-repeat: no-repeat;

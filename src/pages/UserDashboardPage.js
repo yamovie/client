@@ -1,10 +1,10 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import '../css/main.css';
-import '../css/UserDashboardPage.css';
+import '../css/cssPages/UserDashboardPage.css';
 import { Route } from 'react-router-dom';
 import AccountNav from '../components/Account/AccountNav';
-import UserPreferences from '../components//Account/UserPreferences';
+import UserPreferences from '../components/Account/UserPreferences';
 
 class userDashboardPage extends Component {
   render() {
