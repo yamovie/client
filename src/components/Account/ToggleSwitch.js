@@ -1,20 +1,23 @@
-import React from './node_modules/react';
-import PropTypes from './node_modules/prop-types';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const ToggleSwitch = ({ labelName, handleChange, name, selectedValue }) => (
   <>
-    { labelName ?
+    {labelName ? (
       <span className="form-label switch-label">{labelName}</span>
-      :
+    ) : (
       ''
-    }
+    )}
     <label className="switch">
-      <input name={name} type="checkbox" onChange={handleChange} checked={selectedValue} />
+      <input
+        name={name}
+        type="checkbox"
+        onChange={handleChange}
+        checked={selectedValue}
+      />
       <span className="slider" />
     </label>
   </>
- 
 );
 
 ToggleSwitch.propTypes = {
@@ -23,6 +26,5 @@ ToggleSwitch.propTypes = {
   name: PropTypes.string,
   selectedValue: PropTypes.bool,
 };
-
 
 export default ToggleSwitch;

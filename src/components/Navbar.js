@@ -46,7 +46,7 @@ class Navbar extends React.Component {
         <div className="logo-container">
           <NavLink to="/">
             <img
-              src="/images/logo-v3-white-whitepopcorn.png"
+              src="/images/yamovie/logo-v3-white-whitepopcorn.png"
               alt="YaMovie"
               id="main-logo"
             />

@@ -225,7 +225,7 @@ class MovieList extends Component {
                 <div className="loader" key={0}>
                   <img
                     style={{ height: 200 }}
-                    src="./images/popcorn-loading.gif"
+                    src="./images/popcornLoader/popcorn-loading.gif"
                     alt="Loading ..."
                   />
                 </div>

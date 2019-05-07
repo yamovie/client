@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import '../css/main.css';
-import '../css/cssPages/userDashboardPage.css';
+import '../css/cssPages/UserDashboardPage.css';
 import { Route } from 'react-router-dom';
 import AccountNav from '../components/Account/AccountNav';
 import UserPreferences from '../components/Account/UserPreferences';

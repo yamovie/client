@@ -88,7 +88,11 @@ class FindMoviePage extends React.Component {
             className="top-chat-container"
             style={isExpanded ? { height: '0' } : {}}
           >
-            <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd" />
+            <img
+              className="lloyd-icon"
+              src="/images/lloyd/lloyd-black.png"
+              alt="Lloyd"
+            />
             <h1 className="lloyd-title">Lloyd Chat</h1>
           </div>
           <div

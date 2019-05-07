@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import userServices from '../../utils/userServices';
 import GoogleLogin from './GoogleLogin';
 import Swal from 'sweetalert2';
-import '../../css/login&Signup/signup.css';
+import '../../css/login&Signup/Signup.css';
 
 class Signup extends Component {
   static propTypes = {
@@ -74,7 +74,7 @@ class Signup extends Component {
             <form onSubmit={this.handleSubmit}>
               <img
                 className="popcorn-logo"
-                src="/images/popcornKernal.png"
+                src="/images/yamovie/popcornKernal.png"
                 alt="Broken"
               />
               <header>Signup with YaMovie!</header>

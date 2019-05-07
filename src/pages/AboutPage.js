@@ -5,7 +5,12 @@ const AboutPage = () => (
   <div className="about-page">
     <header>
       <div className="overlay" />
-      <video src="/images/about-me-videooverlay.mp4" muted autoPlay loop />
+      <video
+        src="/images/backgrounds/about-me-videooverlay.mp4"
+        muted
+        autoPlay
+        loop
+      />
       <div className="mission">
         <h1>Our Mission</h1>
         <p>
@@ -20,7 +25,7 @@ const AboutPage = () => (
     <div className="info">
       <div className="info-panel">
         <img
-          src="/images/warning-sign.png"
+          src="/images/sharedPics/warning-sign.png"
           alt="warning"
           className="about-icon"
         />
@@ -39,7 +44,11 @@ const AboutPage = () => (
         </div>
       </div>
       <div className="info-panel">
-        <img src="/images/solution.png" alt="solution" className="about-icon" />
+        <img
+          src="/images/sharedPics/solution.png"
+          alt="solution"
+          className="about-icon"
+        />
         <div>
           <h3>Solution</h3>
           <p>
@@ -49,7 +58,11 @@ const AboutPage = () => (
         </div>
       </div>
       <div className="info-panel">
-        <img src="/images/book.png" alt="solution" className="about-icon" />
+        <img
+          src="/images/sharedPics/book.png"
+          alt="solution"
+          className="about-icon"
+        />
         <div>
           <h3>Story</h3>
           <p>
@@ -65,7 +78,11 @@ const AboutPage = () => (
       <div className="avatar-list">
         <div className="avatar-container">
           <div className="avatar-item">
-            <img src="/images/ivy.png" alt="Ivy Lim" className="avatar-image" />
+            <img
+              src="/images/team/ivy.png"
+              alt="Ivy Lim"
+              className="avatar-image"
+            />
           </div>
           <h3 className="avatar-name">Ivy</h3>
           <h5 className="avatar-role">Project Manager / Software Engineer</h5>
@@ -76,7 +93,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src="/images/sam.png"
+              src="/images/team/sam.png"
               alt="Sam Saks-Fithian"
               className="avatar-image"
             />
@@ -90,7 +107,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src="/images/kevin.png"
+              src="/images/team/kevin.png"
               alt="Kevin Baktiar"
               className="avatar-image"
             />
@@ -104,7 +121,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src="/images/hans.png"
+              src="/images/team/hans.png"
               alt="Hans Hanken"
               className="avatar-image"
             />
@@ -118,7 +135,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src="/images/will.png"
+              src="/images/team/will.png"
               alt="Will Dale"
               className="avatar-image"
             />
@@ -132,7 +149,7 @@ const AboutPage = () => (
         <div className="avatar-container">
           <div className="avatar-item">
             <img
-              src="/images/glen.png"
+              src="/images/team/glen.png"
               alt="Glen Paul Florendo"
               className="avatar-image"
             />
