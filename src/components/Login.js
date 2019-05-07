@@ -56,7 +56,7 @@ class Login extends Component {
   };
 
   render() {
-    const { email, pw, message } = this.state;
+    const { email, pw } = this.state;
     return (
       <div className="login-page">
         <div className="login">
