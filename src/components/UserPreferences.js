@@ -127,8 +127,9 @@ class UserPreferences extends React.Component {
     const userId = user._id;
 
     if (prefUpdatesQueued) {
+      console.log('updated!');
       axios
-        .patch(
+        .put(
           `${REACT_APP_SVR_PREFS}/update`,
           { preferences, userId },
           { headers: new Headers({ 'Content-Type': 'application/json' }) },
@@ -257,7 +258,7 @@ class UserPreferences extends React.Component {
                 handlePreferencesChange={this.handlePreferencesChange}
               />
             </div>
-            {/* <div className="form-control">
+            <div className="form-control">
               <h3 className="account-sub-title">
                 Filter movies by genres you like (Leave blank for all genres)
               </h3>
@@ -278,7 +279,7 @@ class UserPreferences extends React.Component {
                 handleFormChange={this.handlePreferencesChange}
                 selectedCertifications={certifications}
               />
-            </div> */}
+            </div>
 
             <section className="ratings">
               <h3 className="account-sub-title">
