@@ -33,15 +33,18 @@ export default class BrowsePage extends Component {
 
   handleSubmit = searchInputValue => {
     window.scrollTo(0, 0);
+    this.setState({ movies: [], loading: true });
     moviesAPI.getSearchResults(searchInputValue).then(response =>
       this.setState({
         movies: response.data.results,
         nextPageNum: 1,
+        loading: false,
       }),
     );
   };
 
   handleSendGenre = genreKey => {
+    window.scrollTo(0, 0);
     this.setState({ movies: [], loading: true });
     moviesAPI.getMovies(genreKey).then(response =>
       this.setState({
@@ -52,7 +55,6 @@ export default class BrowsePage extends Component {
         loading: false,
       }),
     );
-    window.scrollTo(0, 0);
   };
 
   handleLoadMoreMovies = () => {
