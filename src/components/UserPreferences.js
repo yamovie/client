@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import UserCheckboxList from './UserCheckboxList';
+import InputRange from 'react-input-range';
+import { UserCheckboxList } from '.';
 import { moviesAPI, tokenServices, userAPI } from '../utils';
 import '../css/UserPreferences.css';
 
@@ -32,28 +33,29 @@ export default class UserPreferences extends Component {
     };
 
     this.state = {
+      value: { min: 20, max: 80 },
       userId: '',
       certifications: { G: false, PG: false, 'PG-13': false, R: false, 'NC-17': false },
       genres: { none: false },
       providers: { none: false },
-      // ratings: {
-      //   imdb: {
-      //     minRating: 0,
-      //     maxRating: 100,
-      //   },
-      //   rottenTomatoes: {
-      //     minRating: 0,
-      //     maxRating: 100,
-      //   },
-      //   metacritic: {
-      //     minRating: 0,
-      //     maxRating: 100,
-      //   },
-      // },
-      // release: {
-      //   minYear: 1900,
-      //   maxYear: 2020,
-      // },
+      ratings: {
+        imdb: {
+          minRating: 4.5,
+          maxRating: 10,
+        },
+        rottenTomatoes: {
+          minRating: 50,
+          maxRating: 100,
+        },
+        //   metacritic: {
+        //     minRating: 0,
+        //     maxRating: 100,
+        //   },
+      },
+      release: {
+        minYear: 1940,
+        maxYear: 2020,
+      },
     };
   }
 
@@ -127,23 +129,70 @@ export default class UserPreferences extends Component {
     const genreList = this.convertStateToDisplay('genres');
     const certList = this.convertStateToDisplay('certifications');
 
+    const { release, ratings } = this.state;
+    const relSliderVals = { min: release.minYear, max: release.maxYear };
+    const imdbSliderVals = { min: ratings.imdb.minRating, max: ratings.imdb.maxRating };
+    const rtSliderVals = {
+      min: ratings.rottenTomatoes.minRating,
+      max: ratings.rottenTomatoes.maxRating,
+    };
+    // TODO: make sure values can't be more than the min or max for the sliders
+
     return (
-      <div className="account-pane">
+      <div className="preferences-pane">
         {/* TODO: Add save button, etc */}
         <h1>Preferences</h1>
-        <UserCheckboxList
+        {/* <UserCheckboxList
           options={genreList}
           type="genres"
           handleChange={this.handlePrefChange}
           handleReset={this.handlePrefReset}
           handleSelectAll={this.handleSelectAll}
-        />
+        /> */}
         <UserCheckboxList
           options={certList}
           type="certifications"
           handleChange={this.handlePrefChange}
           handleReset={this.handlePrefReset}
           handleSelectAll={this.handleSelectAll}
+        />
+        <InputRange
+          minValue={1920}
+          maxValue={2020}
+          value={relSliderVals}
+          onChange={value =>
+            this.setState({ release: { minYear: value.min, maxYear: value.max } })
+          }
+        />
+        <InputRange
+          minValue={0}
+          maxValue={10}
+          step={0.1}
+          value={imdbSliderVals}
+          onChange={value =>
+            this.setState(prevState => ({
+              ratings: {
+                ...prevState.ratings,
+                imdb: {
+                  minRating: Math.round(10 * value.min) / 10,
+                  maxRating: Math.round(10 * value.max) / 10,
+                },
+              },
+            }))
+          }
+        />
+        <InputRange
+          minValue={0}
+          maxValue={100}
+          value={rtSliderVals}
+          onChange={value =>
+            this.setState(prevState => ({
+              ratings: {
+                ...prevState.ratings,
+                rottenTomatoes: { minRating: value.min, maxRating: value.max },
+              },
+            }))
+          }
         />
       </div>
     );
