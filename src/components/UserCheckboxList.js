@@ -1,35 +1,64 @@
-/* TODO: remove this later */
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '../utils';
 import '../css/UserCheckboxList.css';
 
-export default class UserCheckboxList extends Component {
-  static propTypes = {
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  };
+const UserCheckboxList = ({
+  options,
+  type,
+  handleChange,
+  handleReset,
+  handleSelectAll,
+}) => (
+  <form
+    className="checkbox-form"
+    onSubmit={event => {
+      event.preventDefault();
+      handleSelectAll(type);
+    }}
+    onReset={() => {
+      handleReset(type);
+    }}
+  >
+    <div className="checkboxes">
+      {options.map(option => (
+        <span className="single-option" key={option.name}>
+          <input
+            className="checkbox"
+            type="checkbox"
+            id={option.name}
+            value={option.id}
+            onChange={() => handleChange(type, option.id)}
+            checked={!!option.checked}
+          />
+          <label className="option-label" htmlFor={option.name}>
+            {option.name}
+          </label>
+          <label className="check-tick" htmlFor={option.name}>
+            <FontAwesomeIcon icon="check" />
+          </label>
+        </span>
+      ))}
+    </div>
+    <div className="buttons">
+      <input type="submit" className="select-all" value="Select All" />
+      <input type="reset" className="reset" value="Select None" />
+    </div>
+  </form>
+);
 
-  render() {
-    const { options } = this.props;
+UserCheckboxList.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      checked: PropTypes.bool.isRequired,
+    }),
+  ).isRequired,
+  type: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
+  handleSelectAll: PropTypes.func.isRequired,
+};
 
-    return (
-      <form className="checkbox-form">
-        <div className="checkboxes">
-          {options.map(option => (
-            <span className="single-option" key={option}>
-              <input className="checkbox" type="checkbox" id={option} value={option} />
-              <label className="option-label" htmlFor={option}>
-                {option}
-              </label>
-              <label className="check-tick" htmlFor={option}>
-                <FontAwesomeIcon icon="check" />
-              </label>
-            </span>
-          ))}
-        </div>
-        <input type="reset" className="reset" value="Reset" />
-      </form>
-    );
-  }
-}
+export default UserCheckboxList;

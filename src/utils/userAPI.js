@@ -11,7 +11,7 @@ function signup(user) {
   return axios.post(
     `${REACT_APP_SVR_USERS}/signup`,
     { email: user.email, fullName: user.fullName, password: user.pw },
-    { headers: new Headers({ 'Content-Type': 'application/json' }) },
+    { headers: { 'Content-Type': 'application/json' } },
   );
 }
 
@@ -24,7 +24,7 @@ function login(creds) {
   return axios.post(
     `${REACT_APP_SVR_USERS}/login`,
     { email: creds.email, pw: creds.pw },
-    { headers: new Headers({ 'Content-Type': 'application/json' }) },
+    { headers: { 'Content-Type': 'application/json' } },
   );
 }
 
@@ -33,7 +33,7 @@ function addToWatchlist(userId, movieId) {
   return axios.post(
     `${REACT_APP_SVR_USERS}/watchlist`,
     { userId, movieId },
-    { headers: new Headers({ 'Content-Type': 'application/json' }) },
+    { headers: { 'Content-Type': 'application/json' } },
   );
 }
 
@@ -46,8 +46,8 @@ function getPreferences(userId) {
 function updatePreferences(userId, newPrefs) {
   return axios.patch(
     `${REACT_APP_SVR_PREFS}/update`,
-    { newPrefs, userId },
-    { headers: new Headers({ 'Content-Type': 'application/json' }) },
+    { userId, newPrefs },
+    { headers: { 'Content-Type': 'application/json' } },
   );
 }
 

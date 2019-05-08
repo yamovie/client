@@ -76,29 +76,50 @@
 }
 
 /* ======================================================= */
+/* Buttons */
 
-.checkbox-form .reset {
-  color: var(--offwhite);
-  width: 100%;
-  padding: 5px 10px;
-  border: none;
-  border-top: 0.5px solid var(--darkgrey);
-  background-color: var(--purple);
+.checkbox-form .buttons {
+  --edge-border: 0.5px solid var(--darkgrey);
+
+  display: flex;
   border-radius: 0px 0px var(--edge-curve) var(--edge-curve);
-  font-size: 1em;
+  border-top: var(--edge-border);
 }
 
-.checkbox-form .reset:active {
+.checkbox-form .buttons .reset,
+.checkbox-form .buttons .select-all {
+  color: var(--offwhite);
+  font-size: 1em;
+  width: 50%;
+  padding: 5px 10px;
+  border: none;
+  background-color: var(--purple);
+}
+
+.checkbox-form .buttons .reset {
+  border-radius: 0px 0px var(--edge-curve) 0px;
+}
+
+.checkbox-form .buttons .select-all {
+  border-radius: 0px 0px 0px var(--edge-curve);
+  border-right: var(--edge-border);
+}
+
+.checkbox-form .reset:active,
+.checkbox-form .select-all:active {
   background-color: var(--red);
 }
 
-.checkbox-form .reset:hover {
+.checkbox-form .reset:hover,
+.checkbox-form .select-all:hover {
   cursor: pointer;
   opacity: 0.8;
+  border: none;
   box-shadow: 0px 1px 1px 1px var(--red);
 }
 
-.checkbox-form .reset:focus {
+.checkbox-form .reset:focus,
+.checkbox-form .select-all:focus {
   outline: none;
 }
 
