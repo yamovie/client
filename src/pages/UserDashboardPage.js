@@ -5,6 +5,7 @@ import '../css/UserDashboardPage.css';
 import { Route } from 'react-router-dom';
 import AccountNav from '../components/AccountNav';
 import UserPreferences from '../components/UserPreferences';
+import Watchlist from '../components/Watchlist';
 
 class userDashboardPage extends Component {
   render() {
@@ -18,7 +19,7 @@ class userDashboardPage extends Component {
           {/* 
           TO DO: implement watchlist
            */}
-          {/* <Route path={`${match.url}/:watchlist`} component={Watchlist} /> */}
+          <Route path={`${match.url}/:watchlist`} component={Watchlist} />
         </div>
       </div>
 

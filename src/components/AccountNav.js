@@ -7,9 +7,9 @@ const AccountNav = () => (
       <li>
         <NavLink to="/account/">Preferences</NavLink>
       </li>
-      {/* <li>
+      <li>
         <NavLink to="/account/watchlist">Watchlist</NavLink>
-      </li> */}
+      </li>
     </ul>
   </aside>
 );

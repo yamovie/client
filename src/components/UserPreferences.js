@@ -127,7 +127,6 @@ class UserPreferences extends React.Component {
     const userId = user._id;
 
     if (prefUpdatesQueued) {
-      console.log('updated!');
       axios
         .put(
           `${REACT_APP_SVR_PREFS}/update`,
