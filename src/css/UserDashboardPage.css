@@ -14,6 +14,7 @@
   background: var(--offwhite);
   padding: 0 25px;  
   width: 15%;
+  min-height: 100vh;
 }
 
 .account-nav ul {
@@ -101,6 +102,31 @@
 .single-genre {
   font-size: 17px;
   color: var(--offwhite)
+}
+
+/*
+======================= Account Settings ===========================
+*/
+
+.account-settings-form {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-settings-form input {
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.account-settings-form label {
+  color: var(--offwhite);
+  margin-bottom: 5px;
+}
+
+.account-settings-form button {
+  max-width: 100px;
+  padding: 5px;
 }
 
 /*

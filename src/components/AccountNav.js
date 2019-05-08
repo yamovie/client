@@ -10,6 +10,9 @@ const AccountNav = () => (
       <li>
         <NavLink to="/account/watchlist">Watchlist</NavLink>
       </li>
+      <li>
+        <NavLink to="/account/settings">Account settings</NavLink>
+      </li>
     </ul>
   </aside>
 );
