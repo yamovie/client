@@ -3,6 +3,7 @@
 .checkbox-form {
   --edge-curve: 10px;
 
+  width: 85%;
   border-radius: var(--edge-curve);
   background-color: var(--midgrey);
   color: var(--offwhite);
@@ -19,6 +20,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 5px;
 }
 
 /* ======================================================= */

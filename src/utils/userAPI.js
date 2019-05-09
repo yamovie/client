@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const { REACT_APP_SVR_USERS, REACT_APP_SVR_PREFS } = process.env;
+const { REACT_APP_SVR_USERS, REACT_APP_SVR_API } = process.env;
 
 /**
  * Axios call to database to signup user
@@ -38,15 +38,13 @@ function addToWatchlist(userId, movieId) {
 }
 
 function getPreferences(userId) {
-  return axios.get(`${REACT_APP_SVR_PREFS}`, {
-    params: { userId },
-  });
+  return axios.get(`${REACT_APP_SVR_API}/preferences/${userId}`);
 }
 
 function updatePreferences(userId, newPrefs) {
   return axios.patch(
-    `${REACT_APP_SVR_PREFS}/update`,
-    { userId, newPrefs },
+    `${REACT_APP_SVR_API}/preferences/${userId}`,
+    { newPrefs },
     { headers: { 'Content-Type': 'application/json' } },
   );
 }
