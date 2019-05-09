@@ -2,13 +2,13 @@
 
 .preferences-pane {
   color: var(--offwhite);
-  padding: 15px;
-  width: 100%;
+  /* padding: 15px; */
+  /* width: 100%; */
+  /* background-color: var(--darkgrey); */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--darkgrey);
   z-index: 5;
 }
 
@@ -50,7 +50,7 @@
 /* Slider */
 
 .input-range {
-  --transform-speed: 0.2s;
+  --transition-speed: 0.2s;
 
   width: 90%;
   padding: 10px 55px;
@@ -95,13 +95,13 @@
   height: 1.25rem;
   width: 1.25rem;
   margin: -0.78rem 0px 0px -0.6rem;
-  transition: transform var(--transform-speed) ease-out,
-    box-shadow var(--transform-speed) ease-out,
-    -webkit-transform var(--transform-speed) ease-out;
+  transition: transform var(--transition-speed) ease-out,
+    box-shadow var(--transition-speed) ease-out,
+    -webkit-transform var(--transition-speed) ease-out;
 }
 
 .input-range__slider-container {
-  transition: left var(--transform-speed) ease-out;
+  transition: left var(--transition-speed) ease-out;
 }
 
 .input-range__slider:active {
@@ -115,7 +115,8 @@
   cursor: pointer;
   height: 0.3rem;
   display: block;
-  transition: left var(--transform-speed) ease-out, width var(--transform-speed) ease-out;
+  transition: left var(--transition-speed) ease-out,
+    width var(--transition-speed) ease-out;
 }
 
 .input-range__track--background {

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { AccountNav, UserPreferences } from '../components';
+import { AccountNav, UserPreferences, Watchlist } from '../components';
 import '../css/UserDashboardPage.css';
 
 class userDashboardPage extends Component {
@@ -18,11 +18,8 @@ class userDashboardPage extends Component {
       <div className="dashboard-page">
         <AccountNav user={user} />
 
-        <Route exact path={`${match.url}`} render={() => <UserPreferences />} />
-        {/* 
-          TO DO: implement watchlist
-           */}
-        {/* <Route path={`${match.url}/:watchlist`} component={Watchlist} /> */}
+        <Route exact path={`${match.url}`} component={UserPreferences} />
+        <Route path={`${match.url}/watchlist`} component={Watchlist} />
       </div>
     );
   }

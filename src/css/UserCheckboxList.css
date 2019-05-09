@@ -69,7 +69,7 @@
   margin-right: 4px;
 }
 
-.single-option .checkbox:checked {
+.single-option .checkbox.checked {
   background-color: var(--purple);
 }
 

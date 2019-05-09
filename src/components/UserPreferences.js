@@ -91,9 +91,14 @@ export default class UserPreferences extends Component {
   // ===============================================================
   // Handlers
 
+  /**
+   * Makes an API request to send the current state and set it as the preferences object
+   * in the database corresponding to the current user.
+   */
   handleSavePrefs = () => {
     userAPI.updatePreferences(this.user._id, this.state).then(() => {
       SweetAlert.fire({
+        position: 'top',
         type: 'success',
         text: 'Preferences Successfully Saved!',
         showConfirmButton: false,
@@ -102,6 +107,11 @@ export default class UserPreferences extends Component {
     });
   };
 
+  /**
+   * Targets the specified key in the specified section and toggles its value
+   * @param {String} prefSection the name of the key/section in state that is being targeted
+   * @param {String} key the name of the particular element being toggled on/off
+   */
   handlePrefChange = (prefSection, key) => {
     this.setState(prevState => ({
       [prefSection]: {
@@ -111,17 +121,30 @@ export default class UserPreferences extends Component {
     }));
   };
 
+  /**
+   * Drops the data in state for the targeted section and sets it to be the default off
+   * values (mapping each id to false)
+   * @param {String} prefSection the name of the key in state that is being targeted
+   */
   handlePrefReset = prefSection => {
     this.setState({ [prefSection]: this.defaults.off[prefSection] });
   };
 
+  /**
+   * Drops the data in state for the targeted section and sets it to be the default on
+   * values (mapping each id to true)
+   * @param {String} prefSection the name of the key in state that is being targeted
+   */
   handleSelectAll = prefSection => {
     this.setState({ [prefSection]: this.defaults.on[prefSection] });
   };
 
-  // ===============================================================
-  // Display Helper
-
+  /**
+   * Converts the ObjectId: Bool mapping format as it is in state to the object format
+   * with a name, id, and checked value needed for the checkbox display.
+   * @param {String} prefSection the name of the key in state that is being targeted
+   * @returns {Array<Object>} the list of objects to be displayed
+   */
   convertStateToDisplay = prefSection => {
     const displayList = [];
     const { [prefSection]: stateSection } = this.state;
@@ -155,9 +178,10 @@ export default class UserPreferences extends Component {
       max: ratings.metacritic.maxRating,
     };
     // TODO: make sure values can't be more than the min or max for the sliders
+    // TODO: programmatically set the min and max year range values
 
     return (
-      <div className="preferences-pane">
+      <div className="account-pane preferences-pane">
         <h1>
           Preferences
           <button type="button" className="save" onClick={this.handleSavePrefs}>
