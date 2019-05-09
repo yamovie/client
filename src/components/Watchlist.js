@@ -1,11 +1,18 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../css/Watchlist.css';
 import axios from 'axios';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '../utils/fontAwesome';
 
 const { REACT_APP_SVR } = process.env;
 
 class Watchlist extends React.Component {
+  static propTypes = {
+    user: PropTypes.shape(Object).isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,24 +26,17 @@ class Watchlist extends React.Component {
     const { user } = this.props;
     axios.post(`${REACT_APP_SVR}/users/watchlist/movies`, {userId: user._id})
       .then(res => this.setState({movies: res.data}));
-    // .then(res => console.log(res.data));
   }
 
-  componentDidUpdate() {
-    console.log('.....Component did update')
+  removeFromWatchlist(movieId) {
     const { user } = this.props;
-    if (this.state.movieDeleted) {
-      axios.post(`${REACT_APP_SVR}/users/watchlist/movies`, {userId: user._id})
-        // .then(res => this.setState({movies: res.data, movieDeleted: false}));
-        .then(res => console.log(res.data));
-
-    }
-  }
-
-  async removeFromWatchlist(movieId) {
-    const { user } = this.props;
-    await axios.delete(`${REACT_APP_SVR}/users/watchlist/movies`, { data: {movieId, userId: user._id}})
-    this.setState({movieDeleted: true});
+    axios.delete(`${REACT_APP_SVR}/users/watchlist/movies`, { data: {movieId, userId: user._id}})
+      .then(() => {
+        this.setState({movies: this.state.movies.filter(movie => movie._id !== movieId)});
+      })
+      .catch(error => {
+        console.log(`The server responded with error: ${error.response.status}, ${error.response.statusText} `)
+      });
   }
 
   render() {
@@ -51,9 +51,9 @@ class Watchlist extends React.Component {
               movies.map(movie => (
                 <div className="watchlist-movie">
                   <img src={movie.images.poster} className="img-fluid" alt="movie" />
-                  <div className="watchlist-buttons">
-                    <button type="button" className="watchlist-btn" onClick={() => this.removeFromWatchlist(movie._id)}>Remove (-)</button>
-                  </div>
+                  <button type="button" className="watchlist-remove-btn" onClick={() => this.removeFromWatchlist(movie._id)}>
+                    <FontAwesomeIcon icon={faMinusCircle} /> Remove from list
+                  </button>
                 </div>
               ))
             }

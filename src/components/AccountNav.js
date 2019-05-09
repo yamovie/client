@@ -5,14 +5,17 @@ const AccountNav = () => (
   <aside className="account-nav">
     <ul>
       <li>
-        <NavLink to="/account/">Preferences</NavLink>
+        <NavLink to="/account/">Watchlist</NavLink>
       </li>
       <li>
-        <NavLink to="/account/watchlist">Watchlist</NavLink>
+        <NavLink to="/account/preferences">Preferences</NavLink>
       </li>
-      <li>
+      {/* 
+      TO DO: Implement account settings page, where user can change password etc. 
+      */}
+      {/* <li>
         <NavLink to="/account/settings">Account settings</NavLink>
-      </li>
+      </li> */}
     </ul>
   </aside>
 );
