@@ -58,6 +58,35 @@ class ChatWindow extends React.Component {
   }
 
   /**
+   * Creates a Lloyd chat message based on the inputs
+   * @param {String} message - sets the value of the message
+   * @param {Number} delay - sets the time delay for the response
+   * @param {Boolean} loading - (OPTIONAL) sets loading equal to true
+   * @param {String} cssClass - (OPTIONAL) sets a custom CSS class for message
+   * @returns {Object} returns message object
+   */
+  lloydMessage = async (message, delay, loading, cssClass) => {
+    if (loading) {
+      return this.botui.message.bot({
+        loading: true,
+        content: message,
+        delay: delay,
+      });
+    } else if (cssClass === 'HAL') {
+      return this.botui.message.bot({
+        cssClass: 'botui-HAL9000',
+        content: message,
+        delay: delay,
+      });
+    } else {
+      return this.botui.message.bot({
+        content: message,
+        delay: delay,
+      });
+    }
+  };
+
+  /**
    * Checks whether the chat is ended and if the BotUi still exists and
    * other things to determine if a question should be skipped.
    * @returns {boolean} True if question should be skipped, false otherwise
@@ -81,10 +110,7 @@ class ChatWindow extends React.Component {
       return;
     }
 
-    this.botui.message.bot({
-      content: 'Hello! 👋 My name is Lloyd! 😁',
-      delay: this.delays.initial,
-    });
+    this.lloydMessage('Hello! 👋 My name is Lloyd! 😁', this.delays.initial);
     await this.botui.message.bot({
       content:
         "I'm going to ask you a few questions so I can help you find a movie! 🎬",
@@ -100,11 +126,10 @@ class ChatWindow extends React.Component {
     if (this.skipQuestion()) {
       return;
     }
-
-    this.botui.message.bot({
-      content: 'What kind of movie are you in the mood for?',
-      delay: this.delays.response,
-    });
+    this.lloydMessage(
+      'What kind of movie are you in the mood for?',
+      this.delays.response,
+    );
     enableChatClose();
     await this.botui.action
       .button({
@@ -149,10 +174,61 @@ class ChatWindow extends React.Component {
         this.setState(prevState => ({
           dataObj: { ...prevState.dataObj, genres: moodRes.value },
         }));
-        this.botui.message.bot({
-          content: 'Awesome!',
-          delay: this.delays.response,
-        });
+        switch (moodRes.text) {
+          case 'Funny 😆':
+            this.lloydMessage('Hilarious! 🤡', this.delays.response);
+            break;
+          case 'Sad 😭':
+            this.lloydMessage('Tragic! 💔', this.delays.response);
+            break;
+          case 'Mysterious 🤔':
+            this.lloydMessage('OK, Sherlock! 🕵️‍', this.delays.response);
+            break;
+          case 'Dramatic 😮':
+            this.lloydMessage(
+              "All the world's a stage! 🎭",
+              this.delays.response,
+            );
+            break;
+          case 'Thrilling 😲':
+            this.lloydMessage('Thrills and chills! 👀', this.delays.response);
+            break;
+          case 'Scary 😱':
+            this.lloydMessage('Spooky! 👻', this.delays.response);
+            break;
+          case 'Action Packed 🏃‍💥':
+            this.lloydMessage('ACTION! 💥💣', this.delays.response);
+            break;
+          case 'Romantic 😍':
+            this.lloydMessage('Lovely! 💖', this.delays.response);
+            break;
+          case 'Fantastical 👽🧝‍':
+            this.lloydMessage(
+              'I can do that Dave! 🔴 ',
+              this.delays.response,
+              false,
+              'HAL',
+            );
+            break;
+          case 'Informative 🌍':
+            this.lloydMessage(
+              'The joy of discovery! ✨💡✨',
+              this.delays.response,
+            );
+            break;
+          case 'Heartwarming 👨‍👩‍👧‍👦':
+            this.lloydMessage(
+              'Fun for the whole family! 😄😄😄',
+              this.delays.response,
+            );
+            break;
+          case 'Musical 🎶':
+            this.lloydMessage('The sound of music! 🎼', this.delays.response);
+            break;
+          default:
+            this.lloydMessage('Awesome!', this.delays.response);
+            break;
+        }
       });
   };
 
@@ -165,10 +241,10 @@ class ChatWindow extends React.Component {
       return;
     }
 
-    this.botui.message.bot({
-      content: 'What rated content should I be looking for?',
-      delay: this.delays.nextQ,
-    });
+    this.lloydMessage(
+      'What rated content should I be looking for?',
+      this.delays.nextQ,
+    );
     enableChatClose();
     await this.botui.action
       .button({
@@ -193,10 +269,9 @@ class ChatWindow extends React.Component {
               certification: ageRes.value,
             },
           }));
-          this.botui.message.bot({
-            content: 'Thanks!',
-            delay: this.delays.response,
-          });
+          if (ageRes.value !== 'end') {
+            this.lloydMessage('Got it!', this.delays.response);
+          }
         }
       });
   };
@@ -239,6 +314,10 @@ class ChatWindow extends React.Component {
                 max_year: 1980,
               },
             }));
+            this.lloydMessage(
+              'Back to the glory days! 🌟',
+              this.delays.response,
+            );
             break;
           case 'in-between':
             this.setState(prevState => ({
@@ -248,6 +327,7 @@ class ChatWindow extends React.Component {
                 max_year: 2010,
               },
             }));
+            this.lloydMessage('The middle way! 🧘‍', this.delays.response);
             break;
           case 'modern':
             this.setState(prevState => ({
@@ -257,16 +337,14 @@ class ChatWindow extends React.Component {
                 max_year: 3000,
               },
             }));
+            this.lloydMessage('New and improved! 🆕✨', this.delays.response);
             break;
           case 'no-preference':
+            this.lloydMessage('Sure thing!', this.delays.response);
             break;
           default:
             console.error('error');
         }
-        this.botui.message.bot({
-          content: 'Me too!',
-          delay: this.delays.response,
-        });
       });
   };
 
@@ -278,15 +356,13 @@ class ChatWindow extends React.Component {
     if (this.skipQuestion()) {
       return;
     }
-
-    this.botui.message.bot({
-      content: 'Do you want me to include animated movies in your results?',
-      delay: this.delays.nextQ,
-    });
+    this.lloydMessage(
+      'Do you want me to include animated movies in your results?',
+      this.delays.nextQ,
+    );
     enableChatClose();
     await this.botui.action
       .button({
-        // TODO: Make this answer have more options that are more clear
         action: [
           { value: true, text: 'Yes, I love animated movies! 👍' },
           { value: false, text: 'No, do not recommend them to me 👎' },
@@ -298,20 +374,19 @@ class ChatWindow extends React.Component {
         if (animRes.value === 'end') {
           this.setState({ endChat: true });
         }
+        const array = [...this.state.dataObj.genres];
+        array.push(genreIds.Animation);
+        this.setState(prevState => ({
+          dataObj: {
+            ...prevState.dataObj,
+            genres: array,
+          },
+        }));
         if (animRes.value === true) {
-          const array = [...this.state.dataObj.genres];
-          array.push(genreIds.Animation);
-          this.setState(prevState => ({
-            dataObj: {
-              ...prevState.dataObj,
-              genres: array,
-            },
-          }));
+          this.lloydMessage('Me too! 👾', this.delays.response);
+        } else if (animRes.value === false) {
+          this.lloydMessage('Gotcha!', this.delays.response);
         }
-        this.botui.message.bot({
-          content: 'Cool!',
-          delay: this.delays.response,
-        });
       });
   };
 
@@ -324,14 +399,10 @@ class ChatWindow extends React.Component {
       return;
     }
 
-    this.botui.message.bot({
-      content: 'How about foreign films?',
-      delay: this.delays.nextQ,
-    });
+    this.lloydMessage('How about foreign films?', this.delays.nextQ);
     enableChatClose();
     await this.botui.action
       .button({
-        // TODO: Make this answer have more options that are more clear
         action: [
           { value: true, text: 'Yes, include them with my results  👍' },
           { value: false, text: 'No, exclude them from my results 👎' },
@@ -349,10 +420,11 @@ class ChatWindow extends React.Component {
             foreign: forRes.value,
           },
         }));
-        this.botui.message.bot({
-          content: 'Great!',
-          delay: this.delays.response,
-        });
+        if (forRes.value === true) {
+          this.lloydMessage('Très bien! 🔵⚪🔴', this.delays.response);
+        } else {
+          this.lloydMessage("They're not for everyone", this.delays.response);
+        }
       });
   };
 
@@ -365,16 +437,16 @@ class ChatWindow extends React.Component {
       return;
     }
 
-    this.botui.message.bot({
-      content: 'Do you like independent films?',
-      delay: this.delays.nextQ,
-    });
+    this.lloydMessage('Do you like independent films?', this.delays.nextQ);
     enableChatClose();
     await this.botui.action
       .button({
         // TODO: Make this answer have more options that are more clear
         action: [
-          { value: true, text: 'Yes, you can add them to my results 👍' },
+          {
+            value: true,
+            text: 'Yes, you can add indie films to my results 👍',
+          },
           { value: false, text: 'No, exclude them please 👎' },
           { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
@@ -390,11 +462,14 @@ class ChatWindow extends React.Component {
             indie: indieRes.value,
           },
         }));
-        this.botui.message.bot({
-          // TODO: Move this response to after a different question
-          content: 'You have good taste!',
-          delay: this.delays.response,
-        });
+        if (indieRes.value !== 'end' && indieRes.value !== false) {
+          this.lloydMessage(
+            'A true film connoisseur! 🧐',
+            this.delays.response,
+          );
+        } else if (indieRes.value === false) {
+          this.lloydMessage('No problem!', this.delays.response);
+        }
       });
   };
 
@@ -408,10 +483,11 @@ class ChatWindow extends React.Component {
       return;
     }
 
-    this.botui.message.bot({
-      content: 'What ratings do you care about?',
-      delay: this.delays.nextQ,
-    });
+    this.lloydMessage('What ratings do you care about?', this.delays.nextQ);
+    // this.botui.message.bot({
+    //   content: 'What ratings do you care about?',
+    //   delay: this.delays.nextQ,
+    // });
     enableChatClose();
     await this.botui.action
       .button({
@@ -428,10 +504,10 @@ class ChatWindow extends React.Component {
           ratingsRes.value === 'both' ||
           ratingsRes.value === 'rotten-tomatoes'
         ) {
-          await this.rtQuestion();
+          await this.rtQuestion(enableChatClose);
         }
         if (ratingsRes.value === 'both' || ratingsRes.value === 'imdb') {
-          await this.imdbQuestion();
+          await this.imdbQuestion(enableChatClose);
         }
         if (ratingsRes.value === 'dont-care') {
           this.setState({ endChat: true });
@@ -452,10 +528,11 @@ class ChatWindow extends React.Component {
    * sets the state and displays a response message when they have selected an option
    */
   rtQuestion = async enableChatClose => {
-    this.botui.message.bot({
-      content: 'Minimum Rotten Tomatoes rating?',
-      delay: this.delays.response,
-    });
+    this.lloydMessage('Minimum Rotten Tomatoes rating?', this.delays.response);
+    // this.botui.message.bot({
+    //   content: 'Minimum Rotten Tomatoes rating?',
+    //   delay: this.delays.response,
+    // });
     enableChatClose();
     await this.botui.action
       .button({
@@ -486,10 +563,11 @@ class ChatWindow extends React.Component {
    * sets the state and displays a response message when they have selected an option
    */
   imdbQuestion = async enableChatClose => {
-    this.botui.message.bot({
-      content: 'Minimum IMDB rating?',
-      delay: this.delays.response,
-    });
+    this.lloydMessage('Minimum IMDB rating?', this.delays.response);
+    // this.botui.message.bot({
+    //   content: 'Minimum IMDB rating?',
+    //   delay: this.delays.response,
+    // });
     enableChatClose();
     await this.botui.action
       .button({
@@ -517,21 +595,17 @@ class ChatWindow extends React.Component {
   /**
    * Displays the loading message that its getting results
    */
-  resultsMessage = getMovieResults => {
+  resultsMessage = async getMovieResults => {
     if (!this.botui) {
       return;
     }
 
     const { dataObj } = this.state;
-    this.botui.message
-      .bot({
-        loading: true,
-        content: 'Getting results now!',
-        delay: 5000,
-      })
-      .then(() => {
+    this.lloydMessage('Alright, now Let me find YaMovie... 🔍😃').then(
+      this.lloydMessage('Getting results now!', 6000, true).then(() => {
         getMovieResults(dataObj);
-      });
+      }),
+    );
   };
 
   async endChatFunc(enableChatClose, disableChatClose) {
