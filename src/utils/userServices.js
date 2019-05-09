@@ -6,8 +6,15 @@ function getUser() {
   return tokenServices.getUserFromToken();
 }
 
-function logout() {
-  tokenServices.removeToken();
+async function logout() {
+  Swal.fire({
+    position: 'top-end',
+    type: 'success',
+    text: 'Sucessfully Logged Out!',
+    showConfirmButton: false,
+    timer: 1300,
+  });
+  const logout = await tokenServices.removeToken();
 }
 
 /**

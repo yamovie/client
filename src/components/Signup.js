@@ -34,7 +34,7 @@ class Signup extends Component {
    * if successful redirect to homepage
    */
   handleSubmit = e => {
-    const { handleSignup, history } = this.props;
+    const { handleSignup } = this.props;
     e.preventDefault();
     userServices
       .signup(this.state)
@@ -43,20 +43,19 @@ class Signup extends Component {
         Swal.fire({
           position: 'top-end',
           type: 'success',
-          text: 'Successful signup',
+          text: 'Signup Successful!',
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1300,
         });
-        history.push('/');
       })
-      .catch(err =>
+      .catch(err => 
         Swal.fire({
           position: 'top-end',
           type: 'error',
-          text: err,
+          text: 'User Already Exists!',
           showConfirmButton: false,
-          timer: 1000,
-        }),
+          timer: 1300,
+        })
       );
   };
 
@@ -74,7 +73,7 @@ class Signup extends Component {
         type: 'error',
         text: 'Invalid Email!',
         showConfirmButton: false,
-        timer: 1200,
+        timer: 1300,
       });
       
       function checkPw(e) {
@@ -85,7 +84,7 @@ class Signup extends Component {
           type: 'error',
           text: 'Password is too short!',
           showConfirmButton: false,
-          timer: 1200,
+          timer: 1300,
         });
       }
 
