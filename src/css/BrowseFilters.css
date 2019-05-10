@@ -1,7 +1,7 @@
 #mega-search-genres {
   position: sticky;
   z-index: 5;
-  top: 65px;
+  top: var(--nav-height);
   width: 100%;
   display: flex;
   flex-direction: row;
