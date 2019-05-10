@@ -19,9 +19,6 @@ const UserCheckboxList = ({
       }}
       onReset={() => {
         handleReset(type);
-        // HACK: this shouldn't be necessary
-        // handleChange(type, options[0].id);
-        // handleChange(type, options[0].id);
       }}
     >
       <div className="checkboxes">
@@ -34,14 +31,6 @@ const UserCheckboxList = ({
               name={option.name}
               onClick={() => handleChange(type, option.id)}
             />
-            {/* {React.createElement('input', {
-              className: 'checkbox',
-              type: 'checkbox',
-              id: option.name,
-              name: option.name,
-              onChange: () => handleChange(type, option.id),
-              checked: !!option.checked,
-            })} */}
             <label className="option-label" htmlFor={option.name}>
               {option.name}
             </label>
