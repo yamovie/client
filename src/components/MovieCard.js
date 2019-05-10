@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon, userServices, tokenServices } from '../utils';
 import '../css/MovieCard.css';
+import tokenServices from '../utils/tokenServices';
+import TrailerModal from "./TrailerModal"
 
 class MovieCard extends Component {
   static propTypes = {
@@ -26,6 +28,7 @@ class MovieCard extends Component {
       }),
     }).isRequired,
     toggleModal: PropTypes.func.isRequired,
+    toggleTrailer: PropTypes.func.isRequired,
   };
 
   /**
@@ -48,6 +51,8 @@ class MovieCard extends Component {
       credits: { cast: [], crew: [] },
       images: { backdrops: [], posters: [] },
       loading: true,
+      trailerVisible: false,
+      selectedTrailerList: [],
     };
   }
 
@@ -122,8 +127,17 @@ class MovieCard extends Component {
   }
 
   handleAddToWatchlist = movieId => {
-    //TODO: remove if already on watchlist and styling
+    // TODO: remove if already on watchlist and styling
     userServices.addToUserWatchlist(movieId);
+  };
+
+  toggleTrailer = selectedTrailerList => {
+    const { trailerVisible } = this.state;
+    if (trailerVisible) {
+      this.setState({ trailerVisible: false, selectedTrailerList: [] });
+    } else {
+      this.setState({ trailerVisible: true, selectedTrailerList });
+    }
   };
 
   /**
@@ -145,6 +159,7 @@ class MovieCard extends Component {
       overview,
       ratings,
       offers,
+      videos,
     } = this.state;
     const { toggleModal, movie } = this.props;
 
@@ -161,7 +176,9 @@ class MovieCard extends Component {
       // data from JW
       backdropLink = images.backdrops[backdropNum];
       posterLink = images.poster;
-      directorList = credits.crew.filter(member => member.role === 'Director');
+      directorList = credits.crew
+        .filter(member => member.role === 'Director')
+        .map(member => member.name);
     } else {
       // data from tmdb
       directorList = credits.crew.filter(member => member.job === 'Director');
@@ -169,49 +186,73 @@ class MovieCard extends Component {
       const posterNum = Math.floor(Math.random() * images.posters.length);
       posterLink = images.posters[posterNum].poster_url;
     }
-    const directors =
-      directorList.length <= 0
-        ? ', No Director'
-        : directorList.reduce((dirs, member) => `${dirs}, ${member.name}`, '');
+
+    //  Grabs the token thats assigned to the user
     const user = tokenServices.getUserFromToken();
+
+    // Play trailer button
+    const videoPlayIcon =
+      videos && videos.length > 0 ? (
+        <span
+          className="trailer-icon"
+          role="button"
+          tabIndex={0}
+          onClick={() => this.toggleTrailer(videos)}
+        >
+          <FontAwesomeIcon icon="play-circle" />
+          <p className="trailer-icon-text">Play Trailer</p>
+        </span>
+      ) : (
+        ''
+      );
+
+
     return (
       <div className="movie-card">
-        <div className="backdrop">
-          {/* <div className="overlay" /> */}
-          {backdropLink ? <img src={backdropLink} alt="" /> : ''}
-        </div>
+        <div className="backdrop" style={{
+          backgroundImage: `url(${backdropLink})`,
+        }} />
+        <TrailerModal
+          trailerList={this.selectedTrailerList}
+          toggleTrailer={this.toggleTrailer}
+        />
         <div className="info">
-          <button type="button" className="close-modal" onClick={toggleModal}>
-            &times;
+          <button type="button" className="close-modal" onClick={toggleModal()}>
+            <FontAwesomeIcon icon="plus" />
           </button>
           <div className="heading">
+            {videoPlayIcon}
             {posterLink ? <img className="poster" alt={title} src={posterLink} /> : ''}
             <div id="line1">
               <h1>{title}</h1>
-              <span className="certification">{certification}</span>
+              <p>({release})</p>
+              {/* TODO: make sure the style reflects if this is already on watchlist */}
+              {user && (
+                <div
+                  className="watchlist"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => this.handleAddToWatchlist(movie._id)}
+                >
+                  <FontAwesomeIcon className="watchlist-star" icon="star"/>
+                </div>
+              )}
             </div>
             <div id="line2">
-              <h4>{`${release}${directors}`}</h4>
+              <span className="certification">{certification}</span>
+              {runtime ? <span className="runtime">{runtime} min</span> : ''}
               <RatingsView ratings={ratings} />
             </div>
-            {runtime ? <span className="runtime">{runtime} min</span> : ''}
             <p className="genres">{genres.join(', ')}</p>
+            <StreamsView offers={offers} jw_image_url={jw_image_url} />
           </div>
           <div className="description">
+            <h4 className="directors">
+            Director(s):{' '}
+              {directorList.length > 0 ? directorList.join(', ') : 'No Director Data'}
+            </h4>
             <p>{overview || 'No plot summary available'}</p>
           </div>
-          <StreamsView offers={offers} jw_image_url={jw_image_url} />
-          {/* TODO: make sure the style reflects if this is already on watchlist */}
-          {user && (
-            <div
-              className="watchlist"
-              role="button"
-              tabIndex={0}
-              onClick={() => this.handleAddToWatchlist(movie._id)}
-            >
-              <FontAwesomeIcon icon="star" />
-            </div>
-          )}
         </div>
       </div>
     );
@@ -250,7 +291,7 @@ const StreamsView = ({ offers, jw_image_url }) => {
   // icon_url: /icon/430993/{profile}
 
   return (
-    <div id="streams">
+    <div className="streams">
       {offers.stream.length > 0 ? (
         offers.stream.map(strmSrc => {
           const sizedIcon = strmSrc.provider.icon_url.replace('{profile}', 's100');

@@ -13,6 +13,7 @@ import {
   faPlayCircle,
   faStar,
   faCheck,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,6 +31,7 @@ library.add(
   faPlayCircle,
   faStar,
   faCheck,
+  faPlus,
 );
 
 export { FontAwesomeIcon };
