@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import '../css/Watchlist.css';
 
@@ -86,7 +85,6 @@ class Watchlist extends React.Component {
     ];
 
     const watchedMovies = [
-     
       {
         title: 'Bumblebee',
         image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
@@ -139,36 +137,54 @@ class Watchlist extends React.Component {
     ];
 
     return (
-      <div className="account-page">
+      <div className="account-pane watchlist-pane">
         <div className="watchlist-filter">
-          <button className="white watchlist-filter-btn" type="button" id="watchlist-btn" onClick={this.toggleWatchedMovies}>Watchlist</button>
-          <button className="white watchlist-filter-btn" type="button" id="watched-btn" onClick={this.toggleWatchedMovies}>Watched</button>
+          <button
+            className="white watchlist-filter-btn"
+            type="button"
+            id="watchlist-btn"
+            onClick={this.toggleWatchedMovies}
+          >
+            Watchlist
+          </button>
+          <button
+            className="white watchlist-filter-btn"
+            type="button"
+            id="watched-btn"
+            onClick={this.toggleWatchedMovies}
+          >
+            Watched
+          </button>
         </div>
         {
           <div className="watchlist-wrapper">
-            {
-
-              showWatchedMovies ?
-                watchedMovies.map(movie => (
+            {showWatchedMovies
+              ? watchedMovies.map(movie => (
                   <div className="watchlist-movie">
                     <img src={movie.image} className="img-fluid" alt="movie" />
                     <div className="watchlist-buttons">
-                      <button type="button" className="watchlist-btn">- Remove</button>
-                      <button type="button" className="watchlist-btn">+ Watched</button>
+                      <button type="button" className="watchlist-btn">
+                        - Remove
+                      </button>
+                      <button type="button" className="watchlist-btn">
+                        + Watched
+                      </button>
                     </div>
                   </div>
                 ))
-                :
-                movies.map(movie => (
+              : movies.map(movie => (
                   <div className="watchlist-movie">
                     <img src={movie.image} className="img-fluid" alt="movie" />
                     <div className="watchlist-buttons">
-                      <button type="button" className="watchlist-btn">- Remove</button>
-                      <button type="button" className="watchlist-btn">+ Watched</button>
+                      <button type="button" className="watchlist-btn">
+                        - Remove
+                      </button>
+                      <button type="button" className="watchlist-btn">
+                        + Watched
+                      </button>
                     </div>
                   </div>
-                ))
-            }
+                ))}
           </div>
         }
       </div>

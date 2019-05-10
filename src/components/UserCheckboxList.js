@@ -1,161 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../css/GenreList.css';
+import { FontAwesomeIcon } from '../utils';
+import '../css/UserCheckboxList.css';
 
-// Renders the genre list to the MovieList page. ==================
-export default class UserCheckboxList extends React.Component {
-  static propTypes = {
-    genres: PropTypes.arrayOf(PropTypes.object).isRequired,
-    moviesByGenreId: PropTypes.func.isRequired,
-    checkboxesVisible: PropTypes.bool,
-    style: PropTypes.shape({
-      display: PropTypes.string,
-    }),
-    showCertifications: PropTypes.bool,
-    selectedGenres: PropTypes.arrayOf(PropTypes.string),
-    selectedCertifications: PropTypes.arrayOf(PropTypes.string),
-    handleFormChange: PropTypes.func,
-  };
-
-  static defaultProps = {
-    style: 'style',
-    checkboxesVisible: false,
-    selectedGenres: [],
-    selectedCertifications: [],
-    showCertifications: false,
-    handleFormChange: null,
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeButton: '',
-    };
-
-    this.handleSelectionReset = this.handleSelectionReset.bind(this);
-    this.handlePreferencesChange = this.handlePreferencesChange.bind(this);
-  }
-
-  handleActiveButton = genreName => {
-    if (genreName) {
-      this.setState({
-        activeButton: genreName,
-      });
-    } else {
-      this.setState({
-        activeButton: '',
-      });
-    }
-  };
-
-  handlePreferencesChange(e, reset) {
-    const { handleFormChange } = this.props;
-    handleFormChange(e, reset);
-  }
-
-  // =================== Unticks all checked genreboxes ==============
-
-  handleSelectionReset(e) {
-    e.preventDefault();
-    e.target.reset();
-    this.handlePreferencesChange(e, true);
-  }
-
-  render() {
-    const {
-      moviesByGenreId,
-      genres,
-      style,
-      checkboxesVisible,
-      showCertifications,
-      selectedGenres,
-      selectedCertifications,
-    } = this.props;
-    const { activeButton } = this.state;
-    const certifications = ['G', 'PG', 'PG-13', 'R', 'NC-17'];
-
-    if (showCertifications) {
-      return (
-        <div>
-          <form onSubmit={this.handleSelectionReset} id="certificationsForm">
-            <div id="list-genres">
-              {certifications.map(certification => (
-                <label className="single-genre checkmark-container" key={certification}>
-                  <input
-                    type="checkbox"
-                    name="certification"
-                    defaultChecked={selectedCertifications.includes(certification)}
-                    value={certification}
-                    onChange={this.handlePreferencesChange}
-                  />
-                  <span className="checkmark" />
-                  <span className="single-genre">{certification}</span>
-                </label>
-              ))}
-            </div>
-            <button className="reset-button" type="submit">
-              reset
-            </button>
-          </form>
-        </div>
-      );
-    }
-    if (checkboxesVisible) {
-      return (
-        <div>
-          <form onSubmit={this.handleSelectionReset} id="genrePreferencesForm">
-            <div id="list-genres">
-              {genres.map(genre => (
-                <label className="single-genre checkmark-container" key={genre._id}>
-                  <input
-                    type="checkbox"
-                    name="genre"
-                    value={genre._id}
-                    defaultChecked={selectedGenres.includes(genre._id)}
-                    onChange={this.handlePreferencesChange}
-                  />
-                  <span className="checkmark" />
-                  <span className="single-genre">{genre.translation}</span>
-                </label>
-              ))}
-            </div>
-            <button className="reset-button" type="submit">
-              reset
-            </button>
-          </form>
-        </div>
-      );
-    }
-
-    return (
-      <div id="list-genres" style={style}>
-        <button
-          className="single-genre"
-          type="button"
-          key="all"
-          onClick={() => moviesByGenreId('all')}
-        >
-          All
-        </button>
-        {genres.map(genre => (
-          <button
-            className="single-genre"
-            type="button"
-            key={genre.technical_name}
-            style={
-              activeButton === genre.translation
-                ? { backgroundColor: '#88388c' }
-                : { backgroundColor: 'rgba(226, 217, 217, 0.0)' }
-            }
-            onClick={() => {
-              moviesByGenreId(genre._id);
-              this.handleActiveButton(genre.translation);
-            }}
-          >
-            {genre.translation}
-          </button>
+const UserCheckboxList = ({
+  options,
+  type,
+  handleChange,
+  handleReset,
+  handleSelectAll,
+}) => {
+  return (
+    <form
+      className="checkbox-form"
+      onSubmit={event => {
+        event.preventDefault();
+        handleSelectAll(type);
+      }}
+      onReset={() => {
+        handleReset(type);
+      }}
+    >
+      <div className="checkboxes">
+        {options.map(option => (
+          <span className="single-option" key={option.name}>
+            <button
+              className={`checkbox ${option.checked ? 'checked' : ''}`}
+              type="button"
+              id={option.name}
+              name={option.name}
+              onClick={() => handleChange(type, option.id)}
+            />
+            <label className="option-label" htmlFor={option.name}>
+              {option.name}
+            </label>
+            <label className="check-tick" htmlFor={option.name}>
+              <FontAwesomeIcon icon="check" />
+            </label>
+          </span>
         ))}
       </div>
-    );
-  }
-}
+      <div className="buttons">
+        <input type="submit" className="select-all" value="Select All" />
+        <input type="reset" className="reset" value="Select None" />
+      </div>
+    </form>
+  );
+};
+
+UserCheckboxList.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      checked: PropTypes.bool.isRequired,
+    }),
+  ).isRequired,
+  type: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
+  handleSelectAll: PropTypes.func.isRequired,
+};
+
+export default UserCheckboxList;
