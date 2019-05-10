@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { TrailerModal } from '.';
 import { FontAwesomeIcon, userServices, tokenServices } from '../utils';
 import '../css/MovieCard.css';
-import tokenServices from '../utils/tokenServices';
-import TrailerModal from "./TrailerModal"
 
 class MovieCard extends Component {
   static propTypes = {
@@ -206,12 +205,14 @@ class MovieCard extends Component {
         ''
       );
 
-
     return (
       <div className="movie-card">
-        <div className="backdrop" style={{
-          backgroundImage: `url(${backdropLink})`,
-        }} />
+        <div
+          className="backdrop"
+          style={{
+            backgroundImage: `url(${backdropLink})`,
+          }}
+        />
         <TrailerModal
           trailerList={this.selectedTrailerList}
           toggleTrailer={this.toggleTrailer}
@@ -234,7 +235,7 @@ class MovieCard extends Component {
                   tabIndex={0}
                   onClick={() => this.handleAddToWatchlist(movie._id)}
                 >
-                  <FontAwesomeIcon className="watchlist-star" icon="star"/>
+                  <FontAwesomeIcon className="watchlist-star" icon="star" />
                 </div>
               )}
             </div>
@@ -248,7 +249,7 @@ class MovieCard extends Component {
           </div>
           <div className="description">
             <h4 className="directors">
-            Director(s):{' '}
+              Director(s):{' '}
               {directorList.length > 0 ? directorList.join(', ') : 'No Director Data'}
             </h4>
             <p>{overview || 'No plot summary available'}</p>

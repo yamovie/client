@@ -38,7 +38,6 @@ function addToWatchlist(userId, movieId) {
 }
 
 function getPreferences(userId) {
-  console.log('getting prefs');
   return axios.get(`${REACT_APP_SVR_API}/preferences/${userId}`);
 }
 
