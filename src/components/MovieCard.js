@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TrailerModal } from '.';
+// import { TrailerModal } from '.';
 import { FontAwesomeIcon, userServices, tokenServices } from '../utils';
 import '../css/MovieCard.css';
 
@@ -27,7 +27,7 @@ class MovieCard extends Component {
       }),
     }).isRequired,
     toggleModal: PropTypes.func.isRequired,
-    toggleTrailer: PropTypes.func.isRequired,
+    // toggleTrailer: PropTypes.func.isRequired,
   };
 
   /**
@@ -213,12 +213,12 @@ class MovieCard extends Component {
             backgroundImage: `url(${backdropLink})`,
           }}
         />
-        <TrailerModal
+        {/* <TrailerModal
           trailerList={this.selectedTrailerList}
           toggleTrailer={this.toggleTrailer}
-        />
+        /> */}
         <div className="info">
-          <button type="button" className="close-modal" onClick={toggleModal()}>
+          <button type="button" className="close-modal" onClick={toggleModal}>
             <FontAwesomeIcon icon="plus" />
           </button>
           <div className="heading">
