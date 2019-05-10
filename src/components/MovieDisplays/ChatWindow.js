@@ -441,7 +441,6 @@ class ChatWindow extends React.Component {
     enableChatClose();
     await this.botui.action
       .button({
-        // TODO: Make this answer have more options that are more clear
         action: [
           {
             value: true,
@@ -484,10 +483,6 @@ class ChatWindow extends React.Component {
     }
 
     this.lloydMessage('What ratings do you care about?', this.delays.nextQ);
-    // this.botui.message.bot({
-    //   content: 'What ratings do you care about?',
-    //   delay: this.delays.nextQ,
-    // });
     enableChatClose();
     await this.botui.action
       .button({
@@ -529,10 +524,6 @@ class ChatWindow extends React.Component {
    */
   rtQuestion = async enableChatClose => {
     this.lloydMessage('Minimum Rotten Tomatoes rating?', this.delays.response);
-    // this.botui.message.bot({
-    //   content: 'Minimum Rotten Tomatoes rating?',
-    //   delay: this.delays.response,
-    // });
     enableChatClose();
     await this.botui.action
       .button({
@@ -564,10 +555,6 @@ class ChatWindow extends React.Component {
    */
   imdbQuestion = async enableChatClose => {
     this.lloydMessage('Minimum IMDB rating?', this.delays.response);
-    // this.botui.message.bot({
-    //   content: 'Minimum IMDB rating?',
-    //   delay: this.delays.response,
-    // });
     enableChatClose();
     await this.botui.action
       .button({
