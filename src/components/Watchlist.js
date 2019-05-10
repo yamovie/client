@@ -30,9 +30,10 @@ class Watchlist extends React.Component {
 
   removeFromWatchlist(movieId) {
     const { user } = this.props;
+    const { movies } = this.state;
     axios.delete(`${REACT_APP_SVR}/users/watchlist/movies`, { data: {movieId, userId: user._id}})
       .then(() => {
-        this.setState({movies: this.state.movies.filter(movie => movie._id !== movieId)});
+        this.setState({movies: movies.filter(movie => movie._id !== movieId)});
       })
       .catch(error => {
         console.log(`The server responded with error: ${error.response.status}, ${error.response.statusText} `)
