@@ -61,7 +61,7 @@ export default class UserPreferences extends Component {
     axios
       .all([
         moviesAPI.getGenres(),
-        moviesAPI.getProviders('stream'),
+        moviesAPI.getProviders('flatrate'),
         userAPI.getPreferences(this.user._id),
       ])
       .then(
