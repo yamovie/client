@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 // import { TrailerModal } from '.';
 import { FontAwesomeIcon, userServices, tokenServices } from '../utils';
 import '../css/MovieCard.css';
+<<<<<<< HEAD
+=======
+import TrailerModal from "./TrailerModal"
+>>>>>>> staging
 
 class MovieCard extends Component {
   static propTypes = {
@@ -218,7 +222,11 @@ class MovieCard extends Component {
           toggleTrailer={this.toggleTrailer}
         /> */}
         <div className="info">
+<<<<<<< HEAD
           <button type="button" className="close-modal" onClick={toggleModal}>
+=======
+          <button type="button" className="close-modal" onClick={toggleModal()}>
+>>>>>>> staging
             <FontAwesomeIcon icon="plus" />
           </button>
           <div className="heading">
