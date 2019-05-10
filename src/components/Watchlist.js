@@ -52,7 +52,7 @@ class Watchlist extends React.Component {
                 <div className="watchlist-movie">
                   <img src={movie.images.poster} className="img-fluid" alt="movie" />
                   <button type="button" className="watchlist-remove-btn" onClick={() => this.removeFromWatchlist(movie._id)}>
-                    <FontAwesomeIcon icon={faMinusCircle} /> Remove from list
+                    <FontAwesomeIcon icon={faMinusCircle} /> Remove
                   </button>
                 </div>
               ))

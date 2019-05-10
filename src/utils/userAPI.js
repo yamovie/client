@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const { REACT_APP_SVR_USERS } = process.env;
+const { REACT_APP_SVR_USERS, REACT_APP_SVR_PREFS } = process.env;
 
 /**
  * Axios call to database to signup user
@@ -30,7 +30,23 @@ function login(creds) {
 
 function addToWatchlist(userId, movieId) {
   // add to user watchlist
-  return axios.post(`${REACT_APP_SVR_USERS}/watchlist`, { userId, movieId},
+  return axios.post(
+    `${REACT_APP_SVR_USERS}/watchlist`,
+    { userId, movieId },
+    { headers: new Headers({ 'Content-Type': 'application/json' }) },
+  );
+}
+
+function getPreferences(userId) {
+  return axios.get(`${REACT_APP_SVR_PREFS}`, {
+    params: { userId },
+  });
+}
+
+function updatePreferences(userId, newPrefs) {
+  return axios.patch(
+    `${REACT_APP_SVR_PREFS}/update`,
+    { newPrefs, userId },
     { headers: new Headers({ 'Content-Type': 'application/json' }) },
   );
 }
@@ -39,4 +55,6 @@ export default {
   signup,
   login,
   addToWatchlist,
+  getPreferences,
+  updatePreferences,
 };

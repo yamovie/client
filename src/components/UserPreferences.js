@@ -1,11 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import GenreList from './GenreList';
 import ToggleSwitch from './ToggleSwitch';
-import { getUserFromToken } from '../utils/tokenServices';
-
-const { REACT_APP_SVR_API, REACT_APP_SVR_PREFS } = process.env;
+import { moviesAPI, tokenServices, userAPI } from '../utils';
 
 const YearDropdown = ({
   name,
@@ -22,29 +19,27 @@ const YearDropdown = ({
   }
 
   return (
-    <>
-      <select name={name} onChange={handlePreferencesChange}>
-        {selectedMinYear
-          ? listOfYears.reverse().map(year =>
-            selectedMinYear === year ? (
-              <option value={year} selected>
-                {year}
-              </option>
-            ) : (
-              <option value={year}>{year}</option>
-            ),
-          )
-          : listOfYears.map(year =>
-            selectedMaxYear === year ? (
-              <option value={year} selected>
-                {year}
-              </option>
-            ) : (
-              <option value={year}>{year}</option>
-            ),
-          )}
-      </select>
-    </>
+    <select name={name} onChange={handlePreferencesChange}>
+      {selectedMinYear
+        ? listOfYears.reverse().map(year =>
+          selectedMinYear === year ? (
+            <option value={year} selected>
+              {year}
+            </option>
+          ) : (
+            <option value={year}>{year}</option>
+          ),
+        )
+        : listOfYears.map(year =>
+          selectedMaxYear === year ? (
+            <option value={year} selected>
+              {year}
+            </option>
+          ) : (
+            <option value={year}>{year}</option>
+          ),
+        )}
+    </select>
   );
 };
 
@@ -92,47 +87,39 @@ class UserPreferences extends React.Component {
   // =================== Grabs Genre List from API ==============
 
   componentDidMount() {
-    const user = getUserFromToken();
+    const user = tokenServices.getUserFromToken();
     const userId = user._id;
     const { preferences, genres, pageIsLoading } = this.state;
 
     if (!genres.length) {
-      axios
-        .get(`${REACT_APP_SVR_API}/genres`)
+      moviesAPI
+        .getGenres()
         .then(response => this.setState({ genres: response.data, pageIsLoading: false }));
     }
 
     if (pageIsLoading) {
-      axios
-        .get(`${REACT_APP_SVR_PREFS}`, {
-          params: { userId },
-        })
-        .then(response => {
-          const updatedPreferences = {
-            ...preferences,
-            ...response.data.preferences,
-          };
+      userAPI.getPreferences(userId).then(response => {
+        const updatedPreferences = {
+          ...preferences,
+          ...response.data.preferences,
+        };
 
-          this.setState({
-            preferences: updatedPreferences,
-            pageIsLoading: false,
-          });
+        this.setState({
+          preferences: updatedPreferences,
+          pageIsLoading: false,
         });
+      });
     }
   }
 
   componentDidUpdate() {
     const { preferences, prefUpdatesQueued } = this.state;
-    const user = getUserFromToken();
+    const user = tokenServices.getUserFromToken();
     const userId = user._id;
 
     if (prefUpdatesQueued) {
-      axios
-        .put(
-          `${REACT_APP_SVR_PREFS}/update`,
-          { preferences, userId },
-          { headers: new Headers({ 'Content-Type': 'application/json' }) },
-        )
+      userAPI
+        .updatePreferences(userId, preferences)
         .then(() => this.setState({ prefUpdatesQueued: false }));
     }
   }
@@ -292,7 +279,7 @@ class UserPreferences extends React.Component {
                   type="range"
                   min="0"
                   max="100"
-                  defaultValue={rottenRating}
+                  defaultValue={0}
                   onChange={this.handlePreferencesChange}
                   id="rt-slider"
                 />

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from '.';
 import userServices from '../utils/userServices';
-import Swal from 'sweetalert2';
 import '../css/Login.css';
 
 class Login extends Component {
@@ -44,19 +44,19 @@ class Login extends Component {
         });
         history.push('/');
       })
-      .catch(err => 
+      .catch(err =>
         Swal.fire({
           position: 'top-end',
           type: 'error',
           text: err,
           showConfirmButton: false,
           timer: 1000,
-        })
+        }),
       );
   };
 
   render() {
-    const { email, pw, message } = this.state;
+    const { email, pw } = this.state;
     return (
       <div className="login-page">
         <div className="login">

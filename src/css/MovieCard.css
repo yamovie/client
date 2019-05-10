@@ -8,7 +8,7 @@
 .movie-card {
   display: flex;
   justify-content: center;
-  padding: 3vh 0px;
+  padding: 35px 0px;
   z-index: 10;
   position: fixed;
   width: 100%;
@@ -29,6 +29,8 @@
   z-index: -1;
   overflow: hidden;
   background-color: var(--purple);
+  background-position-x: 15vw;
+  background-size: cover;
 }
 
 .movie-card .backdrop img {
@@ -46,13 +48,15 @@
   position: absolute;
 }
 
+
+
 /* ======================================================= */
 /* ======================================================= */
 /* Info section */
 
 .movie-card .info {
   border-radius: 20px;
-  background: linear-gradient(to top, var(--offwhite) 50%, transparent 100%);
+  background: linear-gradient(to right, var(--offwhite) 50%, transparent 100%);
   position: absolute;
   height: var(--modalheight);
   width: var(--modalwidth);
@@ -62,14 +66,20 @@
   justify-content: space-between;
 }
 
+/* iPhoneX screen width */
+@media only screen and (max-width: 375px) {
+  .movie-card .info {
+    
+  }
+}
+
 /* ======================================================= */
 /* Info Heading */
 
 .movie-card .info .heading {
-  margin-top: 13%;
   position: relative;
-  padding: 0px 25px;
-  height: 30%;
+  padding: 25px;
+  height: 45%;
   overflow: hidden;
 }
 
@@ -81,27 +91,17 @@
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
 }
 
-.movie-card #line1 {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+@media only screen and (max-width: 600px) {
+  .movie-card .heading .poster {
+    display: none;
+  }
 }
 
 .movie-card .heading h1 {
   color: var(--darkgrey);
   font-weight: 500;
   margin: 0;
-  font-size: 3vw;
-}
-
-.movie-card #line1 .certification {
-  margin-left: 10px;
-  padding: 4px;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  font-size: 1.2vw;
-  font-weight: bold;
-  text-shadow: 0.25px 0.25px 0.25px var(--red);
+  font-size: calc(12px + 2vw);
 }
 
 .movie-card .heading h4 {
@@ -110,52 +110,95 @@
   font-size: 1.8vw;
 }
 
-.movie-card .heading .genres {
-  display: inline-block;
+.movie-card #line1 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.movie-card #line1 p {
   margin-left: 10px;
+  font-size: calc(12px + 1vw);
+}
+
+
+.movie-card #line2 {
+  display: flex;
+  align-items: center;
+  height: 20%;
+  margin: 5px 0px;
+  padding: 5px 0;
+
+}
+
+.movie-card #line2 .certification {
+  margin-right: 5px;
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: calc(12px + .8vw);
+  font-weight: bold;
+}
+
+.movie-card .heading .genres {
+  padding: 5px 0;
+  height: 30%;
+  display: inline-block;
   color: var(--lightgrey);
-  font-size: 2vw;
+  font-size: calc(12px + .5vw);
 }
 
 .movie-card .heading .runtime {
   display: inline-block;
-  /* margin-top: 15px; */
+  margin-right: 5px;
   padding: 5px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  font-size: 1.7vw;
+  font-size: calc(12px + .8vw);
 }
 
 /* ======================================================= */
 /* Info Description */
 
+.movie-card .directors {
+  height: 10%;
+  font-size: calc(12px + .5vw);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 70%;
+}
+
 .movie-card .description {
   color: var(--darkgrey);
-  padding: 15px 25px;
+  /* padding: 0 10px 10px; */
+  padding: 0px 25px 25px 25px;
   overflow: hidden;
-  height: 40%;
+  height: 55%;
+  color: var(--midgrey);
 }
 
 .movie-card .description p {
   margin: 0;
-  font-size: 1.8vw;
+  font-size: calc(12px + 1vw);
+  overflow: auto;
+  height: 100%;
+  width: 70%;
+}
+
+/* iPhoneX screen width */
+@media only screen and (max-width: 375px) {
+  .movie-card .description p {
+    width: 100%;
+  }
 }
 
 /* ======================================================= */
 /* Info Ratings */
 
-.movie-card #line2 {
-  display: flex;
-  align-items: center;
-  height: 1.4em;
-  margin: 5px 0px;
-}
-
 .movie-card #ratings {
   display: flex;
   justify-content: space-evenly;
-  margin-left: 15px;
-  font-size: 1.8vh;
   overflow: hidden;
 }
 
@@ -165,46 +208,40 @@
 }
 
 .movie-card #ratings li img {
-  height: 1.5vw;
-  margin-right: 4px;
+  height: 3vh;
+  margin-right: 3px;
 }
 
 .movie-card #ratings li a {
   text-decoration: none;
   color: var(--darkgrey);
-  font-size: 1.5vw;
+  font-size: calc(12px + .8vw);
   display: flex;
 }
 
 /* ======================================================= */
 /* Info Streams */
 
-.movie-card #streams {
+.movie-card .streams {
+  height: 30%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  height: 12%;
-  margin: 5px 25px;
 }
 
-.movie-card #streams h3 {
-  margin: 0;
-  font-size: 2.5vh;
-}
-
-.movie-card #streams .offer {
+.movie-card .streams .offer {
+  /* border: 2px solid var(--purple); */
+  border-radius: 5px;
   overflow: hidden;
-  border-radius: 5px;
-  margin: 3px;
-  height: 70%;
-  align-items: center;
+  height: 55%;
+  margin-right: 10px;
 }
 
-.movie-card #streams .offer img {
-  border: 2px solid var(--purple);
-  border-radius: 5px;
+.movie-card .streams .offer img {
   height: 100%;
+}
+
+.movie-card .streams h3 {
+  font-size: calc(12px + 1.2vw);
 }
 
 /* ======================================================= */
@@ -216,35 +253,78 @@
   right: 0px;
   z-index: 1;
   border-radius: 20px;
-  width: 30px;
-  height: 30px;
+  border: solid;
+  border-color: var(--offwhite);
+  border-width: 1.0px;
+  width: 40px;
+  height: 40px;
+  transition: all .3s ease-in-out;
+}
+
+.movie-card .close-modal:hover {
+  transform: scale(1.1) rotate(45deg);
+}
+
+.movie-card .close-modal:focus {
+  outline: none;
+  border: 2px solid var(--purple);
 }
 
 .movie-card button {
-  font-size: 1.3rem;
+  font-size: calc(12px + .8vw);
   margin: 10px;
-  background-color: var(--purple);
+  background-color: var(--darkgrey);
   color: var(--offwhite);
   border-radius: 5px;
-  border-color: var(--red);
+  border: none;
+  transform: rotate(45deg);
+}
+
+/* iPad screen width */
+@media only screen and (max-width: 768px) {
+  .movie-card .close-modal {
+    width: 30px;
+    height: 30px;
+  }
+
+  .movie-card button {
+    
+  }
+}
+
+/* ======================================================= */
+/* Trailer Button*/
+
+.movie-feed-item .trailer-button {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: blue;
+  font-size: 1em;
+  height: 15%;
+  display: none;
 }
 
 
 /* ======================================================= */
 /* Watchlist Button*/
+
 .watchlist {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+    height: 100%;
     border: none;
-    margin: 0;
+    margin-left: 10px;
     text-decoration: none;
     background-color: none;
-    color: var(--purple)
+    /* color: var(--purple); */
 }
 
 .watchlist:hover {
-  color: var(--red)
+  color: gold;
+}
+
+.watchlist::after {
+  color: gold;
 }
 
 /* ======================================================= */
