@@ -5,6 +5,7 @@
   --background: var(--midgrey);
   --hover-color: var(--popcornyellow);
 
+  overflow: hidden;
   width: 85%;
   border-radius: var(--edge-curve);
   background-color: var(--background);
@@ -107,3 +108,27 @@
 }
 
 /* ======================================================= */
+/* Responsiveness */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .checkboxes {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Medium devices (tablets portrait, 768px and up)  */
+@media (max-width: 768px) {
+  .checkboxes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1200px) {
+}

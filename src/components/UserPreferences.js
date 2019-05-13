@@ -57,6 +57,8 @@ export default class UserPreferences extends Component {
 
     this.initialPrefs = {};
 
+    this.waitingForAPI = true;
+
     this.state = {
       userId: '',
       certifications: { G: false, PG: false, 'PG-13': false, R: false, 'NC-17': false },
@@ -114,6 +116,7 @@ export default class UserPreferences extends Component {
             ...this.initialPrefs,
             userId: this.user._id,
           });
+          this.waitingForAPI = false;
         }),
       );
   }
@@ -126,6 +129,15 @@ export default class UserPreferences extends Component {
    * in the database corresponding to the current user.
    */
   handleSavePrefs = () => {
+    if (this.waitingForAPI) return;
+    SweetAlert.fire({
+      position: 'top',
+      type: 'info',
+      text: 'Sending preferences to be saved!',
+      showConfirmButton: false,
+      timer: 900,
+    });
+    this.waitingForAPI = true;
     userAPI.updatePreferences(this.user._id, this.state).then(() => {
       SweetAlert.fire({
         position: 'top',
@@ -135,6 +147,7 @@ export default class UserPreferences extends Component {
         timer: 900,
       });
       this.initialPrefs = this.state;
+      this.waitingForAPI = false;
     });
   };
 
@@ -142,6 +155,7 @@ export default class UserPreferences extends Component {
    * Sets the preferences to the initial state when loaded from the server
    */
   handleResetPrefs = async () => {
+    if (this.waitingForAPI) return;
     await this.setState({ ...this.initialPrefs });
     SweetAlert.fire({
       position: 'top',

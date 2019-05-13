@@ -82,4 +82,33 @@
   line-height: 3;
 }
 
+/* ======================================================= */
+/* Responsiveness */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .dashboard-page {
+    --acc-nav-width: 25%;
+    font-size: 0.7rem;
+  }
+}
+
+/* Medium devices (tablets portrait, 768px and up)  */
+@media (max-width: 768px) {
+  .dashboard-page {
+    --acc-nav-width: 22%;
+    font-size: 0.85rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1200px) {
+}
+
+/* ===================================================== */
+
 /* ===================================================== */
