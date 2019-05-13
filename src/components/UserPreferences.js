@@ -18,6 +18,30 @@ export default class UserPreferences extends Component {
       providers: { none: 'No Providers' },
     };
 
+    this.displayIcons = {
+      certifications: {},
+      providers: {},
+      genres: {
+        '5cd5ab80e1555e05969c5717': '🏃‍💥', // Action Adventure
+        '5cd5ab80e1555e05969c5718': '🐭🐲', // Animation
+        '5cd5ab80e1555e05969c5719': '😂😝', // Comedy
+        '5cd5ab80e1555e05969c571a': '🔫💰', // Crime
+        '5cd5ab80e1555e05969c571b': '🤓📑', // Documentary
+        '5cd5ab80e1555e05969c571c': '🎭😮', // Drama
+        '5cd5ab80e1555e05969c571d': '🧝‍🧙‍', // Fantasy
+        '5cd5ab80e1555e05969c571e': '📚🕖', // History
+        '5cd5ab80e1555e05969c571f': '😱🔪', // Horror
+        '5cd5ab80e1555e05969c5720': '👨‍👨‍👧👩‍👩‍👦', // Kids & Family
+        '5cd5ab80e1555e05969c5721': '🎤🎶', // Music & Musical
+        '5cd5ab80e1555e05969c5722': '🤔😲', // Mystery & Thriller
+        '5cd5ab80e1555e05969c5723': '🌹😍', // Romance
+        '5cd5ab80e1555e05969c5724': '👽🤖', // Science-Fiction
+        '5cd5ab80e1555e05969c5725': '🤾‍🏅', // Sport & Fitness
+        '5cd5ab80e1555e05969c5726': '🏹💣', // War & Military
+        '5cd5ab80e1555e05969c5727': '🤠🐴', // Western
+      },
+    };
+
     this.defaults = {
       off: {
         certifications: { G: false, PG: false, 'PG-13': false, R: false, 'NC-17': false },
@@ -30,6 +54,8 @@ export default class UserPreferences extends Component {
         providers: {},
       },
     };
+
+    this.initialPrefs = {};
 
     this.state = {
       userId: '',
@@ -72,16 +98,20 @@ export default class UserPreferences extends Component {
             this.nameMaps.genres[genre._id] = genre.translation;
           });
           provResp.data.forEach(provider => {
+            const sizedIcon = provider.icon_url.replace('{profile}', 's50');
+            const imgLink = `https://images.justwatch.com${sizedIcon}`;
             if (provider.display_priority <= 20) {
               this.defaults.off.providers[provider._id] = false;
               this.defaults.on.providers[provider._id] = true;
               this.nameMaps.providers[provider._id] = provider.clear_name;
+              this.displayIcons.providers[provider._id] = imgLink;
             }
           });
+          this.initialPrefs = prefResp.data.preferences;
           this.setState({
             genres: this.defaults.off.genres,
             providers: this.defaults.off.providers,
-            ...prefResp.data.preferences,
+            ...this.initialPrefs,
             userId: this.user._id,
           });
         }),
@@ -104,6 +134,20 @@ export default class UserPreferences extends Component {
         showConfirmButton: false,
         timer: 900,
       });
+    });
+  };
+
+  /**
+   * Sets the preferences to the initial state when loaded from the server
+   */
+  handleResetPrefs = async () => {
+    await this.setState({ ...this.initialPrefs });
+    SweetAlert.fire({
+      position: 'top',
+      type: 'success',
+      text: 'Preferences Successfully Reset!',
+      showConfirmButton: false,
+      timer: 900,
     });
   };
 
@@ -153,6 +197,7 @@ export default class UserPreferences extends Component {
         id: iDkey,
         name: this.nameMaps[prefSection][iDkey],
         checked: stateSection[iDkey],
+        icon: this.displayIcons[prefSection][iDkey],
       });
     });
     return displayList;
@@ -184,9 +229,14 @@ export default class UserPreferences extends Component {
       <div className="account-pane preferences-pane">
         <h1>
           Preferences
-          <button type="button" className="save" onClick={this.handleSavePrefs}>
-            Save
-          </button>
+          <div className="pref-controls">
+            <button type="button" className="save" onClick={this.handleSavePrefs}>
+              Save
+            </button>
+            <button type="button" className="reset" onClick={this.handleResetPrefs}>
+              Reset
+            </button>
+          </div>
         </h1>
         <h4>Select what streaming services you have:</h4>
         <UserCheckboxList

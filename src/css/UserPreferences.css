@@ -23,20 +23,36 @@
   justify-content: space-between;
 }
 
-.preferences-pane .save {
+.preferences-pane .pref-controls {
+  display: flex;
+  align-items: center;
+}
+
+.preferences-pane .pref-controls .save,
+.preferences-pane .pref-controls .reset {
   cursor: pointer;
   font-size: 1rem;
   padding: 7px 14px;
+  margin-left: 5px;
   outline: none;
-  background-color: var(--red);
-  color: var(--offwhite);
   border-radius: 10px;
   border: 0.5px solid var(--midgrey);
+  color: var(--darkgrey);
 }
 
-.preferences-pane .save:active {
-  background-color: var(--popcornyellow);
-  color: var(--darkgrey);
+.preferences-pane .pref-controls .save {
+  /* background-color: var(--popcornyellow); */
+  background-color: hsl(221, 71%, 51%);
+}
+
+.preferences-pane .pref-controls .reset {
+  background-color: var(--red);
+}
+
+.preferences-pane .pref-controls .save:active,
+.preferences-pane .pref-controls .reset:active {
+  background-color: var(--purple);
+  color: var(--offwhite);
 }
 
 .preferences-pane h4 {

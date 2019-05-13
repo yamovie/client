@@ -2,10 +2,12 @@
 
 .checkbox-form {
   --edge-curve: 10px;
+  --background: var(--midgrey);
+  --hover-color: var(--popcornyellow);
 
   width: 85%;
   border-radius: var(--edge-curve);
-  background-color: var(--midgrey);
+  background-color: var(--background);
   color: var(--offwhite);
   font-size: 1.1rem;
   margin: 10px;
@@ -14,74 +16,52 @@
 /* ======================================================= */
 
 .checkboxes {
-  --hover-color: var(--popcornyellow);
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
   padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 /* ======================================================= */
 
 .single-option {
-  position: relative;
+  outline: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  justify-content: center;
+
+  margin: 5px;
+  padding: 5px;
+  min-height: 3.5rem;
+
+  border-radius: 15px;
+  border: 1px solid var(--background);
 }
 
-.single-option .check-tick {
-  cursor: pointer;
-  position: absolute;
-  font-weight: bold;
-  left: 16px;
-  top: 17px;
-}
-
-.single-option .option-label {
-  cursor: pointer;
-  padding: 8px 0px;
-}
-
-.single-option:hover .check-tick {
-  color: var(--hover-color);
-}
-
-.single-option:hover .option-label {
-  text-shadow: 0.8px 0.8px 0.5px var(--red);
-  color: var(--hover-color);
-}
-
-.single-option:hover .checkbox {
-  background-color: var(--hover-color);
-}
-
-.single-option .checkbox {
-  appearance: none;
-  cursor: pointer;
-  height: 25px;
-  width: 25px;
-  background-color: var(--offwhite);
+.single-option.checked {
   border: 1px solid var(--darkgrey);
-  border-radius: 3px;
-  margin-right: 4px;
-}
-
-.single-option .checkbox.checked {
   background-color: var(--purple);
+  opacity: 0.9;
 }
 
-.single-option .checkbox:focus {
-  outline: none;
+.single-option:hover,
+.single-option:focus {
+  color: var(--hover-color);
+  border: 1px solid var(--hover-color);
+}
+
+.single-option .icon {
+  border-radius: 5px;
+  margin-right: 7px;
+  margin-left: 5px;
+  height: 1.5em;
 }
 
 /* ======================================================= */
 /* Buttons */
 
 .checkbox-form .buttons {
-  --edge-border: 0.5px solid var(--darkgrey);
+  --edge-border: 0.75px solid var(--darkgrey);
 
   display: flex;
   border-radius: 0px 0px var(--edge-curve) var(--edge-curve);
@@ -117,7 +97,8 @@
   cursor: pointer;
   opacity: 0.8;
   border: none;
-  box-shadow: 0px 1px 1px 1px var(--red);
+  color: var(--hover-color);
+  box-shadow: 0px 1px 1px 1px var(--hover-color);
 }
 
 .checkbox-form .reset:focus,
