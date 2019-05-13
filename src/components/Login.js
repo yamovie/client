@@ -29,7 +29,7 @@ class Login extends Component {
   };
 
   handleSubmit = e => {
-    const { handleLogin, history } = this.props;
+    const { handleLogin } = this.props;
     e.preventDefault();
     userServices
       .login(this.state)
@@ -40,17 +40,16 @@ class Login extends Component {
           type: 'success',
           text: 'Successful Login',
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1300,
         });
-        history.push('/');
       })
       .catch(err =>
         Swal.fire({
           position: 'top-end',
           type: 'error',
-          text: err,
+          text: 'Invalid Credentials!',
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1300,
         }),
       );
   };

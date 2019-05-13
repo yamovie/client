@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const { REACT_APP_SVR_USERS, REACT_APP_SVR_PREFS } = process.env;
+const { REACT_APP_SVR_USERS, REACT_APP_SVR_API } = process.env;
 
 /**
  * Axios call to database to signup user
@@ -11,7 +11,7 @@ function signup(user) {
   return axios.post(
     `${REACT_APP_SVR_USERS}/signup`,
     { email: user.email, fullName: user.fullName, password: user.pw },
-    { headers: new Headers({ 'Content-Type': 'application/json' }) },
+    { headers: { 'Content-Type': 'application/json' } },
   );
 }
 
@@ -24,7 +24,7 @@ function login(creds) {
   return axios.post(
     `${REACT_APP_SVR_USERS}/login`,
     { email: creds.email, pw: creds.pw },
-    { headers: new Headers({ 'Content-Type': 'application/json' }) },
+    { headers: { 'Content-Type': 'application/json' } },
   );
 }
 
@@ -33,21 +33,19 @@ function addToWatchlist(userId, movieId) {
   axios.post(
     `${REACT_APP_SVR_USERS}/watchlist`,
     { userId, movieId },
-    { headers: new Headers({ 'Content-Type': 'application/json' }) },
-  )
+    { headers: { 'Content-Type': 'application/json' } },
+  );
 }
 
 function getPreferences(userId) {
-  return axios.get(`${REACT_APP_SVR_PREFS}`, {
-    params: { userId },
-  });
+  return axios.get(`${REACT_APP_SVR_API}/preferences/${userId}`);
 }
 
 function updatePreferences(userId, newPrefs) {
   return axios.patch(
-    `${REACT_APP_SVR_PREFS}/update`,
-    { newPrefs, userId },
-    { headers: new Headers({ 'Content-Type': 'application/json' }) },
+    `${REACT_APP_SVR_API}/preferences/${userId}`,
+    { newPrefs },
+    { headers: { 'Content-Type': 'application/json' } },
   );
 }
 

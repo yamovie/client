@@ -1,20 +1,57 @@
-.account-wrapper {
+@import './style-variables.css';
+
+.dashboard-page {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  min-height: calc(100vh - var(--nav-height));
+
+  --acc-nav-width: 18%;
 }
 
-.account-page {
-  padding: 20px;
-  width: 85%;
+.dashboard-page .account-pane {
+  padding: 15px;
+  width: calc(100% - var(--acc-nav-width));
+  background-color: var(--darkgrey);
 }
+
+/* ===================================================== */
+/* Nav Sidebar */
 
 .account-nav {
-  display: flex;
-  justify-content: center;
   background: var(--offwhite);
-  padding: 0 25px;  
-  width: 15%;
-  min-height: 100vh;
+  padding: 15px;
+  width: var(--acc-nav-width);
+  position: sticky;
+  top: var(--nav-height);
+  height: calc(100vh - var(--nav-height));
+  line-height: 1.5;
+  color: var(--darkgrey);
+}
+
+.account-nav .user-name,
+.account-nav .nav-link {
+  padding: 5px 10px;
+}
+
+.account-nav .user-name {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.account-nav .nav-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--midgrey);
+  margin: 10px 0px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.account-nav .nav-link.active {
+  background-color: var(--purple);
+  color: var(--offwhite);
 }
 
 .account-nav ul {
@@ -28,61 +65,7 @@
 .account-nav ul li a {
   text-decoration: none;
   font-size: 18px;
-  color: var(--darkgrey)
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input[type=checkbox] {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.switch input[type=checkbox]:checked + .slider {
-  background: green;
-}
-
-.switch input[type=checkbox]:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-.slider {
-  border-radius: 34px;
-  box-sizing: border-box;
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--red);
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  left: 4px;
-  bottom: 4px;
-  width: 26px;
-  height: 26px;
-  background-color: white;
-  transition: .4s;
-  -webkit-transition: .4s;
-  border-radius: 50%;
-}
-
-.white {
-  color: var(--offwhite);
+  color: var(--darkgrey);
 }
 
 .account-title {
@@ -99,24 +82,17 @@
   line-height: 3;
 }
 
-.single-genre {
-  font-size: 17px;
-  color: var(--offwhite)
-}
-
-/*
-======================= Account Settings ===========================
+/* 
+============================== Account Settings ============================================
 */
+.form-input-group label {
+display: flex;
+}
 
 .account-settings-form {
   width: 30%;
   display: flex;
   flex-direction: column;
-}
-
-.account-settings-form input {
-  padding: 5px;
-  margin-bottom: 15px;
 }
 
 .account-settings-form label {
@@ -127,6 +103,31 @@
 .account-settings-form button {
   max-width: 100px;
   padding: 5px;
+}
+
+.password-field {
+  position: relative;
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+.password-field input {
+  padding-right: 25px;
+  border-radius: 10px;
+  border: none;
+}
+
+.show-password-toggle {
+  position: absolute;
+  font-size: 18px;
+  right: 5px;
+  transform: translateY(25%);
+  cursor: pointer;
+}
+
+.account-settings-form input {
+  padding: 8px;
+  width: 100%;
 }
 
 /*
@@ -245,3 +246,4 @@
 .top-label {
   display: block;
 }
+/* ===================================================== */

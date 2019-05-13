@@ -1,29 +1,28 @@
+// TODO: Remove this later
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import '../css/main.css';
-import '../css/UserDashboardPage.css';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import AccountNav from '../components/AccountNav';
-import UserPreferences from '../components/UserPreferences';
-import Watchlist from '../components/Watchlist';
-// import AccountSettings from '../components/AccountSettings';
+import { AccountNav, AccountSettings, UserPreferences, Watchlist } from '../components';
+import '../css/UserDashboardPage.css';
 
 class userDashboardPage extends Component {
+  static propTypes = {
+    match: PropTypes.shape(Object).isRequired,
+    user: PropTypes.shape(Object).isRequired,
+  };
+
   render() {
     const { match, user } = this.props;
     return (
-      <div>
-        <div className="account-wrapper">
-          <AccountNav />
-          <Switch>
-            <Route  exact path={`${match.url}/preferences`} render={({ props }) =>  <UserPreferences {...props} user={user} />} />
-            <Route  exact path={`${match.url}`} render={({ props }) =>  <Watchlist {...props} user={user} />} />
-            {/* <Route  exact path={`${match.url}/settings`} render={({ props }) =>  <AccountSettings {...props} user={user} />} /> */}
-          </Switch>
-  
-        </div>
+      <div className="dashboard-page">
+        <AccountNav user={user} />
+        <Switch>
+          <Route  exact path={`${match.url}`} render={({ props }) =>  <Watchlist {...props} user={user} />} />
+          <Route  exact path={`${match.url}/preferences`} render={({ props }) =>  <UserPreferences {...props} user={user} />} />
+          {/* <Route  exact path={`${match.url}/settings`} render={({ props }) =>  <AccountSettings {...props} user={user} />} /> */}
+        </Switch>
       </div>
-
     );
   }
 }

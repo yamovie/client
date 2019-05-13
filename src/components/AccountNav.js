@@ -1,23 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const AccountNav = () => (
+const AccountNav = ({ user }) => (
   <aside className="account-nav">
-    <ul>
-      <li>
-        <NavLink to="/account/">Watchlist</NavLink>
-      </li>
-      <li>
-        <NavLink to="/account/preferences">Preferences</NavLink>
-      </li>
-      {/* 
-      TO DO: Implement account settings page, where user can change password etc. 
-      */}
-      {/* <li>
-        <NavLink to="/account/settings">Account settings</NavLink>
-      </li> */}
-    </ul>
+    <div className="user-name">{user.fullName}</div>
+    <NavLink className="nav-link" to="/account">
+      Watchlist
+    </NavLink>
+    <NavLink className="nav-link" to="/account/preferences" exact>
+      Preferences
+    </NavLink>
+    {/* <NavLink className="nav-link" to="/account/settings">
+      Settings
+    </NavLink> */}
   </aside>
 );
+
+AccountNav.propTypes = {
+  user: PropTypes.shape(Object).isRequired,
+};
 
 export default AccountNav;

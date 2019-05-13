@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/Watchlist.css';
@@ -44,7 +43,7 @@ class Watchlist extends React.Component {
     const { movies } = this.state;
 
     return (
-      <div className="account-page">
+      <div className="account-pane">
         <h1 className='account-title'>Your Watchlist</h1>
         {
           <div className="watchlist-wrapper">
