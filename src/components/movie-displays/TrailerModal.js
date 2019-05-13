@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../css/movieDisplays/TrailerModal.css';
+import '../../css/movie-displays/TrailerModal.css';
 
 const TrailerModal = ({ trailerList, toggleTrailer }) => {
   if (!trailerList || trailerList.length < 1) {

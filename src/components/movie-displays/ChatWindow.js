@@ -1,7 +1,7 @@
 import React from 'react';
 import Botui from 'botui-react';
 import PropTypes from 'prop-types';
-import '../../css/movieDisplays/ChatWindow.css';
+import '../../css/movie-displays/ChatWindow.css';
 
 class ChatWindow extends React.Component {
   static propTypes = {

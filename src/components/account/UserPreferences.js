@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import GenreList from '../movieDisplays/GenreList';
+import GenreList from '../movie-displays/GenreList';
 import ToggleSwitch from './ToggleSwitch';
 import { getUserFromToken } from '../../utils/tokenServices';
 

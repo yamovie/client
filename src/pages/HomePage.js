@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/cssPages/HomePage.css';
+import '../css/css-pages/HomePage.css';
 
 const background = {
   backgroundImage: "url('/images/backgrounds/landing-bg-v1.jpg')",

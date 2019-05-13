@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '../../utils/fontAwesome';
-import '../../css/movieDisplays/MovieFeedItem.css';
+import '../../css/movie-displays/MovieFeedItem.css';
 
 export default class MovieFeedItem extends Component {
   static propTypes = {

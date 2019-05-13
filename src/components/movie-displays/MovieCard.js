@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '../../utils/fontAwesome';
 import userServices from '../../utils/userServices';
-import '../../css/movieDisplays/MovieCard.css';
+import '../../css/movie-displays/MovieCard.css';
 import tokenServices from '../../utils/tokenServices';
 
 class MovieCard extends Component {
