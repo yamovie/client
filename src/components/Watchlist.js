@@ -15,10 +15,8 @@ class Watchlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [{images: { poster: "yo"}}],
-      movieDeleted: false,
+      movies: [{images: { poster: ""}}],
     }
-    this.removeFromWatchlist = this.removeFromWatchlist.bind(this);
   }
 
   componentDidMount() {
