@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '../utils/fontAwesome';
-import '../css/navbar&Toast/BurgerMenu.css';
-import '../css/navbar&Toast/Navbar.css';
+import '../css/navbarAndToast/BurgerMenu.css';
+import '../css/navbarAndToast/Navbar.css';
 
 /**
  * JSX used to render the navbar on the page. Uses flexboxes to display information and links.

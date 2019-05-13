@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import '../css/main.css';
 import '../css/cssPages/UserDashboardPage.css';
 import { Route } from 'react-router-dom';
-import AccountNav from '../components/Account/AccountNav';
-import UserPreferences from '../components/Account/UserPreferences';
+import AccountNav from '../components/account/AccountNav';
+import UserPreferences from '../components/account/UserPreferences';
 
 class userDashboardPage extends Component {
   render() {
