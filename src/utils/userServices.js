@@ -14,7 +14,7 @@ async function logout() {
     showConfirmButton: false,
     timer: 1300,
   });
-  const logout = await tokenServices.removeToken();
+  await tokenServices.removeToken();
 }
 
 /**

@@ -13,11 +13,8 @@ import {
 import { FeedbackToast, Login, Signup, Navbar } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
-import Swal from 'sweetalert2';
 
 require('dotenv').config();
-
-// import Watchlist from './components/Watchlist';
 
 class App extends Component {
   static propTypes = {

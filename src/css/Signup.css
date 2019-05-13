@@ -1,6 +1,6 @@
 .signup-page {
   background-image: url('/images/signup-bg-v1.jpg');
-  height: 100vh;
+  height: calc(100vh - var(--nav-height));
   max-width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -88,7 +88,7 @@
 
 .pw-requirements {
   font-size: 10px;
-  color: var(--lightgrey)
+  color: var(--lightgrey);
 }
 
 @media only screen and (max-width: 650px) {
