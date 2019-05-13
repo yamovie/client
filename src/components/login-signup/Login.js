@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import GoogleLogin from './GoogleLogin';
-import userServices from '../../utils/userServices';
 import Swal from 'sweetalert2';
-import '../../css/login-signup/Login.css';
+import { Link } from 'react-router-dom';
+import { GoogleLogin } from '.';
+import userServices from '../utils/userServices';
+import '../css/Login.css';
 
 class Login extends Component {
   static propTypes = {
@@ -29,7 +29,7 @@ class Login extends Component {
   };
 
   handleSubmit = e => {
-    const { handleLogin, history } = this.props;
+    const { handleLogin } = this.props;
     e.preventDefault();
     userServices
       .login(this.state)
@@ -40,23 +40,22 @@ class Login extends Component {
           type: 'success',
           text: 'Successful Login',
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1300,
         });
-        history.push('/');
       })
       .catch(err =>
         Swal.fire({
           position: 'top-end',
           type: 'error',
-          text: err,
+          text: 'Invalid Credentials!',
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1300,
         }),
       );
   };
 
   render() {
-    const { email, pw, message } = this.state;
+    const { email, pw } = this.state;
     return (
       <div className="login-page">
         <div className="login">

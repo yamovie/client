@@ -1,11 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import MovieFeed from '../components/movie-displays/MovieFeed';
-import '../css/css-pages/FindMoviePage.css';
 import { ChatWindow } from '../components';
-import { FontAwesomeIcon } from '../utils/fontAwesome';
-
-const { REACT_APP_SVR_API } = process.env;
+import { FontAwesomeIcon, moviesAPI } from '../utils';
+import '../css/FindMoviePage.css';
 
 class FindMoviePage extends React.Component {
   constructor(props) {
@@ -20,24 +18,20 @@ class FindMoviePage extends React.Component {
   }
 
   getMovieResults = dataObj => {
-    // const { history } = this.props;
-    axios
-      .post(`${REACT_APP_SVR_API}/movies/recommend`, dataObj, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+    moviesAPI
+      .getRecs(dataObj)
       .then(response => {
         this.setState({
           results: response.data.results,
           talkedToLloyd: true,
         });
-        // history.push('/recommendations');
       })
       .catch(error => console.error(error));
   };
 
   getGenreData = () => {
-    axios
-      .get(`${REACT_APP_SVR_API}/genres`)
+    moviesAPI
+      .getGenres()
       .then(response => {
         const genreIds = response.data.reduce((acc, curr) => {
           acc[curr.translation] = curr._id;
@@ -88,11 +82,7 @@ class FindMoviePage extends React.Component {
             className="top-chat-container"
             style={isExpanded ? { height: '0' } : {}}
           >
-            <img
-              className="lloyd-icon"
-              src="/images/lloyd/lloyd-black.png"
-              alt="Lloyd"
-            />
+            <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd" />
             <h1 className="lloyd-title">Lloyd Chat</h1>
           </div>
           <div

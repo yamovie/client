@@ -34,7 +34,7 @@ class Signup extends Component {
    * if successful redirect to homepage
    */
   handleSubmit = e => {
-    const { handleSignup, history } = this.props;
+    const { handleSignup } = this.props;
     e.preventDefault();
     userServices
       .signup(this.state)
@@ -43,26 +43,55 @@ class Signup extends Component {
         Swal.fire({
           position: 'top-end',
           type: 'success',
-          text: 'Successful signup',
+          text: 'Signup Successful!',
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1300,
         });
-        history.push('/');
       })
       .catch(err =>
         Swal.fire({
           position: 'top-end',
           type: 'error',
-          text: err,
+          text: 'User Already Exists!',
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1300,
         }),
       );
   };
 
-  isFormInvalid() {
+  isFormInvalid(e) {
     const { email, fullName, pw, pwConfirm } = this.state;
-    return !(fullName && email && pw === pwConfirm);
+    let emailValid;
+    let passwordValid;
+    let formValid = false;
+    if (fullName && email && pw === pwConfirm) {
+      // regex
+      emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      emailValid
+        ? checkPw(e)
+        : Swal.fire({
+            position: 'top-end',
+            type: 'error',
+            text: 'Invalid Email!',
+            showConfirmButton: false,
+            timer: 1300,
+          });
+
+      function checkPw(e) {
+        passwordValid = pw.length >= 6;
+        passwordValid
+          ? (formValid = true)
+          : Swal.fire({
+              position: 'top-end',
+              type: 'error',
+              text: 'Password is too short!',
+              showConfirmButton: false,
+              timer: 1300,
+            });
+      }
+
+      if (formValid) this.handleSubmit(e);
+    }
   }
 
   render() {
@@ -71,7 +100,7 @@ class Signup extends Component {
       <div className="signup-page">
         <div className="signup">
           <div className="form-container">
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={e => this.isFormInvalid(e)}>
               <img
                 className="popcorn-logo"
                 src="/images/yamovie/popcornKernal.png"
@@ -84,6 +113,7 @@ class Signup extends Component {
                   type="email"
                   placeholder="Email"
                   value={email}
+                  name="email"
                   onChange={e => this.handleChange('email', e)}
                 />
                 <input
@@ -91,6 +121,7 @@ class Signup extends Component {
                   type="name"
                   placeholder="First and Last Name"
                   value={fullName}
+                  name="fullName"
                   onChange={e => this.handleChange('fullName', e)}
                 />
                 <input
@@ -98,6 +129,7 @@ class Signup extends Component {
                   type="password"
                   placeholder="Password"
                   value={pw}
+                  name="pw"
                   onChange={e => this.handleChange('pw', e)}
                 />
                 <input
@@ -105,14 +137,19 @@ class Signup extends Component {
                   type="password"
                   placeholder="Password Confirmation"
                   value={pwConfirm}
+                  name="pwConfirm"
                   onChange={e => this.handleChange('pwConfirm', e)}
                 />
               </div>
+              <p className="pw-requirements">
+                {' '}
+                * password must be at least 6 characters
+              </p>
               <div className="button-container">
                 <button
                   className="signup-submit"
                   type="button"
-                  onClick={this.handleSubmit}
+                  onClick={e => this.isFormInvalid(e)}
                 >
                   {' '}
                   Signup{' '}

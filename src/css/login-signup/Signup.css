@@ -16,7 +16,7 @@
   /* background-color: var(--offwhite); */
   background-color: rgba(231, 230, 230, 0.9);
   width: 50%;
-  height: 60%;
+  height: 430px;
   margin: 0 auto;
   min-height: 400px;
   max-width: 500px;
@@ -84,6 +84,11 @@
   border-radius: 15px;
   text-align: center;
   text-decoration: none;
+}
+
+.pw-requirements {
+  font-size: 10px;
+  color: var(--lightgrey);
 }
 
 @media only screen and (max-width: 650px) {

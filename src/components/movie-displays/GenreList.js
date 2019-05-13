@@ -1,139 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../css/movie-displays/GenreList.css';
+import { moviesAPI } from '../utils';
+import '../css/GenreList.css';
 
 // Renders the genre list to the MovieList page. ==================
-class GenreList extends React.Component {
+export default class GenreList extends React.Component {
   static propTypes = {
-    genres: PropTypes.arrayOf(PropTypes.object).isRequired,
-    moviesByGenreId: PropTypes.func.isRequired,
-    checkboxesVisible: PropTypes.bool,
-    style: PropTypes.shape({
-      display: PropTypes.string,
-    }),
-    showCertifications: PropTypes.bool,
-    selectedGenres: PropTypes.arrayOf(PropTypes.string),
-    selectedCertifications: PropTypes.arrayOf(PropTypes.string),
-    handleFormChange: PropTypes.func,
+    style: PropTypes.shape({ display: PropTypes.string }),
+    handleSendGenre: PropTypes.func.isRequired,
+    activeGenre: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
-    style: 'style',
-    checkboxesVisible: false,
-    selectedGenres: [],
-    selectedCertifications: [],
-    showCertifications: false,
-    handleFormChange: null,
+    style: {},
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      activeButton: '',
+      genres: [],
     };
-
-    this.handleSelectionReset = this.handleSelectionReset.bind(this);
-    this.handlePreferencesChange = this.handlePreferencesChange.bind(this);
   }
 
-  handleActiveButton = genreName => {
-    if (genreName) {
+  componentDidMount() {
+    moviesAPI.getGenres().then(genreResp =>
       this.setState({
-        activeButton: genreName,
-      });
-    } else {
-      this.setState({
-        activeButton: '',
-      });
-    }
-  };
-
-  handlePreferencesChange(e, reset) {
-    const { handleFormChange } = this.props;
-    handleFormChange(e, reset);
+        genres: genreResp.data,
+      }),
+    );
   }
 
-  // =================== Unticks all checked genreboxes ==============
-
-  handleSelectionReset(e) {
-    e.preventDefault();
-    e.target.reset();
-    this.handlePreferencesChange(e, true);
-  }
+  // ===============================================================
 
   render() {
-    const {
-      moviesByGenreId,
-      genres,
-      style,
-      checkboxesVisible,
-      showCertifications,
-      selectedGenres,
-      selectedCertifications,
-    } = this.props;
-    const { activeButton } = this.state;
-    const certifications = ['G', 'PG', 'PG-13', 'R', 'NC-17'];
+    const { style, activeGenre, handleSendGenre } = this.props;
+    const { genres } = this.state;
 
-    if (showCertifications) {
-      return (
-        <div>
-          <form onSubmit={this.handleSelectionReset} id="certificationsForm">
-            <div id="list-genres">
-              {certifications.map(certification => (
-                <label
-                  className="single-genre checkmark-container"
-                  key={certification}
-                >
-                  <input
-                    type="checkbox"
-                    name="certification"
-                    defaultChecked={selectedCertifications.includes(
-                      certification,
-                    )}
-                    value={certification}
-                    onChange={this.handlePreferencesChange}
-                  />
-                  <span className="checkmark" />
-                  <span className="single-genre">{certification}</span>
-                </label>
-              ))}
-            </div>
-            <button className="reset-button" type="submit">
-              reset
-            </button>
-          </form>
-        </div>
-      );
-    }
-    if (checkboxesVisible) {
-      return (
-        <div>
-          <form onSubmit={this.handleSelectionReset} id="genrePreferencesForm">
-            <div id="list-genres">
-              {genres.map(genre => (
-                <label
-                  className="single-genre checkmark-container"
-                  key={genre._id}
-                >
-                  <input
-                    type="checkbox"
-                    name="genre"
-                    value={genre._id}
-                    defaultChecked={selectedGenres.includes(genre._id)}
-                    onChange={this.handlePreferencesChange}
-                  />
-                  <span className="checkmark" />
-                  <span className="single-genre">{genre.translation}</span>
-                </label>
-              ))}
-            </div>
-            <button className="reset-button" type="submit">
-              reset
-            </button>
-          </form>
-        </div>
-      );
-    }
+    const activeColor = { backgroundColor: '#88388c' };
+    const inactiveColor = { backgroundColor: 'rgba(226, 217, 217, 0.0)' };
 
     return (
       <div id="list-genres" style={style}>
@@ -141,7 +45,8 @@ class GenreList extends React.Component {
           className="single-genre"
           type="button"
           key="all"
-          onClick={() => moviesByGenreId('all')}
+          style={activeGenre === 'all' ? activeColor : inactiveColor}
+          onClick={() => handleSendGenre('all')}
         >
           All
         </button>
@@ -150,15 +55,8 @@ class GenreList extends React.Component {
             className="single-genre"
             type="button"
             key={genre.technical_name}
-            style={
-              activeButton === genre.translation
-                ? { backgroundColor: '#88388c' }
-                : { backgroundColor: 'rgba(226, 217, 217, 0.0)' }
-            }
-            onClick={() => {
-              moviesByGenreId(genre._id);
-              this.handleActiveButton(genre.translation);
-            }}
+            style={activeGenre === genre._id ? activeColor : inactiveColor}
+            onClick={() => handleSendGenre(genre._id)}
           >
             {genre.translation}
           </button>
@@ -167,5 +65,3 @@ class GenreList extends React.Component {
     );
   }
 }
-
-export default GenreList;

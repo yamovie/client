@@ -1,18 +1,25 @@
+import Swal from 'sweetalert2';
 import tokenServices from './tokenServices';
 import userAPI from './userAPI';
-import Swal from 'sweetalert2';
 
 function getUser() {
   return tokenServices.getUserFromToken();
 }
 
-function logout() {
-  tokenServices.removeToken();
+async function logout() {
+  Swal.fire({
+    position: 'top-end',
+    type: 'success',
+    text: 'Sucessfully Logged Out!',
+    showConfirmButton: false,
+    timer: 1300,
+  });
+  const logout = await tokenServices.removeToken();
 }
 
 /**
  * checks users email and password
- * @param {Object} creds 
+ * @param {Object} creds
  * @returns token
  */
 async function login(creds) {
@@ -23,7 +30,7 @@ async function login(creds) {
 
 /**
  * creates new user
- * @param {Object} user 
+ * @param {Object} user
  * @returns token
  */
 async function signup(user) {
@@ -33,30 +40,28 @@ async function signup(user) {
 }
 /**
  * Find user and send UserId and movieId
- * @param {string} movieId 
+ * @param {string} movieId
  */
 async function addToUserWatchlist(movieId) {
   const user = await getUser();
   // if user exists
   if (user) {
-    userAPI.addToWatchlist(user._id, movieId)
-    .then(res => 
+    userAPI.addToWatchlist(user._id, movieId).then(() =>
       Swal.fire({
         position: 'top-end',
         type: 'success',
         text: 'Added to Watchlist',
         showConfirmButton: false,
         timer: 1000,
-      })
+      }),
     );
   }
 }
-  
 
 export default {
   getUser,
   logout,
   login,
   signup,
-  addToUserWatchlist
+  addToUserWatchlist,
 };
