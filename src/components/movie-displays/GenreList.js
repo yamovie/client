@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { moviesAPI } from '../utils';
-import '../css/GenreList.css';
-
+import { moviesAPI } from '../../utils';
+import '../../css/movie-displays/GenreList.css';
 // Renders the genre list to the MovieList page. ==================
 export default class GenreList extends React.Component {
   static propTypes = {

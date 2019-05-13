@@ -15,6 +15,6 @@ export { default as OAuth } from './login-signup/OAuth';
 export { default as SearchBar } from './movie-displays/SearchBar';
 export { default as Signup } from './login-signup/Signup';
 export { default as TrailerModal } from './movie-displays/TrailerModal';
-export { default as UserCheckboxList } from './UserCheckboxList';
-export { default as UserPreferences } from './UserPreferences';
+export { default as UserCheckboxList } from './account/UserCheckboxList';
+export { default as UserPreferences } from './account/UserPreferences';
 export { default as Watchlist } from './account/Watchlist';

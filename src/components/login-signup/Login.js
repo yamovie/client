@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
-import { GoogleLogin } from '.';
-import userServices from '../utils/userServices';
-import '../css/Login.css';
+import GoogleLogin from './GoogleLogin';
+import userServices from '../../utils/userServices';
+import '../../css/login-signup/Login.css';
 
 class Login extends Component {
   static propTypes = {

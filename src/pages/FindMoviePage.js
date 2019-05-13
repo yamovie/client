@@ -3,7 +3,7 @@ import axios from 'axios';
 import MovieFeed from '../components/movie-displays/MovieFeed';
 import { ChatWindow } from '../components';
 import { FontAwesomeIcon, moviesAPI } from '../utils';
-import '../css/FindMoviePage.css';
+import '../css/css-pages/FindMoviePage.css';
 
 class FindMoviePage extends React.Component {
   constructor(props) {
