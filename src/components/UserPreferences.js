@@ -134,6 +134,7 @@ export default class UserPreferences extends Component {
         showConfirmButton: false,
         timer: 900,
       });
+      this.initialPrefs = this.state;
     });
   };
 

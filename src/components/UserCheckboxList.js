@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '../utils';
 import '../css/UserCheckboxList.css';
 
 const UserCheckboxList = ({

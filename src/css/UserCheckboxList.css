@@ -61,7 +61,7 @@
 /* Buttons */
 
 .checkbox-form .buttons {
-  --edge-border: 0.75px solid var(--darkgrey);
+  --edge-border: 1px solid var(--darkgrey);
 
   display: flex;
   border-radius: 0px 0px var(--edge-curve) var(--edge-curve);
