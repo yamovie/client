@@ -28,7 +28,7 @@ const HomePage = () => (
 
     <section id="info-container">
       <div className="info-card">
-        <img src="/images/sharedPics/browsing-white.png" alt="Browse" />
+        <img src="/images/shared-pics/browsing-white.png" alt="Browse" />
         <h2>Browse</h2>
         <p>
           Go through our collection of thousands of movies with up-to-date
@@ -44,7 +44,7 @@ const HomePage = () => (
         </p>
       </div>
       <div className="info-card">
-        <img src="/images/sharedPics/account-white.png" alt="Benefits" />
+        <img src="/images/shared-pics/account-white.png" alt="Benefits" />
         <h2>Account Benefits</h2>
         <p>
           By signing up with YaMovie, we can save what you enjoy so it will be

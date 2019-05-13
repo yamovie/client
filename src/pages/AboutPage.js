@@ -25,7 +25,7 @@ const AboutPage = () => (
     <div className="info">
       <div className="info-panel">
         <img
-          src="/images/sharedPics/warning-sign.png"
+          src="/images/shared-pics/warning-sign.png"
           alt="warning"
           className="about-icon"
         />
@@ -45,7 +45,7 @@ const AboutPage = () => (
       </div>
       <div className="info-panel">
         <img
-          src="/images/sharedPics/solution.png"
+          src="/images/shared-pics/solution.png"
           alt="solution"
           className="about-icon"
         />
@@ -59,7 +59,7 @@ const AboutPage = () => (
       </div>
       <div className="info-panel">
         <img
-          src="/images/sharedPics/book.png"
+          src="/images/shared-pics/book.png"
           alt="solution"
           className="about-icon"
         />
