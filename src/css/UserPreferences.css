@@ -168,6 +168,21 @@
   .preferences-pane .pref-controls .reset {
     padding: 3px 8px;
   }
+
+  .input-range__label {
+    font-size: 0.6rem;
+  }
+
+  .input-range__label--value {
+    top: -1.8rem;
+    left: -130%;
+  }
+
+  .input-range__slider {
+    height: 0.8rem;
+    width: 0.8rem;
+    margin: -0.58rem 0px 0px -0.45rem;
+  }
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -179,6 +194,21 @@
   .preferences-pane .pref-controls .save,
   .preferences-pane .pref-controls .reset {
     padding: 5px 11px;
+  }
+
+  .input-range__label {
+    font-size: 0.7rem;
+  }
+
+  .input-range__label--value {
+    top: -1.8rem;
+    left: -100%;
+  }
+
+  .input-range__slider {
+    height: 1rem;
+    width: 1rem;
+    margin: -0.68rem 0px 0px -0.5rem;
   }
 }
 

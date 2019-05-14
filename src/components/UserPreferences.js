@@ -237,8 +237,10 @@ export default class UserPreferences extends Component {
       min: ratings.metacritic.minRating,
       max: ratings.metacritic.maxRating,
     };
-    // TODO: make sure values can't be more than the min or max for the sliders
     // TODO: programmatically set the min and max year range values
+    const yearRange = { min: 1920, max: 2020 };
+    const imdbRange = { min: 0, max: 10 };
+    const rtMetaRange = { min: 0, max: 100 };
 
     return (
       <div className="account-pane preferences-pane">
@@ -279,17 +281,22 @@ export default class UserPreferences extends Component {
         />
         <h4>Select what range of movie release years you like:</h4>
         <InputRange
-          minValue={1920}
-          maxValue={2020}
+          minValue={yearRange.min}
+          maxValue={yearRange.max}
           value={relSliderVals}
           onChange={value =>
-            this.setState({ release: { minYear: value.min, maxYear: value.max } })
+            this.setState({
+              release: {
+                minYear: value.min < yearRange.min ? yearRange.min : value.min,
+                maxYear: value.max > yearRange.max ? yearRange.max : value.max,
+              },
+            })
           }
         />
         <h4>Select what range of IMDB ratings you care about:</h4>
         <InputRange
-          minValue={0}
-          maxValue={10}
+          minValue={imdbRange.min}
+          maxValue={imdbRange.max}
           step={0.1}
           value={imdbSliderVals}
           onChange={value =>
@@ -297,8 +304,14 @@ export default class UserPreferences extends Component {
               ratings: {
                 ...prevState.ratings,
                 imdb: {
-                  minRating: Math.round(10 * value.min) / 10,
-                  maxRating: Math.round(10 * value.max) / 10,
+                  minRating:
+                    value.min < imdbRange.min
+                      ? imdbRange.min
+                      : Math.round(10 * value.min) / 10,
+                  maxRating:
+                    value.max > imdbRange.max
+                      ? imdbRange.max
+                      : Math.round(10 * value.max) / 10,
                 },
               },
             }))
@@ -306,29 +319,35 @@ export default class UserPreferences extends Component {
         />
         <h4>Select what range of Rotten Tomatoes ratings you care about:</h4>
         <InputRange
-          minValue={0}
-          maxValue={100}
+          minValue={rtMetaRange.min}
+          maxValue={rtMetaRange.max}
           formatLabel={value => `${value}%`}
           value={rtSliderVals}
           onChange={value =>
             this.setState(prevState => ({
               ratings: {
                 ...prevState.ratings,
-                rottenTomatoes: { minRating: value.min, maxRating: value.max },
+                rottenTomatoes: {
+                  minRating: value.min < rtMetaRange.min ? rtMetaRange.min : value.min,
+                  maxRating: value.max > rtMetaRange.max ? rtMetaRange.max : value.max,
+                },
               },
             }))
           }
         />
         <h4>Select what range of Metacritic ratings you care about:</h4>
         <InputRange
-          minValue={0}
-          maxValue={100}
+          minValue={rtMetaRange.min}
+          maxValue={rtMetaRange.max}
           value={metaSliderVals}
           onChange={value =>
             this.setState(prevState => ({
               ratings: {
                 ...prevState.ratings,
-                metacritic: { minRating: value.min, maxRating: value.max },
+                metacritic: {
+                  minRating: value.min < rtMetaRange.min ? rtMetaRange.min : value.min,
+                  maxRating: value.max > rtMetaRange.max ? rtMetaRange.max : value.max,
+                },
               },
             }))
           }

@@ -5,7 +5,6 @@
   --background: var(--midgrey);
   --hover-color: var(--popcornyellow);
 
-  overflow: hidden;
   width: 85%;
   border-radius: var(--edge-curve);
   background-color: var(--background);
@@ -32,7 +31,7 @@
   justify-content: center;
 
   margin: 5px;
-  padding: 5px;
+  padding: 7px;
   min-height: 3.5rem;
 
   border-radius: 15px;
@@ -41,8 +40,8 @@
 
 .single-option.checked {
   border: 1px solid var(--darkgrey);
-  background-color: var(--purple);
-  opacity: 0.9;
+  /* background-color: var(--purple); */
+  background-color: hsla(297, 43%, 38%, 0.8);
 }
 
 .single-option:hover,
@@ -99,7 +98,7 @@
   opacity: 0.8;
   border: none;
   color: var(--hover-color);
-  box-shadow: 0px 1px 1px 1px var(--hover-color);
+  box-shadow: 0px 0.75px 1px 1px var(--hover-color);
 }
 
 .checkbox-form .reset:focus,
