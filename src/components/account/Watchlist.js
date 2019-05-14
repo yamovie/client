@@ -5,6 +5,7 @@ import axios from 'axios';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '../../utils/fontAwesome';
 import '../../css/account/Watchlist.css';
+import { WatchlistItem } from '..';
 
 const { REACT_APP_SVR } = process.env;
 
@@ -18,6 +19,7 @@ class Watchlist extends React.Component {
     this.state = {
       movies: [{images: { poster: ""}}],
     }
+    this.removeFromWatchlist = this.removeFromWatchlist.bind(this);
   }
 
   componentDidMount() {
@@ -47,13 +49,8 @@ class Watchlist extends React.Component {
         {
           <div className="watchlist-wrapper">
             {
-              movies.map(movie => (
-                <div className="watchlist-movie">
-                  <img src={movie.images.poster} className="img-fluid" alt="movie" />
-                  <button type="button" className="watchlist-remove-btn" onClick={() => this.removeFromWatchlist(movie._id)}>
-                    <FontAwesomeIcon icon={faMinusCircle} /> Remove
-                  </button>
-                </div>
+              movies.map((movie, i) => (
+                <WatchlistItem movie={movie} speed={100} multiplier={i} remove={this.removeFromWatchlist} />
               ))
             }
           </div>

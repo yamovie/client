@@ -8,7 +8,7 @@ const AccountNav = ({ user }) => (
     <NavLink className="nav-link" to="/account/watchlist">
       Watchlist
     </NavLink>
-    <NavLink className="nav-link" to="/account" exact>
+    <NavLink className="nav-link" to="/account/preferences" exact>
       Movie Preferences
     </NavLink>
     {/* <NavLink className="nav-link" to="/account/settings">
