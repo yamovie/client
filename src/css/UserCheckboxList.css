@@ -110,25 +110,51 @@
 /* ======================================================= */
 /* Responsiveness */
 
-/* Small devices (landscape phones, 576px and up) */
+/* Very small devices (old phones, under 576px) */
 @media (max-width: 576px) {
+  .checkbox-form {
+    font-size: 0.8rem;
+  }
+
   .checkboxes {
     display: flex;
     flex-direction: column;
   }
-}
 
-/* Medium devices (tablets portrait, 768px and up)  */
-@media (max-width: 768px) {
-  .checkboxes {
-    grid-template-columns: repeat(2, 1fr);
+  .single-option {
+    min-height: 2.5rem;
   }
 }
 
-/* Large devices (desktops, 992px and up) */
-@media (max-width: 992px) {
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 768px) {
+  .checkbox-form {
+    font-size: 1rem;
+  }
+
+  .checkboxes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .single-option {
+    min-height: 3rem;
+  }
 }
 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (max-width: 1200px) {
+/* Medium devices (tablets portrait, 768px and up)  */
+@media (min-width: 768px) and (max-width: 992px) {
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1500px) {
+  .checkboxes {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Extra large devices (large desktops, 1500px and up) */
+@media (min-width: 1500px) {
+  .checkboxes {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }

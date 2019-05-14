@@ -85,30 +85,40 @@
 /* ======================================================= */
 /* Responsiveness */
 
-/* Small devices (landscape phones, 576px and up) */
+/* Very small devices (old phones, under 576px) */
 @media (max-width: 576px) {
   .dashboard-page {
     --acc-nav-width: 25%;
     font-size: 0.7rem;
   }
+
+  .account-nav {
+    padding: 3px;
+  }
 }
 
-/* Medium devices (tablets portrait, 768px and up)  */
-@media (max-width: 768px) {
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 768px) {
   .dashboard-page {
     --acc-nav-width: 22%;
     font-size: 0.85rem;
   }
+
+  .account-nav {
+    padding: 10px;
+  }
+}
+
+/* Medium devices (tablets portrait, 768px and up)  */
+@media (min-width: 768px) and (max-width: 992px) {
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (max-width: 992px) {
+@media (min-width: 992px) and (max-width: 1500px) {
 }
 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (max-width: 1200px) {
+/* Extra large devices (large desktops, 1500px and up) */
+@media (min-width: 1500px) {
 }
-
-/* ===================================================== */
 
 /* ===================================================== */
