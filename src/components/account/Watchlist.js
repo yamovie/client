@@ -50,7 +50,7 @@ class Watchlist extends React.Component {
           <div className="watchlist-wrapper">
             {
               movies.map((movie, i) => (
-                <WatchlistItem movie={movie} speed={100} multiplier={i} remove={this.removeFromWatchlist} />
+                <WatchlistItem movie={movie} speed={50} multiplier={i} remove={this.removeFromWatchlist} />
               ))
             }
           </div>

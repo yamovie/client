@@ -22,8 +22,8 @@ export default class WatchlistItem extends React.Component {
     const { movie, remove } = this.props;
     const { render } = this.state;
     const style = {
-      WebkitAnimation: 'fadeIn 1.5s',
-      animation: 'fadeIn 1.5s',
+      WebkitAnimation: 'fadeIn 2s',
+      animation: 'fadeIn 2s',
     }
 
     return  (
