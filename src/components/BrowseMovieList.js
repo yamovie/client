@@ -28,7 +28,7 @@ export default class BrowseMovieList extends Component {
           <div className="loader" key="loader">
             <img
               style={{ height: 200 }}
-              src="./images/popcorn-loading.gif"
+              src="./images/popcorn-loader/popcorn-loading.gif"
               alt="Loading ..."
             />
           </div>

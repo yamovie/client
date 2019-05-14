@@ -1,10 +1,11 @@
 // TODO: Remove this later
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import '../css/main.css';
+import '../css/css-pages/UserDashboardPage.css';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { AccountNav, UserPreferences, Watchlist } from '../components';
-import '../css/UserDashboardPage.css';
 
 class userDashboardPage extends Component {
   static propTypes = {

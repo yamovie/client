@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import GenreList from './GenreList';
+import GenreList from './movie-displays/GenreList';
 
 import '../css/BrowseFilters.css';
 
@@ -68,7 +68,11 @@ export default class BrowseFilters extends Component {
             placeholder="Search Movies"
           />
         </form>
-        <button type="button" id="display-genre-button" onClick={this.toggleShowGenres}>
+        <button
+          type="button"
+          id="display-genre-button"
+          onClick={this.toggleShowGenres}
+        >
           Display Genres
         </button>
         <GenreList

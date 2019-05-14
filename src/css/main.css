@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
-@import './style-variables.css';
-
+@import '../css/style-variables.css';
 /* =========================== RESETS =========================== */
-
 * {
   box-sizing: border-box;
   margin: 0;
