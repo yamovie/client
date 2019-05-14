@@ -1,9 +1,7 @@
 import React from 'react';
-import axios from 'axios';
-import MovieFeed from '../components/movie-displays/MovieFeed';
-import { ChatWindow } from '../components';
-import { FontAwesomeIcon, moviesAPI } from '../utils';
-import '../css/css-pages/FindMoviePage.css';
+import { ChatWindow, MovieFeed } from '..';
+import { FontAwesomeIcon, moviesAPI } from '../../utils';
+import '../../css/pages/FindMoviePage.css';
 
 class FindMoviePage extends React.Component {
   constructor(props) {
@@ -60,13 +58,7 @@ class FindMoviePage extends React.Component {
   };
 
   render() {
-    const {
-      talkedToLloyd,
-      genreIds,
-      results,
-      mountChat,
-      isExpanded,
-    } = this.state;
+    const { talkedToLloyd, genreIds, results, mountChat, isExpanded } = this.state;
 
     return (
       <div>
@@ -78,11 +70,8 @@ class FindMoviePage extends React.Component {
           >
             <FontAwesomeIcon icon="angle-down" />
           </button>
-          <div
-            className="top-chat-container"
-            style={isExpanded ? { height: '0' } : {}}
-          >
-            <img className="lloyd-icon" src="/images/lloyd.png" alt="Lloyd" />
+          <div className="top-chat-container" style={isExpanded ? { height: '0' } : {}}>
+            <img className="lloyd-icon" src="/images/lloyd/lloyd-black.png" alt="Lloyd" />
             <h1 className="lloyd-title">Lloyd Chat</h1>
           </div>
           <div
@@ -101,11 +90,7 @@ class FindMoviePage extends React.Component {
             )}
           </div>
         </div>
-        {talkedToLloyd && results.length > 0 ? (
-          <MovieFeed movies={results} />
-        ) : (
-          ''
-        )}
+        {talkedToLloyd && results.length > 0 ? <MovieFeed movies={results} /> : ''}
         {!talkedToLloyd ? '' : ''} {/* Why is this here...? */}
         {results.length === 0 ? (
           <div>
@@ -114,8 +99,8 @@ class FindMoviePage extends React.Component {
             </h1>
             <br />
             <h3 className="findMovieh3">
-              Ask him again with different criteria so he can find YaMovie or
-              come back later because our database is always expanding!
+              Ask him again with different criteria so he can find YaMovie or come back
+              later because our database is always expanding!
             </h3>
           </div>
         ) : (

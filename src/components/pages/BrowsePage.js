@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { BrowseMovieList, BrowseFilters, MovieCard } from '../components';
-import { moviesAPI } from '../utils';
-import '../css/css-pages/BrowsePage.css';
+import { BrowseMovieList, BrowseFilters, MovieCard } from '..';
+import { moviesAPI } from '../../utils';
+import '../../css/pages/BrowsePage.css';
 
 export default class BrowsePage extends Component {
   constructor(props) {

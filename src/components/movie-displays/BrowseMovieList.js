@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
-import '../css/BrowseMovieList.css';
+import '../../css/movie-displays/BrowseMovieList.css';
 
 export default class BrowseMovieList extends Component {
   static propTypes = {

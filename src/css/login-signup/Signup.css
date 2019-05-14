@@ -1,6 +1,6 @@
 .signup-page {
+  height: calc(100vh - var(--nav-height));
   background-image: url('/images/backgrounds/signup-bg-v1.jpg');
-  height: 100vh;
   max-width: 100%;
   background-size: cover;
   background-repeat: no-repeat;

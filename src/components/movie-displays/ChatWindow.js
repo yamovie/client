@@ -76,8 +76,7 @@ class ChatWindow extends React.Component {
       delay: this.delays.initial,
     });
     await this.botui.message.bot({
-      content:
-        "I'm going to ask you a few questions so I can help you find a movie! 🎬",
+      content: "I'm going to ask you a few questions so I can help you find a movie! 🎬",
       delay: this.delays.nextQ,
     });
   };
@@ -114,10 +113,7 @@ class ChatWindow extends React.Component {
           { value: [genreIds.Thriller, genreIds.Crime], text: 'Thrilling 😲' },
           { value: [genreIds.Horror], text: 'Scary 😱' },
           {
-            value: [
-              genreIds['Action & Adventure'],
-              genreIds['Sport & Fitness'],
-            ],
+            value: [genreIds['Action & Adventure'], genreIds['Sport & Fitness']],
             text: 'Action Packed 🏃‍💥',
           },
           { value: [genreIds.Romance], text: 'Romantic 😍' },
@@ -401,10 +397,7 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(async ratingsRes => {
-        if (
-          ratingsRes.value === 'both' ||
-          ratingsRes.value === 'rotten-tomatoes'
-        ) {
+        if (ratingsRes.value === 'both' || ratingsRes.value === 'rotten-tomatoes') {
           await this.rtQuestion();
         }
         if (ratingsRes.value === 'both' || ratingsRes.value === 'imdb') {

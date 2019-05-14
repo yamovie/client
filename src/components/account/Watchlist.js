@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import '../../css/movie-displays/Watchlist.css';
+import '../../css/account/Watchlist.css';
 
 class Watchlist extends React.Component {
   constructor(props) {
@@ -25,142 +25,115 @@ class Watchlist extends React.Component {
     const movies = [
       {
         title: 'The Mule',
-        image:
-          'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
+        image: 'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
       },
       {
         title: 'Bumblebee',
-        image:
-          'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
+        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
       },
       {
         title: 'Avengers - Infinity War',
-        image:
-          'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
+        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'The Mule',
-        image:
-          'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
+        image: 'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
       },
       {
         title: 'Bumblebee',
-        image:
-          'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
+        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
       },
       {
         title: 'Avengers - Infinity War',
-        image:
-          'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
+        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'The Mule',
-        image:
-          'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
+        image: 'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
       },
       {
         title: 'Bumblebee',
-        image:
-          'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
+        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
       },
       {
         title: 'Avengers - Infinity War',
-        image:
-          'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
+        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
     ];
 
     const watchedMovies = [
       {
         title: 'Bumblebee',
-        image:
-          'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
+        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
       },
       {
         title: 'Avengers - Infinity War',
-        image:
-          'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
+        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'Bumblebee',
-        image:
-          'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
+        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
       },
       {
         title: 'Avengers - Infinity War',
-        image:
-          'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
+        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
       },
 
       {
         title: 'The Mule',
-        image:
-          'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
+        image: 'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
       },
       {
         title: 'Bumblebee',
-        image:
-          'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
+        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
       },
       {
         title: 'Avengers - Infinity War',
-        image:
-          'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
+        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
       {
         title: 'Spider Man - Into the spider-verse',
-        image:
-          'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
       },
     ];
 

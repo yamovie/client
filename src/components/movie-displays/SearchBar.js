@@ -29,7 +29,6 @@ export default class SearchBar extends Component {
 
     this.state = {
       hover: false,
-      intervalId: 0,
     };
   }
 
@@ -69,11 +68,7 @@ export default class SearchBar extends Component {
             placeholder="Search Movies"
           />
         </form>
-        <button
-          type="button"
-          id="display-genre-button"
-          onClick={this.toggleHover}
-        >
+        <button type="button" id="display-genre-button" onClick={this.toggleHover}>
           Display Genres
         </button>
         {showGenreFilter ? (

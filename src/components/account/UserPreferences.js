@@ -4,7 +4,7 @@ import InputRange from 'react-input-range';
 import SweetAlert from 'sweetalert2';
 import UserCheckboxList from './UserCheckboxList';
 import { moviesAPI, tokenServices, userAPI } from '../../utils';
-import '../../css/UserPreferences.css';
+import '../../css/account/UserPreferences.css';
 
 export default class UserPreferences extends Component {
   constructor(props) {
@@ -22,6 +22,30 @@ export default class UserPreferences extends Component {
       },
       genres: { none: 'No Genres' },
       providers: { none: 'No Providers' },
+    };
+
+    this.displayIcons = {
+      certifications: {},
+      providers: {},
+      genres: {
+        '5cd5ab80e1555e05969c5717': '🏃‍💥', // Action Adventure
+        '5cd5ab80e1555e05969c5718': '🐭🐲', // Animation
+        '5cd5ab80e1555e05969c5719': '😂😝', // Comedy
+        '5cd5ab80e1555e05969c571a': '🔫💰', // Crime
+        '5cd5ab80e1555e05969c571b': '🤓📑', // Documentary
+        '5cd5ab80e1555e05969c571c': '🎭😮', // Drama
+        '5cd5ab80e1555e05969c571d': '🧝‍🧙‍', // Fantasy
+        '5cd5ab80e1555e05969c571e': '📚🕖', // History
+        '5cd5ab80e1555e05969c571f': '😱🔪', // Horror
+        '5cd5ab80e1555e05969c5720': '👨‍👨‍👧👩‍👩‍👦', // Kids & Family
+        '5cd5ab80e1555e05969c5721': '🎤🎶', // Music & Musical
+        '5cd5ab80e1555e05969c5722': '🤔😲', // Mystery & Thriller
+        '5cd5ab80e1555e05969c5723': '🌹😍', // Romance
+        '5cd5ab80e1555e05969c5724': '👽🤖', // Science-Fiction
+        '5cd5ab80e1555e05969c5725': '🤾‍🏅', // Sport & Fitness
+        '5cd5ab80e1555e05969c5726': '🏹💣', // War & Military
+        '5cd5ab80e1555e05969c5727': '🤠🐴', // Western
+      },
     };
 
     this.defaults = {
@@ -48,6 +72,10 @@ export default class UserPreferences extends Component {
         providers: {},
       },
     };
+
+    this.initialPrefs = {};
+
+    this.waitingForAPI = true;
 
     this.state = {
       userId: '',
@@ -96,18 +124,23 @@ export default class UserPreferences extends Component {
             this.nameMaps.genres[genre._id] = genre.translation;
           });
           provResp.data.forEach(provider => {
+            const sizedIcon = provider.icon_url.replace('{profile}', 's50');
+            const imgLink = `https://images.justwatch.com${sizedIcon}`;
             if (provider.display_priority <= 20) {
               this.defaults.off.providers[provider._id] = false;
               this.defaults.on.providers[provider._id] = true;
               this.nameMaps.providers[provider._id] = provider.clear_name;
+              this.displayIcons.providers[provider._id] = imgLink;
             }
           });
+          this.initialPrefs = prefResp.data.preferences;
           this.setState({
             genres: this.defaults.off.genres,
             providers: this.defaults.off.providers,
-            ...prefResp.data.preferences,
+            ...this.initialPrefs,
             userId: this.user._id,
           });
+          this.waitingForAPI = false;
         }),
       );
   }
@@ -120,6 +153,15 @@ export default class UserPreferences extends Component {
    * in the database corresponding to the current user.
    */
   handleSavePrefs = () => {
+    if (this.waitingForAPI) return;
+    SweetAlert.fire({
+      position: 'top',
+      type: 'info',
+      text: 'Sending preferences to be saved!',
+      showConfirmButton: false,
+      timer: 900,
+    });
+    this.waitingForAPI = true;
     userAPI.updatePreferences(this.user._id, this.state).then(() => {
       SweetAlert.fire({
         position: 'top',
@@ -128,6 +170,23 @@ export default class UserPreferences extends Component {
         showConfirmButton: false,
         timer: 900,
       });
+      this.initialPrefs = this.state;
+      this.waitingForAPI = false;
+    });
+  };
+
+  /**
+   * Sets the preferences to the initial state when loaded from the server
+   */
+  handleResetPrefs = async () => {
+    if (this.waitingForAPI) return;
+    await this.setState({ ...this.initialPrefs });
+    SweetAlert.fire({
+      position: 'top',
+      type: 'success',
+      text: 'Preferences Successfully Reset!',
+      showConfirmButton: false,
+      timer: 900,
     });
   };
 
@@ -177,6 +236,7 @@ export default class UserPreferences extends Component {
         id: iDkey,
         name: this.nameMaps[prefSection][iDkey],
         checked: stateSection[iDkey],
+        icon: this.displayIcons[prefSection][iDkey],
       });
     });
     return displayList;
@@ -204,16 +264,23 @@ export default class UserPreferences extends Component {
       min: ratings.metacritic.minRating,
       max: ratings.metacritic.maxRating,
     };
-    // TODO: make sure values can't be more than the min or max for the sliders
     // TODO: programmatically set the min and max year range values
+    const yearRange = { min: 1920, max: 2020 };
+    const imdbRange = { min: 0, max: 10 };
+    const rtMetaRange = { min: 0, max: 100 };
 
     return (
       <div className="account-pane preferences-pane">
         <h1>
           Preferences
-          <button type="button" className="save" onClick={this.handleSavePrefs}>
-            Save
-          </button>
+          <div className="pref-controls">
+            <button type="button" className="save" onClick={this.handleSavePrefs}>
+              Save
+            </button>
+            <button type="button" className="reset" onClick={this.handleResetPrefs}>
+              Reset
+            </button>
+          </div>
         </h1>
         <h4>Select what streaming services you have:</h4>
         <UserCheckboxList
@@ -241,19 +308,22 @@ export default class UserPreferences extends Component {
         />
         <h4>Select what range of movie release years you like:</h4>
         <InputRange
-          minValue={1920}
-          maxValue={2020}
+          minValue={yearRange.min}
+          maxValue={yearRange.max}
           value={relSliderVals}
           onChange={value =>
             this.setState({
-              release: { minYear: value.min, maxYear: value.max },
+              release: {
+                minYear: value.min < yearRange.min ? yearRange.min : value.min,
+                maxYear: value.max > yearRange.max ? yearRange.max : value.max,
+              },
             })
           }
         />
         <h4>Select what range of IMDB ratings you care about:</h4>
         <InputRange
-          minValue={0}
-          maxValue={10}
+          minValue={imdbRange.min}
+          maxValue={imdbRange.max}
           step={0.1}
           value={imdbSliderVals}
           onChange={value =>
@@ -261,8 +331,14 @@ export default class UserPreferences extends Component {
               ratings: {
                 ...prevState.ratings,
                 imdb: {
-                  minRating: Math.round(10 * value.min) / 10,
-                  maxRating: Math.round(10 * value.max) / 10,
+                  minRating:
+                    value.min < imdbRange.min
+                      ? imdbRange.min
+                      : Math.round(10 * value.min) / 10,
+                  maxRating:
+                    value.max > imdbRange.max
+                      ? imdbRange.max
+                      : Math.round(10 * value.max) / 10,
                 },
               },
             }))
@@ -270,29 +346,35 @@ export default class UserPreferences extends Component {
         />
         <h4>Select what range of Rotten Tomatoes ratings you care about:</h4>
         <InputRange
-          minValue={0}
-          maxValue={100}
+          minValue={rtMetaRange.min}
+          maxValue={rtMetaRange.max}
           formatLabel={value => `${value}%`}
           value={rtSliderVals}
           onChange={value =>
             this.setState(prevState => ({
               ratings: {
                 ...prevState.ratings,
-                rottenTomatoes: { minRating: value.min, maxRating: value.max },
+                rottenTomatoes: {
+                  minRating: value.min < rtMetaRange.min ? rtMetaRange.min : value.min,
+                  maxRating: value.max > rtMetaRange.max ? rtMetaRange.max : value.max,
+                },
               },
             }))
           }
         />
         <h4>Select what range of Metacritic ratings you care about:</h4>
         <InputRange
-          minValue={0}
-          maxValue={100}
+          minValue={rtMetaRange.min}
+          maxValue={rtMetaRange.max}
           value={metaSliderVals}
           onChange={value =>
             this.setState(prevState => ({
               ratings: {
                 ...prevState.ratings,
-                metacritic: { minRating: value.min, maxRating: value.max },
+                metacritic: {
+                  minRating: value.min < rtMetaRange.min ? rtMetaRange.min : value.min,
+                  maxRating: value.max > rtMetaRange.max ? rtMetaRange.max : value.max,
+                },
               },
             }))
           }

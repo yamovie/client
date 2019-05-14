@@ -1,24 +1,18 @@
 import React from 'react';
-import '../css/css-pages/AboutPage.css';
+import '../../css/pages/AboutPage.css';
 
 const AboutPage = () => (
   <div className="about-page">
     <header>
       <div className="overlay" />
-      <video
-        src="/images/backgrounds/about-me-videooverlay.mp4"
-        muted
-        autoPlay
-        loop
-      />
+      <video src="/images/backgrounds/about-me-videooverlay.mp4" muted autoPlay loop />
       <div className="mission">
         <h1>Our Mission</h1>
         <p>
-          Our mission is to transform how consumers choose which movies to
-          watch. Our technology intelligently curates a unique personal
-          experience based on personality, viewing habits, and diverse interests
-          to help ensure that every person loves the next movie more than the
-          last.
+          Our mission is to transform how consumers choose which movies to watch. Our
+          technology intelligently curates a unique personal experience based on
+          personality, viewing habits, and diverse interests to help ensure that every
+          person loves the next movie more than the last.
         </p>
       </div>
     </header>
@@ -32,8 +26,8 @@ const AboutPage = () => (
         <div>
           <h3>The Problem</h3>
           <p>
-            Over 500,000 movies available. It&apos;s hard to find a movie to
-            watch with so many options across mutiple platforms.
+            Over 500,000 movies available. It&apos;s hard to find a movie to watch with so
+            many options across mutiple platforms.
             <br />
             <br />
             - 4,010 movies on Netflix 2018
@@ -52,23 +46,19 @@ const AboutPage = () => (
         <div>
           <h3>Solution</h3>
           <p>
-            YaMovie offers a way to recieve personally curated movies all in one
-            place and provide info on where to watch them.
+            YaMovie offers a way to recieve personally curated movies all in one place and
+            provide info on where to watch them.
           </p>
         </div>
       </div>
       <div className="info-panel">
-        <img
-          src="/images/shared-pics/book.png"
-          alt="solution"
-          className="about-icon"
-        />
+        <img src="/images/shared-pics/book.png" alt="solution" className="about-icon" />
         <div>
           <h3>Story</h3>
           <p>
-            Established in 2019 as part of the first Los Angeles cohort at
-            TalentPath. YaMovie was created by a team of software engineers who
-            are passionate about movies.
+            Established in 2019 as part of the first Los Angeles cohort at TalentPath.
+            YaMovie was created by a team of software engineers who are passionate about
+            movies.
           </p>
         </div>
       </div>
@@ -78,11 +68,7 @@ const AboutPage = () => (
       <div className="avatar-list">
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src="/images/team/ivy.png"
-              alt="Ivy Lim"
-              className="avatar-image"
-            />
+            <img src="/images/team/ivy.png" alt="Ivy Lim" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Ivy</h3>
           <h5 className="avatar-role">Project Manager / Software Engineer</h5>
@@ -120,11 +106,7 @@ const AboutPage = () => (
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src="/images/team/hans.png"
-              alt="Hans Hanken"
-              className="avatar-image"
-            />
+            <img src="/images/team/hans.png" alt="Hans Hanken" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Hans</h3>
           <h5 className="avatar-role">Flex / Software Engineer</h5>
@@ -134,11 +116,7 @@ const AboutPage = () => (
         </div>
         <div className="avatar-container">
           <div className="avatar-item">
-            <img
-              src="/images/team/will.png"
-              alt="Will Dale"
-              className="avatar-image"
-            />
+            <img src="/images/team/will.png" alt="Will Dale" className="avatar-image" />
           </div>
           <h3 className="avatar-name">Will</h3>
           <h5 className="avatar-role">&lsquo;HR&rsquo; / Software Engineer</h5>

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '../../utils';
-import '../../css/UserCheckboxList.css';
+import '../../css/account/UserCheckboxList.css';
 
 const UserCheckboxList = ({
   options,
@@ -21,22 +20,27 @@ const UserCheckboxList = ({
         handleReset(type);
       }}
     >
-      <div className="checkboxes">
+      <div
+        className="checkboxes"
+        style={
+          type === 'certifications'
+            ? { gridTemplateColumns: 'repeat(5,1fr)', fontWeight: 'bold' }
+            : {}
+        }
+      >
         {options.map(option => (
-          <span className="single-option" key={option.name}>
-            <button
-              className={`checkbox ${option.checked ? 'checked' : ''}`}
-              type="button"
-              id={option.name}
-              name={option.name}
-              onClick={() => handleChange(type, option.id)}
-            />
-            <label className="option-label" htmlFor={option.name}>
-              {option.name}
-            </label>
-            <label className="check-tick" htmlFor={option.name}>
-              <FontAwesomeIcon icon="check" />
-            </label>
+          <span
+            className={`single-option ${option.checked ? 'checked' : ''}`}
+            role="button"
+            tabIndex={0}
+            key={option.name}
+            onClick={() => handleChange(type, option.id)}
+            onKeyPress={e => (e.key === 'Enter' ? handleChange(type, option.id) : null)}
+          >
+            {type === 'providers' && (
+              <img className="icon" src={option.icon} alt={option.name} />
+            )}
+            {type === 'genres' ? `${option.name} ${option.icon}` : option.name}
           </span>
         ))}
       </div>
