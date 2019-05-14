@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import {
+  FeedbackToast,
+  Login,
+  Signup,
+  Navbar,
   HomePage,
   BrowsePage,
   AboutPage,
   FindMoviePage,
   NotFoundPage,
   UserDashboardPage,
-} from './pages';
-import { FeedbackToast, Login, Signup, Navbar } from './components';
+} from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
-import Swal from 'sweetalert2';
 
 require('dotenv').config();
-
-// import Watchlist from './components/Watchlist';
 
 class App extends Component {
   static propTypes = {
