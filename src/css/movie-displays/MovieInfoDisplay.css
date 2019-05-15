@@ -8,6 +8,8 @@
   line-height: 1.4;
   font-family: var(--fontfamily);
   background-color: var(--purple);
+  background-size: cover;
+  background-position-x: 20vw;
   color: var(--midgrey);
   z-index: 10;
   overflow: hidden;
@@ -238,7 +240,8 @@
 .movie-info .randomize {
   top: 42%;
   background-color: rgba(35, 38, 46, 0.5);
-  color: var(--lightgrey);
+  color: rgba(245, 248, 232, 0.7);
+  font-size: 25px;
   border: none;
   height: 25px;
   width: 25px;
@@ -247,10 +250,7 @@
 .movie-info .randomize:hover,
 .movie-info .randomize:focus {
   box-shadow: 0px 0px 1px 1px var(--red);
-}
-
-.movie-info .randomize:hover {
-  transform: scale(1.1);
+  color: var(--offwhite);
 }
 
 .movie-info .randomize:active {

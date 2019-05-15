@@ -54,11 +54,19 @@ export default class MovieInfoDisplay extends Component {
   // =========================================================
   // Handlers
 
+  /**
+   * Adds a particular movie to the current user's watchlist
+   * @param {String} movieId the ObjectId of the specific movie
+   */
   handleAddToWatchlist = movieId => {
     // TODO: remove if already on watchlist and styling
     userServices.addToUserWatchlist(movieId);
   };
 
+  /**
+   * Toggles whether the display is expanded or not. Only is called/affects the display
+   * if it's a 'movie-feed-item' type. Randomizes backdrop and sets state.
+   */
   toggleExpanded = () => {
     this.randomizeBackdrop();
     this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
@@ -67,6 +75,11 @@ export default class MovieInfoDisplay extends Component {
   // =========================================================
   // Render Helpers
 
+  /**
+   * Randomizes the backdrop number based on the length of the current movie's backdrop
+   * list. Always makes sure the backdrop number is different from the previous value
+   * so the backdrop always changes every time this is called. Sets state.
+   */
   randomizeBackdrop = () => {
     const { randBD } = this.props;
     if (randBD) {
@@ -83,6 +96,11 @@ export default class MovieInfoDisplay extends Component {
     }
   };
 
+  /**
+   * Helper function to return the JSX for a different button depending on the
+   * display type.
+   * @returns {HTMLElement} a JSX button element
+   */
   getButton = () => {
     const { type, toggleModal } = this.props;
     if (type === 'movie-card') {
@@ -107,6 +125,12 @@ export default class MovieInfoDisplay extends Component {
     return <div />;
   };
 
+  /**
+   * Helper function to set the styling for the display backdrop based on the type.
+   * Sets the background image based on the backdropNum, and if it's a 'movie-feed-item'
+   * sets the background position shift for different views when expanded or not.
+   * @returns {Object} the in-line style object for the top level display component
+   */
   getBackgroundStyle = () => {
     const { type, movie } = this.props;
     const { images } = movie;
