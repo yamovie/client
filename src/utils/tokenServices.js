@@ -1,6 +1,6 @@
 /**
  * Set token to local storage
- * @param {string} token 
+ * @param {string} token
  */
 function setToken(token) {
   if (token) {
@@ -32,7 +32,7 @@ function getToken() {
  * parse token for user information
  * @returns {Object} or null
  */
-export function getUserFromToken() {
+function getUserFromToken() {
   const token = getToken();
   // jwt parsing
   return token ? JSON.parse(atob(token.split('.')[1])).user : null;
@@ -46,5 +46,5 @@ export default {
   setToken,
   getToken,
   removeToken,
-  getUserFromToken
+  getUserFromToken,
 };

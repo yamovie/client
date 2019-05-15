@@ -1,0 +1,129 @@
+.login-page {
+  background-attachment: fixed;
+  background-image: url('/images/backgrounds/login-splash2.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - var(--nav-height));
+  max-width: 100%;
+}
+
+.popcorn-logo {
+  height: 60px;
+}
+
+.login {
+  background-color: rgba(231, 230, 230, 0.9);
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px 2px var(--lightgrey);
+  height: 50%;
+  margin: 0 auto;
+  max-width: 500px;
+  min-height: 400px;
+  width: 50%;
+  position: relative;
+  top: 15%;
+}
+
+.form-container {
+  display: block;
+  text-align: center;
+}
+
+.login form {
+  display: inline-block;
+}
+
+.login header {
+  text-align: center;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-input {
+  border-color: var(--purple);
+  border-radius: 15px;
+  font-size: 20px;
+  height: 30px;
+  margin: 5px;
+  outline: none;
+  width: 300px;
+  padding-left: 10px;
+}
+
+.login-input::placeholder {
+  padding-left: 5px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-submit {
+  background-color: var(--purple);
+  border-radius: 15px;
+  color: white;
+  font-size: 20px;
+  height: 30px;
+  margin: 5px auto;
+  width: 300px;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.login-cancel {
+  background-color: var(--purple);
+  border-radius: 15px;
+  color: white;
+  font-size: 20px;
+  height: 30px;
+  margin: 5px auto;
+  text-align: center;
+  text-decoration: none;
+  width: 300px;
+}
+
+.google-link-login {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: white;
+  border-radius: 15px;
+  margin: 25px auto;
+  width: 300px;
+}
+
+.svgIcon {
+  height: 30px;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 650px) {
+  .login {
+    width: 300px;
+  }
+
+  .login-input {
+    width: 200px;
+  }
+
+  .login-submit {
+    width: 200px;
+  }
+
+  .login-cancel {
+    width: 200px;
+  }
+
+  .google-link-login {
+    width: 200px;
+  }
+}
