@@ -47,7 +47,7 @@ export default class MovieInfoDisplay extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.randomizeBackdrop();
   }
 
@@ -72,8 +72,14 @@ export default class MovieInfoDisplay extends Component {
     if (randBD) {
       const { movie } = this.props;
       const { images } = movie;
-      const backdropNum = Math.floor(Math.random() * images.backdrops.length);
-      this.setState({ backdropNum });
+      if (images.backdrops.length < 2) return;
+
+      const { backdropNum } = this.state;
+      let newBackdropNum = backdropNum;
+      while (newBackdropNum === backdropNum) {
+        newBackdropNum = Math.floor(Math.random() * images.backdrops.length);
+      }
+      this.setState({ backdropNum: newBackdropNum });
     }
   };
 
@@ -150,6 +156,11 @@ export default class MovieInfoDisplay extends Component {
     return (
       <div className={`movie-info ${type}`} style={this.getBackgroundStyle()}>
         {this.getButton()}
+        {images.backdrops.length > 1 && (
+          <button type="button" onClick={this.randomizeBackdrop} className="randomize">
+            <FontAwesomeIcon icon="random" />
+          </button>
+        )}
         <div className="gradient" />
         <div className="top-container">
           <PosterWTrailer images={images} videos={videos} />

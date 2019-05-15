@@ -7,6 +7,7 @@
 
   line-height: 1.4;
   font-family: var(--fontfamily);
+  background-color: var(--purple);
   color: var(--midgrey);
   z-index: 10;
   overflow: hidden;
@@ -51,6 +52,8 @@
   top: calc(var(--nav-height) + 15px);
   width: 88vw;
   height: 82vh;
+  /* background-position-x: 10vw; */
+  transition: background-image 0.3s ease-in-out;
 }
 
 /* ================ Feed-Item Specific =================== */
@@ -103,7 +106,7 @@
   white-space: nowrap;
   font-weight: 500;
   margin: 0;
-  font-size: calc(12px + 2vw);
+  font-size: calc(12px + 1.7vw);
   color: var(--darkgrey);
 }
 
@@ -177,20 +180,35 @@
 /* Buttons */
 /* ======================================================= */
 
-.movie-card .close-modal {
+/* ============================================ */
+/* Shared */
+
+.movie-info .close-modal,
+.movie-info .expand-indicator,
+.movie-info .randomize {
   cursor: pointer;
+  display: flex;
+  justify-content: center;
   position: absolute;
   right: 0px;
-  margin: 10px;
+  border-radius: 50%;
+  z-index: 15;
+  margin: 15px;
   height: 40px;
   width: 40px;
-  border-radius: 50%;
+  font-size: calc(12px + 0.8vw);
+  font-weight: bold;
+  transition: transform 0.3s ease-in-out;
+  outline: none;
+}
+
+/* ============================================ */
+
+.movie-card .close-modal {
   border: 1px solid var(--offwhite);
   background-color: var(--darkgrey);
   color: var(--offwhite);
-  font-size: calc(12px + 0.8vw);
   transform: rotate(45deg);
-  transition: transform 0.3s ease-in-out;
 }
 
 .movie-card .close-modal:hover {
@@ -217,6 +235,30 @@
 
 /* ============================================ */
 
+.movie-info .randomize {
+  top: 42%;
+  background-color: rgba(35, 38, 46, 0.5);
+  color: var(--lightgrey);
+  border: none;
+  height: 25px;
+  width: 25px;
+}
+
+.movie-info .randomize:hover,
+.movie-info .randomize:focus {
+  box-shadow: 0px 0px 1px 1px var(--red);
+}
+
+.movie-info .randomize:hover {
+  transform: scale(1.1);
+}
+
+.movie-info .randomize:active {
+  color: var(--purple);
+}
+
+/* ============================================ */
+
 .movie-info .watchlist {
   margin-left: 10px;
 }
@@ -232,34 +274,18 @@
 /* ============================================ */
 
 .movie-feed-item .expand-indicator {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  top: 90px;
-  right: 0px;
-  margin: 20px;
-  height: 40px;
-  width: 40px;
-  font-size: 1em;
-  font-weight: bold;
-  border-radius: 50%;
   border: none;
   color: var(--midgrey);
   background-color: var(--offwhite);
-  transition: var(--expand-transition);
 }
 
 .movie-feed-item .expand-indicator:focus {
   outline: none;
-  /* border: 2px solid var(--popcornyellow); */
   border: 2px solid var(--purple);
 }
 
 .movie-feed-item .expand-indicator:hover {
   transform: scale(1.1);
-  cursor: pointer;
 }
 
 .movie-feed-item .expand-indicator.close {
