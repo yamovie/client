@@ -62,7 +62,7 @@ function getMovies(genreId = 'all') {
 function getSearchResults(searchInputValue) {
   return axios.get(`${REACT_APP_SVR_API}/movies/search`, {
     params: {
-      title: searchInputValue,
+      searchInput: searchInputValue,
     },
   });
 }
