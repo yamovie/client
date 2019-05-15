@@ -2,12 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '../../utils/fontAwesome';
 import '../../css/account/Watchlist.css';
 import { WatchlistItem } from '..';
 
-const { REACT_APP_SVR } = process.env;
+const { REACT_APP_SVR_USERS } = process.env;
 
 class Watchlist extends React.Component {
   static propTypes = {
@@ -24,14 +22,14 @@ class Watchlist extends React.Component {
 
   componentDidMount() {
     const { user } = this.props;
-    axios.post(`${REACT_APP_SVR}/users/watchlist/movies`, {userId: user._id})
+    axios.get(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`)
       .then(res => this.setState({movies: res.data}));
   }
 
   removeFromWatchlist(movieId) {
     const { user } = this.props;
     const { movies } = this.state;
-    axios.delete(`${REACT_APP_SVR}/users/watchlist/movies`, { data: {movieId, userId: user._id}})
+    axios.delete(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`, {data: { movieId } })
       .then(() => {
         this.setState({movies: movies.filter(movie => movie._id !== movieId)});
       })
