@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MovieInfoDisplay, MovieFeedItem, TrailerModal } from '..';
-import data from '../../SeedMovies';
+import { MovieInfoDisplay, TrailerModal } from '..';
+// import data from '../../SeedMovies';
 
 export default class MovieFeed extends Component {
   static propTypes = {
@@ -39,14 +39,7 @@ export default class MovieFeed extends Component {
           trailerList={selectedTrailerList}
           toggleTrailer={this.toggleTrailer}
         />
-        {/* {data.map(movie => (
-          <MovieFeedItem
-            movie={movie}
-            toggleTrailer={this.toggleTrailer}
-            key={movie.title}
-          />
-        ))} */}
-        {data.map(movie => (
+        {movies.map(movie => (
           <MovieInfoDisplay type="movie-feed-item" movie={movie} key={movie.title} />
         ))}
       </div>

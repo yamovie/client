@@ -9,9 +9,9 @@ class FindMoviePage extends React.Component {
     this.state = {
       genreIds: {},
       results: [{}],
-      talkedToLloyd: true,
+      talkedToLloyd: false,
       mountChat: false,
-      isExpanded: false,
+      isExpanded: true,
     };
   }
 
