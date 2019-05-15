@@ -7,12 +7,13 @@ import {
   Login,
   Signup,
   Navbar,
+  FakeNavbar,
   HomePage,
   BrowsePage,
   AboutPage,
   FindMoviePage,
   NotFoundPage,
-  UserDashboardPage,
+  UserDashboardPage
 } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
@@ -22,7 +23,7 @@ require('dotenv').config();
 class App extends Component {
   static propTypes = {
     location: PropTypes.shape(Object).isRequired,
-    history: PropTypes.shape(Object).isRequired,
+    history: PropTypes.shape(Object).isRequired
   };
 
   constructor(props) {
@@ -30,6 +31,7 @@ class App extends Component {
     this.state = {
       user: null,
       isAuthenticated: false,
+      chatIsDone: true
     };
   }
 
@@ -69,18 +71,42 @@ class App extends Component {
     this.setState({ isAuthenticated: true, user: userServices.getUser() });
   };
 
+  /**
+   * Ensures that user cannot change to another part of the site while Lloyd is returning a promise
+   */
+  chatIsDone = () => {
+    this.setState({ chatIsDone: true });
+  };
+
+  chatIsLoading = () => {
+    this.setState({ chatIsDone: false });
+  };
+
   render() {
-    const { user, isAuthenticated } = this.state;
+    const { user, isAuthenticated, chatIsDone } = this.state;
 
     return (
       <div className="App">
-        <Navbar user={user} handleLogout={this.handleLogout} />
+        {chatIsDone ? (
+          <Navbar user={user} handleLogout={this.handleLogout} />
+        ) : (
+          <FakeNavbar user={user} />
+        )}
         <FeedbackToast />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />
           <Route path="/about" component={AboutPage} />
-          <Route path="/recommendations" component={FindMoviePage} />
+          <Route
+            path="/recommendations"
+            render={props => (
+              <FindMoviePage
+                {...props}
+                chatIsDone={this.chatIsDone}
+                chatIsLoading={this.chatIsLoading}
+              />
+            )}
+          />
           <Route
             path="/login"
             render={({ props }) =>

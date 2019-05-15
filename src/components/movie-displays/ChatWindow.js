@@ -10,7 +10,7 @@ class ChatWindow extends React.Component {
     enableChatClose: PropTypes.func.isRequired,
     disableChatClose: PropTypes.func.isRequired,
     toggleChat: PropTypes.func.isRequired,
-    genreIds: PropTypes.shape().isRequired,
+    genreIds: PropTypes.shape().isRequired
   };
 
   constructor(props) {
@@ -24,15 +24,15 @@ class ChatWindow extends React.Component {
         indie: false,
         imdb: 0,
         rotten_tomatoes: 0,
-        genres: [''],
+        genres: ['']
       },
-      endChat: false,
+      endChat: false
     };
     this.delays = {
       initial: 250,
       response: 500,
       nextQ: 1250,
-      ansOptions: 1750,
+      ansOptions: 1750
     };
   }
 
@@ -70,20 +70,20 @@ class ChatWindow extends React.Component {
       return this.botui.message.bot({
         loading: true,
         content: message,
-        delay: delay,
+        delay
       });
-    } else if (cssClass === 'HAL') {
+    }
+    if (cssClass === 'HAL') {
       return this.botui.message.bot({
         cssClass: 'botui-HAL9000',
         content: message,
-        delay: delay,
-      });
-    } else {
-      return this.botui.message.bot({
-        content: message,
-        delay: delay,
+        delay
       });
     }
+    return this.botui.message.bot({
+      content: message,
+      delay
+    });
   };
 
   /**
@@ -114,7 +114,7 @@ class ChatWindow extends React.Component {
     await this.botui.message.bot({
       content:
         "I'm going to ask you a few questions so I can help you find a movie! 🎬",
-      delay: this.delays.nextQ,
+      delay: this.delays.nextQ
     });
   };
 
@@ -128,7 +128,7 @@ class ChatWindow extends React.Component {
     }
     this.lloydMessage(
       'What kind of movie are you in the mood for?',
-      this.delays.response,
+      this.delays.response
     );
     enableChatClose();
     await this.botui.action
@@ -137,97 +137,97 @@ class ChatWindow extends React.Component {
           { value: [genreIds.Comedy], text: 'Funny 😆' },
           {
             value: [genreIds['War & Military'], genreIds.Western],
-            text: 'Sad 😭',
+            text: 'Sad 😭'
           },
           {
             value: [genreIds.Crime, genreIds['Mystery & Thriller']],
-            text: 'Mysterious 🤔',
+            text: 'Mysterious 🤔'
           },
           {
             value: [genreIds.Drama, genreIds['War & Military']],
-            text: 'Dramatic 😮',
+            text: 'Dramatic 😮'
           },
           { value: [genreIds.Thriller, genreIds.Crime], text: 'Thrilling 😲' },
           { value: [genreIds.Horror], text: 'Scary 😱' },
           {
             value: [
               genreIds['Action & Adventure'],
-              genreIds['Sport & Fitness'],
+              genreIds['Sport & Fitness']
             ],
-            text: 'Action Packed 🏃‍💥',
+            text: 'Action Packed 🏃‍💥'
           },
           { value: [genreIds.Romance], text: 'Romantic 😍' },
           {
             value: [genreIds.Fantasy, genreIds['Science-Fiction']],
-            text: 'Fantastical 👽🧝‍',
+            text: 'Fantastical 👽🧝‍'
           },
           {
             value: [genreIds.History, genreIds.Documentary],
-            text: 'Informative 🌍',
+            text: 'Informative 🌍'
           },
           { value: [genreIds['Kids & Family']], text: 'Heartwarming 👨‍👩‍👧‍👦' },
-          { value: [genreIds['Music & Musical']], text: 'Musical 🎶' },
+          { value: [genreIds['Music & Musical']], text: 'Musical 🎶' }
         ],
-        delay: this.delays.nextQ,
+        delay: this.delays.nextQ
       })
       .then(moodRes => {
         this.setState(prevState => ({
-          dataObj: { ...prevState.dataObj, genres: moodRes.value },
+          dataObj: { ...prevState.dataObj, genres: moodRes.value }
         }));
         switch (moodRes.text) {
-          case 'Funny 😆':
-            this.lloydMessage('Hilarious! 🤡', this.delays.response);
-            break;
-          case 'Sad 😭':
-            this.lloydMessage('Tragic! 💔', this.delays.response);
-            break;
-          case 'Mysterious 🤔':
-            this.lloydMessage('OK, Sherlock! 🕵️‍', this.delays.response);
-            break;
-          case 'Dramatic 😮':
-            this.lloydMessage(
-              "All the world's a stage! 🎭",
-              this.delays.response,
-            );
-            break;
-          case 'Thrilling 😲':
-            this.lloydMessage('Thrills and chills! 👀', this.delays.response);
-            break;
-          case 'Scary 😱':
-            this.lloydMessage('Spooky! 👻', this.delays.response);
-            break;
-          case 'Action Packed 🏃‍💥':
-            this.lloydMessage('ACTION! 💥💣', this.delays.response);
-            break;
-          case 'Romantic 😍':
-            this.lloydMessage('Lovely! 💖', this.delays.response);
-            break;
-          case 'Fantastical 👽🧝‍':
-            this.lloydMessage(
-              'I can do that Dave! 🔴 ',
-              this.delays.response,
-              false,
-              'HAL',
-            );
-            break;
-          case 'Informative 🌍':
-            this.lloydMessage(
-              'The joy of discovery! ✨💡✨',
-              this.delays.response,
-            );
-            break;
-          case 'Heartwarming 👨‍👩‍👧‍👦':
-            this.lloydMessage(
-              'Fun for the whole family! 😄😄😄',
-              this.delays.response,
-            );
-            break;
-          case 'Musical 🎶':
-            this.lloydMessage('The sound of music! 🎼', this.delays.response);
-            break;
-          default:
-            this.lloydMessage('Awesome!', this.delays.response);
-            break;
+        case 'Funny 😆':
+          this.lloydMessage('Hilarious! 🤡', this.delays.response);
+          break;
+        case 'Sad 😭':
+          this.lloydMessage('Tragic! 💔', this.delays.response);
+          break;
+        case 'Mysterious 🤔':
+          this.lloydMessage('OK, Sherlock! 🕵️‍', this.delays.response);
+          break;
+        case 'Dramatic 😮':
+          this.lloydMessage(
+            "All the world's a stage! 🎭",
+            this.delays.response
+          );
+          break;
+        case 'Thrilling 😲':
+          this.lloydMessage('Thrills and chills! 👀', this.delays.response);
+          break;
+        case 'Scary 😱':
+          this.lloydMessage('Spooky! 👻', this.delays.response);
+          break;
+        case 'Action Packed 🏃‍💥':
+          this.lloydMessage('ACTION! 💥💣', this.delays.response);
+          break;
+        case 'Romantic 😍':
+          this.lloydMessage('Lovely! 💖', this.delays.response);
+          break;
+        case 'Fantastical 👽🧝‍':
+          this.lloydMessage(
+            'I can do that Dave! 🔴 ',
+            this.delays.response,
+            false,
+            'HAL'
+          );
+          break;
+        case 'Informative 🌍':
+          this.lloydMessage(
+            'The joy of discovery! ✨💡✨',
+            this.delays.response
+          );
+          break;
+        case 'Heartwarming 👨‍👩‍👧‍👦':
+          this.lloydMessage(
+            'Fun for the whole family! 😄😄😄',
+            this.delays.response
+          );
+          break;
+        case 'Musical 🎶':
+          this.lloydMessage('The sound of music! 🎼', this.delays.response);
+          break;
+        default:
+          this.lloydMessage('Awesome!', this.delays.response);
+          break;
         }
       });
   };
@@ -243,7 +243,7 @@ class ChatWindow extends React.Component {
 
     this.lloydMessage(
       'What rated content should I be looking for?',
-      this.delays.nextQ,
+      this.delays.nextQ
     );
     enableChatClose();
     await this.botui.action
@@ -252,12 +252,12 @@ class ChatWindow extends React.Component {
           { value: 'PG', text: 'Family friendly 👼 (G & PG only)' },
           {
             value: 'PG-13',
-            text: 'Some mature content is fine 👨‍🎤 (includes PG-13)',
+            text: 'Some mature content is fine 👨‍🎤 (includes PG-13)'
           },
           { value: 'R', text: 'All content is fine 🧑 (includes R)' },
-          { value: 'end', text: 'Show YaMovie results! 🍿' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' }
         ],
-        delay: this.delays.ansOptions,
+        delay: this.delays.ansOptions
       })
       .then(ageRes => {
         if (ageRes.value === 'end') {
@@ -266,8 +266,8 @@ class ChatWindow extends React.Component {
           this.setState(prevState => ({
             dataObj: {
               ...prevState.dataObj,
-              certification: ageRes.value,
-            },
+              certification: ageRes.value
+            }
           }));
           if (ageRes.value !== 'end') {
             this.lloydMessage('Got it!', this.delays.response);
@@ -287,7 +287,7 @@ class ChatWindow extends React.Component {
 
     this.botui.message.bot({
       content: 'Do you want to watch a classic or modern movie?',
-      delay: this.delays.nextQ,
+      delay: this.delays.nextQ
     });
     enableChatClose();
     await this.botui.action
@@ -297,53 +297,53 @@ class ChatWindow extends React.Component {
           { value: 'in-between', text: 'In Between (1980-2010)' },
           { value: 'modern', text: 'Modern (after 2010)' },
           { value: 'no-preference', text: 'No preference' },
-          { value: 'end', text: 'Show YaMovie results! 🍿' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' }
         ],
-        delay: this.delays.ansOptions,
+        delay: this.delays.ansOptions
       })
       .then(eraRes => {
         switch (eraRes.value) {
-          case 'end':
-            this.setState({ endChat: true });
-            break;
-          case 'classic':
-            this.setState(prevState => ({
-              dataObj: {
-                ...prevState.dataObj,
-                min_year: 0,
-                max_year: 1980,
-              },
-            }));
-            this.lloydMessage(
-              'Back to the glory days! 🌟',
-              this.delays.response,
-            );
-            break;
-          case 'in-between':
-            this.setState(prevState => ({
-              dataObj: {
-                ...prevState.dataObj,
-                min_year: 1980,
-                max_year: 2010,
-              },
-            }));
-            this.lloydMessage('The middle way! 🧘‍', this.delays.response);
-            break;
-          case 'modern':
-            this.setState(prevState => ({
-              dataObj: {
-                ...prevState.dataObj,
-                min_year: 2010,
-                max_year: 3000,
-              },
-            }));
-            this.lloydMessage('New and improved! 🆕✨', this.delays.response);
-            break;
-          case 'no-preference':
-            this.lloydMessage('Sure thing!', this.delays.response);
-            break;
-          default:
-            console.error('error');
+        case 'end':
+          this.setState({ endChat: true });
+          break;
+        case 'classic':
+          this.setState(prevState => ({
+            dataObj: {
+              ...prevState.dataObj,
+              min_year: 0,
+              max_year: 1980
+            }
+          }));
+          this.lloydMessage(
+            'Back to the glory days! 🌟',
+            this.delays.response
+          );
+          break;
+        case 'in-between':
+          this.setState(prevState => ({
+            dataObj: {
+              ...prevState.dataObj,
+              min_year: 1980,
+              max_year: 2010
+            }
+          }));
+          this.lloydMessage('The middle way! 🧘‍', this.delays.response);
+          break;
+        case 'modern':
+          this.setState(prevState => ({
+            dataObj: {
+              ...prevState.dataObj,
+              min_year: 2010,
+              max_year: 3000
+            }
+          }));
+          this.lloydMessage('New and improved! 🆕✨', this.delays.response);
+          break;
+        case 'no-preference':
+          this.lloydMessage('Sure thing!', this.delays.response);
+          break;
+        default:
+          console.error('error');
         }
       });
   };
@@ -358,7 +358,7 @@ class ChatWindow extends React.Component {
     }
     this.lloydMessage(
       'Do you want me to include animated movies in your results?',
-      this.delays.nextQ,
+      this.delays.nextQ
     );
     enableChatClose();
     await this.botui.action
@@ -366,21 +366,22 @@ class ChatWindow extends React.Component {
         action: [
           { value: true, text: 'Yes, I love animated movies! 👍' },
           { value: false, text: 'No, do not recommend them to me 👎' },
-          { value: 'end', text: 'Show YaMovie results! 🍿' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' }
         ],
-        delay: this.delays.ansOptions,
+        delay: this.delays.ansOptions
       })
       .then(animRes => {
         if (animRes.value === 'end') {
           this.setState({ endChat: true });
         }
+        // eslint-disable-next-line react/destructuring-assignment
         const array = [...this.state.dataObj.genres];
         array.push(genreIds.Animation);
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
-            genres: array,
-          },
+            genres: array
+          }
         }));
         if (animRes.value === true) {
           this.lloydMessage('Me too! 👾', this.delays.response);
@@ -406,9 +407,9 @@ class ChatWindow extends React.Component {
         action: [
           { value: true, text: 'Yes, include them with my results  👍' },
           { value: false, text: 'No, exclude them from my results 👎' },
-          { value: 'end', text: 'Show YaMovie results! 🍿' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' }
         ],
-        delay: this.delays.ansOptions,
+        delay: this.delays.ansOptions
       })
       .then(forRes => {
         if (forRes.value === 'end') {
@@ -417,8 +418,8 @@ class ChatWindow extends React.Component {
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
-            foreign: forRes.value,
-          },
+            foreign: forRes.value
+          }
         }));
         if (forRes.value === true) {
           this.lloydMessage('Très bien! 🔵⚪🔴', this.delays.response);
@@ -444,12 +445,12 @@ class ChatWindow extends React.Component {
         action: [
           {
             value: true,
-            text: 'Yes, you can add indie films to my results 👍',
+            text: 'Yes, you can add indie films to my results 👍'
           },
           { value: false, text: 'No, exclude them please 👎' },
-          { value: 'end', text: 'Show YaMovie results! 🍿' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' }
         ],
-        delay: this.delays.ansOptions,
+        delay: this.delays.ansOptions
       })
       .then(indieRes => {
         if (indieRes.value === 'end') {
@@ -458,13 +459,13 @@ class ChatWindow extends React.Component {
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
-            indie: indieRes.value,
-          },
+            indie: indieRes.value
+          }
         }));
         if (indieRes.value !== 'end' && indieRes.value !== false) {
           this.lloydMessage(
             'A true film connoisseur! 🧐',
-            this.delays.response,
+            this.delays.response
           );
         } else if (indieRes.value === false) {
           this.lloydMessage('No problem!', this.delays.response);
@@ -490,9 +491,9 @@ class ChatWindow extends React.Component {
           { value: 'rotten-tomatoes', text: 'Rotten Tomatoes' },
           { value: 'imdb', text: 'IMDB' },
           { value: 'dont-care', text: 'I Dont Care' },
-          { value: 'both', text: 'Both' },
+          { value: 'both', text: 'Both' }
         ],
-        delay: this.delays.ansOptions,
+        delay: this.delays.ansOptions
       })
       .then(async ratingsRes => {
         if (
@@ -510,8 +511,8 @@ class ChatWindow extends React.Component {
             dataObj: {
               ...prevState.dataObj,
               rotten_tomatoes: 0,
-              imdb: 0,
-            },
+              imdb: 0
+            }
           }));
         }
       });
@@ -531,9 +532,9 @@ class ChatWindow extends React.Component {
           { value: 60, text: '60%' },
           { value: 75, text: '75%' },
           { value: 0, text: 'No Minimum' },
-          { value: 'end', text: 'Show YaMovie results! 🍿' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' }
         ],
-        delay: this.delays.nextQ,
+        delay: this.delays.nextQ
       })
       .then(rtRes => {
         if (rtRes.value === 'end') {
@@ -542,8 +543,8 @@ class ChatWindow extends React.Component {
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
-            rotten_tomatoes: rtRes.value,
-          },
+            rotten_tomatoes: rtRes.value
+          }
         }));
       });
   };
@@ -562,9 +563,9 @@ class ChatWindow extends React.Component {
           { value: 5, text: '5/10' },
           { value: 7, text: '7/10' },
           { value: 0, text: 'No Minimum' },
-          { value: 'end', text: 'Show YaMovie results! 🍿' },
+          { value: 'end', text: 'Show YaMovie results! 🍿' }
         ],
-        delay: this.delays.nextQ,
+        delay: this.delays.nextQ
       })
       .then(imdbRes => {
         if (imdbRes.value === 'end') {
@@ -573,8 +574,8 @@ class ChatWindow extends React.Component {
         this.setState(prevState => ({
           dataObj: {
             ...prevState.dataObj,
-            imdb: imdbRes.value,
-          },
+            imdb: imdbRes.value
+          }
         }));
       });
   };
@@ -591,7 +592,7 @@ class ChatWindow extends React.Component {
     this.lloydMessage('Alright, now Let me find YaMovie... 🔍😃').then(
       this.lloydMessage('Getting results now!', 6000, true).then(() => {
         getMovieResults(dataObj);
-      }),
+      })
     );
   };
 

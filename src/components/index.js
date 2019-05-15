@@ -33,3 +33,4 @@ export { default as UserDashboardPage } from './pages/UserDashboardPage';
 // other
 export { default as FeedbackToast } from './FeedbackToast';
 export { default as Navbar } from './Navbar';
+export { default as FakeNavbar } from './FakeNavbar';
