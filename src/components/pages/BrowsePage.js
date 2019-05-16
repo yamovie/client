@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowseMovieList, BrowseFilters, MovieCard } from '..';
+import { BrowseMovieList, BrowseFilters, MovieInfoDisplay } from '..';
 import { moviesAPI } from '../../utils';
 import '../../css/pages/BrowsePage.css';
 
@@ -131,7 +131,13 @@ export default class BrowsePage extends Component {
           currentGenreFilter={currentGenreFilter}
         />
         {isModalVisible && (
-          <MovieCard movie={selectedMovie} toggleModal={this.toggleModal} />
+          <div className="movie-card-container">
+            <MovieInfoDisplay
+              type="movie-card"
+              movie={selectedMovie}
+              toggleModal={this.toggleModal}
+            />
+          </div>
         )}
         <BrowseMovieList
           movies={movies}

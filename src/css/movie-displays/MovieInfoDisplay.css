@@ -1,0 +1,300 @@
+/* ======================================================= */
+/* General/Base */
+/* ======================================================= */
+
+.movie-info {
+  --text-width: 80%;
+
+  line-height: 1.4;
+  font-family: var(--fontfamily);
+  background-color: var(--purple);
+  background-size: cover;
+  background-position-x: 20vw;
+  color: var(--midgrey);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.movie-info .gradient {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(
+    to right,
+    var(--offwhite) 40%,
+    rgba(245, 248, 232, 0.7) 70%,
+    transparent 100%
+  );
+  z-index: -1;
+}
+
+/* ==================== Card Specific ==================== */
+
+.movie-card-container {
+  position: fixed;
+  top: 0px;
+  z-index: 8;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  background-color: rgba(35, 38, 46, 0.6);
+}
+
+.movie-info.movie-card {
+  /* variables */
+  --top-size: 50%;
+  --bottom-size: 50%;
+  --padding: 20px;
+
+  /* actual styles */
+  border-radius: 20px;
+  position: absolute;
+  top: calc(var(--nav-height) + 15px);
+  width: 88vw;
+  height: 82vh;
+  /* background-position-x: 10vw; */
+  transition: background-image 0.3s ease-in-out;
+}
+
+/* ================ Feed-Item Specific =================== */
+
+.movie-info.movie-feed-item {
+  /* variables */
+  --top-size: 250px;
+  --bottom-size: 35vh;
+  --padding: 10px;
+  --expand-transition: all 0.4s ease-in-out;
+  --bg-shift: 25vw;
+  --bg-shift-expanded: 15vw;
+
+  /* actual styles */
+  border-radius: 10px;
+  position: relative;
+  background-color: var(--purple);
+  background-size: cover;
+  margin: 7.5px;
+  width: 75vw;
+  transition: var(--expand-transition);
+}
+
+.movie-feed-item:hover {
+  box-shadow: 0px 0px 5px 3px var(--purple);
+}
+
+/* ======================================================= */
+/* Top Section */
+/* ======================================================= */
+
+.movie-info .top-container {
+  height: var(--top-size);
+  width: calc(var(--text-width) + 5%);
+  padding: var(--padding);
+  padding-bottom: 10px;
+}
+
+.movie-info .top-container .line1 {
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 18%;
+}
+
+.movie-info .line1 .title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 500;
+  margin: 0;
+  font-size: calc(12px + 1.7vw);
+  color: var(--darkgrey);
+}
+
+.movie-info .line1 .year {
+  margin-left: 10px;
+  font-size: calc(12px + 1vw);
+}
+
+.movie-info .top-container .line2 {
+  height: 22%;
+  padding: 5px 0px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.movie-info .line2 .certification,
+.movie-info .line2 .runtime {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--lightgrey);
+  font-size: calc(10px + 0.5vw);
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.movie-info .top-container .genres {
+  margin: 5px 0px;
+  height: 28%;
+  overflow: auto;
+  font-size: calc(12px + 0.8vw);
+}
+
+/* ======================================================= */
+/* Bottom Section */
+/* ======================================================= */
+
+.movie-info .bottom-container {
+  height: var(--bottom-size);
+  width: var(--text-width);
+  padding: var(--padding);
+  padding-top: 0px;
+  transition: var(--expand-transition);
+}
+
+/* iPhoneX screen width */
+@media only screen and (max-width: 375px) {
+  .movie-info .bottom-container {
+    width: 100%;
+  }
+}
+
+.movie-info .bottom-container .directors {
+  height: 15%;
+  font-size: calc(12px + 0.7vw);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: underline;
+}
+
+.movie-info .bottom-container .plot {
+  overflow: auto;
+  height: 85%;
+  font-size: calc(12px + 0.8vw);
+}
+
+/* ======================================================= */
+/* Buttons */
+/* ======================================================= */
+
+/* ============================================ */
+/* Shared */
+
+.movie-info .close-modal,
+.movie-info .expand-indicator,
+.movie-info .randomize {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 0px;
+  border-radius: 50%;
+  z-index: 15;
+  margin: 15px;
+  height: 40px;
+  width: 40px;
+  font-size: calc(12px + 0.8vw);
+  font-weight: bold;
+  transition: transform 0.3s ease-in-out;
+  outline: none;
+}
+
+/* ============================================ */
+
+.movie-card .close-modal {
+  border: 1px solid var(--offwhite);
+  background-color: var(--darkgrey);
+  color: var(--offwhite);
+  transform: rotate(45deg);
+}
+
+.movie-card .close-modal:hover {
+  transform: scale(1.1) rotate(45deg);
+}
+
+.movie-card .close-modal:focus {
+  outline: none;
+  border: 2px solid var(--popcornyellow);
+  color: var(--popcornyellow);
+}
+
+.movie-card .close-modal:active {
+  background-color: var(--red);
+}
+
+/* iPad screen width */
+@media only screen and (max-width: 768px) {
+  .movie-card .close-modal {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* ============================================ */
+
+.movie-info .randomize {
+  top: 42%;
+  background-color: rgba(35, 38, 46, 0.5);
+  color: rgba(245, 248, 232, 0.7);
+  font-size: 25px;
+  border: none;
+  height: 25px;
+  width: 25px;
+}
+
+.movie-info .randomize:hover,
+.movie-info .randomize:focus {
+  box-shadow: 0px 0px 1px 1px var(--red);
+  color: var(--offwhite);
+}
+
+.movie-info .randomize:active {
+  color: var(--purple);
+}
+
+/* ============================================ */
+
+.movie-info .watchlist {
+  margin-left: 10px;
+}
+
+.movie-info .watchlist:hover {
+  color: gold;
+}
+
+.movie-info .watchlist::after {
+  color: gold;
+}
+
+/* ============================================ */
+
+.movie-feed-item .expand-indicator {
+  border: none;
+  color: var(--midgrey);
+  background-color: var(--offwhite);
+}
+
+.movie-feed-item .expand-indicator:focus {
+  outline: none;
+  border: 2px solid var(--purple);
+}
+
+.movie-feed-item .expand-indicator:hover {
+  transform: scale(1.1);
+}
+
+.movie-feed-item .expand-indicator.close {
+  transform: rotate(180deg);
+  background-color: var(--red);
+}
+
+.movie-feed-item .expand-indicator.close:hover {
+  transform: scale(1.1) rotate(180deg);
+}
+
+/* ======================================================= */

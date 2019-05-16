@@ -15,12 +15,15 @@ export { default as BrowseFilters } from './movie-displays/BrowseFilters';
 export { default as BrowseMovieList } from './movie-displays/BrowseMovieList';
 export { default as ChatWindow } from './movie-displays/ChatWindow';
 export { default as GenreList } from './movie-displays/GenreList';
-export { default as MovieCard } from './movie-displays/MovieCard';
+export { default as MovieInfoDisplay } from './movie-displays/MovieInfoDisplay';
 export { default as MovieFeed } from './movie-displays/MovieFeed';
-export { default as MovieFeedItem } from './movie-displays/MovieFeedItem';
-export { default as MovieList } from './movie-displays/MovieList';
 export { default as SearchBar } from './movie-displays/SearchBar';
 export { default as TrailerModal } from './movie-displays/TrailerModal';
+export {
+  StreamsView,
+  RatingsView,
+  PosterWTrailer,
+} from './movie-displays/DisplayHelpers';
 
 // pages
 export { default as AboutPage } from './pages/AboutPage';

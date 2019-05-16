@@ -4,16 +4,11 @@ import '../../css/movie-displays/TrailerModal.css';
 
 const TrailerModal = ({ trailerList, toggleTrailer }) => {
   if (!trailerList || trailerList.length < 1) {
-    return <div />;
+    return <div className="empty-trailer-container" />;
   }
 
   return (
-    <div
-      className="trailer-container"
-      role="button"
-      tabIndex={0}
-      onClick={toggleTrailer}
-    >
+    <div className="trailer-container" role="button" tabIndex={0} onClick={toggleTrailer}>
       <iframe
         className="movie-trailer"
         title="trailer"
