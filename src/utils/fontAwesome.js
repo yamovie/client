@@ -16,6 +16,7 @@ import {
   faCheck,
   faPlus,
   faEye,
+  faRandom,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -36,6 +37,7 @@ library.add(
   faCheck,
   faPlus,
   faEye,
+  faRandom,
 );
 
 export { FontAwesomeIcon };
