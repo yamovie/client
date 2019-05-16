@@ -82,6 +82,172 @@
   line-height: 3;
 }
 
+/* 
+============================== Account Settings ============================================
+*/
+
+.form-input-group label {
+display: flex;
+}
+
+.account-settings-form {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-settings-form label {
+  color: var(--offwhite);
+  margin-bottom: 5px;
+}
+
+.account-settings-form button {
+  max-width: 100px;
+  padding: 5px;
+}
+
+.password-field {
+  position: relative;
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+.password-field input {
+  padding-right: 25px;
+  border-radius: 10px;
+  border: none;
+}
+
+.show-password-toggle {
+  position: absolute;
+  font-size: 18px;
+  right: 5px;
+  transform: translateY(25%);
+  cursor: pointer;
+}
+
+.account-settings-form input {
+  padding: 8px;
+  width: 100%;
+}
+
+/*
+======================= User Preferences ===========================
+*/
+
+.preferences-form .form-control {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.form-label {
+  color: white;
+  padding-right: 5px;
+}
+
+
+/*
+======================= Toggle Switch ===========================
+*/
+
+.switch-label {
+  display: inline-block;
+  min-width: 80px;
+}
+
+.rating-display {
+  padding-left: 5px;
+}
+
+.reset-button {
+  padding: 5px 10px;
+  border: none;
+  margin: 0;
+  margin-top: 10px;
+  background-color: var(--purple);
+  border-radius: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+
+/*
+======================= Genre List ===========================
+*/
+
+.single-genre {
+  padding: 8px;
+}
+
+/* The container */
+.checkmark-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkmark-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: relative;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkmark-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkmark-container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkmark-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkmark-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.top-label {
+  display: block;
+}
+
 /* ======================================================= */
 /* Responsiveness */
 

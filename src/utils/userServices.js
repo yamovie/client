@@ -46,15 +46,19 @@ async function addToUserWatchlist(movieId) {
   const user = await getUser();
   // if user exists
   if (user) {
-    userAPI.addToWatchlist(user._id, movieId).then(() =>
+    try {
+      await userAPI.addToWatchlist(user._id, movieId)
       Swal.fire({
         position: 'top-end',
         type: 'success',
         text: 'Added to Watchlist',
         showConfirmButton: false,
         timer: 1000,
-      }),
-    );
+      })
+    } catch(e) {
+      return e;
+    }
+
   }
 }
 

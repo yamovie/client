@@ -3,6 +3,7 @@ export { default as AccountNav } from './account/AccountNav';
 export { default as UserCheckboxList } from './account/UserCheckboxList';
 export { default as UserPreferences } from './account/UserPreferences';
 export { default as Watchlist } from './account/Watchlist';
+export { default as WatchlistItem } from './account/WatchlistItem';
 
 // login-signup
 export { default as GoogleLogin } from './login-signup/GoogleLogin';

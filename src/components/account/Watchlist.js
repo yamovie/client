@@ -1,191 +1,57 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 import '../../css/account/Watchlist.css';
+import { WatchlistItem } from '..';
+// import { watch } from 'fs';
+
+const { REACT_APP_SVR_USERS } = process.env;
 
 class Watchlist extends React.Component {
+  static propTypes = {
+    user: PropTypes.shape(Object).isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      showWatchedMovies: false,
-    };
-
-    this.toggleWatchedMovies = this.toggleWatchedMovies.bind(this);
+      movies: [],
+    }
+    this.removeFromWatchlist = this.removeFromWatchlist.bind(this);
   }
 
-  toggleWatchedMovies(event) {
-    if (event.target.id === 'watched-btn') {
-      this.setState({ showWatchedMovies: true });
-    } else {
-      this.setState({ showWatchedMovies: false });
-    }
+  componentDidMount() {
+    const { user } = this.props;
+    axios.get(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`)
+      .then(res => this.setState({movies: res.data}));
+  }
+
+  removeFromWatchlist(e, movieId) {
+    const { user } = this.props;
+    const { movies } = this.state;
+    axios.delete(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`, {data: { movieId } })
+      .then(() => {
+        this.setState({movies: movies.filter(movie => movie._id !== movieId)});
+      })
+      .catch(error => {
+        console.log(`The server responded with error: ${error.response.status}, ${error.response.statusText} `)
+      });
   }
 
   render() {
-    const { showWatchedMovies } = this.state;
-    const movies = [
-      {
-        title: 'The Mule',
-        image: 'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
-      },
-      {
-        title: 'Bumblebee',
-        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
-      },
-      {
-        title: 'Avengers - Infinity War',
-        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'The Mule',
-        image: 'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
-      },
-      {
-        title: 'Bumblebee',
-        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
-      },
-      {
-        title: 'Avengers - Infinity War',
-        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'The Mule',
-        image: 'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
-      },
-      {
-        title: 'Bumblebee',
-        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
-      },
-      {
-        title: 'Avengers - Infinity War',
-        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-    ];
-
-    const watchedMovies = [
-      {
-        title: 'Bumblebee',
-        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
-      },
-      {
-        title: 'Avengers - Infinity War',
-        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'Bumblebee',
-        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
-      },
-      {
-        title: 'Avengers - Infinity War',
-        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
-      },
-
-      {
-        title: 'The Mule',
-        image: 'https://image.tmdb.org/t/p/original/oeZh7yEz3PMnZLgBPhrafFHRbVz.jpg',
-      },
-      {
-        title: 'Bumblebee',
-        image: 'https://image.tmdb.org/t/p/original/fw02ONlDhrYjTSZV8XO6hhU3ds3.jpg',
-      },
-      {
-        title: 'Avengers - Infinity War',
-        image: 'https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-      {
-        title: 'Spider Man - Into the spider-verse',
-        image: 'https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
-      },
-    ];
+    const { movies } = this.state;
 
     return (
-      <div className="account-page">
-        <div className="watchlist-filter">
-          <button
-            className="white watchlist-filter-btn"
-            type="button"
-            id="watchlist-btn"
-            onClick={this.toggleWatchedMovies}
-          >
-            Watchlist
-          </button>
-          <button
-            className="white watchlist-filter-btn"
-            type="button"
-            id="watched-btn"
-            onClick={this.toggleWatchedMovies}
-          >
-            Watched
-          </button>
-        </div>
+      <div className="account-pane">
+        <h1 className='account-title'>Your Watchlist</h1>
         {
           <div className="watchlist-wrapper">
-            {showWatchedMovies
-              ? watchedMovies.map(movie => (
-                  <div className="watchlist-movie">
-                    <img src={movie.image} className="img-fluid" alt="movie" />
-                    <div className="watchlist-buttons">
-                      <button type="button" className="watchlist-btn">
-                        - Remove
-                      </button>
-                      <button type="button" className="watchlist-btn">
-                        + Watched
-                      </button>
-                    </div>
-                  </div>
-                ))
-              : movies.map(movie => (
-                  <div className="watchlist-movie">
-                    <img src={movie.image} className="img-fluid" alt="movie" />
-                    <div className="watchlist-buttons">
-                      <button type="button" className="watchlist-btn">
-                        - Remove
-                      </button>
-                      <button type="button" className="watchlist-btn">
-                        + Watched
-                      </button>
-                    </div>
-                  </div>
-                ))}
+            {movies.length > 1 && (
+              movies.map((movie, i) => (
+                <WatchlistItem movie={movie} speed={50} multiplier={i} remove={this.removeFromWatchlist} />
+              ))
+            )}
           </div>
         }
       </div>

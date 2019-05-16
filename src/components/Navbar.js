@@ -92,7 +92,7 @@ class Navbar extends React.Component {
                 <NavLink
                   className="bm-item"
                   onClick={() => this.closeMenu()}
-                  to="/account"
+                  to="/account/watchlist"
                 >
                   <FontAwesomeIcon icon="user" /> Account
                 </NavLink>
@@ -146,7 +146,7 @@ class Navbar extends React.Component {
             </>
           ) : (
             <>
-              <NavLink to="/account" className="nav-item">
+              <NavLink to="/account/watchlist" className="nav-item">
                 Account
               </NavLink>
               <NavLink
