@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import '../../css/account/Watchlist.css';
 import { WatchlistItem } from '..';
+// import { watch } from 'fs';
 
 const { REACT_APP_SVR_USERS } = process.env;
 
@@ -15,7 +16,7 @@ class Watchlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [{images: { poster: ""}}],
+      movies: [],
     }
     this.removeFromWatchlist = this.removeFromWatchlist.bind(this);
   }
@@ -26,7 +27,7 @@ class Watchlist extends React.Component {
       .then(res => this.setState({movies: res.data}));
   }
 
-  removeFromWatchlist(movieId) {
+  removeFromWatchlist(e, movieId) {
     const { user } = this.props;
     const { movies } = this.state;
     axios.delete(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`, {data: { movieId } })
@@ -46,11 +47,11 @@ class Watchlist extends React.Component {
         <h1 className='account-title'>Your Watchlist</h1>
         {
           <div className="watchlist-wrapper">
-            {
+            {movies.length > 1 && (
               movies.map((movie, i) => (
                 <WatchlistItem movie={movie} speed={50} multiplier={i} remove={this.removeFromWatchlist} />
               ))
-            }
+            )}
           </div>
         }
       </div>

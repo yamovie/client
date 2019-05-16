@@ -5,7 +5,17 @@
   100% { opacity: 1; }
 }
 
+@keyframes collapseLeft {
+  0% { opacity: 1; }
+  50% { opacity: 0; display: none;}
+  100% { opacity: 0; width: 0; padding-left: 0; padding-right: 0; }
+}
+
 /* ============================================================================= */
+
+.collapse-left {
+  animation: collapseLeft 2s forwards;
+}
 
 .watchlist-wrapper {
   display: flex;
