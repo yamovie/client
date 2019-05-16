@@ -47,6 +47,11 @@
   justify-content: space-between;
 }
 
+.watchlist-message {
+  color: var(--offwhite);
+  margin-top: 10px;
+}
+
 .watchlist-remove-btn {
   font-size: 14px;
   margin: 0;

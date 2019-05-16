@@ -47,11 +47,13 @@ class Watchlist extends React.Component {
         <h1 className='account-title'>Your Watchlist</h1>
         {
           <div className="watchlist-wrapper">
-            {movies.length > 1 && (
+            {movies.length > 0 ?
               movies.map((movie, i) => (
                 <WatchlistItem movie={movie} speed={50} multiplier={i} remove={this.removeFromWatchlist} />
               ))
-            )}
+              :
+              <p className="watchlist-message">Add movies to your watchlist to display them here</p>
+            }
           </div>
         }
       </div>
