@@ -589,7 +589,7 @@ class ChatWindow extends React.Component {
     }
 
     const { dataObj } = this.state;
-    this.lloydMessage('Alright, now Let me find YaMovie... 🔍😃').then(
+    this.lloydMessage('Alright, now let me find YaMovie... 🔍😃').then(
       this.lloydMessage('Getting results now!', 6000, true).then(() => {
         getMovieResults(dataObj);
       })
