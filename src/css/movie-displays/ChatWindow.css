@@ -31,3 +31,8 @@
 .botui-actions-buttons-button {
   background-color: var(--darkgrey);
 }
+
+.botui-HAL9000 .botui-message-content {
+  background-color: var(--darkgrey);
+  color: var(--offwhite);
+}
