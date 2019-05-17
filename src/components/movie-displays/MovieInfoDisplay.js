@@ -192,7 +192,7 @@ export default class MovieInfoDisplay extends Component {
             <h1 className="title">{title}</h1>
             <p className="year"> ({release_year || 'No Year'})</p>
             {/* TODO: make sure the style reflects if this is already on watchlist */}
-            {user && type === 'movie-card' && (
+            {user && (
               <div
                 className="watchlist"
                 role="button"
