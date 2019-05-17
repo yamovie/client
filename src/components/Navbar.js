@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '../utils/fontAwesome';
-import '../css/BurgerMenu.css';
-import '../css/Navbar.css';
+import '../css/navbar-toast/BurgerMenu.css';
+import '../css/navbar-toast/Navbar.css';
 
 /**
  * JSX used to render the navbar on the page. Uses flexboxes to display information and links.
@@ -46,7 +46,7 @@ class Navbar extends React.Component {
         <div className="logo-container">
           <NavLink to="/">
             <img
-              src="/images/logo-v3-white-whitepopcorn.png"
+              src="/images/yamovie/logo-v3-white-whitepopcorn.png"
               alt="YaMovie"
               id="main-logo"
             />
@@ -92,7 +92,7 @@ class Navbar extends React.Component {
                 <NavLink
                   className="bm-item"
                   onClick={() => this.closeMenu()}
-                  to="/account"
+                  to="/account/watchlist"
                 >
                   <FontAwesomeIcon icon="user" /> Account
                 </NavLink>
@@ -108,27 +108,57 @@ class Navbar extends React.Component {
                 </NavLink>
               </div>
             )}
-            <a onClick={() => this.closeMenu()} target="_blank" rel="noopener noreferrer" href="https://forms.gle/xJoQ54DaX4omm74Z7" ><FontAwesomeIcon icon="comments" /> Feedback</a>
-            <a href="mailto:yamovie.tp@gmail.com?Subject=YaMovie%20Contact" onClick={() => this.closeMenu()} target="_top"><FontAwesomeIcon icon="envelope" /> Send Mail</a>
+            <a
+              onClick={() => this.closeMenu()}
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://forms.gle/xJoQ54DaX4omm74Z7"
+            >
+              <FontAwesomeIcon icon="comments" /> Feedback
+            </a>
+            <a
+              href="mailto:yamovie.tp@gmail.com?Subject=YaMovie%20Contact"
+              onClick={() => this.closeMenu()}
+              target="_top"
+            >
+              <FontAwesomeIcon icon="envelope" /> Send Mail
+            </a>
           </Menu>
         </div>
         <div className="desktop-nav">
-          <NavLink to="/recommendations" className='nav-item'>Find YaMovie</NavLink>
-          <NavLink to="/browse" className='nav-item'>Browse</NavLink>
-          <NavLink to="/about" className='nav-item'>About</NavLink>
-          {!user ?
+          <NavLink to="/recommendations" className="nav-item">
+            Find YaMovie
+          </NavLink>
+          <NavLink to="/browse" className="nav-item">
+            Browse
+          </NavLink>
+          <NavLink to="/about" className="nav-item">
+            About
+          </NavLink>
+          {!user ? (
             <>
-              <NavLink to="/signup" className='nav-item'>Sign Up</NavLink>
-              <NavLink to="/login" className='nav-item'>Log In</NavLink>
+              <NavLink to="/signup" className="nav-item">
+                Sign Up
+              </NavLink>
+              <NavLink to="/login" className="nav-item">
+                Log In
+              </NavLink>
             </>
-            :
+          ) : (
             <>
-              <NavLink to="/account" className='nav-item'>Account</NavLink>
-              <NavLink to="/" onClick={() => handleLogout()} className='nav-item'>Log Out</NavLink>
+              <NavLink to="/account/watchlist" className="nav-item">
+                Account
+              </NavLink>
+              <NavLink
+                to="/"
+                onClick={() => handleLogout()}
+                className="nav-item"
+              >
+                Log Out
+              </NavLink>
             </>
-          }
+          )}
         </div>
-
       </div>
     );
   }

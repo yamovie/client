@@ -3,25 +3,27 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import {
+  FeedbackToast,
+  Login,
+  Signup,
+  Navbar,
+  FakeNavbar,
   HomePage,
   BrowsePage,
   AboutPage,
   FindMoviePage,
   NotFoundPage,
-  UserDashboardPage,
-} from './pages';
-import { FeedbackToast, Login, Signup, Navbar } from './components';
+  UserDashboardPage
+} from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
 
 require('dotenv').config();
 
-// import Watchlist from './components/Watchlist';
-
 class App extends Component {
   static propTypes = {
     location: PropTypes.shape(Object).isRequired,
-    history: PropTypes.shape(Object).isRequired,
+    history: PropTypes.shape(Object).isRequired
   };
 
   constructor(props) {
@@ -29,6 +31,7 @@ class App extends Component {
     this.state = {
       user: null,
       isAuthenticated: false,
+      chatIsDone: true
     };
   }
 
@@ -68,29 +71,61 @@ class App extends Component {
     this.setState({ isAuthenticated: true, user: userServices.getUser() });
   };
 
+  /**
+   * Ensures that user cannot change to another part of the site while Lloyd is returning a promise
+   */
+  chatIsDone = () => {
+    this.setState({ chatIsDone: true });
+  };
+
+  chatIsLoading = () => {
+    this.setState({ chatIsDone: false });
+  };
+
   render() {
-    const { user, isAuthenticated } = this.state;
+    const { user, isAuthenticated, chatIsDone } = this.state;
 
     return (
       <div className="App">
-        <Navbar user={user} handleLogout={this.handleLogout} />
+        {chatIsDone ? (
+          <Navbar user={user} handleLogout={this.handleLogout} />
+        ) : (
+          <FakeNavbar user={user} />
+        )}
         <FeedbackToast />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />
           <Route path="/about" component={AboutPage} />
-          <Route path="/recommendations" component={FindMoviePage} />
           <Route
-            path="/login"
+            path="/recommendations"
             render={props => (
-              <Login {...props} handleLogin={this.handleLogin} />
+              <FindMoviePage
+                {...props}
+                chatIsDone={this.chatIsDone}
+                chatIsLoading={this.chatIsLoading}
+              />
             )}
           />
           <Route
+            path="/login"
+            render={({ props }) =>
+              isAuthenticated ? (
+                <Redirect to="/account/watchlist" />
+              ) : (
+                <Login {...props} handleLogin={this.handleLogin} />
+              )
+            }
+          />
+          <Route
             path="/signup"
-            render={props => (
-              <Signup {...props} handleSignup={this.handleSignup} />
-            )}
+            render={({ props }) =>
+              isAuthenticated ? (
+                <Redirect to="/account/watchlist" />
+              ) : (
+                <Signup {...props} handleSignup={this.handleSignup} />
+              )
+            }
           />
           <Route
             path="/account"
