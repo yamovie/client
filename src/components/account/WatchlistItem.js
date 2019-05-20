@@ -9,7 +9,6 @@ export default class WatchlistItem extends React.Component {
     this.state = {
       render: false,
       set: false,
-
     }
   }
 
@@ -21,7 +20,7 @@ export default class WatchlistItem extends React.Component {
   }
   
   render() {
-    const { movie, remove } = this.props;
+    const { movie, remove, toggleModal} = this.props;
     const { render } = this.state;
     const style = {
       WebkitAnimation: 'fadeIn 2s',
@@ -39,7 +38,7 @@ export default class WatchlistItem extends React.Component {
           onExited={(e) => remove(e, movie.id)}
         >
           <div className="watchlist-movie" style={style}>
-            <img src={movie.images.poster} className="img-fluid" alt="movie" />
+            <img src={movie.images.poster} className="img-fluid" alt="movie" onClick={() => toggleModal(movie)} tabIndex={0} />
             <button type="button" className="watchlist-remove-btn" onClick={(e) => remove(e, movie._id)}>
               <FontAwesomeIcon icon={faMinusCircle} /> Remove
             </button>
