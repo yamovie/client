@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import '../../css/account/Watchlist.css';
-import { WatchlistItem } from '..';
+import { WatchlistItem, MovieInfoDisplay  } from '..';
 // import { watch } from 'fs';
 
 const { REACT_APP_SVR_USERS } = process.env;
@@ -17,6 +17,8 @@ class Watchlist extends React.Component {
     super(props);
     this.state = {
       movies: [],
+      isModalVisible: false,
+      selectedMovie: {},
     }
     this.removeFromWatchlist = this.removeFromWatchlist.bind(this);
   }
@@ -26,6 +28,15 @@ class Watchlist extends React.Component {
     axios.get(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`)
       .then(res => this.setState({movies: res.data}));
   }
+
+  toggleModal = selectedMovie => {
+    const { isModalVisible } = this.state;
+    if (isModalVisible) {
+      this.setState({ isModalVisible: false });
+    } else {
+      this.setState({ isModalVisible: true, selectedMovie });
+    }
+  };
 
   removeFromWatchlist(e, movieId) {
     const { user } = this.props;
@@ -40,16 +51,26 @@ class Watchlist extends React.Component {
   }
 
   render() {
-    const { movies } = this.state;
+    const { movies, isModalVisible, selectedMovie } = this.state;
 
     return (
       <div className="account-pane">
         <h1 className='account-title'>Your Watchlist</h1>
         {
           <div className="watchlist-wrapper">
+            {isModalVisible && (
+              <div className="movie-card-container">
+                <MovieInfoDisplay
+                  type="movie-card"
+                  movie={selectedMovie}
+                  toggleModal={this.toggleModal}
+                  onWatchlistPage
+                />
+              </div>
+            )}
             {movies.length > 0 ?
               movies.map((movie, i) => (
-                <WatchlistItem movie={movie} speed={50} multiplier={i} remove={this.removeFromWatchlist} />
+                <WatchlistItem movie={movie} speed={50} multiplier={i} remove={this.removeFromWatchlist} toggleModal={this.toggleModal} />
               ))
               :
               <p className="watchlist-message">Add movies to your watchlist to display them here</p>
