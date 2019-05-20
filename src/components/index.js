@@ -18,7 +18,6 @@ export { default as ChatWindow } from './movie-displays/ChatWindow';
 export { default as GenreList } from './movie-displays/GenreList';
 export { default as MovieInfoDisplay } from './movie-displays/MovieInfoDisplay';
 export { default as MovieFeed } from './movie-displays/MovieFeed';
-export { default as SearchBar } from './movie-displays/SearchBar';
 export { default as TrailerModal } from './movie-displays/TrailerModal';
 export {
   StreamsView,
