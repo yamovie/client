@@ -148,7 +148,7 @@ class Signup extends Component {
               <div className="button-container">
                 <button
                   className="signup-submit"
-                  type="button"
+                  type="submit"
                   onClick={e => this.isFormInvalid(e)}
                 >
                   {' '}
