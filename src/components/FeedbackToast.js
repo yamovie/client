@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 
 class FeedbackToast extends Component {
-  static propTypes = {
-    storageType: PropTypes.shape(PropTypes.object),
-  };
-
-  static defaultProps = {
-    storageType: sessionStorage,
-  };
-
   constructor(props) {
     super(props);
 
     this.state = {
       render: false,
+      storageType: sessionStorage,
     };
   }
 
@@ -26,7 +18,7 @@ class FeedbackToast extends Component {
   }
 
   showAlert = () => {
-    const { storageType } = this.props;
+    const { storageType } = this.state;
     const visited = storageType.alreadyVisited;
     if (!visited) {
       storageType.alreadyVisited = true;

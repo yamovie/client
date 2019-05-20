@@ -92,7 +92,7 @@ class App extends Component {
         ) : (
           <FakeNavbar user={user} />
         )}
-        <FeedbackToast storageType={sessionStorage} />
+        <FeedbackToast />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />
