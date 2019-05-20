@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 
 class FeedbackToast extends Component {
+  static propTypes = {
+    storageType: PropTypes.shape(PropTypes.object),
+  };
+
+  static defaultProps = {
+    storageType: sessionStorage,
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
       render: false,
-      hasShown: false,
     };
   }
 
@@ -18,9 +26,10 @@ class FeedbackToast extends Component {
   }
 
   showAlert = () => {
-    const { hasShown } = this.state;
-    if (!hasShown) {
-      this.setState({ hasShown: true });
+    const { storageType } = this.props;
+    const visited = storageType.alreadyVisited;
+    if (!visited) {
+      storageType.alreadyVisited = true;
       Swal.fire({
         position: 'bottom-end',
         title: '<strong> What do you think of our site? </strong>',
@@ -35,6 +44,8 @@ class FeedbackToast extends Component {
           window.open('https://forms.gle/xJoQ54DaX4omm74Z7', '_blank');
         }
       });
+    } else {
+      this.setState({ render: false });
     }
   };
 

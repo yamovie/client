@@ -13,7 +13,7 @@ import {
   AboutPage,
   FindMoviePage,
   NotFoundPage,
-  UserDashboardPage
+  UserDashboardPage,
 } from './components';
 import userServices from './utils/userServices';
 import './css/main.css';
@@ -23,7 +23,7 @@ require('dotenv').config();
 class App extends Component {
   static propTypes = {
     location: PropTypes.shape(Object).isRequired,
-    history: PropTypes.shape(Object).isRequired
+    history: PropTypes.shape(Object).isRequired,
   };
 
   constructor(props) {
@@ -31,7 +31,7 @@ class App extends Component {
     this.state = {
       user: null,
       isAuthenticated: false,
-      chatIsDone: true
+      chatIsDone: true,
     };
   }
 
@@ -92,7 +92,7 @@ class App extends Component {
         ) : (
           <FakeNavbar user={user} />
         )}
-        <FeedbackToast />
+        <FeedbackToast storageType={sessionStorage} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />
