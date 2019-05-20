@@ -4,6 +4,7 @@
   top: 35%;
   left: 40%;
   background-color: rgba(35, 38, 46, 0.98);
+  box-shadow: 3px 3px 3px #888888;
   width: 20%;
   height: 30%;
   z-index: 9000;
@@ -89,6 +90,7 @@
   border: none;
   color: var(--offwhite);
   font-size: 20px;
+  font: inherit;
   padding: 5px;
   border-radius: 5px;
 }
