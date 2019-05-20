@@ -1,0 +1,94 @@
+#advanced-search-container {
+  display: flex;
+  position: fixed;
+  top: 35%;
+  left: 40%;
+  background-color: rgba(35, 38, 46, 0.98);
+  width: 20%;
+  height: 30%;
+  z-index: 9000;
+}
+
+#advanced-form {
+  margin: 20px;
+}
+
+/* Customize the label (the container) */
+#advanced-form .container {
+  color: var(--offwhite);
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+#advanced-form .container input {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+#advanced-form .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--offwhite);
+}
+
+/* On mouse-over, add a grey background color */
+#advanced-form .container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+#advanced-form .container input:checked ~ .checkmark {
+  background-color: var(--purple);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+#advanced-form .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+#advanced-form .container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+#advanced-form .container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+#advanced-search-button {
+  background-color: var(--purple);
+  border: none;
+  color: var(--offwhite);
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
