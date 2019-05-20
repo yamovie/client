@@ -28,23 +28,23 @@ export default class UserPreferences extends Component {
       certifications: {},
       providers: {},
       genres: {
-        '5cd5ab80e1555e05969c5717': '🏃‍💥', // Action Adventure
-        '5cd5ab80e1555e05969c5718': '🐭🐲', // Animation
-        '5cd5ab80e1555e05969c5719': '😂😝', // Comedy
-        '5cd5ab80e1555e05969c571a': '🔫💰', // Crime
-        '5cd5ab80e1555e05969c571b': '🤓📑', // Documentary
-        '5cd5ab80e1555e05969c571c': '🎭😮', // Drama
-        '5cd5ab80e1555e05969c571d': '🧝‍🧙‍', // Fantasy
-        '5cd5ab80e1555e05969c571e': '📚🕖', // History
-        '5cd5ab80e1555e05969c571f': '😱🔪', // Horror
-        '5cd5ab80e1555e05969c5720': '👨‍👨‍👧👩‍👩‍👦', // Kids & Family
-        '5cd5ab80e1555e05969c5721': '🎤🎶', // Music & Musical
-        '5cd5ab80e1555e05969c5722': '🤔😲', // Mystery & Thriller
-        '5cd5ab80e1555e05969c5723': '🌹😍', // Romance
-        '5cd5ab80e1555e05969c5724': '👽🤖', // Science-Fiction
-        '5cd5ab80e1555e05969c5725': '🤾‍🏅', // Sport & Fitness
-        '5cd5ab80e1555e05969c5726': '🏹💣', // War & Military
-        '5cd5ab80e1555e05969c5727': '🤠🐴', // Western
+        'Action & Adventure': '🏃‍💥', // Action Adventure
+        Animation: '🐭🐲', // Animation
+        Comedy: '😂😝', // Comedy
+        Crime: '🔫💰', // Crime
+        Documentary: '🤓📑', // Documentary
+        Drama: '🎭😮', // Drama
+        Fantasy: '🧝‍🧙‍', // Fantasy
+        History: '📚🕖', // History
+        Horror: '😱🔪', // Horror
+        'Kids & Family': '👨‍👨‍👧👩‍👩‍👦', // Kids & Family
+        'Music & Musical': '🎤🎶', // Music & Musical
+        'Mystery & Thriller': '🤔😲', // Mystery & Thriller
+        Romance: '🌹😍', // Romance
+        'Science-Fiction': '👽🤖', // Science-Fiction
+        'Sport & Fitness': '🤾‍🏅', // Sport & Fitness
+        'War & Military': '🏹💣', // War & Military
+        Western: '🤠🐴', // Western
       },
     };
 
@@ -130,7 +130,7 @@ export default class UserPreferences extends Component {
               this.defaults.off.providers[provider._id] = false;
               this.defaults.on.providers[provider._id] = true;
               this.nameMaps.providers[provider._id] = provider.clear_name;
-              this.displayIcons.providers[provider._id] = imgLink;
+              this.displayIcons.providers[provider.clear_name] = imgLink;
             }
           });
           this.initialPrefs = prefResp.data.preferences;
@@ -236,7 +236,8 @@ export default class UserPreferences extends Component {
         id: iDkey,
         name: this.nameMaps[prefSection][iDkey],
         checked: stateSection[iDkey],
-        icon: this.displayIcons[prefSection][iDkey],
+        // the key within displayIcons is the name, so Genres work and can be hard coded
+        icon: this.displayIcons[prefSection][this.nameMaps[prefSection][iDkey]],
       });
     });
     return displayList;
