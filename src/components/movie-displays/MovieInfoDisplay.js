@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { RatingsView, StreamsView, PosterWTrailer } from '..';
 import { FontAwesomeIcon, userServices, tokenServices } from '../../utils';
 import '../../css/movie-displays/MovieInfoDisplay.css';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+// import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export default class MovieInfoDisplay extends Component {
   static propTypes = {

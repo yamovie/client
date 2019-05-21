@@ -115,6 +115,7 @@
   width: 100%;
   background: var(--purple);
   padding: 40px 2%;
+  padding-bottom: 6%;
 }
 
 .about-page .avatar-list {
@@ -255,24 +256,69 @@
 .avatar-role {
   color: var(--offwhite);
   text-align: center;
+  margin-top: 4px;
 }
 
 .avatar-movie {
   color: var(--offwhite);
   font-size: 15px;
-  text-align: center;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 .avatar-show {
   color: var(--offwhite);
   font-size: 15px;
-  text-align: center;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 .avatar-genre {
   color: var(--offwhite);
   font-size: 15px;
-  text-align: center;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 /* ========================================================================== */
+
+.show-more-button {
+  margin-top: 0.5rem;
+  color: var(--darkgrey);
+  font-size: 16px;
+  background: var(--popcornyellow);
+  border-radius: 15%;
+  width: 100px;
+  font-weight: bolder;
+}
+
+.show-more-button:hover {
+  /* text-decoration-line: underline; */
+  cursor: pointer;
+}
+
+.show-info {
+  background-color: purple;
+  padding: 12px;
+  margin-top: 0.5rem;
+  text-align: center;
+  size: 1rem;
+  border-radius: 15%;
+}
+
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
