@@ -131,6 +131,9 @@
   flex-direction: column;
   align-items: center;
   width: 50%;
+  background-color: purple;
+  border: solid var(--popcornyellow);
+  border-radius: 10px;
 }
 
 .about-page .avatar-item {
@@ -261,21 +264,21 @@
 
 .avatar-movie {
   color: var(--offwhite);
-  font-size: 15px;
+  font-size: 18px;
   text-align: left;
   margin-bottom: 5px;
 }
 
 .avatar-show {
   color: var(--offwhite);
-  font-size: 15px;
+  font-size: 18px;
   text-align: left;
   margin-bottom: 5px;
 }
 
 .avatar-genre {
   color: var(--offwhite);
-  font-size: 15px;
+  font-size: 18px;
   text-align: left;
   margin-bottom: 5px;
 }
@@ -284,16 +287,16 @@
 
 .show-more-button {
   margin-top: 0.5rem;
-  color: var(--darkgrey);
+  margin-bottom: 0.5rem;
+  color: var(--offwhite);
   font-size: 16px;
-  background: var(--popcornyellow);
-  border-radius: 15%;
+  background: blue;
+  border-radius: 10px;
   width: 100px;
   font-weight: bolder;
 }
 
 .show-more-button:hover {
-  /* text-decoration-line: underline; */
   cursor: pointer;
 }
 
@@ -303,7 +306,7 @@
   margin-top: 0.5rem;
   text-align: center;
   size: 1rem;
-  border-radius: 15%;
+  border-radius: 10px;
 }
 
 .fade-in {
