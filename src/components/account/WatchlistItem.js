@@ -38,7 +38,7 @@ export default class WatchlistItem extends React.Component {
           onExited={(e) => remove(e, movie.id)}
         >
           <div className="watchlist-movie" style={style}>
-            <img src={movie.images.poster} className="img-fluid" alt="movie" onClick={() => toggleModal(movie)} tabIndex={0} />
+            <img src={movie.images.poster} className="img-fluid" alt="movie" onClick={() => toggleModal(movie._id)} tabIndex={0} />
             <button type="button" className="watchlist-remove-btn" onClick={(e) => remove(e, movie._id)}>
               <FontAwesomeIcon icon={faMinusCircle} /> Remove
             </button>

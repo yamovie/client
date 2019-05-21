@@ -6,7 +6,7 @@ import '../../css/account/Watchlist.css';
 import { WatchlistItem, MovieInfoDisplay  } from '..';
 // import { watch } from 'fs';
 
-const { REACT_APP_SVR_USERS } = process.env;
+const { REACT_APP_SVR_USERS, REACT_APP_SVR_API } = process.env;
 
 class Watchlist extends React.Component {
   static propTypes = {
@@ -26,15 +26,19 @@ class Watchlist extends React.Component {
   componentDidMount() {
     const { user } = this.props;
     axios.get(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`)
-      .then(res => this.setState({movies: res.data}));
+      .then(res => {
+        this.setState({movies: res.data});
+        console.log(res);
+      });
   }
 
-  toggleModal = selectedMovie => {
+  toggleModal = movieId => {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
       this.setState({ isModalVisible: false });
     } else {
-      this.setState({ isModalVisible: true, selectedMovie });
+      axios.get(`${REACT_APP_SVR_API}/movies/${movieId}`)
+        .then(res => this.setState({ isModalVisible: true, selectedMovie: res.data }));
     }
   };
 
