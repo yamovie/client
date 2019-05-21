@@ -128,7 +128,7 @@ class AboutPage extends React.Component {
                   <button
                     name="ivy"
                     type="button"
-                    className="show-more-button"
+                    className="show-less-button"
                     onClick={this.hideInfo}
                   >
                     Show Less
@@ -170,7 +170,7 @@ class AboutPage extends React.Component {
                   <button
                     name="sam"
                     type="button"
-                    className="show-more-button"
+                    className="show-less-button"
                     onClick={this.hideInfo}
                   >
                     Show Less
@@ -207,7 +207,7 @@ class AboutPage extends React.Component {
                   <button
                     name="kevin"
                     type="button"
-                    className="show-more-button"
+                    className="show-less-button"
                     onClick={this.hideInfo}
                   >
                     Show Less
@@ -251,7 +251,7 @@ class AboutPage extends React.Component {
                   <button
                     name="hans"
                     type="button"
-                    className="show-more-button"
+                    className="show-less-button"
                     onClick={this.hideInfo}
                   >
                     Show Less
@@ -293,7 +293,7 @@ class AboutPage extends React.Component {
                   <button
                     name="will"
                     type="button"
-                    className="show-more-button"
+                    className="show-less-button"
                     onClick={this.hideInfo}
                   >
                     Show Less
@@ -334,7 +334,7 @@ class AboutPage extends React.Component {
                   <button
                     name="glen"
                     type="button"
-                    className="show-more-button"
+                    className="show-less-button"
                     onClick={this.hideInfo}
                   >
                     Show Less
