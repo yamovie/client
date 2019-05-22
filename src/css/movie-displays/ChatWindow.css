@@ -34,5 +34,7 @@
 
 .botui-HAL9000 .botui-message-content {
   background-color: var(--darkgrey);
-  color: var(--offwhite);
+  font-weight: bold;
+  border: 1px solid var(--lightgrey);
+  color: var(--red);
 }
