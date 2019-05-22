@@ -23,14 +23,28 @@ class Watchlist extends React.Component {
     this.removeFromWatchlist = this.removeFromWatchlist.bind(this);
   }
 
+  // Loads the user's watchlist movies
   componentDidMount() {
-    const { user } = this.props;
-    axios.get(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`)
-      .then(res => {
-        this.setState({movies: res.data});
-        console.log(res);
-      });
+    const { movies } = this.state;
+    if (!movies.length) {
+      this.getWatchlistMovies(false);
+    }
   }
+
+  // Loads the user's watchlist movies. Takes a boolean as an argument.
+  getWatchlistMovies(bool) {
+    const { user } = this.props;
+    const config =  {
+      params: {
+        watched: bool,
+      }
+    }
+
+    axios.get(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`, config)
+      .then(res => this.setState({movies: res.data}));
+  }
+
+  
 
   toggleModal = movieId => {
     const { isModalVisible } = this.state;
@@ -54,12 +68,23 @@ class Watchlist extends React.Component {
       });
   }
 
+
+
   render() {
     const { movies, isModalVisible, selectedMovie } = this.state;
 
     return (
       <div className="account-pane">
-        <h1 className='account-title'>Your Watchlist</h1>
+        <div className="watchlist-togglebar">
+          <h1 className='account-title'>Your Watchlist</h1>
+          
+          <div>
+            <a>Favourites</a>
+            <span> / </span>
+            <a>Watched</a>
+          </div>
+        </div>
+        
         {
           <div className="watchlist-wrapper">
             {isModalVisible && (

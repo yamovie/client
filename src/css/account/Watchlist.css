@@ -13,6 +13,18 @@
 
 /* ============================================================================= */
 
+.watchlist-togglebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--offwhite);
+}
+
+.watchlist-togglebar a {
+  cursor: pointer;
+  font-size: 18px;
+}
+
 .collapse-left {
   animation: collapseLeft 2s forwards;
 }
