@@ -10,6 +10,7 @@ export default class BrowseFilters extends Component {
     handleSearchSubmit: PropTypes.func.isRequired,
     handleSendGenre: PropTypes.func.isRequired,
     currentGenreFilter: PropTypes.string.isRequired,
+    handleSearchOptions: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -64,7 +65,7 @@ export default class BrowseFilters extends Component {
    // Render
 
    render() {
-     const { handleSendGenre, currentGenreFilter } = this.props;
+     const { handleSendGenre, currentGenreFilter, handleSearchOptions } = this.props;
      const { showGenres, searchInputValue, showAdvancedSearch } = this.state;
 
      return (
@@ -93,6 +94,7 @@ export default class BrowseFilters extends Component {
          <AdvancedSearch
            style={{ display: showAdvancedSearch ? 'flex' : 'none' }}
            toggleShowAdvancedSearch={this.toggleShowAdvancedSearch}
+           handleSearchOptions={handleSearchOptions}
          />
        </div>
      );
