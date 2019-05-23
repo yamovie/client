@@ -18,17 +18,34 @@ class ChatWindow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      certification: 'R',
-      min_year: 0,
-      max_year: 3000,
+      certifications: {
+        G: true,
+        PG: true,
+        'PG-13': true,
+        R: true,
+        'NC-17': true,
+      },
+      release: {
+        minYear: 0,
+        maxYear: 3000,
+      },
+      ratings: {
+        imdb: {
+          minRating: 0,
+          maxRating: 10,
+        },
+        rottenTomatoes: {
+          minRating: 0,
+          maxRating: 100,
+        },
+      },
+      genres: { none: false },
       foreign: true,
-      indie: false,
-      imdb: 0,
-      rotten_tomatoes: 0,
-      genres: [''],
-      max_recs: 0,
+      maxRecs: 0,
     };
+
     this.endChat = false;
+
     this.delays = {
       initial: 250,
       response: 500,
@@ -187,7 +204,11 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(moodRes => {
-        this.setState({ genres: moodRes.value });
+        const genres = moodRes.value.reduce((acc, curr) => {
+          acc[curr] = true;
+          return acc;
+        }, {});
+        this.setState({ genres });
         const responses = {
           'Funny 😆': 'Hilarious! 🤡',
           'Sad 😭': 'Tragic! 💔',
@@ -227,12 +248,15 @@ class ChatWindow extends React.Component {
     await this.botui.action
       .button({
         action: [
-          { value: 'PG', text: 'Family friendly 👼 (G & PG only)' },
+          { value: 'G/PG', text: 'Family friendly 👼 (G & PG only)' },
           {
-            value: 'PG-13',
+            value: 'G/PG/PG-13',
             text: 'Some mature content is fine 👨‍🎤 (includes PG-13)',
           },
-          { value: 'R', text: 'All content is fine 🧑 (includes R)' },
+          {
+            value: 'G/PG/PG-13/R/NC-17',
+            text: 'All content is fine 🧑 (includes R and NC-17)',
+          },
           { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
@@ -241,7 +265,11 @@ class ChatWindow extends React.Component {
         if (ageRes.value === 'end') {
           this.endChat = true;
         } else {
-          this.setState({ certification: ageRes.value });
+          const certifications = ageRes.value.split('/').reduce((acc, curr) => {
+            acc[curr] = true;
+            return acc;
+          }, {});
+          this.setState({ certifications });
           this.lloydMessage('Got it!', this.delays.response);
         }
       });
@@ -261,13 +289,15 @@ class ChatWindow extends React.Component {
       delay: this.delays.nextQ,
     });
     enableChatClose();
+    const options = ['0/1980', '1980/2010', '2010/3000', '0/3000'];
+
     await this.botui.action
       .button({
         action: [
-          { value: 'old-school', text: 'Old School (before 1980)' },
-          { value: 'in-between', text: 'In Between (1980-2010)' },
-          { value: 'modern', text: 'Modern (after 2010)' },
-          { value: 'no-preference', text: 'No preference' },
+          { value: options[0], text: 'Old School (before 1980)' },
+          { value: options[1], text: 'In Between (1980-2010)' },
+          { value: options[2], text: 'Modern (after 2010)' },
+          { value: options[3], text: 'No preference' },
           { value: 'end', text: 'Show YaMovie results! 🍿' },
         ],
         delay: this.delays.ansOptions,
@@ -278,25 +308,19 @@ class ChatWindow extends React.Component {
           return;
         }
         const responses = {
-          'old-school': 'Back to the glory days! 🌟',
-          'in-between': 'The middle way! 🧘‍',
-          modern: 'New and improved! 🆕✨',
-          'no-preference': 'Sure thing!',
+          [options[0]]: 'Back to the glory days! 🌟',
+          [options[1]]: 'The middle way! 🧘‍',
+          [options[2]]: 'New and improved! 🆕✨',
+          [options[4]]: 'Sure thing!',
         };
-        switch (eraRes.value) {
-          case 'classic':
-            this.setState({ min_year: 0, max_year: 1980 });
-            break;
-          case 'in-between':
-            this.setState({ min_year: 1980, max_year: 2010 });
-            break;
-          case 'modern':
-            this.setState({ min_year: 2010, max_year: 3000 });
-            break;
-          default:
-            console.error('error');
-        }
-        this.lloydMessage(responses[eraRes], this.delays.response);
+        const years = eraRes.value.split('/');
+        this.setState({
+          release: {
+            minYear: years[0],
+            maxYear: years[1],
+          },
+        });
+        this.lloydMessage(responses[eraRes.value], this.delays.response);
       });
   };
 
@@ -327,7 +351,7 @@ class ChatWindow extends React.Component {
           this.endChat = true;
         }
         this.setState(prevState => ({
-          genres: [...prevState.genres, genreIds.Animation],
+          genres: { ...prevState.genres, [genreIds.Animation]: true },
         }));
         if (animRes.value === true) {
           this.lloydMessage('Me too! 👾', this.delays.response);
@@ -362,47 +386,10 @@ class ChatWindow extends React.Component {
           this.endChat = true;
         }
         this.setState({ foreign: forRes.value });
-        if (forRes.value === true) {
+        if (forRes.value) {
           this.lloydMessage('Très bien! 🔵⚪🔴', this.delays.response);
         } else {
-          this.lloydMessage("They're not for everyone", this.delays.response);
-        }
-      });
-  };
-
-  /**
-   * Asks about the user's indie preference, displays button response options, then
-   * sets the state and displays a response message when they have selected an option
-   */
-  indieQuestion = async enableChatClose => {
-    if (this.skipQuestion()) {
-      return;
-    }
-
-    this.lloydMessage('Do you like independent films?', this.delays.nextQ);
-    enableChatClose();
-    await this.botui.action
-      .button({
-        action: [
-          {
-            value: true,
-            text: 'Yes, you can add indie films to my results 👍',
-          },
-          { value: false, text: 'No, exclude them please 👎' },
-          { value: 'end', text: 'Show YaMovie results! 🍿' },
-        ],
-        delay: this.delays.ansOptions,
-      })
-      .then(indieRes => {
-        if (indieRes.value === 'end') {
-          this.endChat = true;
-          return;
-        }
-        this.setState({ indie: indieRes.value });
-        if (indieRes.value) {
-          this.lloydMessage('A true film connoisseur! 🧐', this.delays.response);
-        } else {
-          this.lloydMessage('No problem!', this.delays.response);
+          this.lloydMessage("They're not for everyone.", this.delays.response);
         }
       });
   };
@@ -422,7 +409,7 @@ class ChatWindow extends React.Component {
     await this.botui.action
       .button({
         action: [
-          { value: 'rotten-tomatoes', text: 'Rotten Tomatoes' },
+          { value: 'rottenTomatoes', text: 'Rotten Tomatoes' },
           { value: 'imdb', text: 'IMDB' },
           { value: 'dont-care', text: 'I Dont Care' },
           { value: 'both', text: 'Both' },
@@ -430,7 +417,7 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(async ratingsRes => {
-        if (ratingsRes.value === 'both' || ratingsRes.value === 'rotten-tomatoes') {
+        if (ratingsRes.value === 'both' || ratingsRes.value === 'rottenTomatoes') {
           await this.rtQuestion(enableChatClose);
         }
         if (ratingsRes.value === 'both' || ratingsRes.value === 'imdb') {
@@ -438,7 +425,18 @@ class ChatWindow extends React.Component {
         }
         if (ratingsRes.value === 'dont-care') {
           this.endChat = true;
-          this.setState({ rotten_tomatoes: 0, imdb: 0 });
+          this.setState({
+            ratings: {
+              imdb: {
+                minRating: 0,
+                maxRating: 10,
+              },
+              rottenTomatoes: {
+                minRating: 0,
+                maxRating: 100,
+              },
+            },
+          });
         }
       });
   };
@@ -465,7 +463,15 @@ class ChatWindow extends React.Component {
         if (rtRes.value === 'end') {
           this.endChat = true;
         }
-        this.setState({ rotten_tomatoes: rtRes.value });
+        this.setState(prevState => ({
+          ratings: {
+            ...prevState.ratings,
+            rottenTomatoes: {
+              minRating: rtRes.value,
+              maxRating: 100,
+            },
+          },
+        }));
       });
   };
 
@@ -491,7 +497,15 @@ class ChatWindow extends React.Component {
         if (imdbRes.value === 'end') {
           this.endChat = true;
         }
-        this.setState({ imdb: imdbRes.value });
+        this.setState(prevState => ({
+          ratings: {
+            ...prevState.ratings,
+            imdb: {
+              minRating: imdbRes.value,
+              maxRating: 100,
+            },
+          },
+        }));
       });
   };
 
