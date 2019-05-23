@@ -25,6 +25,38 @@
   font-size: 18px;
 }
 
+.watchlist-movie .poster-container {
+  position: relative;
+}
+
+.watchlist-buttons {
+  position: absolute;
+  top: 0;
+  left: 1px;
+}
+
+.watchlist-button {
+  font-size: 18px;
+  margin-left: 2px;
+  padding: 10px 5px;
+  border: none;
+  border-radius: 0 0 3px 3px;
+  background:rgb(136, 56, 140);
+  cursor: pointer;
+}
+
+.favorite-button {
+  color: goldenrod;
+}
+
+.favorite-button:hover {
+  color: white;
+}
+
+.watched-button {
+  color: var(--offwhite);
+}
+
 .collapse-left {
   animation: collapseLeft 2s forwards;
 }
@@ -54,12 +86,6 @@
   margin: none;
 }
 
-.watchlist-buttons {
-  display: flex;
-  padding: 5px 0;
-  justify-content: space-between;
-}
-
 .watchlist-message {
   color: var(--offwhite);
   margin-top: 10px;
@@ -74,6 +100,7 @@
   background: rgba(90, 90, 90, 0.5);
   cursor: pointer;
   color: var(--offwhite);
+  cursor: pointer;
 }
 
 /* Small devices (landscape phones, 576px and up) */

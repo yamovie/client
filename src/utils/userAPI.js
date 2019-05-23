@@ -31,8 +31,8 @@ function login(creds) {
 function addToWatchlist(userId, movieId) {
   // add to user watchlist
   axios.post(
-    `${REACT_APP_SVR_USERS}/watchlist`,
-    { userId, movieId },
+    `${REACT_APP_SVR_USERS}/${userId}/watchlist`,
+    { movieId },
     { headers: { 'Content-Type': 'application/json' } },
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '../../utils/fontAwesome';
 
@@ -20,7 +19,7 @@ export default class WatchlistItem extends React.Component {
   }
   
   render() {
-    const { movie, remove, toggleModal} = this.props;
+    const { movie, update, toggleModal} = this.props;
     const { render } = this.state;
     const style = {
       WebkitAnimation: 'fadeIn 2s',
@@ -32,15 +31,25 @@ export default class WatchlistItem extends React.Component {
         <CSSTransition
         // in={showMessage}
           // timeout={300}
-          classNames="collapse-left"
+          // classNames="collapse-left"
           // unmountOnExit
           // onEnter={() => setShowButton(false)}
-          onExited={(e) => remove(e, movie.id)}
         >
           <div className="watchlist-movie" style={style}>
-            <img src={movie.images.poster} className="img-fluid" alt="movie" onClick={() => toggleModal(movie._id)} tabIndex={0} />
-            <button type="button" className="watchlist-remove-btn" onClick={(e) => remove(e, movie._id)}>
-              <FontAwesomeIcon icon={faMinusCircle} /> Remove
+            <div className="poster-container">
+              <img src={movie.images.poster} className="img-fluid" alt="movie" onClick={() => toggleModal(movie._id)} tabIndex={0} />
+              <div className="watchlist-buttons ">
+                <button type="button" className="watchlist-button favorite-button" onClick={() => update(movie._id, { favorite: !movie.favorite , watched: movie.watched })}>
+                  <FontAwesomeIcon icon="star" />
+                </button>
+                <button type="button" className="watchlist-button watched-button" onClick={() => update(movie._id, { watched: !movie.watched, favorite: movie.favorite })}>
+                  <FontAwesomeIcon icon="eye" />
+                </button>
+              </div>
+             
+            </div>
+            <button type="button" className="watchlist-remove-btn">
+              Watch now
             </button>
           </div>
         </CSSTransition>
