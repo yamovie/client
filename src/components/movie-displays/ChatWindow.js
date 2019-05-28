@@ -70,8 +70,6 @@ class ChatWindow extends React.Component {
     await disableChatClose();
     await this.foreignQuestion(enableChatClose);
     await disableChatClose();
-    await this.indieQuestion(enableChatClose);
-    await disableChatClose();
     await this.ratingsQuestion(enableChatClose);
     await disableChatClose();
     await this.endChatFunc(enableChatClose, disableChatClose);
@@ -152,7 +150,7 @@ class ChatWindow extends React.Component {
         delay: this.delays.ansOptions,
       })
       .then(limitRes => {
-        this.setState({ max_recs: limitRes.value });
+        this.setState({ maxRecs: limitRes.value });
         this.lloydMessage('Sounds good! 😃', this.delays.response);
       });
   };

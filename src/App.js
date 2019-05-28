@@ -111,7 +111,7 @@ class App extends Component {
             path="/login"
             render={({ props }) =>
               isAuthenticated ? (
-                <Redirect to="/account/watchlist" />
+                <Redirect to="/account/dashboard" />
               ) : (
                 <Login {...props} handleLogin={this.handleLogin} />
               )
@@ -121,7 +121,7 @@ class App extends Component {
             path="/signup"
             render={({ props }) =>
               isAuthenticated ? (
-                <Redirect to="/account/watchlist" />
+                <Redirect to="/account/dashboard" />
               ) : (
                 <Signup {...props} handleSignup={this.handleSignup} />
               )
