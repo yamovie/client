@@ -26,7 +26,7 @@ export {
 } from './movie-displays/DisplayHelpers';
 
 // pages
-export { default as AboutPage } from './pages/AboutPage';
+export { default as AboutPage } from './pages/AboutPage/AboutPage';
 export { default as BrowsePage } from './pages/BrowsePage';
 export { default as FindMoviePage } from './pages/FindMoviePage';
 export { default as HomePage } from './pages/HomePage';
