@@ -16,6 +16,7 @@ class Watchlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      movies: [],
       favoriteMovies: [],
       watchedMovies: [],
       isModalVisible: false,
@@ -51,8 +52,7 @@ class Watchlist extends React.Component {
 
     axios.get(`${REACT_APP_SVR_USERS}/${user._id}/watchlist/`)
       .then(res => this.setState({
-        favoriteMovies: res.data.filter(movie => movie.favorite === true),
-        watchedMovies: res.data.filter(movie => movie.watched === true),
+        movies: res.data,
       }));
     // .then(res => console.log(res.data));
   }
@@ -84,12 +84,17 @@ class Watchlist extends React.Component {
   updateWatchlist(movieId, obj) {
     console.log(movieId, obj);
     const { user } = this.props;
-    const { favoriteMovies, watchedMovies } = this.state;
+    const { favoriteMovies, watchedMovies, movies } = this.state;
     const { favorite, watched } = obj;
+    const updatedMovies = movies;
+    updatedMovies.find(movie => movie._id === movieId).watched = watched;
+    updatedMovies.find(movie => movie._id === movieId).favorite = favorite;
+
+
 
     axios.put(`${REACT_APP_SVR_USERS}/${user._id}/watchlist/${movieId}`, {data: {favorite, watched} })
       .then(() => {
-        this.setState({favoriteMovies: favoriteMovies.filter(movie => movie._id !== movieId)});
+        this.setState({movies: updatedMovies });
       })
       .catch(error => {
         console.log(`The server responded with error: ${error.response.status}, ${error.response.statusText} `)
@@ -113,7 +118,7 @@ class Watchlist extends React.Component {
   }
 
   render() {
-    const { favoriteMovies, watchedMovies, favoritesAreVisible, isModalVisible, selectedMovie } = this.state;
+    const { movies, watchedMovies, favoritesAreVisible, isModalVisible, selectedMovie } = this.state;
 
     return (
       <div className="account-pane">
@@ -139,18 +144,16 @@ class Watchlist extends React.Component {
                 />
               </div>
             )}
-            {favoriteMovies.length &&
-              favoritesAreVisible ?
-              favoriteMovies.map((movie, i) => (
-                <WatchlistItem movie={movie.movieId} speed={50} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
-              ))
-              :
-              watchedMovies.map((movie, i) => (
-                <WatchlistItem movie={movie.movieId} speed={50} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
+            {
+              favoritesAreVisible &&
+              movies.map((movie, i) => (
+                movie.favorite && <WatchlistItem movie={movie} speed={50} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
               ))
             }
-            {!favoriteMovies.length &&
-              <p className="watchlist-message">Add movies to your watchlist to display them here</p>
+            {!favoritesAreVisible &&
+              movies.map((movie, i) => (
+                movie.watched && <WatchlistItem movie={movie} speed={50} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
+              ))
             }
           </div>
         }

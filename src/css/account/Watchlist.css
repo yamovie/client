@@ -136,7 +136,7 @@
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .watchlist-movie  {
-    width: 23%;
+    width: 25%;
     padding-top: 15px;
     padding-left: 10px;
     padding-right: 10px;

@@ -20,6 +20,7 @@ export default class WatchlistItem extends React.Component {
   
   render() {
     const { movie, update, toggleModal} = this.props;
+    console.log(movie);
     const { render } = this.state;
     const style = {
       WebkitAnimation: 'fadeIn 2s',
@@ -37,9 +38,11 @@ export default class WatchlistItem extends React.Component {
         >
           <div className="watchlist-movie" style={style}>
             <div className="poster-container">
-              <img src={movie.images.poster} className="img-fluid" alt="movie" onClick={() => toggleModal(movie._id)} tabIndex={0} />
+              <img src={movie.movieId.images.poster} className="img-fluid" alt="movie" onClick={() => toggleModal(movie.movieId._id)} tabIndex={0} />
               <div className="watchlist-buttons ">
                 <button type="button" className="watchlist-button favorite-button" onClick={() => update(movie._id, { favorite: !movie.favorite , watched: movie.watched })}>
+                  {/* <button type="button" className="watchlist-button favorite-button" onClick={() => console.log(movie.watched) }> */}
+
                   <FontAwesomeIcon icon="star" />
                 </button>
                 <button type="button" className="watchlist-button watched-button" onClick={() => update(movie._id, { watched: !movie.watched, favorite: movie.favorite })}>
