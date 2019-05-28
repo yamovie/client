@@ -149,7 +149,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--lightgrey);
+  border: none;
   border-radius: 100%;
   height: 160px;
   width: 160px;
@@ -176,7 +176,7 @@
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
+@media (min-width: 600px) {
   .about-page .info h3 {
     text-align: left;
     line-height: 2.1;
@@ -225,6 +225,10 @@
     letter-spacing: 1.5px;
     line-height: 2;
   }
+  .about-page .avatar-section {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -241,15 +245,33 @@
   .about-page .avatar-container {
     width: 33.333%;
   }
-
-  .about-page .avatar-section {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  .about-page .avatar-section {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .about-page .avatar-container {
+    width: 33.333%;
+  }
+
+  .about-page .info {
+    padding: 50px 250px;
+  }
+
+  .about-page .info-panel {
+    margin: 0%;
+  }
+
+  .about-page .info-panel div {
+    margin-left: 5%;
+  }
+}
+
+@media (min-width: 1350px) {
   .about-page .avatar-section {
     padding-left: 10%;
     padding-right: 10%;
@@ -261,6 +283,34 @@
 
   .about-page .info {
     padding: 50px 250px;
+  }
+}
+@media (min-width: 1600px) {
+  .about-page .avatar-section {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .about-page .avatar-container {
+    width: 33.333%;
+  }
+
+  .about-page .info {
+    padding: 50px 250px;
+  }
+}
+@media (min-width: 1900px) {
+  .about-page .avatar-section {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+
+  .about-page .avatar-container {
+    width: 33.333%;
+  }
+
+  .about-page .info {
+    padding: 50px 15%;
   }
 }
 
@@ -302,7 +352,7 @@
   font-weight: bolder;
   background: none;
   border: none;
-  border-radius: 180%;
+  outline: none;
 }
 
 .show-less-button {
@@ -314,24 +364,26 @@
   font-weight: bolder;
   background: none;
   border: none;
-  border-radius: 180%;
+  outline: none;
+  position: absolute;
+  bottom: 0%;
+  right: 30%;
 }
 
 .show-more-button:hover {
   cursor: pointer;
-  text-decoration-line: underline;
 }
 
 .show-less-button:hover {
   cursor: pointer;
-  text-decoration-line: underline;
 }
 
 .show-info {
   padding: 12px;
   margin-top: 0.5rem;
   text-align: center;
-  size: 1rem;
+  height: 200px;
+  position: relative;
 }
 
 .fade-in {
