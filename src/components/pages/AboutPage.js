@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React from 'react';
+import { FontAwesomeIcon } from '../../utils';
 import '../../css/pages/AboutPage.css';
 
 class AboutPage extends React.Component {
@@ -16,15 +17,15 @@ class AboutPage extends React.Component {
     };
   }
 
-  showInfo = e => {
+  showInfo = name => {
     this.setState({
-      [e.target.name]: true
+      [name]: true
     });
   };
 
-  hideInfo = e => {
+  hideInfo = name => {
     this.setState({
-      [e.target.name]: false
+      [name]: false
     });
   };
 
@@ -105,251 +106,271 @@ class AboutPage extends React.Component {
         <div className="avatar-section">
           <h2 className="avatar-header">Meet The Team</h2>
           <div className="avatar-list">
-            <div className="avatar-container">
-              <div className="avatar-item">
-                <img
-                  src="/images/team/ivy.png"
-                  alt="Ivy Lim"
-                  className="avatar-image"
-                />
-              </div>
-              <h3 className="avatar-name">Ivy</h3>
-              <h5 className="avatar-role">
-                Project Manager <br />
-                Software Engineer
-              </h5>
-              {ivy ? (
-                <div className="show-info fade-in">
-                  <p className="avatar-movie">Favorite Movies 🍿: Star Wars</p>
-                  <p className="avatar-show">
-                    Favorite Show 📺: Game of Thrones
-                  </p>
-                  <p className="avatar-genre"> Favorite Genre: 👽 Sci-Fi</p>
+            <div className="avatar-size-container">
+              <div className="avatar-container">
+                <div className="avatar-item">
+                  <img
+                    src="/images/team/ivy.png"
+                    alt="Ivy Lim"
+                    className="avatar-image"
+                  />
+                </div>
+                <h3 className="avatar-name">Ivy</h3>
+                <h5 className="avatar-role">
+                  Project Manager <br />
+                  Software Engineer
+                </h5>
+                {ivy ? (
+                  <div className="show-info fade-in">
+                    <p className="avatar-movie">
+                      Favorite Movies 🍿: Star Wars
+                    </p>
+                    <p className="avatar-show">
+                      Favorite Show 📺: Game of Thrones
+                    </p>
+                    <p className="avatar-genre"> Favorite Genre: 🌌👽 Sci-Fi</p>
+                    <button
+                      name="ivy"
+                      type="button"
+                      className="show-less-button"
+                      onClick={() => this.hideInfo('ivy')}
+                    >
+                      <FontAwesomeIcon icon="angle-up" title="ivy" />
+                    </button>
+                  </div>
+                ) : (
                   <button
                     name="ivy"
                     type="button"
-                    className="show-less-button"
-                    onClick={this.hideInfo}
+                    className="show-more-button"
+                    onClick={() => this.showInfo('ivy')}
                   >
-                    Show Less
+                    <FontAwesomeIcon
+                      icon="angle-down"
+                      className="ivy"
+                      title="ivy"
+                    />
                   </button>
-                </div>
-              ) : (
-                <button
-                  name="ivy"
-                  type="button"
-                  className="show-more-button"
-                  onClick={this.showInfo}
-                >
-                  Show More
-                </button>
-              )}
-            </div>
-            <div className="avatar-container">
-              <div className="avatar-item">
-                <img
-                  src="/images/team/sam.png"
-                  alt="Sam Saks-Fithian"
-                  className="avatar-image"
-                />
+                )}
               </div>
-              <h3 className="avatar-name">Sam</h3>
-              <h5 className="avatar-role">
-                GitHub Manager <br /> Software Engineer
-              </h5>
-              {sam ? (
-                <div className="show-info fade-in">
-                  <p className="avatar-movie">Favorite Movies 🍿: MCU</p>
-                  <p className="avatar-show">
-                    Favorite Show 📺: The Good Place
-                  </p>
-                  <p className="avatar-genre">
-                    {' '}
-                    Favorite Genre: 💣😂 Action Comedy
-                  </p>
+            </div>
+            <div className="avatar-size-container">
+              <div className="avatar-container">
+                <div className="avatar-item">
+                  <img
+                    src="/images/team/sam.png"
+                    alt="Sam Saks-Fithian"
+                    className="avatar-image"
+                  />
+                </div>
+                <h3 className="avatar-name">Sam</h3>
+                <h5 className="avatar-role">
+                  GitHub Manager <br /> Software Engineer
+                </h5>
+                {sam ? (
+                  <div className="show-info fade-in">
+                    <p className="avatar-movie">Favorite Movies 🍿: MCU</p>
+                    <p className="avatar-show">
+                      Favorite Show 📺: The Good Place
+                    </p>
+                    <p className="avatar-genre">
+                      {' '}
+                      Favorite Genre: 💣😂 Action Comedy
+                    </p>
+                    <button
+                      name="sam"
+                      type="button"
+                      className="show-less-button"
+                      onClick={() => this.hideInfo('sam')}
+                    >
+                      <FontAwesomeIcon icon="angle-up" />
+                    </button>
+                  </div>
+                ) : (
                   <button
                     name="sam"
                     type="button"
-                    className="show-less-button"
-                    onClick={this.hideInfo}
+                    className="show-more-button"
+                    onClick={() => this.showInfo('sam')}
                   >
-                    Show Less
+                    <FontAwesomeIcon icon="angle-down" />
                   </button>
-                </div>
-              ) : (
-                <button
-                  name="sam"
-                  type="button"
-                  className="show-more-button"
-                  onClick={this.showInfo}
-                >
-                  Show More
-                </button>
-              )}
-            </div>
-            <div className="avatar-container">
-              <div className="avatar-item">
-                <img
-                  src="/images/team/kevin.png"
-                  alt="Kevin Baktiar"
-                  className="avatar-image"
-                />
+                )}
               </div>
-              <h3 className="avatar-name">Kevin</h3>
-              <h5 className="avatar-role">
-                Designer <br /> Software Engineer
-              </h5>
-              {kevin ? (
-                <div className="show-info fade-in">
-                  <p className="avatar-movie">Favorite Movie 🍿: The Matrix</p>
-                  <p className="avatar-show">Favorite Show 📺: New Girl</p>
-                  <p className="avatar-genre"> Favorite Genre: 🛸Sci-Fi</p>
+            </div>
+            <div className="avatar-size-container">
+              <div className="avatar-container">
+                <div className="avatar-item">
+                  <img
+                    src="/images/team/kevin.png"
+                    alt="Kevin Baktiar"
+                    className="avatar-image"
+                  />
+                </div>
+                <h3 className="avatar-name">Kevin</h3>
+                <h5 className="avatar-role">
+                  Designer <br /> Software Engineer
+                </h5>
+                {kevin ? (
+                  <div className="show-info fade-in">
+                    <p className="avatar-movie">
+                      Favorite Movie 🍿: The Matrix
+                    </p>
+                    <p className="avatar-show">Favorite Show 📺: New Girl</p>
+                    <p className="avatar-genre"> Favorite Genre: 🌠🛸Sci-Fi</p>
+                    <button
+                      name="kevin"
+                      type="button"
+                      className="show-less-button"
+                      onClick={() => this.hideInfo('kevin')}
+                    >
+                      <FontAwesomeIcon icon="angle-up" />
+                    </button>
+                  </div>
+                ) : (
                   <button
                     name="kevin"
                     type="button"
-                    className="show-less-button"
-                    onClick={this.hideInfo}
+                    className="show-more-button"
+                    onClick={() => this.showInfo('kevin')}
                   >
-                    Show Less
+                    <FontAwesomeIcon icon="angle-down" />
                   </button>
-                </div>
-              ) : (
-                <button
-                  name="kevin"
-                  type="button"
-                  className="show-more-button"
-                  onClick={this.showInfo}
-                >
-                  Show More
-                </button>
-              )}
-            </div>
-            <div className="avatar-container">
-              <div className="avatar-item">
-                <img
-                  src="/images/team/hans.png"
-                  alt="Hans Hanken"
-                  className="avatar-image"
-                />
+                )}
               </div>
-              <h3 className="avatar-name">Hans</h3>
-              <h5 className="avatar-role">
-                Flex <br /> Software Engineer
-              </h5>
-              {hans ? (
-                <div className="show-info fade-in">
-                  <p className="avatar-movie">
-                    Favorite Movies 🍿: The Lord of the Rings
-                  </p>
-                  <p className="avatar-show">
-                    Favorite Show 📺: Brooklyn Nine Nine
-                  </p>
-                  <p className="avatar-genre">
-                    {' '}
-                    Favorite Genre: 🐱‍🐉Adventure
-                  </p>
+            </div>
+            <div className="avatar-size-container">
+              <div className="avatar-container">
+                <div className="avatar-item">
+                  <img
+                    src="/images/team/hans.png"
+                    alt="Hans Hanken"
+                    className="avatar-image"
+                  />
+                </div>
+                <h3 className="avatar-name">Hans</h3>
+                <h5 className="avatar-role">
+                  Flex <br /> Software Engineer
+                </h5>
+                {hans ? (
+                  <div className="show-info fade-in">
+                    <p className="avatar-movie">
+                      Favorite Movies 🍿: The Lord of the Rings
+                    </p>
+                    <p className="avatar-show">
+                      Favorite Show 📺: Brooklyn Nine Nine
+                    </p>
+                    <p className="avatar-genre">
+                      {' '}
+                      Favorite Genre: 🤠🐱‍🐉Adventure
+                    </p>
+                    <button
+                      name="hans"
+                      type="button"
+                      className="show-less-button"
+                      onClick={() => this.hideInfo('hans')}
+                    >
+                      <FontAwesomeIcon icon="angle-up" />
+                    </button>
+                  </div>
+                ) : (
                   <button
                     name="hans"
                     type="button"
-                    className="show-less-button"
-                    onClick={this.hideInfo}
+                    className="show-more-button"
+                    onClick={() => this.showInfo('hans')}
                   >
-                    Show Less
+                    <FontAwesomeIcon icon="angle-down" />
                   </button>
-                </div>
-              ) : (
-                <button
-                  name="hans"
-                  type="button"
-                  className="show-more-button"
-                  onClick={this.showInfo}
-                >
-                  Show More
-                </button>
-              )}
-            </div>
-            <div className="avatar-container">
-              <div className="avatar-item">
-                <img
-                  src="/images/team/will.png"
-                  alt="Will Dale"
-                  className="avatar-image"
-                />
+                )}
               </div>
-              <h3 className="avatar-name">Will</h3>
-              <h5 className="avatar-role">
-                &lsquo;HR&rsquo; <br /> Software Engineer
-              </h5>
-              {will ? (
-                <div className="show-info fade-in">
-                  <p className="avatar-movie">
-                    Favorite Movie 🍿: The Producers
-                  </p>
-                  <p className="avatar-show">Favorite Show 📺: The Wire</p>
-                  <p className="avatar-genre">
-                    {' '}
-                    Favorite Genre: 🤴🎭 Historical Drama
-                  </p>
+            </div>
+            <div className="avatar-size-container">
+              <div className="avatar-container">
+                <div className="avatar-item">
+                  <img
+                    src="/images/team/will.png"
+                    alt="Will Dale"
+                    className="avatar-image"
+                  />
+                </div>
+                <h3 className="avatar-name">Will</h3>
+                <h5 className="avatar-role">
+                  &lsquo;HR&rsquo; <br /> Software Engineer
+                </h5>
+                {will ? (
+                  <div className="show-info fade-in">
+                    <p className="avatar-movie">
+                      Favorite Movie 🍿: The Producers
+                    </p>
+                    <p className="avatar-show">Favorite Show 📺: The Wire</p>
+                    <p className="avatar-genre">
+                      {' '}
+                      Favorite Genre: 🤴🎭 Historical Drama
+                    </p>
+                    <button
+                      name="will"
+                      type="button"
+                      className="show-less-button"
+                      onClick={() => this.hideInfo('will')}
+                    >
+                      <FontAwesomeIcon icon="angle-up" />
+                    </button>
+                  </div>
+                ) : (
                   <button
                     name="will"
                     type="button"
-                    className="show-less-button"
-                    onClick={this.hideInfo}
+                    className="show-more-button"
+                    onClick={() => this.showInfo('will')}
                   >
-                    Show Less
+                    <FontAwesomeIcon icon="angle-down" />
                   </button>
-                </div>
-              ) : (
-                <button
-                  name="will"
-                  type="button"
-                  className="show-more-button"
-                  onClick={this.showInfo}
-                >
-                  Show More
-                </button>
-              )}
-            </div>
-            <div className="avatar-container">
-              <div className="avatar-item">
-                <img
-                  src="/images/team/glen.png"
-                  alt="Glen Paul Florendo"
-                  className="avatar-image"
-                />
+                )}
               </div>
-              <h3 className="avatar-name">Glen</h3>
-              <h5 className="avatar-role">
-                Back-End Lead
-                <br />
-                Software Engineer
-              </h5>
-              {glen ? (
-                <div className="show-info fade-in">
-                  <p className="avatar-movie">
-                    Favorite Movie 🍿: Spider-Man: Into the Spider-Verse
-                  </p>
-                  <p className="avatar-show">Favorite Show 📺: The Office</p>
-                  <p className="avatar-genre"> Favorite Genre: 💥😎 Action</p>
+            </div>
+            <div className="avatar-size-container">
+              <div className="avatar-container">
+                <div className="avatar-item">
+                  <img
+                    src="/images/team/glen.png"
+                    alt="Glen Paul Florendo"
+                    className="avatar-image"
+                  />
+                </div>
+                <h3 className="avatar-name">Glen</h3>
+                <h5 className="avatar-role">
+                  Back-End Lead
+                  <br />
+                  Software Engineer
+                </h5>
+                {glen ? (
+                  <div className="show-info fade-in">
+                    <p className="avatar-movie">
+                      Favorite Movie 🍿: Spider-Man: Into the Spider-Verse
+                    </p>
+                    <p className="avatar-show">Favorite Show 📺: The Office</p>
+                    <p className="avatar-genre"> Favorite Genre: 💥😎 Action</p>
+                    <button
+                      name="glen"
+                      type="button"
+                      className="show-less-button"
+                      onClick={() => this.hideInfo('glen')}
+                    >
+                      <FontAwesomeIcon icon="angle-up" />
+                    </button>
+                  </div>
+                ) : (
                   <button
                     name="glen"
                     type="button"
-                    className="show-less-button"
-                    onClick={this.hideInfo}
+                    className="show-more-button"
+                    onClick={() => this.showInfo('glen')}
                   >
-                    Show Less
+                    <FontAwesomeIcon icon="angle-down" />
                   </button>
-                </div>
-              ) : (
-                <button
-                  name="glen"
-                  type="button"
-                  className="show-more-button"
-                  onClick={this.showInfo}
-                >
-                  Show More
-                </button>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>

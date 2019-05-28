@@ -124,16 +124,24 @@
   justify-content: center;
 }
 
+.about-page .avatar-size-container {
+  display: inline-block;
+  width: 250px;
+  margin-right: 20px;
+}
+
 .about-page .avatar-container {
   margin-top: 40px;
+  margin-right: 10px;
   padding: 5px;
   display: flex;
   flex-direction: column;
+  widows: 100%;
   align-items: center;
-  width: 50%;
-  background-color: purple;
-  border: solid var(--popcornyellow);
-  border-radius: 50px;
+  background-color: var(--offwhite);
+  border: solid var(--offwhite);
+  border-radius: 15px;
+  min-width: 100%;
 }
 
 .about-page .avatar-item {
@@ -155,8 +163,8 @@
 }
 
 .about-page .avatar-name {
-  color: var(--offwhite);
-  text-shadow: 1px 1px 1px var(--darkgrey);
+  color: var(--darkgrey);
+  text-shadow: 1px 1px 1px var(--lightgrey);
   text-decoration: underline;
   text-align: center;
   margin: 14px 0px 0px 0px;
@@ -235,16 +243,16 @@
   }
 
   .about-page .avatar-section {
-    padding-left: 15%;
-    padding-right: 15%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .about-page .avatar-section {
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 10%;
+    padding-right: 10%;
   }
 
   .about-page .avatar-container {
@@ -257,27 +265,27 @@
 }
 
 .avatar-role {
-  color: var(--offwhite);
+  color: var(--darkgrey);
   text-align: center;
   margin-top: 4px;
 }
 
 .avatar-movie {
-  color: var(--offwhite);
+  color: var(--darkgrey);
   font-size: 18px;
   text-align: left;
   margin-bottom: 5px;
 }
 
 .avatar-show {
-  color: var(--offwhite);
+  color: var(--darkgrey);
   font-size: 18px;
   text-align: left;
   margin-bottom: 5px;
 }
 
 .avatar-genre {
-  color: var(--offwhite);
+  color: var(--darkgrey);
   font-size: 18px;
   text-align: left;
   margin-bottom: 5px;
@@ -288,29 +296,35 @@
 .show-more-button {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  color: var(--offwhite);
-  font-size: 16px;
-  background: blue;
-  border-radius: 10px;
-  border-color: var(--popcornyellow);
+  color: var(--darkgrey);
+  font-size: 24px;
   width: 100px;
   font-weight: bolder;
+  background: none;
+  border: none;
+  border-radius: 180%;
 }
 
 .show-less-button {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  color: var(--offwhite);
-  font-size: 16px;
-  background: rgba(204, 0, 0, 0.842);
-  border-radius: 10px;
-  /* border-color: var(--popcornyellow); */
+  color: var(--darkgrey);
+  font-size: 24px;
   width: 100px;
   font-weight: bolder;
+  background: none;
+  border: none;
+  border-radius: 180%;
 }
 
 .show-more-button:hover {
   cursor: pointer;
+  text-decoration-line: underline;
+}
+
+.show-less-button:hover {
+  cursor: pointer;
+  text-decoration-line: underline;
 }
 
 .show-info {
