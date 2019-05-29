@@ -7,7 +7,7 @@ import '../../css/pages/FindMoviePage.css';
 class FindMoviePage extends React.Component {
   static propTypes = {
     chatIsDone: PropTypes.func.isRequired,
-    chatIsLoading: PropTypes.func.isRequired
+    chatIsLoading: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -18,7 +18,7 @@ class FindMoviePage extends React.Component {
       talkedToLloyd: false,
       mountChat: false,
       isExpanded: true,
-      safeToCloseChat: false
+      safeToCloseChat: false,
     };
   }
 
@@ -28,7 +28,7 @@ class FindMoviePage extends React.Component {
       .then(response => {
         this.setState({
           results: response.data.results,
-          talkedToLloyd: true
+          talkedToLloyd: true,
         });
       })
       .catch(error => console.error(error));
@@ -44,7 +44,7 @@ class FindMoviePage extends React.Component {
         }, {});
         this.setState({
           genreIds,
-          mountChat: true
+          mountChat: true,
         });
       })
       .catch(error => {
@@ -83,7 +83,7 @@ class FindMoviePage extends React.Component {
       results,
       mountChat,
       isExpanded,
-      safeToCloseChat
+      safeToCloseChat,
     } = this.state;
 
     return (
@@ -96,15 +96,8 @@ class FindMoviePage extends React.Component {
           >
             <FontAwesomeIcon icon="angle-down" />
           </button>
-          <div
-            className="top-chat-container"
-            style={isExpanded ? { height: '0' } : {}}
-          >
-            <img
-              className="lloyd-icon"
-              src="/images/lloyd/lloyd-black.png"
-              alt="Lloyd"
-            />
+          <div className="top-chat-container" style={isExpanded ? { height: '0' } : {}}>
+            <img className="lloyd-icon" src="/images/lloyd/lloyd-black.png" alt="Lloyd" />
             <h1 className="lloyd-title">Lloyd Chat</h1>
           </div>
           <div
@@ -125,11 +118,7 @@ class FindMoviePage extends React.Component {
             )}
           </div>
         </div>
-        {talkedToLloyd && results.length > 0 ? (
-          <MovieFeed movies={results} />
-        ) : (
-          ''
-        )}
+        {talkedToLloyd && results.length > 0 ? <MovieFeed movies={results} /> : ''}
         {!talkedToLloyd ? '' : ''} {/* Why is this here...? */}
         {results.length === 0 ? (
           <div>
@@ -138,8 +127,8 @@ class FindMoviePage extends React.Component {
             </h1>
             <br />
             <h3 className="findMovieh3">
-              Ask him again with different criteria so he can find YaMovie or
-              come back later because our database is always expanding!
+              Ask him again with different criteria so he can find YaMovie or come back
+              later because our database is always expanding!
             </h3>
           </div>
         ) : (
