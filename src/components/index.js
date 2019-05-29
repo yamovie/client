@@ -22,11 +22,12 @@ export { default as TrailerModal } from './movie-displays/TrailerModal';
 export {
   StreamsView,
   RatingsView,
-  PosterWTrailer,
+  PosterWTrailer
 } from './movie-displays/DisplayHelpers';
 
 // pages
-export { default as AboutPage } from './pages/AboutPage/AboutPage';
+export { default as AboutPage } from './pages/about/AboutPage';
+export { default as TeamMember } from './pages/about/TeamMember';
 export { default as BrowsePage } from './pages/BrowsePage';
 export { default as FindMoviePage } from './pages/FindMoviePage';
 export { default as HomePage } from './pages/HomePage';

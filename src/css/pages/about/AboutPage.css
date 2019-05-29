@@ -108,73 +108,6 @@
   /* height: 120px; */
 }
 
-/* ========================================================================== */
-/* avatar-section */
-
-.about-page .avatar-section {
-  width: 100%;
-  background: var(--purple);
-  padding: 40px 2%;
-  padding-bottom: 6%;
-}
-
-.about-page .avatar-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.about-page .avatar-size-container {
-  display: inline-block;
-  width: 250px;
-  margin-right: 20px;
-}
-
-.about-page .avatar-container {
-  margin-top: 40px;
-  margin-right: 10px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  widows: 100%;
-  align-items: center;
-  background-color: var(--offwhite);
-  border: solid var(--offwhite);
-  border-radius: 15px;
-  min-width: 100%;
-}
-
-.about-page .avatar-item {
-  background: var(--offwhite);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 100%;
-  height: 160px;
-  width: 160px;
-  margin-right: 7px;
-  margin-left: 7px;
-}
-
-.about-page .avatar-image {
-  height: 60%;
-  width: auto;
-}
-
-.about-page .avatar-name {
-  color: var(--darkgrey);
-  text-shadow: 1px 1px 1px var(--lightgrey);
-  text-decoration: underline;
-  text-align: center;
-  margin: 14px 0px 0px 0px;
-}
-
-.about-page .avatar-header {
-  color: var(--offwhite);
-  text-align: center;
-}
-
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 600px) {
   .about-page .info h3 {
@@ -195,12 +128,12 @@
     padding-right: 50px;
   }
 
-  .about-page .avatar-section {
+  .about-page .team-section {
     padding-left: 5%;
     padding-right: 5%;
   }
 
-  .about-page .avatar-container {
+  .about-page .team-container {
     width: 33.333%;
   }
 }
@@ -216,7 +149,7 @@
     padding: 50px 100px;
   }
 
-  .about-page .avatar-container {
+  .about-page .team-container {
     width: 33.333%;
   }
 
@@ -225,7 +158,7 @@
     letter-spacing: 1.5px;
     line-height: 2;
   }
-  .about-page .avatar-section {
+  .about-page .team-section {
     padding-left: 10%;
     padding-right: 10%;
   }
@@ -242,19 +175,19 @@
     padding: 50px 200px;
   }
 
-  .about-page .avatar-container {
+  .about-page .team-container {
     width: 33.333%;
   }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .about-page .avatar-section {
+  .about-page .team-section {
     padding-left: 15%;
     padding-right: 15%;
   }
 
-  .about-page .avatar-container {
+  .about-page .team-container {
     width: 33.333%;
   }
 
@@ -272,12 +205,12 @@
 }
 
 @media (min-width: 1350px) {
-  .about-page .avatar-section {
+  .about-page .team-section {
     padding-left: 10%;
     padding-right: 10%;
   }
 
-  .about-page .avatar-container {
+  .about-page .team-container {
     width: 33.333%;
   }
 
@@ -286,12 +219,12 @@
   }
 }
 @media (min-width: 1600px) {
-  .about-page .avatar-section {
+  .about-page .team-section {
     padding-left: 15%;
     padding-right: 15%;
   }
 
-  .about-page .avatar-container {
+  .about-page .team-container {
     width: 33.333%;
   }
 
@@ -300,105 +233,16 @@
   }
 }
 @media (min-width: 1900px) {
-  .about-page .avatar-section {
+  .about-page .team-section {
     padding-left: 20%;
     padding-right: 20%;
   }
 
-  .about-page .avatar-container {
+  .about-page .team-container {
     width: 33.333%;
   }
 
   .about-page .info {
     padding: 50px 15%;
-  }
-}
-
-.avatar-role {
-  color: var(--darkgrey);
-  text-align: center;
-  margin-top: 4px;
-}
-
-.avatar-movie {
-  color: var(--darkgrey);
-  font-size: 18px;
-  text-align: left;
-  margin-bottom: 5px;
-}
-
-.avatar-show {
-  color: var(--darkgrey);
-  font-size: 18px;
-  text-align: left;
-  margin-bottom: 5px;
-}
-
-.avatar-genre {
-  color: var(--darkgrey);
-  font-size: 18px;
-  text-align: left;
-  margin-bottom: 5px;
-}
-
-/* ========================================================================== */
-
-.show-more-button {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--darkgrey);
-  font-size: 24px;
-  width: 100px;
-  font-weight: bolder;
-  background: none;
-  border: none;
-  outline: none;
-}
-
-.show-less-button {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--darkgrey);
-  font-size: 24px;
-  width: 100px;
-  font-weight: bolder;
-  background: none;
-  border: none;
-  outline: none;
-  position: absolute;
-  bottom: 0%;
-  right: 30%;
-}
-
-.show-more-button:hover {
-  cursor: pointer;
-}
-
-.show-less-button:hover {
-  cursor: pointer;
-}
-
-.show-info {
-  padding: 12px;
-  margin-top: 0.5rem;
-  text-align: center;
-  height: 200px;
-  position: relative;
-}
-
-.fade-in {
-  opacity: 1;
-  animation-name: fadeInOpacity;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
-  animation-duration: 0.5s;
-}
-
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
