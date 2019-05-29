@@ -14,13 +14,13 @@
 
 #browse-search {
   padding: 10px;
-  width: 300px;
+  width: 350px;
   margin: 0;
 }
 
 #browse-search input {
   background-color: var(--offwhite);
-  background-image: url('/images/magnifier.png');
+  background-image: url('/images/shared-pics/magnifier.png');
   background-position: 5px 5px;
   background-size: 15px 15px;
   background-repeat: no-repeat;
@@ -39,13 +39,12 @@
 }
 
 #display-genre-button {
-  position: relative;
+  /* position: relative;
   left: 0;
-  right: 0;
+  right: 0; */
   font-size: 16px;
   border: none;
   color: var(--offwhite);
-  border-radius: 5px;
   outline: none;
   padding: 0px 16px;
   font: inherit;
@@ -54,6 +53,15 @@
   justify-content: center;
   background: none;
   cursor: pointer;
+}
+
+#display-advanced-button {
+  color: var(--offwhite);
+  font-size: 18px;
+  border: none;
+  background: none;
+  padding: 0px 16px;
+  outline: none;
 }
 
 /* #display-genre-button:hover.list-genres {

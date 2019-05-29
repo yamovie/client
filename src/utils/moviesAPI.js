@@ -59,8 +59,32 @@ function getMovies(genreId = 'all') {
  * @param {String} searchInputValue the thing to search by
  * @returns an axios promise with the search results
  */
-function getSearchResults(searchInputValue) {
-  return axios.get(`${REACT_APP_SVR_API}/movies/search`, {
+function getAllSearchResults(searchInputValue) {
+  return axios.get(`${REACT_APP_SVR_API}/movies/search-all`, {
+    params: {
+      searchInput: searchInputValue,
+    },
+  });
+}
+
+function getTitleSearchResults(searchInputValue) {
+  return axios.get(`${REACT_APP_SVR_API}/movies/search-title`, {
+    params: {
+      searchInput: searchInputValue,
+    },
+  });
+}
+
+function getCastSearchResults(searchInputValue) {
+  return axios.get(`${REACT_APP_SVR_API}/movies/search-cast`, {
+    params: {
+      searchInput: searchInputValue,
+    },
+  });
+}
+
+function getCrewSearchResults(searchInputValue) {
+  return axios.get(`${REACT_APP_SVR_API}/movies/search-crew`, {
     params: {
       searchInput: searchInputValue,
     },
@@ -98,6 +122,9 @@ export default {
   getGenres,
   getSingleMovie,
   getMovies,
-  getSearchResults,
+  getAllSearchResults,
+  getTitleSearchResults,
+  getCastSearchResults,
+  getCrewSearchResults,
   loadNextPage,
 };

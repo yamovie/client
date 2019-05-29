@@ -16,6 +16,7 @@ export default class BrowsePage extends Component {
       hasNextPage: true,
       currentGenreFilter: 'all',
       currentSearchQuery: '',
+      advancedSearchOptions: {},
     };
   }
 
@@ -32,11 +33,25 @@ export default class BrowsePage extends Component {
   // ===============================================================
   // Handlers
 
+  handleSearchOptions = options => {
+    this.setState(prevState => ({
+      advancedSearchOptions: {
+        ...prevState.advancedSearchOptions,
+        prevState: options
+      }
+    }))
+  }
+
   /**
    * Handles SearchBar submission, making an API call and changing the displayed movies
    * @param {string} searchInputValue the value searched for
    */
   handleSearchSubmit = searchInputValue => {
+    const { advancedSearchOptions } = this.state;
+    // const title = this.state.advancedSearchOptions.prevState.Title;
+    // const crew = this.state.advancedSearchOptions.prevState.Crew;
+    // const cast = this.state.advancedSearchOptions.prevState.Cast;
+
     window.scrollTo(0, 0);
     this.setState({
       movies: [],
@@ -44,14 +59,70 @@ export default class BrowsePage extends Component {
       currentSearchQuery: searchInputValue,
       currentGenreFilter: 'all',
     });
-    moviesAPI.getSearchResults(searchInputValue).then(response =>
-      this.setState({
-        movies: response.data.results,
-        nextPageNum: 2,
-        hasNextPage: response.data.hasNextPage,
-        loading: false,
-      }),
-    );
+    if (Object.entries(advancedSearchOptions).length === 0 && advancedSearchOptions.constructor === Object) {
+      moviesAPI.getAllSearchResults(searchInputValue).then(response =>
+        this.setState({
+          movies: response.data.results,
+          nextPageNum: 2,
+          hasNextPage: response.data.hasNextPage,
+          loading: false,
+        }),
+      )
+    } else if (advancedSearchOptions.prevState.Title === true && advancedSearchOptions.prevState.Crew === false && advancedSearchOptions.prevState.Cast === false) {
+      moviesAPI.getTitleSearchResults(searchInputValue).then(response =>
+        this.setState({
+          movies: response.data.results,
+          nextPageNum: 2,
+          hasNextPage: response.data.hasNextPage,
+          loading: false,
+        }),
+      )
+    } else if (advancedSearchOptions.prevState.Title === false && advancedSearchOptions.prevState.Crew === true && advancedSearchOptions.prevState.Cast === false) {
+      moviesAPI.getCrewSearchResults(searchInputValue).then(response =>
+        this.setState({
+          movies: response.data.results,
+          nextPageNum: 2,
+          hasNextPage: response.data.hasNextPage,
+          loading: false,
+        }),
+      )
+    } else if (advancedSearchOptions.prevState.Title === false && advancedSearchOptions.prevState.Crew === false && advancedSearchOptions.prevState.Cast === true) {
+      moviesAPI.getCastSearchResults(searchInputValue).then(response =>
+        this.setState({
+          movies: response.data.results,
+          nextPageNum: 2,
+          hasNextPage: response.data.hasNextPage,
+          loading: false,
+        }),
+      )
+    } else if (advancedSearchOptions.prevState.Title === true && advancedSearchOptions.prevState.Crew === true && advancedSearchOptions.prevState.Cast === true) {
+      moviesAPI.getAllSearchResults(searchInputValue).then(response =>
+        this.setState({
+          movies: response.data.results,
+          nextPageNum: 2,
+          hasNextPage: response.data.hasNextPage,
+          loading: false,
+        }),
+      )
+    } else if (advancedSearchOptions.prevState.Title === false && advancedSearchOptions.prevState.Crew === false && advancedSearchOptions.prevState.Cast === false) {
+      moviesAPI.getAllSearchResults(searchInputValue).then(response =>
+        this.setState({
+          movies: response.data.results,
+          nextPageNum: 2,
+          hasNextPage: response.data.hasNextPage,
+          loading: false,
+        }),
+      )
+    } else {
+      moviesAPI.getAllSearchResults(searchInputValue).then(response =>
+        this.setState({
+          movies: response.data.results,
+          nextPageNum: 2,
+          hasNextPage: response.data.hasNextPage,
+          loading: false,
+        }),
+      )
+    }
   };
 
   /**
@@ -129,6 +200,7 @@ export default class BrowsePage extends Component {
           handleSearchSubmit={this.handleSearchSubmit}
           handleSendGenre={this.handleSendGenre}
           currentGenreFilter={currentGenreFilter}
+          handleSearchOptions={this.handleSearchOptions}
         />
         {isModalVisible && (
           <div className="movie-card-container">
