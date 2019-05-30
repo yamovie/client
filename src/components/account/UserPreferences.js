@@ -106,6 +106,7 @@ export default class UserPreferences extends Component {
         minYear: 1940,
         maxYear: 2020,
       },
+      maxRecs: 0,
     };
   }
 
@@ -251,7 +252,7 @@ export default class UserPreferences extends Component {
     const certList = this.convertStateToDisplay('certifications');
     const provList = this.convertStateToDisplay('providers');
 
-    const { release, ratings } = this.state;
+    const { release, ratings, maxRecs } = this.state;
     const relSliderVals = { min: release.minYear, max: release.maxYear };
     const imdbSliderVals = {
       min: ratings.imdb.minRating,
@@ -306,6 +307,13 @@ export default class UserPreferences extends Component {
           handleChange={this.handlePrefChange}
           handleReset={this.handlePrefReset}
           handleSelectAll={this.handleSelectAll}
+        />
+        <h4>Select how many recommendations you would like (0 for no limit):</h4>
+        <InputRange
+          minValue={0}
+          maxValue={20}
+          value={maxRecs}
+          onChange={value => this.setState({ maxRecs: value })}
         />
         <h4>Select what range of movie release years you like:</h4>
         <InputRange
