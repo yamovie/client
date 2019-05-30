@@ -40,20 +40,22 @@ export default class WatchlistItem extends React.Component {
             <div className="poster-container">
               <img src={movie.movieId.images.poster} className="img-fluid" alt="movie" onClick={() => toggleModal(movie.movieId._id)} tabIndex={0} />
               <div className="watchlist-buttons ">
-                <button type="button" className="watchlist-button favorite-button" onClick={() => update(movie._id, { favorite: !movie.favorite , watched: movie.watched })}>
-                  {/* <button type="button" className="watchlist-button favorite-button" onClick={() => console.log(movie.watched) }> */}
-
-                  <FontAwesomeIcon icon="star" />
-                </button>
-                <button type="button" className="watchlist-button watched-button" onClick={() => update(movie._id, { watched: !movie.watched, favorite: movie.favorite })}>
-                  <FontAwesomeIcon icon="eye" />
-                </button>
+                <div className="watchlist-bookmark">
+                  <button type="button" className={`watchlist-button favorite-button ${movie.favorite && 'favorite'}`} onClick={() => update(movie._id, { favorite: !movie.favorite , watched: movie.watched })}>
+                    <FontAwesomeIcon icon="star" />
+                  </button>
+                </div>
+                <div className="watchlist-bookmark">
+                  <button type="button" className={`watchlist-button watched-button ${movie.watched && 'watched'}`} onClick={() => update(movie._id, { watched: !movie.watched, favorite: movie.favorite })}>
+                    <FontAwesomeIcon icon="eye" />
+                  </button>
+                </div>
               </div>
              
             </div>
-            <button type="button" className="watchlist-remove-btn">
+            {/* <button type="button" className="watchlist-remove-btn">
               Watch now
-            </button>
+            </button> */}
           </div>
         </CSSTransition>
       )

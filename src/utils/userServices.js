@@ -46,19 +46,26 @@ async function addToUserWatchlist(movieId) {
   const user = await getUser();
   // if user exists
   if (user) {
-    try {
-      await userAPI.addToWatchlist(user._id, movieId)
-      Swal.fire({
-        position: 'top-end',
-        type: 'success',
-        text: 'Added to Watchlist',
-        showConfirmButton: false,
-        timer: 1000,
-      })
-    } catch(e) {
-      return e;
-    }
-
+    userAPI.addToWatchlist(user._id, movieId)
+      .then((response) => {
+        if (response.status === 200) {
+          Swal.fire({
+            position: 'top-end',
+            type: 'success',
+            text: 'The movie was sucessfully added to Watchlist',
+            showConfirmButton: false,
+            timer: 1000,
+          })
+        } else {
+          Swal.fire({
+            position: 'top-end',
+            type: 'error',
+            text: 'That movie all ready exists in your watchlist',
+            showConfirmButton: false,
+            timer: 1000,
+          })
+        };
+      });
   }
 }
 
