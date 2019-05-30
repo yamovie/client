@@ -28,13 +28,19 @@ function login(creds) {
   );
 }
 
-function addToWatchlist(userId, movieId) {
+function addToWatchlist(userId, movieId, callback) {
   // add to user watchlist
-  axios.post(
-    `${REACT_APP_SVR_USERS}/watchlist`,
-    { userId, movieId },
-    { headers: { 'Content-Type': 'application/json' } },
-  );
+  return axios.post(
+    `${REACT_APP_SVR_USERS}/${userId}/watchlist`,
+    { movieId },
+    { headers: { 'Content-Type': 'application/json' } }
+  )
+    .then(res => {
+      return res;
+    })
+    .catch(e => {
+      return e;
+    });
 }
 
 function getPreferences(userId) {

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import '../../css/account/Watchlist.css';
 import { WatchlistItem, MovieInfoDisplay  } from '..';
-// import { watch } from 'fs';
+import { FontAwesomeIcon } from '../../utils/fontAwesome';
 
-const { REACT_APP_SVR_USERS } = process.env;
+const { REACT_APP_SVR_USERS, REACT_APP_SVR_API } = process.env;
 
 class Watchlist extends React.Component {
   static propTypes = {
@@ -17,45 +17,94 @@ class Watchlist extends React.Component {
     super(props);
     this.state = {
       movies: [],
+      favoriteMovies: [],
+      watchedMovies: [],
       isModalVisible: false,
       selectedMovie: {},
+      favoritesAreVisible: true,
+      activeLink: 'favorites',
     }
-    this.removeFromWatchlist = this.removeFromWatchlist.bind(this);
+    this.updateWatchlist = this.updateWatchlist.bind(this);
   }
 
+  // Loads the user's watchlist movies
   componentDidMount() {
-    const { user } = this.props;
-    axios.get(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`)
-      .then(res => this.setState({movies: res.data}));
+    const { favoriteMovies } = this.state;
+    if (!favoriteMovies.length) {
+      this.getWatchlistMovies();
+    }
   }
 
-  toggleModal = selectedMovie => {
+  getWatchlistMovies() {
+    const { user } = this.props;
+
+    axios.get(`${REACT_APP_SVR_USERS}/${user._id}/watchlist/`)
+      .then(res => this.setState({
+        movies: res.data,
+      }));
+  }
+
+  toggleModal = movieId => {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
       this.setState({ isModalVisible: false });
     } else {
-      this.setState({ isModalVisible: true, selectedMovie });
+      axios.get(`${REACT_APP_SVR_API}/movies/${movieId}`)
+        .then(res => this.setState({ isModalVisible: true, selectedMovie: res.data }));
     }
   };
 
-  removeFromWatchlist(e, movieId) {
+  updateWatchlist(movieId, obj) {
     const { user } = this.props;
-    const { movies } = this.state;
-    axios.delete(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`, {data: { movieId } })
+    const { favoriteMovies, watchedMovies, movies } = this.state;
+    const { favorite, watched } = obj;
+    const updatedMovies = movies;
+    updatedMovies.find(movie => movie._id === movieId).watched = watched;
+    updatedMovies.find(movie => movie._id === movieId).favorite = favorite;
+
+    axios.put(`${REACT_APP_SVR_USERS}/${user._id}/watchlist/${movieId}`, {data: {favorite, watched} })
       .then(() => {
-        this.setState({movies: movies.filter(movie => movie._id !== movieId)});
+        this.setState({movies: updatedMovies });
       })
       .catch(error => {
         console.log(`The server responded with error: ${error.response.status}, ${error.response.statusText} `)
       });
   }
 
+  toggleMovies(toggleTo) {
+    let boolean;
+    let activeLink
+
+    if (toggleTo === 'watched') {
+      boolean = true;
+      activeLink = 'favorites'
+    }
+    if (toggleTo === 'favorites') {
+      boolean = false;
+      activeLink = 'watched'
+    }
+
+
+    this.setState({
+      favoritesAreVisible: boolean, activeLink
+    });
+  }
+
   render() {
-    const { movies, isModalVisible, selectedMovie } = this.state;
+    const { movies, activeLink, favoritesAreVisible, isModalVisible, selectedMovie } = this.state;
 
     return (
       <div className="account-pane">
-        <h1 className='account-title'>Your Watchlist</h1>
+        <div className="watchlist-togglebar">
+          <h1 className='account-title'>Your Watchlist</h1>
+          
+          <div>
+            <button type="button" onClick={() => this.toggleMovies('watched')} className="watchlist-toggle"><FontAwesomeIcon icon="star" className="watchlist-toggle-icon" /> <span className={`${activeLink === 'favorites' && 'watchlist-active-toggle'}`}>Favorites</span></button>
+            <span> | </span>
+            <button type="button" onClick={() => this.toggleMovies('favorites')} className="watchlist-toggle"><FontAwesomeIcon icon="eye" className="watchlist-toggle-icon" /> <span className={`${activeLink === 'watched' && 'watchlist-active-toggle'}`}>Watched</span></button>
+          </div>
+        </div>
+        
         {
           <div className="watchlist-wrapper">
             {isModalVisible && (
@@ -68,12 +117,16 @@ class Watchlist extends React.Component {
                 />
               </div>
             )}
-            {movies.length > 0 ?
+            {
+              favoritesAreVisible &&
               movies.map((movie, i) => (
-                <WatchlistItem movie={movie} speed={50} multiplier={i} remove={this.removeFromWatchlist} toggleModal={this.toggleModal} />
+                movie.favorite && <WatchlistItem movie={movie} speed={30} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
               ))
-              :
-              <p className="watchlist-message">Add movies to your watchlist to display them here</p>
+            }
+            {!favoritesAreVisible &&
+              movies.map((movie, i) => (
+                movie.watched && <WatchlistItem movie={movie} speed={30} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
+              ))
             }
           </div>
         }
