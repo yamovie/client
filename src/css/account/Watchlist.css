@@ -21,8 +21,33 @@
 }
 
 .watchlist-togglebar a {
+  position: relative;
   cursor: pointer;
   font-size: 18px;
+}
+
+.watchlist-toggle {
+  border: none;
+  background: none;
+  outline: none;
+  color: var(--offwhite);
+  cursor: pointer;
+  font-size: 17px;
+  position: relative;
+}
+
+.watchlist-active-toggle::after {
+  content:""; 
+  background: rgba(245, 248, 232, 1); 
+  position: absolute; 
+  bottom: -4px; 
+  left: 2%; 
+  height: 1px; 
+  width: 98%;
+}
+
+.watchlist-toggle-icon {
+  font-size: 17px;
 }
 
 .watchlist-movie .poster-container {

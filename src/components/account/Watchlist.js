@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import '../../css/account/Watchlist.css';
 import { WatchlistItem, MovieInfoDisplay  } from '..';
-// import { watch } from 'fs';
+import { FontAwesomeIcon } from '../../utils/fontAwesome';
 
 const { REACT_APP_SVR_USERS, REACT_APP_SVR_API } = process.env;
 
@@ -22,6 +22,7 @@ class Watchlist extends React.Component {
       isModalVisible: false,
       selectedMovie: {},
       favoritesAreVisible: true,
+      activeLink: 'favorites',
     }
     this.updateWatchlist = this.updateWatchlist.bind(this);
   }
@@ -34,19 +35,6 @@ class Watchlist extends React.Component {
     }
   }
 
-  // Loads the user's watchlist movies. Takes a boolean as an argument.
-  // getWatchlistMovies(bool) {
-  //   const { user } = this.props;
-  //   const config =  {
-  //     params: {
-  //       watched: bool,
-  //     }
-  //   }
-
-  //   axios.get(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`, config)
-  //     .then(res => this.setState({movies: res.data}));
-  // }
-
   getWatchlistMovies() {
     const { user } = this.props;
 
@@ -54,10 +42,7 @@ class Watchlist extends React.Component {
       .then(res => this.setState({
         movies: res.data,
       }));
-    // .then(res => console.log(res.data));
   }
-
-  
 
   toggleModal = movieId => {
     const { isModalVisible } = this.state;
@@ -69,28 +54,13 @@ class Watchlist extends React.Component {
     }
   };
 
-  // removeFromWatchlist(e, movieId) {
-  //   const { user } = this.props;
-  //   const { favorites, watched } = this.state;
-  //   axios.delete(`${REACT_APP_SVR_USERS}/watchlist/${user._id}`, {data: { movieId } })
-  //     .then(() => {
-  //       this.setState({favorites: favorites.filter(movie => movie._id !== movieId)});
-  //     })
-  //     .catch(error => {
-  //       console.log(`The server responded with error: ${error.response.status}, ${error.response.statusText} `)
-  //     });
-  // }
-
   updateWatchlist(movieId, obj) {
-    console.log(movieId, obj);
     const { user } = this.props;
     const { favoriteMovies, watchedMovies, movies } = this.state;
     const { favorite, watched } = obj;
     const updatedMovies = movies;
     updatedMovies.find(movie => movie._id === movieId).watched = watched;
     updatedMovies.find(movie => movie._id === movieId).favorite = favorite;
-
-
 
     axios.put(`${REACT_APP_SVR_USERS}/${user._id}/watchlist/${movieId}`, {data: {favorite, watched} })
       .then(() => {
@@ -103,22 +73,25 @@ class Watchlist extends React.Component {
 
   toggleMovies(toggleTo) {
     let boolean;
+    let activeLink
 
     if (toggleTo === 'watched') {
       boolean = true;
+      activeLink = 'favorites'
     }
     if (toggleTo === 'favorites') {
       boolean = false;
+      activeLink = 'watched'
     }
 
 
     this.setState({
-      favoritesAreVisible: boolean
+      favoritesAreVisible: boolean, activeLink
     });
   }
 
   render() {
-    const { movies, watchedMovies, favoritesAreVisible, isModalVisible, selectedMovie } = this.state;
+    const { movies, activeLink, favoritesAreVisible, isModalVisible, selectedMovie } = this.state;
 
     return (
       <div className="account-pane">
@@ -126,9 +99,9 @@ class Watchlist extends React.Component {
           <h1 className='account-title'>Your Watchlist</h1>
           
           <div>
-            <a onClick={() => this.toggleMovies('watched')} role="link">Favorites</a>
-            <span> / </span>
-            <a onClick={() => this.toggleMovies('favorites')} role="link">Watched</a>
+            <button type="button" onClick={() => this.toggleMovies('watched')} className="watchlist-toggle"><FontAwesomeIcon icon="star" className="watchlist-toggle-icon" /> <span className={`${activeLink === 'favorites' && 'watchlist-active-toggle'}`}>Favorites</span></button>
+            <span> | </span>
+            <button type="button" onClick={() => this.toggleMovies('favorites')} className="watchlist-toggle"><FontAwesomeIcon icon="eye" className="watchlist-toggle-icon" /> <span className={`${activeLink === 'watched' && 'watchlist-active-toggle'}`}>Watched</span></button>
           </div>
         </div>
         
@@ -147,12 +120,12 @@ class Watchlist extends React.Component {
             {
               favoritesAreVisible &&
               movies.map((movie, i) => (
-                movie.favorite && <WatchlistItem movie={movie} speed={50} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
+                movie.favorite && <WatchlistItem movie={movie} speed={30} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
               ))
             }
             {!favoritesAreVisible &&
               movies.map((movie, i) => (
-                movie.watched && <WatchlistItem movie={movie} speed={50} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
+                movie.watched && <WatchlistItem movie={movie} speed={30} multiplier={i} update={this.updateWatchlist} toggleModal={this.toggleModal} />
               ))
             }
           </div>
