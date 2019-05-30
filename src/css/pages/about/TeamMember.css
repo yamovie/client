@@ -119,3 +119,76 @@
     opacity: 1;
   }
 }
+/*=====================================================================================*/
+/*Media Queries*/
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 600px) {
+  .about-page .team-section {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .about-page .team-container {
+    width: 33.333%;
+  }
+}
+
+/* Medium devices (tablets portrait, 768px and up)  */
+@media (min-width: 768px) {
+  .about-page .team-container {
+    width: 33.333%;
+  }
+
+  .about-page .team-section {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .about-page .team-container {
+    width: 33.333%;
+  }
+}
+@media (min-width: 1200px) {
+  .about-page .team-section {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .about-page .team-container {
+    width: 33.333%;
+  }
+}
+
+@media (min-width: 1350px) {
+  .about-page .team-section {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .about-page .team-container {
+    width: 33.333%;
+  }
+}
+@media (min-width: 1600px) {
+  .about-page .team-section {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .about-page .team-container {
+    width: 33.333%;
+  }
+}
+@media (min-width: 1900px) {
+  .about-page .team-section {
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+
+  .about-page .team-container {
+    width: 33.333%;
+  }
+}
