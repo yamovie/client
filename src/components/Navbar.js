@@ -5,6 +5,7 @@ import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '../utils/fontAwesome';
 import '../css/navbar-toast/BurgerMenu.css';
 import '../css/navbar-toast/Navbar.css';
+// import { link } from 'fs';
 
 /**
  * JSX used to render the navbar on the page. Uses flexboxes to display information and links.
@@ -41,6 +42,16 @@ class Navbar extends React.Component {
   render() {
     const { menuOpen } = this.state;
     const { user, handleLogout } = this.props;
+
+    const links = {
+      home: '/',
+      recs: '/recommendations',
+      browse: '/browse',
+      about: '/about',
+      login: '/login',
+      signup: '/signup',
+      account: '/account/dashboard',
+    };
     return (
       <div className="topnav">
         <div className="logo-container">
@@ -58,16 +69,16 @@ class Navbar extends React.Component {
             isOpen={menuOpen}
             onStateChange={state => this.handleStateChange(state)}
           >
-            <NavLink onClick={() => this.closeMenu()} to="/">
+            <NavLink onClick={() => this.closeMenu()} to={links.home}>
               <FontAwesomeIcon icon="home" /> Home
             </NavLink>
-            <NavLink onClick={() => this.closeMenu()} to="/recommendations">
+            <NavLink onClick={() => this.closeMenu()} to={links.recs}>
               <FontAwesomeIcon icon="search" /> Find YaMovie
             </NavLink>
-            <NavLink onClick={() => this.closeMenu()} to="/browse">
+            <NavLink onClick={() => this.closeMenu()} to={links.browse}>
               <FontAwesomeIcon icon="columns" /> Browse
             </NavLink>
-            <NavLink onClick={() => this.closeMenu()} to="/about">
+            <NavLink onClick={() => this.closeMenu()} to={links.account}>
               <FontAwesomeIcon icon="address-card" /> About
             </NavLink>
             {!user ? (
@@ -75,14 +86,14 @@ class Navbar extends React.Component {
                 <NavLink
                   className="bm-item"
                   onClick={() => this.closeMenu()}
-                  to="/login"
+                  to={links.login}
                 >
                   <FontAwesomeIcon icon="sign-in-alt" /> Log In
                 </NavLink>
                 <NavLink
                   className="bm-item"
                   onClick={() => this.closeMenu()}
-                  to="/signup"
+                  to={links.signup}
                 >
                   <FontAwesomeIcon icon="user-plus" /> Sign Up
                 </NavLink>
@@ -92,7 +103,7 @@ class Navbar extends React.Component {
                 <NavLink
                   className="bm-item"
                   onClick={() => this.closeMenu()}
-                  to="/account/watchlist"
+                  to={links.account}
                 >
                   <FontAwesomeIcon icon="user" /> Account
                 </NavLink>
@@ -102,7 +113,7 @@ class Navbar extends React.Component {
                     handleLogout();
                     this.closeMenu();
                   }}
-                  to="/"
+                  to={links.home}
                 >
                   <FontAwesomeIcon icon="sign-in-alt" /> Log Out
                 </NavLink>
@@ -129,28 +140,28 @@ class Navbar extends React.Component {
           <NavLink to="/recommendations" className="nav-item">
             Find YaMovie
           </NavLink>
-          <NavLink to="/browse" className="nav-item">
+          <NavLink to={links.browse} className="nav-item">
             Browse
           </NavLink>
-          <NavLink to="/about" className="nav-item">
+          <NavLink to={links.about} className="nav-item">
             About
           </NavLink>
           {!user ? (
             <>
-              <NavLink to="/signup" className="nav-item">
+              <NavLink to={links.signup} className="nav-item">
                 Sign Up
               </NavLink>
-              <NavLink to="/login" className="nav-item">
+              <NavLink to={links.login} className="nav-item">
                 Log In
               </NavLink>
             </>
           ) : (
             <>
-              <NavLink to="/account/watchlist" className="nav-item">
+              <NavLink to={links.account} className="nav-item">
                 Account
               </NavLink>
               <NavLink
-                to="/"
+                to={links.home}
                 onClick={() => handleLogout()}
                 className="nav-item"
               >
