@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Spring, config } from 'react-spring/renderprops';
 import { BrowseMovieList, BrowseFilters, MovieInfoDisplay } from '..';
 import { moviesAPI } from '../../utils';
 import '../../css/pages/BrowsePage.css';
@@ -203,13 +204,18 @@ export default class BrowsePage extends Component {
           handleSearchOptions={this.handleSearchOptions}
         />
         {isModalVisible && (
-          <div className="movie-card-container">
-            <MovieInfoDisplay
-              type="movie-card"
-              movie={selectedMovie}
-              toggleModal={this.toggleModal}
-            />
-          </div>
+          <Spring
+            config={config.gentle}
+            from={{ opacity: 0 }}
+            to={{ opacity: 1 }}>
+            {props => <div className="movie-card-container" style={props}>
+              <MovieInfoDisplay
+                type="movie-card"
+                movie={selectedMovie}
+                toggleModal={this.toggleModal}
+              />
+            </div>}
+          </Spring>
         )}
         <BrowseMovieList
           movies={movies}
