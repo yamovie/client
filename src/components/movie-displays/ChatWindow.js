@@ -3,6 +3,7 @@
 import React from 'react';
 import Botui from 'botui-react';
 import PropTypes from 'prop-types';
+import { userAPI, tokenServices } from '../../utils';
 import '../../css/movie-displays/ChatWindow.css';
 
 class ChatWindow extends React.Component {
@@ -522,9 +523,33 @@ class ChatWindow extends React.Component {
     );
   };
 
+  saveAsPrefs = async (enableChatClose, user) => {
+    this.lloydMessage(
+      'Do you want to save your selected options as preferences for later use?',
+      this.delays.response,
+    );
+    enableChatClose();
+    await this.botui.action
+      .button({
+        action: [{ value: true, text: 'Yes' }, { value: false, text: 'No' }],
+        delay: this.delays.nextQ,
+      })
+      .then(saveResp => {
+        if (saveResp.value) {
+          // TODO: add error handling
+          userAPI.updatePreferences(user._id, this.state);
+        }
+      });
+  };
+
   async endChatFunc(enableChatClose, disableChatClose) {
     const { getMovieResults, toggleChat, resetMovieResults } = this.props;
     await disableChatClose();
+    const user = tokenServices.getUserFromToken();
+    if (user) {
+      await this.saveAsPrefs(enableChatClose, user);
+      await disableChatClose();
+    }
     await resetMovieResults();
     await this.resultsMessage(getMovieResults);
     await setTimeout(() => {

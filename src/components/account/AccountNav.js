@@ -9,7 +9,7 @@ const AccountNav = ({ user, sections }) => (
       const name = section.split('/')[2];
       const capsName = name[0].toUpperCase() + name.slice(1);
       return (
-        <NavLink className="nav-link" to={section}>
+        <NavLink className="nav-link" key={section} to={section}>
           {capsName}
         </NavLink>
       );

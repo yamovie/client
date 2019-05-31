@@ -39,6 +39,7 @@ class userDashboardPage extends Component {
         moviesAPI.getProviders('flatrate'),
         userAPI.getPreferences(user._id),
       ])
+      // TODO: add error handling
       .then(
         axios.spread((genreResp, provResp, prefResp) => {
           this.getAndSetRecs(prefResp.data.preferences);
@@ -56,6 +57,7 @@ class userDashboardPage extends Component {
   // Handlers
 
   getAndSetRecs = prefs => {
+    // TODO: add error handling
     moviesAPI.getRecs(prefs).then(recResp => {
       // TODO: add filtering based on available streams
       this.setState({ movieRecs: recResp.data.results });
@@ -77,6 +79,7 @@ class userDashboardPage extends Component {
     });
     const { user } = this.props;
     this.waitingForAPI = true;
+    // TODO: add error handling
     userAPI.updatePreferences(user._id, newPrefs).then(() => {
       this.getAndSetRecs(newPrefs);
       this.setState({ preferences: newPrefs });
@@ -110,7 +113,9 @@ class userDashboardPage extends Component {
           <Route
             exact
             path={sections[0]}
-            render={() => <UserDashboard user={user} movieRecs={movieRecs} />}
+            render={() => (
+              <UserDashboard match={match} user={user} movieRecs={movieRecs} />
+            )}
           />
           <Route exact path={sections[1]} render={() => <Watchlist user={user} />} />
           <Route
