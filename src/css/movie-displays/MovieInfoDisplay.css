@@ -11,7 +11,7 @@
   background-size: cover;
   background-position-x: 20vw;
   color: var(--midgrey);
-  z-index: 10;
+  /* z-index: 10; */
   overflow: hidden;
 }
 
@@ -25,7 +25,7 @@
     rgba(245, 248, 232, 0.7) 70%,
     transparent 100%
   );
-  z-index: -1;
+  /* z-index: -1; */
 }
 
 /* ==================== Card Specific ==================== */
@@ -81,6 +81,14 @@
 
 .movie-feed-item:hover {
   box-shadow: 0px 0px 5px 3px var(--purple);
+}
+
+.movie-info .line1 *,
+.movie-info .line2 *,
+.movie-info .genres,
+.movie-info .streams *,
+.movie-info .bottom-container * {
+  position: relative;
 }
 
 /* ======================================================= */
@@ -142,6 +150,7 @@
   height: 28%;
   overflow: auto;
   font-size: calc(12px + 0.8vw);
+  position: relative;
 }
 
 /* ======================================================= */
@@ -170,12 +179,14 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   text-decoration: underline;
+  position: relative;
 }
 
 .movie-info .bottom-container .plot {
   overflow: auto;
   height: 85%;
   font-size: calc(12px + 0.8vw);
+  position: relative;
 }
 
 /* ======================================================= */
