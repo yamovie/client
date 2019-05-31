@@ -92,7 +92,7 @@ class App extends Component {
         ) : (
           <FakeNavbar user={user} />
         )}
-        <FeedbackToast />
+        {/* <FeedbackToast /> */}
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/browse" component={BrowsePage} />

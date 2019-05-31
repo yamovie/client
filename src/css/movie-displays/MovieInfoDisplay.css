@@ -10,8 +10,7 @@
   background-color: var(--purple);
   background-size: cover;
   background-position-x: 20vw;
-  color: var(--midgrey);
-  /* z-index: 10; */
+  color: var(--darkgrey);
   overflow: hidden;
 }
 
@@ -25,7 +24,6 @@
     rgba(245, 248, 232, 0.7) 70%,
     transparent 100%
   );
-  /* z-index: -1; */
 }
 
 /* ==================== Card Specific ==================== */
@@ -33,6 +31,7 @@
 .movie-card-container {
   position: fixed;
   top: 0px;
+  left: 0;
   z-index: 8;
   display: flex;
   justify-content: center;
@@ -107,7 +106,7 @@
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  height: 18%;
+  /* height: 18%; */
 }
 
 .movie-info .line1 .title {
@@ -116,7 +115,7 @@
   white-space: nowrap;
   font-weight: 500;
   margin: 0;
-  font-size: calc(12px + 1.7vw);
+  font-size: calc(16px + 1.4vw);
   color: var(--darkgrey);
 }
 
@@ -126,12 +125,13 @@
 }
 
 .movie-info .top-container .line2 {
-  height: 22%;
+  height: 30%;
   padding: 5px 0px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  overflow: auto;
+  /* overflow: auto; */
+  width: 40%;
 }
 
 .movie-info .line2 .certification,
@@ -151,6 +151,59 @@
   overflow: auto;
   font-size: calc(12px + 0.8vw);
   position: relative;
+}
+
+/* iPhone X in portrait & Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .movie-info .line2 {
+    height: 20%;
+  }
+
+  .movie-info .top-container .genres {
+    height: 20%;
+  }
+}
+
+/* iPhone 6,7,8 in portrait & Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  .movie-info .line2 {
+    height: 20%;
+  }
+
+  .movie-info .top-container .genres {
+    height: 20%;
+  }
+
+  .movie-info .top-container .line2 {
+    overflow: hidden;
+  }
+}
+
+/* iPhone 6,7,8 Plus in portrait & Landscape */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+  .movie-info .top-container .line2 {
+    width: 70%;
+  }
+}
+
+/* iPhone 5, 5S Plus in portrait & Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  .movie-info .top-container .line2 {
+    width: 70%;
+    height: 30%;
+    overflow: hidden;
+  }
+
+  .movie-info .top-container .genres {
+    height: 20%;
+  }
+}
+
+/* iPad Pro in portrait & Landscape */
+@media only screen and (min-width: 1024px) and (max-height: 1366px) {
+  .movie-info .top-container .line2 {
+    width: 40%;
+  }
 }
 
 /* ======================================================= */
@@ -187,6 +240,12 @@
   height: 85%;
   font-size: calc(12px + 0.8vw);
   position: relative;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .movie-info .bottom-container .directors {
+    height: 10%;
+  }
 }
 
 /* ======================================================= */
@@ -268,6 +327,34 @@
   color: var(--purple);
 }
 
+/* iPhone X in portrait & Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .movie-info .randomize {
+    display: none;
+  }
+}
+
+/* iPhone 6,7,8 in portrait & Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  .movie-info .randomize {
+    display: none;
+  }
+}
+
+/* iPhone 6,7,8 Plus in portrait & Landscape */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+  .movie-info .randomize {
+    display: none;
+  }
+}
+
+/* iPhone 5, 5S Plus in portrait & Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  .movie-info .randomize {
+    display: none;
+  }
+}
+
 /* ============================================ */
 
 .movie-info .watchlist {
@@ -308,4 +395,39 @@
   transform: scale(1.1) rotate(180deg);
 }
 
+/* iPhone X in portrait & Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .movie-feed-item .expand-indicator {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+}
+
+/* iPhone 6,7,8 in portrait & Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  .movie-feed-item .expand-indicator {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+}
+
+/* iPhone 6,7,8 Plus in portrait & Landscape */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+  .movie-feed-item .expand-indicator {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+}
+
+/* iPhone 5, 5S Plus in portrait & Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  .movie-feed-item .expand-indicator {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+}
 /* ======================================================= */

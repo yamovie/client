@@ -1,0 +1,49 @@
+.advanced-search-container {
+  display: flex;
+  position: fixed;
+  top: 35%;
+  left: 30%;
+  background-color: rgba(35, 38, 46, 0.98);
+  box-shadow: 3px 3px 3px #888888;
+  width: 40%;
+  height: 30%;
+  z-index: 9000;
+}
+
+.advanced-form {
+  margin: 20px;
+}
+
+/* Customize the label (the container) */
+.advanced-form .container {
+  color: var(--offwhite);
+  display: block;
+  position: relative;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.advanced-form .container input[type=checkbox] {
+  transform: scale(1.5);
+  margin: 10px;
+}
+
+.advanced-form Button {
+  display: inline;
+  margin: 5px;
+}
+
+.advanced-button {
+  background-color: var(--purple);
+  border: none;
+  color: var(--offwhite);
+  font-size: 20px;
+  font: inherit;
+  padding: 5px;
+  border-radius: 5px;
+}
