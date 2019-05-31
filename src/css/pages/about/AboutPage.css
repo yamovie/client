@@ -105,66 +105,10 @@
 
 .about-page .info-panel img {
   width: 120px;
-  /* height: 120px; */
-}
-
-/* ========================================================================== */
-/* avatar-section */
-
-.about-page .avatar-section {
-  width: 100%;
-  background: var(--purple);
-  padding: 40px 2%;
-}
-
-.about-page .avatar-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.about-page .avatar-container {
-  margin-top: 40px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
-}
-
-.about-page .avatar-item {
-  background: var(--offwhite);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid var(--lightgrey);
-  border-radius: 100%;
-  height: 160px;
-  width: 160px;
-  margin-right: 7px;
-  margin-left: 7px;
-}
-
-.about-page .avatar-image {
-  height: 60%;
-  width: auto;
-}
-
-.about-page .avatar-name {
-  color: var(--offwhite);
-  text-shadow: 1px 1px 1px var(--darkgrey);
-  text-decoration: underline;
-  text-align: center;
-  margin: 14px 0px 0px 0px;
-}
-
-.about-page .avatar-header {
-  color: var(--offwhite);
-  text-align: center;
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
+@media (min-width: 600px) {
   .about-page .info h3 {
     text-align: left;
     line-height: 2.1;
@@ -182,15 +126,6 @@
     padding-left: 50px;
     padding-right: 50px;
   }
-
-  .about-page .avatar-section {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-
-  .about-page .avatar-container {
-    width: 33.333%;
-  }
 }
 
 /* Medium devices (tablets portrait, 768px and up)  */
@@ -202,10 +137,6 @@
 
   .about-page .info {
     padding: 50px 100px;
-  }
-
-  .about-page .avatar-container {
-    width: 33.333%;
   }
 
   .about-page .mission p {
@@ -225,54 +156,35 @@
   .about-page .info {
     padding: 50px 200px;
   }
-
-  .about-page .avatar-container {
-    width: 33.333%;
-  }
-
-  .about-page .avatar-section {
-    padding-left: 15%;
-    padding-right: 15%;
-  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .about-page .avatar-section {
-    padding-left: 20%;
-    padding-right: 20%;
+  .about-page .info {
+    padding: 50px 250px;
   }
 
-  .about-page .avatar-container {
-    width: 33.333%;
+  .about-page .info-panel {
+    margin: 0%;
   }
 
+  .about-page .info-panel div {
+    margin-left: 5%;
+  }
+}
+
+@media (min-width: 1350px) {
   .about-page .info {
     padding: 50px 250px;
   }
 }
-
-.avatar-role {
-  color: var(--offwhite);
-  text-align: center;
+@media (min-width: 1600px) {
+  .about-page .info {
+    padding: 50px 250px;
+  }
 }
-
-.avatar-movie {
-  color: var(--offwhite);
-  font-size: 15px;
-  text-align: center;
+@media (min-width: 1900px) {
+  .about-page .info {
+    padding: 50px 15%;
+  }
 }
-
-.avatar-show {
-  color: var(--offwhite);
-  font-size: 15px;
-  text-align: center;
-}
-
-.avatar-genre {
-  color: var(--offwhite);
-  font-size: 15px;
-  text-align: center;
-}
-
-/* ========================================================================== */
