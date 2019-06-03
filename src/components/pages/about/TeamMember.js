@@ -58,17 +58,17 @@ class TeamMember extends React.Component {
         </h5>
         <div className="member-info fade-in" style={showInfo ? {} : { display: 'none' }}>
           {info.map(infoObj => (
-            <p className="info-line" key={name + infoObj.name}>
-              <div className="info-category">
+            <div className="info-line" key={name + infoObj.name}>
+              <p className="info-category">
                 {infoObj.name}
                 {infoObj.emojiName && infoObj.emojiValue && (
                   <span role="img" aria-label={infoObj.emojiName}>
                     {` ${infoObj.emojiValue}`}
                   </span>
                 )}
-              </div>
+              </p>
               <span className="info-value">{infoObj.value}</span>
-            </p>
+            </div>
           ))}
         </div>
         <span className="expand-icon">

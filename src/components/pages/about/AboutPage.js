@@ -58,8 +58,11 @@ const AboutPage = () => (
         <div>
           <h3>Story</h3>
           <p>
-            Established in 2019 as part of the first Los Angeles cohort at TalentPath.
-            YaMovie was created by a team of software engineers who are passionate about
+            Established in 2019 as part of the first Los Angeles cohort at{' '}
+            <a href="https://talentpath.com" target="_blank" rel="noopener noreferrer">
+              Talent Path
+            </a>
+            . YaMovie was created by a team of software engineers who are passionate about
             movies.
           </p>
         </div>
