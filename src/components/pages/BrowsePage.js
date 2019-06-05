@@ -8,6 +8,8 @@ export default class BrowsePage extends Component {
   constructor(props) {
     super(props);
 
+    this.modalContainer = React.createRef();
+
     this.state = {
       isModalVisible: false,
       selectedMovie: {},
@@ -38,10 +40,10 @@ export default class BrowsePage extends Component {
     this.setState(prevState => ({
       advancedSearchOptions: {
         ...prevState.advancedSearchOptions,
-        prevState: options
-      }
-    }))
-  }
+        prevState: options,
+      },
+    }));
+  };
 
   /**
    * Handles SearchBar submission, making an API call and changing the displayed movies
@@ -60,7 +62,10 @@ export default class BrowsePage extends Component {
       currentSearchQuery: searchInputValue,
       currentGenreFilter: 'all',
     });
-    if (Object.entries(advancedSearchOptions).length === 0 && advancedSearchOptions.constructor === Object) {
+    if (
+      Object.entries(advancedSearchOptions).length === 0 &&
+      advancedSearchOptions.constructor === Object
+    ) {
       moviesAPI.getAllSearchResults(searchInputValue).then(response =>
         this.setState({
           movies: response.data.results,
@@ -68,8 +73,12 @@ export default class BrowsePage extends Component {
           hasNextPage: response.data.hasNextPage,
           loading: false,
         }),
-      )
-    } else if (advancedSearchOptions.prevState.Title === true && advancedSearchOptions.prevState.Crew === false && advancedSearchOptions.prevState.Cast === false) {
+      );
+    } else if (
+      advancedSearchOptions.prevState.Title === true &&
+      advancedSearchOptions.prevState.Crew === false &&
+      advancedSearchOptions.prevState.Cast === false
+    ) {
       moviesAPI.getTitleSearchResults(searchInputValue).then(response =>
         this.setState({
           movies: response.data.results,
@@ -77,8 +86,12 @@ export default class BrowsePage extends Component {
           hasNextPage: response.data.hasNextPage,
           loading: false,
         }),
-      )
-    } else if (advancedSearchOptions.prevState.Title === false && advancedSearchOptions.prevState.Crew === true && advancedSearchOptions.prevState.Cast === false) {
+      );
+    } else if (
+      advancedSearchOptions.prevState.Title === false &&
+      advancedSearchOptions.prevState.Crew === true &&
+      advancedSearchOptions.prevState.Cast === false
+    ) {
       moviesAPI.getCrewSearchResults(searchInputValue).then(response =>
         this.setState({
           movies: response.data.results,
@@ -86,8 +99,12 @@ export default class BrowsePage extends Component {
           hasNextPage: response.data.hasNextPage,
           loading: false,
         }),
-      )
-    } else if (advancedSearchOptions.prevState.Title === false && advancedSearchOptions.prevState.Crew === false && advancedSearchOptions.prevState.Cast === true) {
+      );
+    } else if (
+      advancedSearchOptions.prevState.Title === false &&
+      advancedSearchOptions.prevState.Crew === false &&
+      advancedSearchOptions.prevState.Cast === true
+    ) {
       moviesAPI.getCastSearchResults(searchInputValue).then(response =>
         this.setState({
           movies: response.data.results,
@@ -95,8 +112,12 @@ export default class BrowsePage extends Component {
           hasNextPage: response.data.hasNextPage,
           loading: false,
         }),
-      )
-    } else if (advancedSearchOptions.prevState.Title === true && advancedSearchOptions.prevState.Crew === true && advancedSearchOptions.prevState.Cast === true) {
+      );
+    } else if (
+      advancedSearchOptions.prevState.Title === true &&
+      advancedSearchOptions.prevState.Crew === true &&
+      advancedSearchOptions.prevState.Cast === true
+    ) {
       moviesAPI.getAllSearchResults(searchInputValue).then(response =>
         this.setState({
           movies: response.data.results,
@@ -104,8 +125,12 @@ export default class BrowsePage extends Component {
           hasNextPage: response.data.hasNextPage,
           loading: false,
         }),
-      )
-    } else if (advancedSearchOptions.prevState.Title === false && advancedSearchOptions.prevState.Crew === false && advancedSearchOptions.prevState.Cast === false) {
+      );
+    } else if (
+      advancedSearchOptions.prevState.Title === false &&
+      advancedSearchOptions.prevState.Crew === false &&
+      advancedSearchOptions.prevState.Cast === false
+    ) {
       moviesAPI.getAllSearchResults(searchInputValue).then(response =>
         this.setState({
           movies: response.data.results,
@@ -113,7 +138,7 @@ export default class BrowsePage extends Component {
           hasNextPage: response.data.hasNextPage,
           loading: false,
         }),
-      )
+      );
     } else {
       moviesAPI.getAllSearchResults(searchInputValue).then(response =>
         this.setState({
@@ -122,7 +147,7 @@ export default class BrowsePage extends Component {
           hasNextPage: response.data.hasNextPage,
           loading: false,
         }),
-      )
+      );
     }
   };
 
@@ -195,6 +220,8 @@ export default class BrowsePage extends Component {
       currentGenreFilter,
     } = this.state;
 
+    const containerClass = 'movie-card-container';
+
     return (
       <div className="browse-page">
         <BrowseFilters
@@ -204,17 +231,33 @@ export default class BrowsePage extends Component {
           handleSearchOptions={this.handleSearchOptions}
         />
         {isModalVisible && (
-          <Spring
-            config={config.gentle}
-            from={{ opacity: 0 }}
-            to={{ opacity: 1 }}>
-            {props => <div className="movie-card-container" style={props}>
-              <MovieInfoDisplay
-                type="movie-card"
-                movie={selectedMovie}
-                toggleModal={this.toggleModal}
-              />
-            </div>}
+          <Spring config={config.gentle} from={{ opacity: 0 }} to={{ opacity: 1 }}>
+            {props => (
+              <div
+                className={containerClass}
+                style={props}
+                role="button"
+                tabIndex={0}
+                ref={this.modalContainer}
+                onLoad={() => this.modalContainer.current.focus()}
+                onKeyDown={e => {
+                  if (e.key === 'Escape' || e.key === 'Esc') {
+                    this.toggleModal();
+                  }
+                }}
+                onClick={e => {
+                  if (e.target && e.target.className === containerClass) {
+                    this.toggleModal();
+                  }
+                }}
+              >
+                <MovieInfoDisplay
+                  type="movie-card"
+                  movie={selectedMovie}
+                  toggleModal={this.toggleModal}
+                />
+              </div>
+            )}
           </Spring>
         )}
         <BrowseMovieList

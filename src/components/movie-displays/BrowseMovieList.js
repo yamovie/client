@@ -37,19 +37,22 @@ export default class BrowseMovieList extends Component {
       >
         <div id="list-all-movies">
           {movies.map(movie => (
-            <div id="yamovie-movie-item">
+            <div id="yamovie-movie-item" key={movie.title}>
               {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
               <Spring
-                config={{mass: 50, tension: 280, friction: 120}}
+                config={{ mass: 50, tension: 280, friction: 120 }}
                 from={{ opacity: 0 }}
-                to={{ opacity: 1 }}>
-                {props => <img
-                  style={props}
-                  src={movie.images.poster}
-                  alt={movie.title}
-                  className="img-fluid"
-                  onClick={() => toggleModal(movie)}
-                />}
+                to={{ opacity: 1 }}
+              >
+                {props => (
+                  <img
+                    style={props}
+                    src={movie.images.poster}
+                    alt={movie.title}
+                    className="img-fluid"
+                    onClick={() => toggleModal(movie)}
+                  />
+                )}
               </Spring>
             </div>
           ))}
