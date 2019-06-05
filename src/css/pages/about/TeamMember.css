@@ -36,7 +36,8 @@
   transition: box-shadow 0.3s ease-in-out;
 }
 
-.about-page .team-member:hover {
+.about-page .team-member:hover,
+.about-page .team-member:focus {
   /* transform: scale(1.01); */
   box-shadow: 0px 0px 4px 2px var(--darkgrey);
 }

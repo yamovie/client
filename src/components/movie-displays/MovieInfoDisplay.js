@@ -199,6 +199,9 @@ export default class MovieInfoDisplay extends Component {
                 role="button"
                 tabIndex={0}
                 onClick={() => this.handleAddToWatchlist(movie._id)}
+                onKeyPress={e => {
+                  if (e.key === 'Enter') this.handleAddToWatchlist(movie._id);
+                }}
               >
                 <FontAwesomeIcon className="watchlist-star" icon="star" />
               </div>

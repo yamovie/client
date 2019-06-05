@@ -78,7 +78,7 @@ class Navbar extends React.Component {
             <NavLink onClick={() => this.closeMenu()} to={links.browse}>
               <FontAwesomeIcon icon="columns" /> Browse
             </NavLink>
-            <NavLink onClick={() => this.closeMenu()} to={links.account}>
+            <NavLink onClick={() => this.closeMenu()} to={links.about}>
               <FontAwesomeIcon icon="address-card" /> About
             </NavLink>
             {!user ? (

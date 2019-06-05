@@ -37,7 +37,16 @@ export default class BrowseMovieList extends Component {
       >
         <div id="list-all-movies">
           {movies.map(movie => (
-            <div id="yamovie-movie-item" key={movie.title}>
+            <div
+              id="yamovie-movie-item"
+              key={movie.title}
+              role="button"
+              tabIndex={0}
+              onClick={() => toggleModal(movie)}
+              onKeyPress={e => {
+                if (e.key === 'Enter') toggleModal(movie);
+              }}
+            >
               {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
               <Spring
                 config={{ mass: 50, tension: 280, friction: 120 }}
@@ -50,7 +59,7 @@ export default class BrowseMovieList extends Component {
                     src={movie.images.poster}
                     alt={movie.title}
                     className="img-fluid"
-                    onClick={() => toggleModal(movie)}
+                    // onClick={() => toggleModal(movie)}
                   />
                 )}
               </Spring>
