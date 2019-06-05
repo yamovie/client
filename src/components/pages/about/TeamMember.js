@@ -12,75 +12,68 @@ class TeamMember extends React.Component {
         name: PropTypes.string,
         value: PropTypes.string,
         emojiName: PropTypes.string,
-        emojiValue: PropTypes.string
-      })
+        emojiValue: PropTypes.string,
+      }),
     ).isRequired,
-    imgUrl: PropTypes.string.isRequired
+    imgUrl: PropTypes.string.isRequired,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      showInfo: false
+      showInfo: false,
     };
   }
 
   showInfo = () => {
     this.setState({
-      showInfo: true
+      showInfo: true,
     });
   };
 
   hideInfo = () => {
     this.setState({
-      showInfo: false
+      showInfo: false,
     });
   };
 
   render() {
     const { name, titles, info, imgUrl } = this.props;
+
     const { showInfo } = this.state;
     return (
-      <div className="team-size-container">
-        <div className="team-container">
-          <div className="team-item">
-            <img src={imgUrl} alt={name} className="team-image" />
-          </div>
-          <h3 className="team-name">{name}</h3>
-          <h5 className="team-role">
-            {titles.map(title => (
-              <div key={name + title}>
-                {title}
-                <br />
-              </div>
-            ))}
-          </h5>
-          {showInfo ? (
-            <div className="show-info fade-in">
-              {info.map(infoObj => (
-                <div key={name + infoObj.name}>
-                  <p className="team-info-item">
-                    {infoObj.name}{' '}
-                    <span role="img" aria-label={infoObj.emojiName}>
-                      {infoObj.emojiValue}
-                    </span>
-                    {infoObj.value}
-                  </p>
-                </div>
-              ))}
+      <div
+        className="team-member"
+        role="button"
+        tabIndex={0}
+        onClick={showInfo ? this.hideInfo : this.showInfo}
+      >
+        <img src={imgUrl} alt={name} className="member-image" />
+        <h3 className="member-name">{name}</h3>
+        <h5 className="member-role">
+          {titles.map(title => (
+            <div key={name + title}>{title}</div>
+          ))}
+        </h5>
+        <div className="member-info fade-in" style={showInfo ? {} : { display: 'none' }}>
+          {info.map(infoObj => (
+            <div className="info-line" key={name + infoObj.name}>
+              <p className="info-category">
+                {infoObj.name}
+                {infoObj.emojiName && infoObj.emojiValue && (
+                  <span role="img" aria-label={infoObj.emojiName}>
+                    {` ${infoObj.emojiValue}`}
+                  </span>
+                )}
+              </p>
+              <span className="info-value">{infoObj.value}</span>
             </div>
-          ) : (
-            undefined
-          )}
-          <button
-            type="button"
-            className="show-more-button"
-            onClick={showInfo ? this.hideInfo : this.showInfo}
-          >
-            <FontAwesomeIcon icon={showInfo ? 'angle-up' : 'angle-down'} />
-          </button>
+          ))}
         </div>
+        <span className="expand-icon">
+          <FontAwesomeIcon icon={showInfo ? 'angle-up' : 'angle-down'} />
+        </span>
       </div>
     );
   }

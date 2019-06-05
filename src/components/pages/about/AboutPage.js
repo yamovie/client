@@ -7,20 +7,14 @@ const AboutPage = () => (
   <div className="about-page">
     <header>
       <div className="overlay" />
-      <video
-        src="/images/backgrounds/about-me-videooverlay.mp4"
-        muted
-        autoPlay
-        loop
-      />
+      <video src="/images/backgrounds/about-me-videooverlay.mp4" muted autoPlay loop />
       <div className="mission">
         <h1>Our Mission</h1>
         <p>
-          Our mission is to transform how consumers choose which movies to
-          watch. Our technology intelligently curates a unique personal
-          experience based on personality, viewing habits, and diverse interests
-          to help ensure that every person loves the next movie more than the
-          last.
+          Our mission is to transform how consumers choose which movies to watch. Our
+          technology intelligently curates a unique personal experience based on
+          personality, viewing habits, and diverse interests to help ensure that every
+          person loves the next movie more than the last.
         </p>
       </div>
     </header>
@@ -34,8 +28,8 @@ const AboutPage = () => (
         <div>
           <h3>The Problem</h3>
           <p>
-            Over 500,000 movies available. It&apos;s hard to find a movie to
-            watch with so many options across mutiple platforms.
+            Over 500,000 movies available. It&apos;s hard to find a movie to watch with so
+            many options across mutiple platforms.
             <br />
             <br />
             - 4,010 movies on Netflix 2018
@@ -54,23 +48,22 @@ const AboutPage = () => (
         <div>
           <h3>Solution</h3>
           <p>
-            YaMovie offers a way to recieve personally curated movies all in one
-            place and provide info on where to watch them.
+            YaMovie offers a way to recieve personally curated movies all in one place and
+            provide info on where to watch them.
           </p>
         </div>
       </div>
       <div className="info-panel">
-        <img
-          src="/images/shared-pics/book.png"
-          alt="solution"
-          className="about-icon"
-        />
+        <img src="/images/shared-pics/book.png" alt="solution" className="about-icon" />
         <div>
           <h3>Story</h3>
           <p>
-            Established in 2019 as part of the first Los Angeles cohort at
-            TalentPath. YaMovie was created by a team of software engineers who
-            are passionate about movies.
+            Established in 2019 as part of the first Los Angeles cohort at{' '}
+            <a href="https://talentpath.com" target="_blank" rel="noopener noreferrer">
+              Talent Path
+            </a>
+            . YaMovie was created by a team of software engineers who are passionate about
+            movies.
           </p>
         </div>
       </div>
@@ -86,20 +79,20 @@ const AboutPage = () => (
               name: 'Favorite Movie',
               value: 'Star Wars',
               emojiName: 'Popcorn',
-              emojiValue: '🍿: '
+              emojiValue: '🍿: ',
             },
             {
               name: 'Favorite Show',
               value: 'Game of Thrones',
               emojiName: 'Television',
-              emojiValue: '📺: '
+              emojiValue: '📺: ',
             },
             {
               name: 'Favorite Genre: ',
-              value: 'Sci-Fi',
+              value: 'Science Fiction',
               emojiName: 'Galaxy and Alien',
-              emojiValue: '🌌👽'
-            }
+              emojiValue: '🌌👽',
+            },
           ]}
           imgUrl="/images/team/ivy.png"
         />
@@ -111,20 +104,20 @@ const AboutPage = () => (
               name: 'Favorite Movie',
               value: 'MCU',
               emojiName: 'Popcorn',
-              emojiValue: '🍿: '
+              emojiValue: '🍿: ',
             },
             {
               name: 'Favorite Show',
               value: 'The Good Place',
               emojiName: 'Television',
-              emojiValue: '📺: '
+              emojiValue: '📺: ',
             },
             {
               name: 'Favorite Genre: ',
               value: 'Action Comedy',
               emojiName: 'Bomb and laughing face',
-              emojiValue: '💣😂'
-            }
+              emojiValue: '💣😂',
+            },
           ]}
           imgUrl="/images/team/sam.png"
         />
@@ -136,20 +129,20 @@ const AboutPage = () => (
               name: 'Favorite Movie',
               value: 'The Matrix',
               emojiName: 'Popcorn',
-              emojiValue: '🍿: '
+              emojiValue: '🍿: ',
             },
             {
               name: 'Favorite Show ',
               value: 'New Girl',
               emojiName: 'Television',
-              emojiValue: '📺: '
+              emojiValue: '📺: ',
             },
             {
               name: 'Favorite Genre: ',
-              value: 'Sci-fi',
+              value: 'Science Fiction',
               emojiName: 'Comet and UFO',
-              emojiValue: '🌠🛸'
-            }
+              emojiValue: '🌠🛸',
+            },
           ]}
           imgUrl="/images/team/kevin.png"
         />
@@ -161,73 +154,113 @@ const AboutPage = () => (
               name: 'Favorite Movie',
               value: 'The Lord of the Rings',
               emojiName: 'Popcorn',
-              emojiValue: '🍿: '
+              emojiValue: '🍿: ',
             },
             {
               name: 'Favorite Show ',
               value: 'Brooklyn Nine Nine',
               emojiName: 'Television',
-              emojiValue: '📺: '
+              emojiValue: '📺: ',
             },
             {
               name: 'Favorite Genre: ',
               value: 'Adventure',
               emojiName: 'Cowboy and cat riding a dinosaur',
-              emojiValue: '🤠🐱‍🐉'
-            }
+              emojiValue: '🤠🐱‍🐉',
+            },
           ]}
-          imgUrl="/images/team/hans.png"
+          imgUrl="/images/team/hans2.png"
         />
         <TeamMember
           name="Will"
-          titles={["'HR'", 'Software Engineer']}
+          titles={["Former 'HR'", 'Software Engineer', 'Now working at Disney']}
           info={[
             {
               name: 'Favorite Movie',
               value: 'The Producers',
               emojiName: 'Popcorn',
-              emojiValue: '🍿: '
+              emojiValue: '🍿: ',
             },
             {
               name: 'Favorite Show ',
               value: 'The Wire',
               emojiName: 'Television',
-              emojiValue: '📺: '
+              emojiValue: '📺: ',
             },
             {
               name: 'Favorite Genre: ',
               value: 'Historical Drama',
               emojiName: 'King and theatre masks',
-              emojiValue: '🤴🎭'
-            }
+              emojiValue: '🤴🎭',
+            },
           ]}
           imgUrl="/images/team/will.png"
         />
         <TeamMember
           name="Glen"
-          titles={['Back-end Lead', 'Software Engineer']}
+          titles={['Former Back-End Lead', 'Software Engineer', 'Now working at Disney']}
           info={[
             {
               name: 'Favorite Movie',
-              value: 'Spider-man: Into the Spider-Verse',
+              value: 'Spider-Man: Into the Spider-Verse',
               emojiName: 'Popcorn',
-              emojiValue: '🍿: '
+              emojiValue: '🍿: ',
             },
             {
               name: 'Favorite Show ',
               value: 'The Office',
               emojiName: 'Television',
-              emojiValue: '📺: '
+              emojiValue: '📺: ',
             },
             {
               name: 'Favorite Genre: ',
               value: 'Action',
               emojiName: 'Explosion and a cool smiley',
-              emojiValue: '💥😎'
-            }
+              emojiValue: '💥😎',
+            },
           ]}
           imgUrl="/images/team/glen.png"
         />
+        <div className="team-member" style={{ cursor: 'auto' }}>
+          <img
+            src="/images/yamovie/yamovie_bucket_black.png"
+            alt="YaMovie Team"
+            className="member-image"
+          />
+          <h3 className="member-name">YaMovie Team</h3>
+          <h5 className="member-role">General Info</h5>
+          <div className="member-info">
+            <a
+              href="mailto:yamovie.tp@gmail.com?Subject=YaMovie%20Contact"
+              target="_top"
+              rel="noopener noreferrer"
+              className="contact"
+            >
+              Send Mail{' '}
+              <span role="img" aria-label="mail">
+                📧
+              </span>
+            </a>
+            <br />
+            <a
+              href="https://forms.gle/xJoQ54DaX4omm74Z7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact"
+            >
+              Submit Feedback
+            </a>
+            <br />
+            <a
+              href="https://github.com/yamovie"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact"
+            >
+              Fork Us On GitHub
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
