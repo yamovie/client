@@ -115,13 +115,14 @@ export default class AdvancedSearch extends Component {
 
 const Checkbox = ({ label, isSelected, onCheckboxChange }) => (
   <div className="form-check">
-    <label className="container">
+    <label className="container" htmlFor={`${label}-check`}>
       <input
         type="checkbox"
         name={label}
         checked={isSelected}
         onChange={onCheckboxChange}
         className="form-check-input"
+        id={`${label}-check`}
       />
       {label}
     </label>

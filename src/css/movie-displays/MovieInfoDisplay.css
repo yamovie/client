@@ -134,7 +134,7 @@
   align-items: center;
   flex-wrap: wrap;
   /* overflow: auto; */
-  width: 40%;
+  /* width: 40%; */
 }
 
 .movie-info .line2 .certification,
