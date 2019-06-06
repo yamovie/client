@@ -47,7 +47,6 @@ export default class BrowseMovieList extends Component {
                 if (e.key === 'Enter') toggleModal(movie);
               }}
             >
-              {/* TODO: Wrap this in a button for accessability and to make ESlint happy */}
               <Spring
                 config={{ mass: 50, tension: 280, friction: 120 }}
                 from={{ opacity: 0 }}
@@ -59,7 +58,6 @@ export default class BrowseMovieList extends Component {
                     src={movie.images.poster}
                     alt={movie.title}
                     className="img-fluid"
-                    // onClick={() => toggleModal(movie)}
                   />
                 )}
               </Spring>
