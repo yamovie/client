@@ -48,6 +48,10 @@ class TeamMember extends React.Component {
         role="button"
         tabIndex={0}
         onClick={showInfo ? this.hideInfo : this.showInfo}
+        onKeyPress={e => {
+          const toggle = showInfo ? this.hideInfo : this.showInfo;
+          if (e.key === 'Enter') toggle();
+        }}
       >
         <img src={imgUrl} alt={name} className="member-image" />
         <h3 className="member-name">{name}</h3>

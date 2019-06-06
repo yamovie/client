@@ -193,12 +193,15 @@ export default class MovieInfoDisplay extends Component {
             <h1 className="title">{title}</h1>
             <p className="year"> ({release_year || 'No Year'})</p>
             {/* TODO: make sure the style reflects if this is already on watchlist */}
-            {(!onWatchlistPage && user) && (
+            {!onWatchlistPage && user && (
               <div
                 className="watchlist"
                 role="button"
                 tabIndex={0}
                 onClick={() => this.handleAddToWatchlist(movie._id)}
+                onKeyPress={e => {
+                  if (e.key === 'Enter') this.handleAddToWatchlist(movie._id);
+                }}
               >
                 <FontAwesomeIcon className="watchlist-star" icon="star" />
               </div>

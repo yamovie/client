@@ -1,62 +1,61 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import '../../css/movie-displays/AdvancedSearch.css'
+import '../../css/movie-displays/AdvancedSearch.css';
 
-const OPTIONS = ['Title', 'Cast', 'Crew']
+const OPTIONS = ['Title', 'Cast', 'Crew'];
 
 export default class AdvancedSearch extends Component {
   static propTypes = {
     style: PropTypes.shape({ display: PropTypes.string }),
     handleSearchOptions: PropTypes.func.isRequired,
     toggleShowAdvancedSearch: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     style: {},
-  }
+  };
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
       checkboxes: OPTIONS.reduce(
         (options, option) => ({
           ...options,
-          [option]: false
+          [option]: false,
         }),
-        {}
+        {},
       ),
-    }
+    };
   }
 
-
   selectAllCheckboxes = isSelected => {
-    const { checkboxes } = this.state
+    const { checkboxes } = this.state;
     Object.keys(checkboxes).forEach(checkbox => {
       this.setState(prevState => ({
         checkboxes: {
           ...prevState.checkboxes,
-          [checkbox]: isSelected
-        }
-      }))
-    })
-  }
+          [checkbox]: isSelected,
+        },
+      }));
+    });
+  };
 
-  selectAll = () => this.selectAllCheckboxes(true)
+  selectAll = () => this.selectAllCheckboxes(true);
 
-  deselectAll = () => this.selectAllCheckboxes(false)
+  deselectAll = () => this.selectAllCheckboxes(false);
 
   handleCheckboxChange = changeEvent => {
-    const { name } = changeEvent.target
+    const { name } = changeEvent.target;
 
     this.setState(prevState => ({
       checkboxes: {
         ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
-      }
-    }))
-  }
+        [name]: !prevState.checkboxes[name],
+      },
+    }));
+  };
 
   handleFormSubmit = formSubmitEvent => {
     const { checkboxes } = this.state;
@@ -65,7 +64,7 @@ export default class AdvancedSearch extends Component {
     formSubmitEvent.preventDefault();
 
     handleSearchOptions(checkboxes);
-  }
+  };
 
   createCheckbox = option => (
     <Checkbox
@@ -74,9 +73,9 @@ export default class AdvancedSearch extends Component {
       onCheckboxChange={this.handleCheckboxChange}
       key={option}
     />
-  )
+  );
 
-  createCheckboxes = () => OPTIONS.map(this.createCheckbox)
+  createCheckboxes = () => OPTIONS.map(this.createCheckbox);
 
   render() {
     const { style, toggleShowAdvancedSearch } = this.props;
@@ -86,20 +85,12 @@ export default class AdvancedSearch extends Component {
         <form className="advanced-form" onSubmit={this.handleFormSubmit}>
           {this.createCheckboxes()}
 
-          <button
-            type="button"
-            className="advanced-button"
-            onClick={this.selectAll}
-          >
-              Select All
+          <button type="button" className="advanced-button" onClick={this.selectAll}>
+            Select All
           </button>
 
-          <button
-            type="button"
-            className="advanced-button"
-            onClick={this.deselectAll}
-          >
-              Deselect All
+          <button type="button" className="advanced-button" onClick={this.deselectAll}>
+            Deselect All
           </button>
 
           <button
@@ -107,9 +98,8 @@ export default class AdvancedSearch extends Component {
             className="advanced-button"
             onClick={toggleShowAdvancedSearch}
           >
-              Apply
+            Apply
           </button>
-
         </form>
       </div>
     );
@@ -136,5 +126,5 @@ const Checkbox = ({ label, isSelected, onCheckboxChange }) => (
 Checkbox.propTypes = {
   onCheckboxChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  isSelected: PropTypes.shape(PropTypes.object).isRequired,
-}
+  isSelected: PropTypes.bool.isRequired,
+};
