@@ -15,10 +15,7 @@
     "browser": true
   },
   "rules": {
-    "jsx-a11y/label-has-associated-control": 0,
-    "jsx-a11y/label-has-for": 0,
-    "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "object-curly-newline": 0,
     "camelcase": 0,
     "no-underscore-dangle": [
       "error",
@@ -68,6 +65,8 @@
       {
         "allowForLoopAfterthoughts": true
       }
-    ]
+    ],
+    "global-require": 0,
+    "import/no-dynamic-require": 0
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { RatingsView, StreamsView, PosterWTrailer } from '..';
@@ -31,11 +30,13 @@ export default class MovieInfoDisplay extends Component {
       videos: PropTypes.arrayOf(PropTypes.object),
     }).isRequired,
     toggleModal: PropTypes.func,
+    onWatchlistPage: PropTypes.bool,
   };
 
   static defaultProps = {
     randBD: true,
     toggleModal: () => {},
+    onWatchlistPage: false,
   };
 
   constructor(props) {
@@ -154,7 +155,7 @@ export default class MovieInfoDisplay extends Component {
   // Render
 
   render() {
-    const { type, movie } = this.props;
+    const { type, movie, onWatchlistPage } = this.props;
     const {
       certification,
       genres,
@@ -192,12 +193,15 @@ export default class MovieInfoDisplay extends Component {
             <h1 className="title">{title}</h1>
             <p className="year"> ({release_year || 'No Year'})</p>
             {/* TODO: make sure the style reflects if this is already on watchlist */}
-            {user && (
+            {!onWatchlistPage && user && (
               <div
                 className="watchlist"
                 role="button"
                 tabIndex={0}
                 onClick={() => this.handleAddToWatchlist(movie._id)}
+                onKeyPress={e => {
+                  if (e.key === 'Enter') this.handleAddToWatchlist(movie._id);
+                }}
               >
                 <FontAwesomeIcon className="watchlist-star" icon="star" />
               </div>

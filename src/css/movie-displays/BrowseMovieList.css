@@ -9,6 +9,7 @@
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 15px;
+  outline: none;
 }
 
 #yamovie-movie-item:active {
@@ -17,6 +18,11 @@
 
 #yamovie-movie-item:hover {
   cursor: pointer;
+}
+
+#yamovie-movie-item:hover img,
+#yamovie-movie-item:focus img {
+  box-shadow: 0px 0px 2px 2px var(--purple);
 }
 
 #list-all-movies {
@@ -57,7 +63,6 @@
     padding-top: 15px;
   }
 }
-
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {

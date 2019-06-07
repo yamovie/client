@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Spring } from 'react-spring/renderprops';
 import { MovieInfoDisplay, TrailerModal } from '..';
 // import data from '../../SeedMovies';
 
@@ -40,7 +41,12 @@ export default class MovieFeed extends Component {
           toggleTrailer={this.toggleTrailer}
         />
         {movies.map(movie => (
-          <MovieInfoDisplay type="movie-feed-item" movie={movie} key={movie.title} />
+          <Spring
+            config={{mass: 50, tension: 280, friction: 120}}
+            from={{ opacity: 0 }}
+            to={{ opacity: 1 }}>
+            {props => <MovieInfoDisplay style={props} type="movie-feed-item" movie={movie} key={movie.title} />}
+          </Spring>
         ))}
       </div>
     );

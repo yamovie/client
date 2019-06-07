@@ -1,6 +1,7 @@
 // account
 export { default as AccountNav } from './account/AccountNav';
 export { default as UserCheckboxList } from './account/UserCheckboxList';
+export { default as UserDashboard } from './account/UserDashboard';
 export { default as UserPreferences } from './account/UserPreferences';
 export { default as Watchlist } from './account/Watchlist';
 export { default as WatchlistItem } from './account/WatchlistItem';
@@ -22,11 +23,12 @@ export { default as TrailerModal } from './movie-displays/TrailerModal';
 export {
   StreamsView,
   RatingsView,
-  PosterWTrailer,
+  PosterWTrailer
 } from './movie-displays/DisplayHelpers';
 
 // pages
-export { default as AboutPage } from './pages/AboutPage';
+export { default as AboutPage } from './pages/about/AboutPage';
+export { default as TeamMember } from './pages/about/TeamMember';
 export { default as BrowsePage } from './pages/BrowsePage';
 export { default as FindMoviePage } from './pages/FindMoviePage';
 export { default as HomePage } from './pages/HomePage';

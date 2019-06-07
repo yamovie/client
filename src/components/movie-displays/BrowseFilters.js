@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GenreList from './GenreList';
+import AdvancedSearch from './AdvancedSearch';
 
 import '../../css/movie-displays/BrowseFilters.css';
 
@@ -9,6 +10,8 @@ export default class BrowseFilters extends Component {
     handleSearchSubmit: PropTypes.func.isRequired,
     handleSendGenre: PropTypes.func.isRequired,
     currentGenreFilter: PropTypes.string.isRequired,
+    handleSearchOptions: PropTypes.func.isRequired,
+    searchOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
   constructor(props) {
@@ -16,6 +19,7 @@ export default class BrowseFilters extends Component {
 
     this.state = {
       showGenres: false,
+      showAdvancedSearch: false,
       searchInputValue: '',
     };
   }
@@ -51,30 +55,57 @@ export default class BrowseFilters extends Component {
     this.setState(prevState => ({ showGenres: !prevState.showGenres }));
   };
 
+  /*
+   * Toggles whether the advanced search is visible or not
+   */
+  toggleShowAdvancedSearch = () => {
+    this.setState(prevState => ({ showAdvancedSearch: !prevState.showAdvancedSearch }));
+  };
+
   // ===============================================================
   // Render
 
   render() {
-    const { handleSendGenre, currentGenreFilter } = this.props;
-    const { showGenres, searchInputValue } = this.state;
+    const {
+      handleSendGenre,
+      currentGenreFilter,
+      handleSearchOptions,
+      searchOptions,
+    } = this.props;
+    const { showGenres, searchInputValue, showAdvancedSearch } = this.state;
 
     return (
-      <div id="mega-search-genres">
-        <form id="browse-search" onSubmit={this.handleSearchSubmit}>
-          <input
-            type="text"
-            value={searchInputValue}
-            onChange={this.handleChange}
-            placeholder="Search Movies"
+      <div>
+        <div id="mega-search-genres">
+          <button
+            type="button"
+            id="display-advanced-button"
+            onClick={this.toggleShowAdvancedSearch}
+          >
+            Advanced Search
+          </button>
+          <form id="browse-search" onSubmit={this.handleSearchSubmit}>
+            <input
+              type="text"
+              value={searchInputValue}
+              onChange={this.handleChange}
+              placeholder="Search Movies"
+            />
+          </form>
+          <button type="button" id="display-genre-button" onClick={this.toggleShowGenres}>
+            Display Genres
+          </button>
+          <GenreList
+            handleSendGenre={handleSendGenre}
+            activeGenre={currentGenreFilter}
+            style={{ display: showGenres ? 'flex' : 'none' }}
           />
-        </form>
-        <button type="button" id="display-genre-button" onClick={this.toggleShowGenres}>
-          Display Genres
-        </button>
-        <GenreList
-          handleSendGenre={handleSendGenre}
-          activeGenre={currentGenreFilter}
-          style={{ display: showGenres ? 'flex' : 'none' }}
+        </div>
+        <AdvancedSearch
+          style={{ display: showAdvancedSearch ? 'flex' : 'none' }}
+          toggleShowAdvancedSearch={this.toggleShowAdvancedSearch}
+          handleSearchOptions={handleSearchOptions}
+          searchOptions={searchOptions}
         />
       </div>
     );

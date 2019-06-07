@@ -10,6 +10,7 @@
 
 .dashboard-page .account-pane {
   padding: 15px;
+  color: var(--offwhite);
   width: calc(100% - var(--acc-nav-width));
   background-color: var(--darkgrey);
 }
@@ -69,7 +70,7 @@
 }
 
 .account-title {
-  font-size: 35px;
+  font-size: 28px;
   color: var(--offwhite);
   text-align: left;
 }
@@ -87,7 +88,7 @@
 */
 
 .form-input-group label {
-display: flex;
+  display: flex;
 }
 
 .account-settings-form {
@@ -145,7 +146,6 @@ display: flex;
   padding-right: 5px;
 }
 
-
 /*
 ======================= Toggle Switch ===========================
 */
@@ -169,7 +169,6 @@ display: flex;
   color: white;
   font-size: 20px;
 }
-
 
 /*
 ======================= Genre List ===========================
@@ -216,12 +215,12 @@ display: flex;
 
 /* When the checkbox is checked, add a blue background */
 .checkmark-container input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }

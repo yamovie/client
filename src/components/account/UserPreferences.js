@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import SweetAlert from 'sweetalert2';
-import UserCheckboxList from './UserCheckboxList';
-import { moviesAPI, tokenServices, userAPI } from '../../utils';
+import { UserCheckboxList } from '..';
+import { tokenServices } from '../../utils';
 import '../../css/account/UserPreferences.css';
 
 export default class UserPreferences extends Component {
+  static propTypes = {
+    user: PropTypes.shape(Object),
+    genres: PropTypes.arrayOf(PropTypes.object).isRequired,
+    providers: PropTypes.arrayOf(PropTypes.object).isRequired,
+    preferences: PropTypes.shape({
+      userId: PropTypes.string,
+      certifications: PropTypes.object,
+      genres: PropTypes.object,
+      providers: PropTypes.object,
+      ratings: PropTypes.shape({
+        imdb: PropTypes.object,
+        rottenTomatoes: PropTypes.object,
+        metacritic: PropTypes.object,
+      }),
+      release: PropTypes.object,
+      maxRecs: PropTypes.number,
+    }).isRequired,
+    handleSavePrefs: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    user: tokenServices.getUserFromToken(),
+  };
+
   constructor(props) {
     super(props);
-
-    this.user = tokenServices.getUserFromToken();
 
     this.nameMaps = {
       certifications: {
@@ -73,8 +95,6 @@ export default class UserPreferences extends Component {
       },
     };
 
-    this.initialPrefs = {};
-
     this.waitingForAPI = true;
 
     this.state = {
@@ -106,81 +126,50 @@ export default class UserPreferences extends Component {
         minYear: 1940,
         maxYear: 2020,
       },
+      maxRecs: 0,
     };
   }
 
   componentDidMount() {
-    axios
-      .all([
-        moviesAPI.getGenres(),
-        moviesAPI.getProviders('flatrate'),
-        userAPI.getPreferences(this.user._id),
-      ])
-      .then(
-        axios.spread((genreResp, provResp, prefResp) => {
-          genreResp.data.forEach(genre => {
-            this.defaults.off.genres[genre._id] = false;
-            this.defaults.on.genres[genre._id] = true;
-            this.nameMaps.genres[genre._id] = genre.translation;
-          });
-          provResp.data.forEach(provider => {
-            const sizedIcon = provider.icon_url.replace('{profile}', 's50');
-            const imgLink = `https://images.justwatch.com${sizedIcon}`;
-            if (provider.display_priority <= 20) {
-              this.defaults.off.providers[provider._id] = false;
-              this.defaults.on.providers[provider._id] = true;
-              this.nameMaps.providers[provider._id] = provider.clear_name;
-              this.displayIcons.providers[provider.clear_name] = imgLink;
-            }
-          });
-          this.initialPrefs = prefResp.data.preferences;
-          this.setState({
-            genres: this.defaults.off.genres,
-            providers: this.defaults.off.providers,
-            ...this.initialPrefs,
-            userId: this.user._id,
-          });
-          this.waitingForAPI = false;
-        }),
-      );
+    const { user, genres, providers, preferences } = this.props;
+    const minProvPriority = 20;
+
+    genres.forEach(genre => {
+      this.defaults.off.genres[genre._id] = false;
+      this.defaults.on.genres[genre._id] = true;
+      this.nameMaps.genres[genre._id] = genre.translation;
+    });
+
+    providers.forEach(provider => {
+      const sizedIcon = provider.icon_url.replace('{profile}', 's50');
+      const imgLink = `https://images.justwatch.com${sizedIcon}`;
+      if (provider.display_priority <= minProvPriority) {
+        this.defaults.off.providers[provider._id] = false;
+        this.defaults.on.providers[provider._id] = true;
+        this.nameMaps.providers[provider._id] = provider.clear_name;
+        this.displayIcons.providers[provider.clear_name] = imgLink;
+      }
+    });
+
+    this.setState({
+      genres: this.defaults.off.genres,
+      providers: this.defaults.off.providers,
+      ...preferences,
+      userId: user._id,
+    });
+    this.waitingForAPI = false;
   }
 
   // ===============================================================
   // Handlers
 
   /**
-   * Makes an API request to send the current state and set it as the preferences object
-   * in the database corresponding to the current user.
-   */
-  handleSavePrefs = () => {
-    if (this.waitingForAPI) return;
-    SweetAlert.fire({
-      position: 'top',
-      type: 'info',
-      text: 'Sending preferences to be saved!',
-      showConfirmButton: false,
-      timer: 900,
-    });
-    this.waitingForAPI = true;
-    userAPI.updatePreferences(this.user._id, this.state).then(() => {
-      SweetAlert.fire({
-        position: 'top',
-        type: 'success',
-        text: 'Preferences Successfully Saved!',
-        showConfirmButton: false,
-        timer: 900,
-      });
-      this.initialPrefs = this.state;
-      this.waitingForAPI = false;
-    });
-  };
-
-  /**
    * Sets the preferences to the initial state when loaded from the server
    */
   handleResetPrefs = async () => {
     if (this.waitingForAPI) return;
-    await this.setState({ ...this.initialPrefs });
+    const { preferences } = this.props;
+    await this.setState({ ...preferences });
     SweetAlert.fire({
       position: 'top',
       type: 'success',
@@ -251,7 +240,9 @@ export default class UserPreferences extends Component {
     const certList = this.convertStateToDisplay('certifications');
     const provList = this.convertStateToDisplay('providers');
 
-    const { release, ratings } = this.state;
+    const { release, ratings, maxRecs } = this.state;
+    const { handleSavePrefs } = this.props;
+
     const relSliderVals = { min: release.minYear, max: release.maxYear };
     const imdbSliderVals = {
       min: ratings.imdb.minRating,
@@ -275,7 +266,11 @@ export default class UserPreferences extends Component {
         <h1>
           Preferences
           <div className="pref-controls">
-            <button type="button" className="save" onClick={this.handleSavePrefs}>
+            <button
+              type="button"
+              className="save"
+              onClick={() => handleSavePrefs(this.state)}
+            >
               Save
             </button>
             <button type="button" className="reset" onClick={this.handleResetPrefs}>
@@ -306,6 +301,13 @@ export default class UserPreferences extends Component {
           handleChange={this.handlePrefChange}
           handleReset={this.handlePrefReset}
           handleSelectAll={this.handleSelectAll}
+        />
+        <h4>Select how many recommendations you would like (0 for no limit):</h4>
+        <InputRange
+          minValue={0}
+          maxValue={20}
+          value={maxRecs}
+          onChange={value => this.setState({ maxRecs: value })}
         />
         <h4>Select what range of movie release years you like:</h4>
         <InputRange

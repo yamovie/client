@@ -7,7 +7,7 @@ class FeedbackToast extends Component {
 
     this.state = {
       render: false,
-      hasShown: false,
+      storageType: sessionStorage,
     };
   }
 
@@ -18,9 +18,10 @@ class FeedbackToast extends Component {
   }
 
   showAlert = () => {
-    const { hasShown } = this.state;
-    if (!hasShown) {
-      this.setState({ hasShown: true });
+    const { storageType } = this.state;
+    const visited = storageType.alreadyVisited;
+    if (!visited) {
+      storageType.alreadyVisited = true;
       Swal.fire({
         position: 'bottom-end',
         title: '<strong> What do you think of our site? </strong>',
@@ -35,6 +36,8 @@ class FeedbackToast extends Component {
           window.open('https://forms.gle/xJoQ54DaX4omm74Z7', '_blank');
         }
       });
+    } else {
+      this.setState({ render: false });
     }
   };
 
