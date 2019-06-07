@@ -10,11 +10,12 @@
     red 87%
   );
 
+  --item-color: var(--offwhite);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: var(--purple); */
-  background: var(--pride-gradient);
+  background-color: var(--purple);
   position: fixed;
   top: 0;
   width: 100%;
@@ -29,14 +30,12 @@
 
 .nav-item {
   position: relative;
-  /* color: var(--offwhite); */
-  color: var(--darkgrey);
+  color: var(--item-color);
   text-decoration: none;
   margin-left: 20px;
   font-family: var(--fontfamily);
   padding: 10px;
   font-size: 18px;
-  font-weight: 500;
 }
 
 .nav-item:before,
@@ -45,8 +44,7 @@
   width: 1px;
   height: 100%;
   /* transform: translateY(100%); */
-  /* background: var(--offwhite); */
-  background: var(--darkgrey);
+  background: var(--item-color);
   content: '';
   opacity: 0.2;
   -webkit-transition: all 0.3s;
@@ -61,7 +59,6 @@
   top: 0;
   bottom: 0;
   left: 0;
-  /* background: var(--offwhite); */
   content: '';
   opacity: 0.1;
 }
@@ -72,7 +69,6 @@
   bottom: 0;
   top: 0;
   right: 0;
-  /* background: var(--offwhite); */
   content: '';
   opacity: 0.1;
 }
