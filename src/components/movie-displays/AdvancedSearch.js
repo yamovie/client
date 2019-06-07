@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import '../../css/movie-displays/AdvancedSearch.css';
 
-const OPTIONS = ['Title', 'Cast', 'Crew'];
+// const OPTIONS = ['Title', 'Cast', 'Crew'];
 
 export default class AdvancedSearch extends Component {
   static propTypes = {
     style: PropTypes.shape({ display: PropTypes.string }),
     handleSearchOptions: PropTypes.func.isRequired,
     toggleShowAdvancedSearch: PropTypes.func.isRequired,
+    searchOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
   static defaultProps = {
@@ -19,8 +20,10 @@ export default class AdvancedSearch extends Component {
   constructor(props) {
     super(props);
 
+    const { searchOptions } = this.props;
+
     this.state = {
-      checkboxes: OPTIONS.reduce(
+      checkboxes: searchOptions.reduce(
         (options, option) => ({
           ...options,
           [option]: false,
@@ -69,13 +72,15 @@ export default class AdvancedSearch extends Component {
   createCheckbox = option => (
     <Checkbox
       label={option}
+      // eslint-disable-next-line react/destructuring-assignment
       isSelected={this.state.checkboxes[option]}
       onCheckboxChange={this.handleCheckboxChange}
       key={option}
     />
   );
 
-  createCheckboxes = () => OPTIONS.map(this.createCheckbox);
+  // eslint-disable-next-line react/destructuring-assignment
+  createCheckboxes = () => this.props.searchOptions.map(this.createCheckbox);
 
   render() {
     const { style, toggleShowAdvancedSearch } = this.props;
@@ -110,13 +115,14 @@ export default class AdvancedSearch extends Component {
 
 const Checkbox = ({ label, isSelected, onCheckboxChange }) => (
   <div className="form-check">
-    <label className="container">
+    <label className="container" htmlFor={`${label}-check`}>
       <input
         type="checkbox"
         name={label}
         checked={isSelected}
         onChange={onCheckboxChange}
         className="form-check-input"
+        id={`${label}-check`}
       />
       {label}
     </label>

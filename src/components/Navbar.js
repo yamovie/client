@@ -39,9 +39,19 @@ class Navbar extends React.Component {
     this.setState({ menuOpen: !menuOpen });
   }
 
+  componentWillMount() {
+    this.now = new Date();
+  }
+
   render() {
     const { menuOpen } = this.state;
     const { user, handleLogout } = this.props;
+
+    const prideItemStyle = {
+      '--item-color': 'var(--darkgrey)',
+      background: 'var(--pride-gradient)',
+      fontWeight: '500',
+    };
 
     const links = {
       home: '/',
@@ -53,7 +63,7 @@ class Navbar extends React.Component {
       account: '/account/dashboard',
     };
     return (
-      <div className="topnav">
+      <div className="topnav" style={this.now.getMonth() === 5 ? prideItemStyle : {}}>
         <div className="logo-container">
           <NavLink to="/">
             <img
@@ -63,6 +73,18 @@ class Navbar extends React.Component {
             />
           </NavLink>
         </div>
+        {this.now.getMonth() === 5 && (
+          <p
+            className="pride-message"
+            style={{
+              color: 'var(--popcornyellow)',
+              fontSize: '0.8em',
+              textShadow: '0px 0px 2px var(--darkgrey)',
+            }}
+          >
+            Happy Pride Month!
+          </p>
+        )}
         <div className="mobile-nav">
           <Menu
             right
